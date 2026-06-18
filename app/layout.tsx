@@ -13,6 +13,9 @@ const FONTS_HREF =
   'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Jost:wght@300;400;500&display=swap';
 
 export const metadata: Metadata = {
+   verification: {
+    google: '2-YXrDrFJiEnjmRK1CURCGmAxBjqvzeG6PWyJYyLfsE',
+  },
   metadataBase: new URL(hotelConfig.siteUrl),
   title: {
     default: `${hotelConfig.name} — ${hotelConfig.tagline}`,
