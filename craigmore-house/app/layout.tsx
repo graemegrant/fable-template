@@ -14,7 +14,7 @@ const FONTS_HREF =
 
 export const metadata: Metadata = {
   verification: {
-    google: '<meta name="google-site-verification" content="2-YXrDrFJiEnjmRK1CURCGmAxBjqvzeG6PWyJYyLfsE" />',
+    google: '2-YXrDrFJiEnjmRK1CURCGmAxBjqvzeG6PWyJYyLfsE',
   },
   metadataBase: new URL(hotelConfig.siteUrl),
   title: {
