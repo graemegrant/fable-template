@@ -1,0 +1,21 @@
+'use client';
+import '@sanity/ui';
+import 'styled-components';
+import 'rxjs';
+import '@sanity/icons';
+import '@sanity/client';
+import '@portabletext/editor';
+import '@portabletext/react';
+import '@sanity/insert-menu';
+import '@sentry/react';
+import '@tanstack/react-table';
+import '@tanstack/react-virtual';
+import '@xstate/react';
+import 'react-rx';
+import 'sanity/router';
+export default function Warm() { return null; }
+import 'sanity';
+import 'sanity/structure';
+import '@sanity/vision';
+import 'next-sanity/studio';
+import '../../../sanity.config';
