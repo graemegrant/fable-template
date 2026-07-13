@@ -24,7 +24,7 @@ export default function MobileBookBar({
           <span className="font-body text-xs font-light text-ink/60"> / night</span>
         </p>
       </div>
-      <BookButton roomHint={roomName} className="shrink-0 bg-forest px-6 py-3.5 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest">
+      <BookButton roomHint={roomName} className="rounded-ctrl shrink-0 bg-forest px-6 py-3.5 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest">
         Check availability
       </BookButton>
     </div>

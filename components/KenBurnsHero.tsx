@@ -17,13 +17,22 @@ export default function KenBurnsHero({ image }: { image: unknown }) {
           fill
           priority
           sizes="100vw"
-          className="object-cover opacity-60"
+          className="object-cover"
         />
       </div>
+      {/* Independent scrim: contrast holds whether or not the photo loads */}
+      <div
+        aria-hidden
+        className="absolute inset-0"
+        style={{
+          background:
+            'linear-gradient(180deg, rgba(27,21,16,0.55) 0%, rgba(27,21,16,0.25) 40%, rgba(27,21,16,0.6) 100%)',
+        }}
+      />
 
       <div className="relative px-6 text-center">
         <HeroEntrance delay={0.2}>
-          <p className="font-body text-[11px] uppercase tracking-[0.4em] text-parchment/80">
+          <p className="font-body text-[11px] uppercase tracking-[0.4em] text-goldbright">
             {hotelConfig.location.region}
           </p>
         </HeroEntrance>
@@ -41,11 +50,11 @@ export default function KenBurnsHero({ image }: { image: unknown }) {
           <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
               href="/rooms"
-              className="w-64 bg-gold px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-parchment sm:w-auto"
+              className="w-64 rounded-ctrl bg-gold px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-parchment sm:w-auto"
             >
               View the rooms
             </a>
-            <BookButton className="w-64 border border-parchment/60 px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-parchment hover:text-forest sm:w-auto">
+            <BookButton className="w-64 rounded-ctrl border border-parchment/60 px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-parchment hover:text-forest sm:w-auto">
               Check availability
             </BookButton>
           </div>

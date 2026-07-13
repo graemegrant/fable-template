@@ -107,7 +107,7 @@ export default async function RoomDetailPage({ params }: Props) {
                   </div>
                 ))}
               </dl>
-              <BookButton roomHint={room.name} className="mt-8 w-full bg-forest px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest">
+              <BookButton roomHint={room.name} className="rounded-ctrl mt-8 w-full bg-forest px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest">
                 Check availability
               </BookButton>
               <p className="mt-5 text-center font-body text-xs text-ink/60">

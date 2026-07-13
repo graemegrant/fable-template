@@ -19,6 +19,8 @@ import TestimonialSlider from '@/components/TestimonialSlider';
 import DirectBookingBanner from '@/components/DirectBookingBanner';
 import { FadeUp, StaggerGrid, StaggerItem } from '@/components/Motion';
 import JournalCard from '@/components/JournalCard';
+import GlenMoment from '@/components/GlenMoment';
+import StatsBand from '@/components/StatsBand';
 import { BookButton } from '@/components/BookingModal';
 
 export const metadata: Metadata = {
@@ -56,7 +58,7 @@ export default async function HomePage() {
             </p>
             <Link
               href="/about"
-              className="mt-9 inline-block border border-forest px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-forest hover:text-parchment"
+              className="rounded-ctrl mt-9 inline-block border border-forest px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-forest hover:text-parchment"
             >
               Our story
             </Link>
@@ -67,7 +69,13 @@ export default async function HomePage() {
             </div>
           </FadeUp>
         </div>
+        <div className="mt-20">
+          <StatsBand />
+        </div>
       </section>
+
+      {/* The Glen — the one authored scroll moment */}
+      <GlenMoment />
 
       {/* Rooms teaser */}
       <section className="bg-warmgrey">
@@ -122,7 +130,7 @@ export default async function HomePage() {
             </p>
             <Link
               href="/dining"
-              className="mt-10 inline-block border border-parchment/60 px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-parchment hover:text-forest"
+              className="rounded-ctrl mt-10 inline-block border border-parchment/60 px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-parchment hover:text-forest"
             >
               Dining at the house
             </Link>
@@ -170,7 +178,7 @@ export default async function HomePage() {
               </p>
               <Link
                 href="/location"
-                className="mt-9 inline-block border border-forest px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-forest hover:text-parchment"
+                className="rounded-ctrl mt-9 inline-block border border-forest px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-forest hover:text-parchment"
               >
                 Directions & the area
               </Link>
@@ -217,12 +225,12 @@ export default async function HomePage() {
               The glen will still be here.<br />Your dates may not.
             </h2>
             <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <BookButton className="w-64 bg-gold px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-parchment sm:w-auto">
+              <BookButton className="rounded-ctrl w-64 bg-gold px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-parchment sm:w-auto">
                 Check availability
               </BookButton>
               <a
                 href={`tel:${hotelConfig.contact.phone.replace(/[^+\d]/g, '')}`}
-                className="w-64 border border-parchment/60 px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-parchment hover:text-forest sm:w-auto"
+                className="rounded-ctrl w-64 border border-parchment/60 px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-parchment hover:text-forest sm:w-auto"
               >
                 {hotelConfig.contact.phone}
               </a>

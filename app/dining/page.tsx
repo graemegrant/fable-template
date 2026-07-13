@@ -98,7 +98,7 @@ export default function DiningPage() {
             </p>
             <Link
               href="/contact"
-              className="mt-9 inline-block border border-forest px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-forest hover:text-parchment"
+              className="rounded-ctrl mt-9 inline-block border border-forest px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-forest hover:text-parchment"
             >
               Enquire about private dining
             </Link>

@@ -5,7 +5,7 @@ import type { TeamMember } from '@/lib/types';
 export default function TeamCard({ member }: { member: TeamMember }) {
   return (
     <article>
-      <div className="relative aspect-[3/4] overflow-hidden bg-warmgrey">
+      <div className="relative overflow-hidden rounded-img aspect-[3/4] overflow-hidden bg-warmgrey">
         <Image
           src={imgSrc(member.headshot, 800)}
           alt={member.name}

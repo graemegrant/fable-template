@@ -12,25 +12,46 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-parchment font-body text-ink antialiased;
+    /* Ambient colour merge instead of a flat parchment fill — depth without noise */
+    background:
+      radial-gradient(1100px 700px at 85% -5%, rgba(166, 124, 61, 0.08), transparent 60%),
+      radial-gradient(900px 700px at -10% 40%, rgba(90, 99, 80, 0.07), transparent 55%),
+      linear-gradient(180deg, #f2ede4 0%, #efeae1 40%, #eae3d6 100%);
+    @apply font-body text-ink antialiased;
+  }
+  /* Paper grain — materiality signal, fixed so it never scrolls oddly */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 90;
+    opacity: 0.3;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.03 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
   }
   ::selection {
     @apply bg-gold/30;
   }
 }
 
-/* Slow Ken Burns drift for the homepage hero. CSS-driven so it costs nothing. */
+/* Slow Ken Burns drift — pacing tuned: ambient, not showy (1.03 → 1.08 over 32s) */
 @keyframes kenburns {
   from {
-    transform: scale(1) translate(0, 0);
+    transform: scale(1.03) translate(0, 0);
   }
   to {
-    transform: scale(1.12) translate(-1.5%, 1%);
+    transform: scale(1.08) translate(-1.5%, 1%);
   }
 }
 .animate-kenburns {
-  animation: kenburns 22s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: kenburns 32s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-kenburns {
+    animation: none;
+  }
 }
 
 input[type='date'] {

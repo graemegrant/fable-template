@@ -73,7 +73,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === 'sending'}
-        className="bg-forest px-10 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest disabled:opacity-60"
+        className="rounded-ctrl bg-forest px-10 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest disabled:opacity-60"
       >
         {status === 'sending' ? 'Sending…' : 'Send enquiry'}
       </button>

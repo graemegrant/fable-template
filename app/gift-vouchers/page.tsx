@@ -44,7 +44,7 @@ export default function GiftVouchersPage() {
                   <p className="mt-4 grow font-body text-sm font-light leading-relaxed text-ink/75">{v.description}</p>
                   <Link
                     href="/contact"
-                    className="mt-8 block bg-forest px-8 py-4 text-center font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest"
+                    className="rounded-ctrl mt-8 block bg-forest px-8 py-4 text-center font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest"
                   >
                     Purchase this voucher
                   </Link>

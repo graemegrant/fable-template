@@ -86,7 +86,7 @@ export default async function ExperienceDetailPage({ params }: Props) {
               </dl>
               <Link
                 href="/contact"
-                className="mt-8 block w-full bg-forest px-8 py-4 text-center font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest"
+                className="rounded-ctrl mt-8 block w-full bg-forest px-8 py-4 text-center font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest"
               >
                 Arrange this experience
               </Link>

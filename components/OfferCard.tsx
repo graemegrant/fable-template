@@ -17,7 +17,7 @@ export default function OfferCard({
   if (variant === 'feature') {
     return (
       <article className="grid items-center gap-10 md:grid-cols-2 lg:gap-20">
-        <div className={`relative aspect-[4/3] overflow-hidden bg-warmgrey ${flip ? 'md:order-2' : ''}`}>
+        <div className={`relative overflow-hidden rounded-img aspect-[4/3] overflow-hidden bg-warmgrey ${flip ? 'md:order-2' : ''}`}>
           <Image
             src={imgSrc(offer.image)}
             alt={offer.title}
@@ -47,7 +47,7 @@ export default function OfferCard({
           )}
           <Link
             href="/contact"
-            className="mt-9 inline-block border border-forest px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-forest hover:text-parchment"
+            className="rounded-ctrl mt-9 inline-block border border-forest px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-forest hover:text-parchment"
           >
             Enquire about this offer
           </Link>
@@ -58,7 +58,7 @@ export default function OfferCard({
 
   return (
     <Link href={`/offers#${offer.slug}`} className="group block">
-      <div className="relative aspect-[4/3] overflow-hidden bg-warmgrey">
+      <div className="relative overflow-hidden rounded-img aspect-[4/3] overflow-hidden bg-warmgrey">
         <Image
           src={imgSrc(offer.image, 1000)}
           alt={offer.title}

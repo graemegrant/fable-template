@@ -6,7 +6,7 @@ import type { Room } from '@/lib/types';
 export default function RoomCard({ room }: { room: Room }) {
   return (
     <Link href={`/rooms/${room.slug}`} className="group block">
-      <div className="relative aspect-[4/5] overflow-hidden bg-warmgrey">
+      <div className="relative overflow-hidden rounded-img aspect-[4/5] overflow-hidden bg-warmgrey">
         <Image
           src={imgSrc(room.heroImage, 1000)}
           alt={room.name}
