@@ -28,7 +28,7 @@ export default function ContactForm() {
   }
 
   const field =
-    'w-full border border-ink/20 bg-transparent px-4 py-3.5 font-body text-sm text-ink placeholder:text-ink/40 focus:border-gold focus:outline-none';
+    'w-full rounded-ctrl border border-ink/20 bg-transparent px-4 py-3.5 font-body text-sm text-ink placeholder:text-ink/40 focus:border-gold focus:outline-none';
   const label = 'block font-body text-[11px] uppercase tracking-[0.25em] text-ink/60';
 
   if (status === 'sent') {

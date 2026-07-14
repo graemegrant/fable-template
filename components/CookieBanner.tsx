@@ -38,14 +38,14 @@ export default function CookieBanner() {
           <button
             type="button"
             onClick={() => choose('essential')}
-            className="border border-parchment/40 px-5 py-3 font-body text-[10px] uppercase tracking-[0.2em] text-parchment transition-colors hover:border-parchment"
+            className="rounded-ctrl border border-parchment/40 px-5 py-3 font-body text-[10px] uppercase tracking-[0.2em] text-parchment transition-colors hover:border-parchment"
           >
             Essential only
           </button>
           <button
             type="button"
             onClick={() => choose('all')}
-            className="bg-gold px-5 py-3 font-body text-[10px] uppercase tracking-[0.2em] text-forest transition-colors hover:bg-parchment"
+            className="rounded-ctrl bg-gold px-5 py-3 font-body text-[10px] uppercase tracking-[0.2em] text-forest transition-colors hover:bg-parchment"
           >
             Accept all
           </button>

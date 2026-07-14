@@ -122,7 +122,7 @@ export default function Navbar() {
           >
             {hotelConfig.contact.phone}
           </a>
-          <BookButton className="border border-gold bg-gold px-6 py-3 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-transparent hover:text-gold" />
+          <BookButton className="rounded-ctrl border border-gold bg-gold px-6 py-3 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-transparent hover:text-gold" />
         </div>
 
         {/* Mobile toggle */}
@@ -185,7 +185,7 @@ export default function Navbar() {
             ),
           )}
           <div className="pt-6">
-            <BookButton className="w-full bg-gold px-6 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest" />
+            <BookButton className="rounded-ctrl w-full bg-gold px-6 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest" />
           </div>
         </nav>
       </div>

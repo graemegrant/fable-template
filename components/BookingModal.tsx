@@ -79,7 +79,7 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
   }
 
   const field =
-    'w-full border border-ink/20 bg-parchment px-4 py-3.5 font-body text-sm text-ink focus:border-gold focus:outline-none';
+    'w-full rounded-ctrl border border-ink/20 bg-parchment px-4 py-3.5 font-body text-sm text-ink focus:border-gold focus:outline-none';
   const label = 'block font-body text-[11px] uppercase tracking-[0.25em] text-ink/60';
 
   return (

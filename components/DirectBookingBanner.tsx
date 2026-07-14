@@ -9,7 +9,7 @@ export default function DirectBookingBanner() {
           <span className="font-medium">Book direct.</span>{' '}
           The best rate, the best room in your category, and a dram waiting when you arrive.
         </p>
-        <BookButton className="shrink-0 border border-forest px-7 py-3.5 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-forest hover:text-parchment">
+        <BookButton className="rounded-ctrl shrink-0 border border-forest px-7 py-3.5 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-forest hover:text-parchment">
           Check availability
         </BookButton>
       </div>
