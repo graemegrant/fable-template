@@ -109,7 +109,7 @@ export default function WeddingsPage() {
             </p>
             <Link
               href="/contact"
-              className="rounded-ctrl mt-10 inline-block bg-gold px-10 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-parchment"
+              className="mt-10 inline-block rounded-ctrl bg-gold px-10 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-parchment"
             >
               Enquire about a date
             </Link>

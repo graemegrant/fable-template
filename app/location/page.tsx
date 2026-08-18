@@ -50,7 +50,7 @@ export default function LocationPage() {
               <iframe
                 src={mapSrc}
                 title={`Map showing ${hotelConfig.name}`}
-                className="h-full w-full"
+                className="size-full"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />

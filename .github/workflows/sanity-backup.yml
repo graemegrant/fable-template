@@ -1,0 +1,31 @@
+name: Sanity Backup
+
+on:
+  schedule:
+    - cron: '0 6 1 * *'   # 1st of each month, 06:00 UTC
+  workflow_dispatch: {}
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    # Requires repo secrets: SANITY_PROJECT_ID, SANITY_API_TOKEN
+    # (token needs at least read access to the dataset — create a
+    # dedicated read-only token per client in manage.sanity.io, don't
+    # reuse a write token here)
+    env:
+      NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.SANITY_PROJECT_ID }}
+      NEXT_PUBLIC_SANITY_DATASET: production
+      SANITY_AUTH_TOKEN: ${{ secrets.SANITY_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+      - run: npm ci
+      - name: Export dataset
+        run: npx sanity dataset export production sanity-backup-$(date +%Y-%m-%d).tar.gz
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sanity-backup-${{ github.run_id }}
+          path: sanity-backup-*.tar.gz
+          retention-days: 90

@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 10
+    groups:
+      # Bundle minor/patch bumps into one PR instead of ten separate
+      # ones — manageable for a solo operator across many client repos.
+      minor-and-patch:
+        update-types: ["minor", "patch"]
+    # Major version bumps (Next.js/React especially) fall outside the
+    # group above, so they still arrive as individual PRs — review
+    # those by hand rather than batch-merging.
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"

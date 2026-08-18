@@ -14,7 +14,7 @@ export default function MobileBookBar({
   roomName: string;
 }) {
   return (
-    <div className="fixed bottom-0 inset-x-0 z-40 flex items-center justify-between gap-4 border-t border-ink/10 bg-parchment px-5 py-4 shadow-lg lg:hidden">
+    <div className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-between gap-4 border-t border-ink/10 bg-parchment px-5 py-4 shadow-lg lg:hidden">
       <div className="min-w-0">
         <p className="truncate font-body text-[10px] uppercase tracking-[0.2em] text-ink/50">
           {roomName}
@@ -24,7 +24,7 @@ export default function MobileBookBar({
           <span className="font-body text-xs font-light text-ink/60"> / night</span>
         </p>
       </div>
-      <BookButton roomHint={roomName} className="rounded-ctrl shrink-0 bg-forest px-6 py-3.5 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest">
+      <BookButton roomHint={roomName} className="shrink-0 rounded-ctrl bg-forest px-6 py-3.5 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest">
         Check availability
       </BookButton>
     </div>

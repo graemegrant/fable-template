@@ -29,7 +29,7 @@ export default function CookieBanner() {
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-[70] border-t border-gold/40 bg-forest">
-      <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-5 px-6 py-6 sm:flex-row sm:items-center lg:px-10">
+      <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-5 p-6 sm:flex-row sm:items-center lg:px-10">
         <p className="max-w-2xl font-body text-xs leading-relaxed text-parchment/80">
           We use a small number of cookies to run the site and, with your consent, to understand how
           guests use it. No advertising, no nonsense.

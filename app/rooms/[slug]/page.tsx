@@ -56,7 +56,7 @@ export default async function RoomDetailPage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(roomSchema) }} />
       <PageHero eyebrow={`${room.type} room`} title={room.name} subtitle={room.view} image={room.heroImage} />
 
-      <section className="mx-auto max-w-7xl px-6 py-20 pb-32 lg:px-10 lg:py-28 lg:pb-28">
+      <section className="mx-auto max-w-7xl px-6 py-20 pb-32 lg:px-10 lg:py-28">
         <div className="grid gap-16 lg:grid-cols-[1fr_360px]">
           <div>
             <FadeUp>
@@ -107,7 +107,7 @@ export default async function RoomDetailPage({ params }: Props) {
                   </div>
                 ))}
               </dl>
-              <BookButton roomHint={room.name} className="rounded-ctrl mt-8 w-full bg-forest px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest">
+              <BookButton roomHint={room.name} className="mt-8 w-full rounded-ctrl bg-forest px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest">
                 Check availability
               </BookButton>
               <p className="mt-5 text-center font-body text-xs text-ink/60">

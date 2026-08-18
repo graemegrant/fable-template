@@ -185,7 +185,7 @@ export default function Navbar() {
             ),
           )}
           <div className="pt-6">
-            <BookButton className="rounded-ctrl w-full bg-gold px-6 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest" />
+            <BookButton className="w-full rounded-ctrl bg-gold px-6 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest" />
           </div>
         </nav>
       </div>

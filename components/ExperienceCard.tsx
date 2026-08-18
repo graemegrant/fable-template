@@ -6,7 +6,7 @@ import type { Experience } from '@/lib/types';
 export default function ExperienceCard({ experience }: { experience: Experience }) {
   return (
     <Link href={`/experiences/${experience.slug}`} className="group block">
-      <div className="relative overflow-hidden rounded-img aspect-[3/4] overflow-hidden bg-warmgrey">
+      <div className="relative aspect-[3/4] overflow-hidden rounded-img bg-warmgrey">
         <Image
           src={imgSrc(experience.heroImage, 1000)}
           alt={experience.name}

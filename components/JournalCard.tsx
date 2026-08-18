@@ -20,7 +20,7 @@ export default function JournalCard({
   if (variant === 'featured') {
     return (
       <Link href={`/journal/${post.slug}`} className="group grid gap-0 bg-forest md:grid-cols-2">
-        <div className="relative overflow-hidden rounded-img aspect-[4/3] overflow-hidden md:aspect-auto md:min-h-[480px]">
+        <div className="relative aspect-[4/3] overflow-hidden rounded-img md:aspect-auto md:min-h-[480px]">
           <Image
             src={imgSrc(post.heroImage)}
             alt={post.title}
@@ -46,7 +46,7 @@ export default function JournalCard({
 
   return (
     <Link href={`/journal/${post.slug}`} className="group block">
-      <div className="relative overflow-hidden rounded-img aspect-[3/2] overflow-hidden bg-warmgrey">
+      <div className="relative aspect-[3/2] overflow-hidden rounded-img bg-warmgrey">
         <Image
           src={imgSrc(post.heroImage, 1000)}
           alt={post.title}

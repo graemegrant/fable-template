@@ -1,7 +1,0 @@
-npm error code ENOTEMPTY
-npm error syscall rename
-npm error path /sessions/pensive-gallant-franklin/build/craigmore-house/node_modules/@babel/core
-npm error dest /sessions/pensive-gallant-franklin/build/craigmore-house/node_modules/@babel/.core-roD9ajQT
-npm error errno -39
-npm error ENOTEMPTY: directory not empty, rename '/sessions/pensive-gallant-franklin/build/craigmore-house/node_modules/@babel/core' -> '/sessions/pensive-gallant-franklin/build/craigmore-house/node_modules/@babel/.core-roD9ajQT'
-npm error A complete log of this run can be found in: /sessions/pensive-gallant-franklin/.npm/_logs/2026-06-12T21_20_38_709Z-debug-0.log

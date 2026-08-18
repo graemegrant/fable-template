@@ -48,7 +48,7 @@ export default function TestimonialSlider({ testimonials }: { testimonials: Test
               type="button"
               onClick={() => setIndex(i)}
               aria-label={`Testimonial ${i + 1}`}
-              className={`h-1.5 w-1.5 transition-colors duration-300 ${i === index ? 'bg-gold' : 'bg-parchment/30'}`}
+              className={`size-1.5 transition-colors duration-300 ${i === index ? 'bg-gold' : 'bg-parchment/30'}`}
             />
           ))}
         </div>

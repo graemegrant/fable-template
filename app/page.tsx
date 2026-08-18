@@ -58,7 +58,7 @@ export default async function HomePage() {
             </p>
             <Link
               href="/about"
-              className="rounded-ctrl mt-9 inline-block border border-forest px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-forest hover:text-parchment"
+              className="mt-9 inline-block rounded-ctrl border border-forest px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-forest hover:text-parchment"
             >
               Our story
             </Link>
@@ -130,7 +130,7 @@ export default async function HomePage() {
             </p>
             <Link
               href="/dining"
-              className="rounded-ctrl mt-10 inline-block border border-parchment/60 px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-parchment hover:text-forest"
+              className="mt-10 inline-block rounded-ctrl border border-parchment/60 px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-parchment hover:text-forest"
             >
               Dining at the house
             </Link>
@@ -178,7 +178,7 @@ export default async function HomePage() {
               </p>
               <Link
                 href="/location"
-                className="rounded-ctrl mt-9 inline-block border border-forest px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-forest hover:text-parchment"
+                className="mt-9 inline-block rounded-ctrl border border-forest px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-forest hover:text-parchment"
               >
                 Directions & the area
               </Link>
@@ -208,7 +208,7 @@ export default async function HomePage() {
       </section>
 
       {/* Testimonials — directly above final CTA for maximum conversion impact */}
-      <section className="bg-forest border-t border-parchment/10">
+      <section className="border-t border-parchment/10 bg-forest">
         <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
           <FadeUp>
             <TestimonialSlider testimonials={testimonials} />
@@ -225,12 +225,12 @@ export default async function HomePage() {
               The glen will still be here.<br />Your dates may not.
             </h2>
             <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <BookButton className="rounded-ctrl w-64 bg-gold px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-parchment sm:w-auto">
+              <BookButton className="w-64 rounded-ctrl bg-gold px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-parchment sm:w-auto">
                 Check availability
               </BookButton>
               <a
                 href={`tel:${hotelConfig.contact.phone.replace(/[^+\d]/g, '')}`}
-                className="rounded-ctrl w-64 border border-parchment/60 px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-parchment hover:text-forest sm:w-auto"
+                className="w-64 rounded-ctrl border border-parchment/60 px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-parchment hover:text-forest sm:w-auto"
               >
                 {hotelConfig.contact.phone}
               </a>

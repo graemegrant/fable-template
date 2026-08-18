@@ -139,7 +139,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-parchment/10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-6 sm:flex-row lg:px-10">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 p-6 sm:flex-row lg:px-10">
           <p className="font-body text-xs text-parchment/50">
             © {year} {hotelConfig.name}. All rights reserved.
           </p>
