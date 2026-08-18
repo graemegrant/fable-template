@@ -10,7 +10,7 @@ export default function TrustStrip({ variant = 'light' }: { variant?: 'light' | 
           {hotelConfig.trustItems.map((item, i) => (
             <li key={item} className="flex items-center gap-10">
               {i > 0 && <span className={`hidden h-px w-8 sm:block ${dark ? 'bg-parchment/30' : 'bg-ink/20'}`} aria-hidden />}
-              <span className="font-body text-[11px] uppercase tracking-[0.25em]">{item}</span>
+              <span className="font-body text-2xs uppercase tracking-25">{item}</span>
             </li>
           ))}
         </ul>

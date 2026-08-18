@@ -6,7 +6,7 @@ import { imgSrc } from '@/lib/sanity';
 const components: PortableTextComponents = {
   block: {
     normal: ({ children }) => (
-      <p className="mb-6 font-body text-base font-light leading-[1.9] text-ink/85">{children}</p>
+      <p className="mb-6 font-body text-base font-light leading-body text-ink/85">{children}</p>
     ),
     h2: ({ children }) => (
       <h2 className="mb-5 mt-12 font-heading text-3xl font-medium text-ink">{children}</h2>
@@ -34,11 +34,11 @@ const components: PortableTextComponents = {
   types: {
     image: ({ value }) => (
       <figure className="my-10">
-        <div className="relative aspect-[3/2]">
+        <div className="relative aspect-wide">
           <Image src={imgSrc(value)} alt={value?.caption || ''} fill sizes="(min-width: 768px) 720px, 100vw" className="object-cover" />
         </div>
         {value?.caption && (
-          <figcaption className="mt-3 font-body text-xs uppercase tracking-[0.2em] text-ink/50">
+          <figcaption className="mt-3 font-body text-xs uppercase tracking-20 text-ink/50">
             {value.caption}
           </figcaption>
         )}

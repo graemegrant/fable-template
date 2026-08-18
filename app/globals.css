@@ -57,3 +57,11 @@
 input[type='date'] {
   color-scheme: light;
 }
+
+/* GlenMoment sticky panel — same brass/peat merge as the body background,
+   scoped to a class so the component never inlines raw hex. */
+.bg-glen {
+  background:
+    radial-gradient(900px 500px at 80% 15%, rgba(194, 154, 91, 0.14), transparent 60%),
+    linear-gradient(175deg, #241d16 0%, #2b2119 45%, #1b1510 100%);
+}

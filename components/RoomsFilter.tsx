@@ -21,12 +21,12 @@ export default function RoomsFilter({ rooms }: { rooms: Room[] }) {
             role="tab"
             aria-selected={active === t}
             onClick={() => setActive(t)}
-            className={`px-6 py-3 font-body text-[11px] uppercase tracking-[0.25em] transition-colors duration-300 ${
+            className={`px-6 py-3 font-body text-2xs uppercase tracking-25 transition-colors duration-300 ${
               active === t ? 'bg-forest text-parchment' : 'text-ink/60 hover:text-forest'
             }`}
           >
             {t}
-            <span className="ml-2 text-[10px] opacity-60">
+            <span className="ml-2 text-3xs opacity-60">
               {t === 'All' ? rooms.length : rooms.filter((r) => r.type === t).length}
             </span>
           </button>

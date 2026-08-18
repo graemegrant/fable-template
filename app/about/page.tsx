@@ -37,7 +37,7 @@ export default async function AboutPage() {
             </h2>
           </FadeUp>
           <FadeUp delay={0.1}>
-            <div className="space-y-5 font-body text-base font-light leading-[1.9] text-ink/80">
+            <div className="space-y-5 font-body text-base font-light leading-body text-ink/80">
               <p>
                 Craigmore was built as a shooting lodge by a Dundee jute baron with more money
                 than restraint, which explains the turret. For a century it hosted shooting
@@ -68,7 +68,7 @@ export default async function AboutPage() {
               “Luxury is not gold taps. Luxury is silence, a fire someone else lit, and dinner
               that knows where it came from.”
             </blockquote>
-            <p className="mt-8 font-body text-[11px] uppercase tracking-[0.25em] text-parchment/60">
+            <p className="mt-8 font-body text-2xs uppercase tracking-25 text-parchment/60">
               The brief, 2019 — still on the office wall
             </p>
           </FadeUp>
@@ -93,7 +93,7 @@ export default async function AboutPage() {
         <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-24">
             <FadeUp>
-              <div className="relative aspect-[4/3]">
+              <div className="relative aspect-landscape">
                 <Image src={IMG.garden} alt="The walled garden" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
               </div>
             </FadeUp>
@@ -102,7 +102,7 @@ export default async function AboutPage() {
               <h2 className="mt-5 font-heading text-4xl font-medium leading-tight text-ink md:text-5xl">
                 Quietly, but seriously
               </h2>
-              <div className="mt-6 space-y-5 font-body text-base font-light leading-[1.9] text-ink/80">
+              <div className="mt-6 space-y-5 font-body text-base font-light leading-body text-ink/80">
                 <p>
                   We heat the house with a biomass boiler fed by our own woodland, draw water
                   from our own spring, and grow a meaningful share of the kitchen’s vegetables
@@ -132,7 +132,7 @@ export default async function AboutPage() {
                 <blockquote className="font-heading text-xl font-medium italic leading-snug text-ink">
                   “{press.quote}”
                 </blockquote>
-                <figcaption className="mt-4 font-body text-[11px] uppercase tracking-[0.25em] text-ink/50">
+                <figcaption className="mt-4 font-body text-2xs uppercase tracking-25 text-ink/50">
                   {press.outlet}
                 </figcaption>
               </figure>

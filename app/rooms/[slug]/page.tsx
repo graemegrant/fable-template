@@ -57,11 +57,11 @@ export default async function RoomDetailPage({ params }: Props) {
       <PageHero eyebrow={`${room.type} room`} title={room.name} subtitle={room.view} image={room.heroImage} />
 
       <section className="mx-auto max-w-7xl px-6 py-20 pb-32 lg:px-10 lg:py-28">
-        <div className="grid gap-16 lg:grid-cols-[1fr_360px]">
+        <div className="grid gap-16 lg:grid-cols-1fr-360">
           <div>
             <FadeUp>
               <SectionLabel>The room</SectionLabel>
-              <p className="mt-6 font-body text-lg font-light leading-[1.9] text-ink/85">{room.description}</p>
+              <p className="mt-6 font-body text-lg font-light leading-body text-ink/85">{room.description}</p>
             </FadeUp>
 
             <FadeUp className="mt-16">
@@ -69,7 +69,7 @@ export default async function RoomDetailPage({ params }: Props) {
               <ul className="mt-6 grid gap-x-10 gap-y-3 sm:grid-cols-2">
                 {room.amenities.map((a) => (
                   <li key={a} className="flex gap-3 font-body text-sm text-ink/80">
-                    <span className="mt-[9px] h-px w-5 shrink-0 bg-gold" aria-hidden />
+                    <span className="mt-9px h-px w-5 shrink-0 bg-gold" aria-hidden />
                     {a}
                   </li>
                 ))}
@@ -89,7 +89,7 @@ export default async function RoomDetailPage({ params }: Props) {
           {/* Sticky booking sidebar */}
           <aside>
             <div className="border border-ink/10 bg-warmgrey p-8 lg:sticky lg:top-28">
-              <p className="font-body text-[11px] uppercase tracking-[0.25em] text-ink/60">From</p>
+              <p className="font-body text-2xs uppercase tracking-25 text-ink/60">From</p>
               <p className="mt-2 font-heading text-5xl font-medium text-forest">
                 £{room.rate}
                 <span className="font-body text-sm font-light text-ink/60"> / night</span>
@@ -102,12 +102,12 @@ export default async function RoomDetailPage({ params }: Props) {
                   ['Outlook', room.view],
                 ].filter(([, v]) => v).map(([k, v]) => (
                   <div key={k} className="flex justify-between gap-6">
-                    <dt className="font-body text-[11px] uppercase tracking-[0.2em] text-ink/50">{k}</dt>
+                    <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">{k}</dt>
                     <dd className="text-right font-body text-sm text-ink/85">{v}</dd>
                   </div>
                 ))}
               </dl>
-              <BookButton roomHint={room.name} className="mt-8 w-full rounded-ctrl bg-forest px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest">
+              <BookButton roomHint={room.name} className="mt-8 w-full rounded-ctrl bg-forest px-8 py-4 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest">
                 Check availability
               </BookButton>
               <p className="mt-5 text-center font-body text-xs text-ink/60">

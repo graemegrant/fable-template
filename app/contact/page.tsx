@@ -23,7 +23,7 @@ export default function ContactPage() {
       />
 
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
-        <div className="grid gap-16 lg:grid-cols-[1fr_380px]">
+        <div className="grid gap-16 lg:grid-cols-1fr-380">
           <FadeUp>
             <SectionLabel>Your enquiry</SectionLabel>
             <h2 className="mb-10 mt-5 font-heading text-4xl font-medium text-ink">Write to us</h2>
@@ -35,7 +35,7 @@ export default function ContactPage() {
               <SectionLabel>Directly</SectionLabel>
               <dl className="mt-6 space-y-6">
                 <div>
-                  <dt className="font-body text-[11px] uppercase tracking-[0.2em] text-ink/50">Telephone</dt>
+                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">Telephone</dt>
                   <dd className="mt-1">
                     <a href={`tel:${hotelConfig.contact.phone.replace(/[^+\d]/g, '')}`} className="font-heading text-xl font-medium text-forest">
                       {hotelConfig.contact.phone}
@@ -43,7 +43,7 @@ export default function ContactPage() {
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-body text-[11px] uppercase tracking-[0.2em] text-ink/50">Email</dt>
+                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">Email</dt>
                   <dd className="mt-1">
                     <a href={`mailto:${hotelConfig.contact.email}`} className="font-heading text-xl font-medium text-forest">
                       {hotelConfig.contact.email}
@@ -51,7 +51,7 @@ export default function ContactPage() {
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-body text-[11px] uppercase tracking-[0.2em] text-ink/50">Address</dt>
+                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">Address</dt>
                   <dd className="mt-1 font-body text-sm leading-relaxed text-ink/80">
                     {hotelConfig.name}<br />
                     {hotelConfig.location.address}<br />
@@ -59,7 +59,7 @@ export default function ContactPage() {
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-body text-[11px] uppercase tracking-[0.2em] text-ink/50">Reception hours</dt>
+                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">Reception hours</dt>
                   <dd className="mt-1 font-body text-sm leading-relaxed text-ink/80">
                     7am – 11pm daily.<br />
                     Night porter on duty after hours.

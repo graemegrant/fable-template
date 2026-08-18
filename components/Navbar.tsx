@@ -77,7 +77,7 @@ export default function Navbar() {
               {item.href ? (
                 <Link
                   href={item.href}
-                  className={`font-body text-[11px] uppercase tracking-[0.25em] transition-colors ${
+                  className={`font-body text-2xs uppercase tracking-25 transition-colors ${
                     isActive(item) ? 'text-gold' : 'text-parchment hover:text-gold'
                   }`}
                 >
@@ -86,7 +86,7 @@ export default function Navbar() {
               ) : (
                 <button
                   type="button"
-                  className={`font-body text-[11px] uppercase tracking-[0.25em] transition-colors ${
+                  className={`font-body text-2xs uppercase tracking-25 transition-colors ${
                     isActive(item) ? 'text-gold' : 'text-parchment group-hover:text-gold'
                   }`}
                 >
@@ -100,7 +100,7 @@ export default function Navbar() {
                       <li key={child.href}>
                         <Link
                           href={child.href}
-                          className={`block px-6 py-2.5 font-body text-[11px] uppercase tracking-[0.2em] transition-colors ${
+                          className={`block px-6 py-2.5 font-body text-2xs uppercase tracking-20 transition-colors ${
                             pathname.startsWith(child.href) ? 'text-gold' : 'text-parchment/85 hover:text-gold'
                           }`}
                         >
@@ -122,13 +122,13 @@ export default function Navbar() {
           >
             {hotelConfig.contact.phone}
           </a>
-          <BookButton className="rounded-ctrl border border-gold bg-gold px-6 py-3 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-transparent hover:text-gold" />
+          <BookButton className="rounded-ctrl border border-gold bg-gold px-6 py-3 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-transparent hover:text-gold" />
         </div>
 
         {/* Mobile toggle */}
         <button
           type="button"
-          className="flex flex-col gap-[7px] p-2 lg:hidden"
+          className="flex flex-col gap-7px p-2 lg:hidden"
           onClick={() => setMobileOpen((v) => !v)}
           aria-expanded={mobileOpen}
           aria-label="Toggle menu"
@@ -141,8 +141,8 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       <div
-        className={`overflow-y-auto bg-forest transition-[max-height] duration-700 ease-out-expo lg:hidden ${
-          mobileOpen ? 'max-h-[calc(100vh-4rem)]' : 'max-h-0'
+        className={`overflow-y-auto bg-forest transition-max-height duration-700 ease-out-expo lg:hidden ${
+          mobileOpen ? 'max-h-nav-open' : 'max-h-0'
         }`}
       >
         <nav className="space-y-1 px-6 pb-10 pt-4" aria-label="Mobile">
@@ -151,7 +151,7 @@ export default function Navbar() {
               <Link
                 key={item.label}
                 href={item.href}
-                className="block border-b border-parchment/10 py-4 font-body text-xs uppercase tracking-[0.25em] text-parchment"
+                className="block border-b border-parchment/10 py-4 font-body text-xs uppercase tracking-25 text-parchment"
               >
                 {item.label}
               </Link>
@@ -159,7 +159,7 @@ export default function Navbar() {
               <div key={item.label} className="border-b border-parchment/10">
                 <button
                   type="button"
-                  className="flex w-full items-center justify-between py-4 font-body text-xs uppercase tracking-[0.25em] text-parchment"
+                  className="flex w-full items-center justify-between py-4 font-body text-xs uppercase tracking-25 text-parchment"
                   onClick={() => setOpenAccordion(openAccordion === item.label ? null : item.label)}
                   aria-expanded={openAccordion === item.label}
                 >
@@ -167,14 +167,14 @@ export default function Navbar() {
                   <span className={`transition-transform duration-300 ${openAccordion === item.label ? 'rotate-45' : ''}`}>+</span>
                 </button>
                 <div
-                  className={`overflow-hidden transition-[max-height] duration-500 ease-out-expo ${
+                  className={`overflow-hidden transition-max-height duration-500 ease-out-expo ${
                     openAccordion === item.label ? 'max-h-64' : 'max-h-0'
                   }`}
                 >
                   <ul className="space-y-3 pb-5 pl-4">
                     {item.children?.map((child) => (
                       <li key={child.href}>
-                        <Link href={child.href} className="font-body text-xs uppercase tracking-[0.2em] text-parchment/70">
+                        <Link href={child.href} className="font-body text-xs uppercase tracking-20 text-parchment/70">
                           {child.label}
                         </Link>
                       </li>
@@ -185,7 +185,7 @@ export default function Navbar() {
             ),
           )}
           <div className="pt-6">
-            <BookButton className="w-full rounded-ctrl bg-gold px-6 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest" />
+            <BookButton className="w-full rounded-ctrl bg-gold px-6 py-4 font-body text-2xs uppercase tracking-25 text-forest" />
           </div>
         </nav>
       </div>

@@ -28,7 +28,7 @@ export default function CookieBanner() {
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-[70] border-t border-gold/40 bg-forest">
+    <div className="fixed inset-x-0 bottom-0 z-70 border-t border-gold/40 bg-forest">
       <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-5 p-6 sm:flex-row sm:items-center lg:px-10">
         <p className="max-w-2xl font-body text-xs leading-relaxed text-parchment/80">
           We use a small number of cookies to run the site and, with your consent, to understand how
@@ -38,14 +38,14 @@ export default function CookieBanner() {
           <button
             type="button"
             onClick={() => choose('essential')}
-            className="rounded-ctrl border border-parchment/40 px-5 py-3 font-body text-[10px] uppercase tracking-[0.2em] text-parchment transition-colors hover:border-parchment"
+            className="rounded-ctrl border border-parchment/40 px-5 py-3 font-body text-3xs uppercase tracking-20 text-parchment transition-colors hover:border-parchment"
           >
             Essential only
           </button>
           <button
             type="button"
             onClick={() => choose('all')}
-            className="rounded-ctrl bg-gold px-5 py-3 font-body text-[10px] uppercase tracking-[0.2em] text-forest transition-colors hover:bg-parchment"
+            className="rounded-ctrl bg-gold px-5 py-3 font-body text-3xs uppercase tracking-20 text-forest transition-colors hover:bg-parchment"
           >
             Accept all
           </button>

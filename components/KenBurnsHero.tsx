@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { hotelConfig } from '@/hotel.config';
 import { HeroEntrance } from './Motion';
 import { BookButton } from './BookingModal';
@@ -32,7 +33,7 @@ export default function KenBurnsHero({ image }: { image: unknown }) {
 
       <div className="relative px-6 text-center">
         <HeroEntrance delay={0.2}>
-          <p className="font-body text-[11px] uppercase tracking-[0.4em] text-goldbright">
+          <p className="font-body text-2xs uppercase tracking-40 text-goldbright">
             {hotelConfig.location.region}
           </p>
         </HeroEntrance>
@@ -48,13 +49,13 @@ export default function KenBurnsHero({ image }: { image: unknown }) {
         </HeroEntrance>
         <HeroEntrance delay={0.95}>
           <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <a
+            <Link
               href="/rooms"
-              className="w-64 rounded-ctrl bg-gold px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-forest transition-colors duration-300 hover:bg-parchment sm:w-auto"
+              className="w-64 rounded-ctrl bg-gold px-8 py-4 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-parchment sm:w-auto"
             >
               View the rooms
-            </a>
-            <BookButton className="w-64 rounded-ctrl border border-parchment/60 px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-parchment hover:text-forest sm:w-auto">
+            </Link>
+            <BookButton className="w-64 rounded-ctrl border border-parchment/60 px-8 py-4 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-parchment hover:text-forest sm:w-auto">
               Check availability
             </BookButton>
           </div>

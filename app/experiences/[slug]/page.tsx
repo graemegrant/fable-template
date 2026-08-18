@@ -42,11 +42,11 @@ export default async function ExperienceDetailPage({ params }: Props) {
       <PageHero eyebrow={exp.category} title={exp.name} subtitle={`${exp.duration} · ${exp.price}`} image={exp.heroImage} />
 
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
-        <div className="grid gap-16 lg:grid-cols-[1fr_360px]">
+        <div className="grid gap-16 lg:grid-cols-1fr-360">
           <div>
             <FadeUp>
               <SectionLabel>The experience</SectionLabel>
-              <p className="mt-6 font-body text-lg font-light leading-[1.9] text-ink/85">{exp.description}</p>
+              <p className="mt-6 font-body text-lg font-light leading-body text-ink/85">{exp.description}</p>
             </FadeUp>
 
             {exp.includes && exp.includes.length > 0 && (
@@ -55,7 +55,7 @@ export default async function ExperienceDetailPage({ params }: Props) {
                 <ul className="mt-6 space-y-3">
                   {exp.includes.map((inc) => (
                     <li key={inc} className="flex gap-3 font-body text-sm text-ink/80">
-                      <span className="mt-[9px] h-px w-5 shrink-0 bg-gold" aria-hidden />
+                      <span className="mt-9px h-px w-5 shrink-0 bg-gold" aria-hidden />
                       {inc}
                     </li>
                   ))}
@@ -66,27 +66,27 @@ export default async function ExperienceDetailPage({ params }: Props) {
 
           <aside>
             <div className="border border-ink/10 bg-warmgrey p-8 lg:sticky lg:top-28">
-              <p className="font-body text-[11px] uppercase tracking-[0.25em] text-ink/60">Pricing</p>
+              <p className="font-body text-2xs uppercase tracking-25 text-ink/60">Pricing</p>
               <p className="mt-3 font-heading text-3xl font-medium text-forest">{exp.price}</p>
               <dl className="mt-8 space-y-3 border-t border-ink/10 pt-7">
                 <div className="flex justify-between gap-6">
-                  <dt className="font-body text-[11px] uppercase tracking-[0.2em] text-ink/50">Duration</dt>
+                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">Duration</dt>
                   <dd className="font-body text-sm text-ink/85">{exp.duration}</dd>
                 </div>
                 <div className="flex justify-between gap-6">
-                  <dt className="font-body text-[11px] uppercase tracking-[0.2em] text-ink/50">Category</dt>
+                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">Category</dt>
                   <dd className="font-body text-sm text-ink/85">{exp.category}</dd>
                 </div>
                 {exp.seasons && exp.seasons.length > 0 && (
                   <div className="flex justify-between gap-6">
-                    <dt className="font-body text-[11px] uppercase tracking-[0.2em] text-ink/50">Season</dt>
+                    <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">Season</dt>
                     <dd className="text-right font-body text-sm text-ink/85">{exp.seasons.join(', ')}</dd>
                   </div>
                 )}
               </dl>
               <Link
                 href="/contact"
-                className="mt-8 block w-full rounded-ctrl bg-forest px-8 py-4 text-center font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest"
+                className="mt-8 block w-full rounded-ctrl bg-forest px-8 py-4 text-center font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest"
               >
                 Arrange this experience
               </Link>

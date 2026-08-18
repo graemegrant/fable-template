@@ -33,7 +33,7 @@ export default function LocationPage() {
             <StaggerItem key={d.mode}>
               <article className="h-full border-t border-gold/60 pt-6">
                 <h3 className="font-heading text-2xl font-medium text-ink">{d.mode}</h3>
-                <p className="mt-3 font-body text-sm font-light leading-[1.8] text-ink/75">{d.detail}</p>
+                <p className="mt-3 font-body text-sm font-light leading-copy text-ink/75">{d.detail}</p>
               </article>
             </StaggerItem>
           ))}
@@ -46,7 +46,7 @@ export default function LocationPage() {
           <FadeUp>
             <SectionLabel>The map</SectionLabel>
             <h2 className="mt-5 font-heading text-4xl font-medium text-ink">Where the glen narrows</h2>
-            <div className="mt-10 aspect-[16/9] w-full border border-ink/10 bg-parchment">
+            <div className="mt-10 aspect-video w-full border border-ink/10 bg-parchment">
               <iframe
                 src={mapSrc}
                 title={`Map showing ${hotelConfig.name}`}
@@ -74,7 +74,7 @@ export default function LocationPage() {
               <article className="border-t border-ink/10 pt-5">
                 <div className="flex items-baseline justify-between gap-4">
                   <h3 className="font-heading text-xl font-medium text-ink">{a.name}</h3>
-                  <span className="shrink-0 font-body text-[11px] uppercase tracking-[0.2em] text-gold">{a.distance}</span>
+                  <span className="shrink-0 font-body text-2xs uppercase tracking-20 text-gold">{a.distance}</span>
                 </div>
                 <p className="mt-3 font-body text-sm font-light leading-relaxed text-ink/75">{a.description}</p>
               </article>

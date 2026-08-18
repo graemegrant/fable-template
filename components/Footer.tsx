@@ -53,7 +53,7 @@ function NewsletterForm() {
         placeholder="Your email address"
         className="w-full bg-transparent py-3 font-body text-sm text-parchment placeholder:text-parchment/40 focus:outline-none"
       />
-      <button type="submit" className="shrink-0 rounded-none border border-gold px-4 py-2 font-body text-[11px] uppercase tracking-[0.25em] text-gold transition-colors hover:bg-gold hover:text-forest">
+      <button type="submit" className="shrink-0 rounded-none border border-gold px-4 py-2 font-body text-2xs uppercase tracking-25 text-gold transition-colors hover:bg-gold hover:text-forest">
         Subscribe →
       </button>
     </form>
@@ -78,7 +78,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="font-body text-[11px] uppercase tracking-[0.3em] text-gold">Explore</p>
+            <p className="font-body text-2xs uppercase tracking-30 text-gold">Explore</p>
             <ul className="mt-5 space-y-3">
               {exploreLinks.map((l) => (
                 <li key={l.href}>
@@ -91,7 +91,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="font-body text-[11px] uppercase tracking-[0.3em] text-gold">Visit</p>
+            <p className="font-body text-2xs uppercase tracking-30 text-gold">Visit</p>
             <ul className="mt-5 space-y-3">
               {visitLinks.map((l) => (
                 <li key={l.href}>
@@ -101,7 +101,7 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-            <p className="mt-8 font-body text-[11px] uppercase tracking-[0.3em] text-gold">Contact</p>
+            <p className="mt-8 font-body text-2xs uppercase tracking-30 text-gold">Contact</p>
             <ul className="mt-5 space-y-3 font-body text-sm text-parchment/80">
               <li>
                 <a href={`tel:${hotelConfig.contact.phone.replace(/[^+\d]/g, '')}`} className="transition-colors hover:text-gold">
@@ -117,7 +117,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="font-body text-[11px] uppercase tracking-[0.3em] text-gold">The seasonal letter</p>
+            <p className="font-body text-2xs uppercase tracking-30 text-gold">The seasonal letter</p>
             <p className="mt-5 font-body text-sm font-light leading-relaxed text-parchment/70">
               What the glen is doing, what the kitchen is planning, and first word on offers. Four letters a year.
             </p>
@@ -126,11 +126,11 @@ export default function Footer() {
             </div>
             <div className="mt-8 flex gap-6">
               <a href={hotelConfig.contact.instagram} target="_blank" rel="noopener noreferrer"
-                className="font-body text-[11px] uppercase tracking-[0.25em] text-parchment/70 transition-colors hover:text-gold">
+                className="font-body text-2xs uppercase tracking-25 text-parchment/70 transition-colors hover:text-gold">
                 Instagram
               </a>
               <a href={hotelConfig.contact.facebook} target="_blank" rel="noopener noreferrer"
-                className="font-body text-[11px] uppercase tracking-[0.25em] text-parchment/70 transition-colors hover:text-gold">
+                className="font-body text-2xs uppercase tracking-25 text-parchment/70 transition-colors hover:text-gold">
                 Facebook
               </a>
             </div>

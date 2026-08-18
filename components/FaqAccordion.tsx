@@ -20,7 +20,7 @@ export default function FaqAccordion({ items }: { items: { q: string; a: string 
               +
             </span>
           </button>
-          <div className={`overflow-hidden transition-[max-height] duration-500 ease-out-expo ${open === i ? 'max-h-60' : 'max-h-0'}`}>
+          <div className={`overflow-hidden transition-max-height duration-500 ease-out-expo ${open === i ? 'max-h-60' : 'max-h-0'}`}>
             <p className="pb-7 font-body text-sm font-light leading-relaxed text-ink/75">{item.a}</p>
           </div>
         </div>

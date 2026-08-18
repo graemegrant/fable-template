@@ -80,11 +80,11 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
 
   const field =
     'w-full rounded-ctrl border border-ink/20 bg-parchment px-4 py-3.5 font-body text-sm text-ink focus:border-gold focus:outline-none';
-  const label = 'block font-body text-[11px] uppercase tracking-[0.25em] text-ink/60';
+  const label = 'block font-body text-2xs uppercase tracking-25 text-ink/60';
 
   return (
     <motion.div
-      className="fixed inset-0 z-[60] flex items-center justify-center bg-forest/70 px-4"
+      className="fixed inset-0 z-60 flex items-center justify-center bg-forest/70 px-4"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -98,7 +98,7 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
         <div className="bg-parchment p-8 sm:p-10" onClick={(e) => e.stopPropagation()}>
           <div className="flex items-start justify-between">
             <div>
-              <p className="font-body text-[11px] uppercase tracking-[0.3em] text-gold">Direct booking</p>
+              <p className="font-body text-2xs uppercase tracking-30 text-gold">Direct booking</p>
               <h2 className="mt-2 font-heading text-3xl font-medium text-ink">Book a stay</h2>
               {roomHint && (
                 <p className="mt-1 font-body text-xs text-ink/60">
@@ -157,7 +157,7 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
             </div>
             <button
               type="submit"
-              className="w-full rounded-ctrl bg-forest px-8 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest"
+              className="w-full rounded-ctrl bg-forest px-8 py-4 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest"
             >
               Check availability
             </button>

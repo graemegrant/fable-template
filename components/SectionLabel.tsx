@@ -10,7 +10,7 @@ export default function SectionLabel({
 }) {
   const tone = variant === 'parchment' ? 'text-parchment/70' : 'text-gold';
   return (
-    <p className={`font-body text-[11px] uppercase tracking-[0.3em] ${tone} ${className}`}>
+    <p className={`font-body text-2xs uppercase tracking-30 ${tone} ${className}`}>
       {children}
     </p>
   );

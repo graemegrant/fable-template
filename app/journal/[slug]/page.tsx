@@ -59,7 +59,7 @@ export default async function JournalPostPage({ params }: Props) {
       <PageHero eyebrow={post.category} title={post.title} subtitle={`${post.author} · ${formatDate(post.publishedAt)} · ${post.readingTime ?? ''}`} image={post.heroImage} />
 
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
-        <div className="grid gap-16 lg:grid-cols-[1fr_340px]">
+        <div className="grid gap-16 lg:grid-cols-1fr-340">
           <FadeUp>
             <article className="max-w-3xl">
               <p className="mb-10 border-l-2 border-gold pl-6 font-heading text-2xl font-medium italic leading-relaxed text-forest">
@@ -68,7 +68,7 @@ export default async function JournalPostPage({ params }: Props) {
               <PortableText value={post.body} />
             </article>
             <div className="mt-14 border-t border-ink/10 pt-8">
-              <Link href="/journal" className="font-body text-[11px] uppercase tracking-[0.25em] text-gold transition-colors hover:text-forest">
+              <Link href="/journal" className="font-body text-2xs uppercase tracking-25 text-gold transition-colors hover:text-forest">
                 ← Back to the journal
               </Link>
             </div>
@@ -80,20 +80,20 @@ export default async function JournalPostPage({ params }: Props) {
               <div className="border border-ink/10 bg-warmgrey p-8 lg:sticky lg:top-28">
                 <SectionLabel>Stay with us</SectionLabel>
                 <Link href={`/rooms/${featuredRoom.slug}`} className="group mt-5 block">
-                  <div className="relative aspect-[4/3] overflow-hidden">
+                  <div className="relative aspect-landscape overflow-hidden">
                     <Image
                       src={imgSrc(featuredRoom.heroImage, 800)}
                       alt={featuredRoom.name}
                       fill
                       sizes="340px"
-                      className="object-cover transition-transform duration-[1200ms] ease-out-expo group-hover:scale-[1.04]"
+                      className="object-cover transition-transform duration-1200 ease-out-expo group-hover:scale-104"
                     />
                   </div>
                   <h3 className="mt-5 font-heading text-2xl font-medium text-ink">{featuredRoom.name}</h3>
                   <p className="mt-2 font-body text-sm text-ink/70">
                     From <span className="font-heading text-lg text-forest">£{featuredRoom.rate}</span> / night
                   </p>
-                  <span className="mt-4 inline-block font-body text-[11px] uppercase tracking-[0.2em] text-gold transition-colors group-hover:text-forest">
+                  <span className="mt-4 inline-block font-body text-2xs uppercase tracking-20 text-gold transition-colors group-hover:text-forest">
                     View the room —
                   </span>
                 </Link>

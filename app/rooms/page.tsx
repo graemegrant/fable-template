@@ -29,7 +29,7 @@ export default async function RoomsPage() {
       <TrustStrip />
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
         <FadeUp>
-          <p className="max-w-2xl font-body text-base font-light leading-[1.9] text-ink/80">
+          <p className="max-w-2xl font-body text-base font-light leading-body text-ink/80">
             Every room comes with breakfast, the run of four hundred acres, and housekeeping that
             believes in hospital corners. Suites add space and sitting rooms; Classics add the
             particular smugness of having chosen well for less.

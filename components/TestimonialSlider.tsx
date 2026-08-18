@@ -15,7 +15,7 @@ export default function TestimonialSlider({ testimonials }: { testimonials: Test
   return (
     <div className="relative mx-auto max-w-3xl text-center">
       <SectionLabel variant="parchment" className="mb-10">Guest book</SectionLabel>
-      <div className="min-h-[260px] sm:min-h-[220px]">
+      <div className="min-h-260px sm:min-h-220px">
         <AnimatePresence mode="wait">
           <motion.figure
             key={index}
@@ -27,7 +27,7 @@ export default function TestimonialSlider({ testimonials }: { testimonials: Test
             <blockquote className="font-heading text-2xl font-medium italic leading-relaxed text-parchment md:text-3xl">
               “{current.quote}”
             </blockquote>
-            <figcaption className="mt-8 font-body text-[11px] uppercase tracking-[0.25em] text-parchment/60">
+            <figcaption className="mt-8 font-body text-2xs uppercase tracking-25 text-parchment/60">
               {current.guestName}
               {current.roomStayed && <> · {current.roomStayed}</>}
               {current.source && <> · {current.source}</>}

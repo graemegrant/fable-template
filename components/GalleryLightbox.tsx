@@ -35,7 +35,7 @@ export default function GalleryLightbox({ images, alt }: { images: unknown[]; al
             key={i}
             type="button"
             onClick={() => setOpenIndex(i)}
-            className={`group relative overflow-hidden bg-warmgrey ${i === 0 ? 'col-span-2 row-span-2 aspect-[4/3]' : 'aspect-[4/3]'}`}
+            className={`group relative overflow-hidden bg-warmgrey ${i === 0 ? 'col-span-2 row-span-2 aspect-landscape' : 'aspect-landscape'}`}
             aria-label={`Open photo ${i + 1} of ${srcs.length}`}
           >
             <Image
@@ -43,7 +43,7 @@ export default function GalleryLightbox({ images, alt }: { images: unknown[]; al
               alt={`${alt} — photo ${i + 1}`}
               fill
               sizes="(min-width: 768px) 25vw, 50vw"
-              className="object-cover transition-transform duration-[1200ms] ease-out-expo group-hover:scale-[1.04]"
+              className="object-cover transition-transform duration-1200 ease-out-expo group-hover:scale-104"
             />
           </button>
         ))}
@@ -52,7 +52,7 @@ export default function GalleryLightbox({ images, alt }: { images: unknown[]; al
       <AnimatePresence>
         {openIndex !== null && (
           <motion.div
-            className="fixed inset-0 z-[80] flex items-center justify-center bg-forest/95 p-4"
+            className="fixed inset-0 z-80 flex items-center justify-center bg-forest/95 p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -73,7 +73,7 @@ export default function GalleryLightbox({ images, alt }: { images: unknown[]; al
             >
               ←
             </button>
-            <div className="relative h-[80vh] w-full max-w-5xl" onClick={(e) => e.stopPropagation()}>
+            <div className="relative h-80vh w-full max-w-5xl" onClick={(e) => e.stopPropagation()}>
               <Image src={srcs[openIndex]} alt={`${alt} — photo ${openIndex + 1}`} fill sizes="100vw" className="object-contain" />
             </div>
             <button
@@ -84,7 +84,7 @@ export default function GalleryLightbox({ images, alt }: { images: unknown[]; al
             >
               →
             </button>
-            <p className="absolute bottom-6 font-body text-xs uppercase tracking-[0.25em] text-parchment/60">
+            <p className="absolute bottom-6 font-body text-xs uppercase tracking-25 text-parchment/60">
               {openIndex + 1} / {srcs.length}
             </p>
           </motion.div>

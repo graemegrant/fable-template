@@ -24,7 +24,7 @@ export default function GiftVouchersPage() {
 
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
         <FadeUp>
-          <p className="max-w-2xl font-body text-base font-light leading-[1.9] text-ink/80">
+          <p className="max-w-2xl font-body text-base font-light leading-body text-ink/80">
             All vouchers are valid for eighteen months, exchangeable against anything the house
             does, and transferable — generosity should not come with small print. Order by phone,
             email or the enquiry form, and we will arrange payment and delivery the same day.
@@ -35,7 +35,7 @@ export default function GiftVouchersPage() {
           {voucherTypes.map((v) => (
             <StaggerItem key={v.name}>
               <article className="flex h-full flex-col border border-ink/10">
-                <div className="relative aspect-[4/3] overflow-hidden bg-warmgrey">
+                <div className="relative aspect-landscape overflow-hidden bg-warmgrey">
                   <Image src={v.image} alt={v.name} fill sizes="(min-width: 1024px) 33vw, 100vw" className="object-cover" />
                 </div>
                 <div className="flex grow flex-col p-8">
@@ -44,7 +44,7 @@ export default function GiftVouchersPage() {
                   <p className="mt-4 grow font-body text-sm font-light leading-relaxed text-ink/75">{v.description}</p>
                   <Link
                     href="/contact"
-                    className="mt-8 block rounded-ctrl bg-forest px-8 py-4 text-center font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest"
+                    className="mt-8 block rounded-ctrl bg-forest px-8 py-4 text-center font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest"
                   >
                     Purchase this voucher
                   </Link>

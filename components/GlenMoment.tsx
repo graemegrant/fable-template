@@ -36,24 +36,18 @@ export default function GlenMoment() {
   const isLit = (i: number) => reduce || i < lit;
 
   return (
-    <div ref={trackRef} className="relative h-[240vh] md:h-[260vh]">
-      <div
-        className="sticky top-0 flex h-screen items-center overflow-hidden"
-        style={{
-          background:
-            'radial-gradient(900px 500px at 80% 15%, rgba(194,154,91,0.14), transparent 60%), linear-gradient(175deg, #241D16 0%, #2B2119 45%, #1B1510 100%)',
-        }}
-      >
+    <div ref={trackRef} className="relative h-240vh md:h-260vh">
+      <div className="bg-glen sticky top-0 flex h-screen items-center overflow-hidden">
         <div className="relative z-10 mx-auto w-full max-w-6xl px-6 lg:px-10">
-          <p className="font-body text-[11px] uppercase tracking-[0.3em] text-goldbright">
+          <p className="font-body text-2xs uppercase tracking-30 text-goldbright">
             The glen
           </p>
-          <p className="mt-8 max-w-[20ch] font-heading text-3xl leading-[1.32] text-parchment md:text-5xl lg:text-6xl">
+          <p className="mt-8 max-w-20ch font-heading text-3xl leading-heading text-parchment md:text-5xl lg:text-6xl">
             {SENTENCE.map((w, i) => (
               <span
                 key={i}
                 className={`transition-opacity duration-300 ${
-                  isLit(i) ? 'opacity-100' : 'opacity-[0.18]'
+                  isLit(i) ? 'opacity-100' : 'opacity-18'
                 } ${w.brass && isLit(i) ? 'italic text-goldbright' : ''}`}
               >
                 {w.text}{' '}

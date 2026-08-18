@@ -29,7 +29,7 @@ export default function ContactForm() {
 
   const field =
     'w-full rounded-ctrl border border-ink/20 bg-transparent px-4 py-3.5 font-body text-sm text-ink placeholder:text-ink/40 focus:border-gold focus:outline-none';
-  const label = 'block font-body text-[11px] uppercase tracking-[0.25em] text-ink/60';
+  const label = 'block font-body text-2xs uppercase tracking-25 text-ink/60';
 
   if (status === 'sent') {
     return (
@@ -73,7 +73,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === 'sending'}
-        className="rounded-ctrl bg-forest px-10 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest disabled:opacity-60"
+        className="rounded-ctrl bg-forest px-10 py-4 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest disabled:opacity-60"
       >
         {status === 'sending' ? 'Sending…' : 'Send enquiry'}
       </button>

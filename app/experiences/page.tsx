@@ -27,7 +27,7 @@ export default async function ExperiencesPage() {
       />
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
         <FadeUp>
-          <p className="max-w-2xl font-body text-base font-light leading-[1.9] text-ink/80">
+          <p className="max-w-2xl font-body text-base font-light leading-body text-ink/80">
             Four hundred acres earn their keep. The river holds salmon, the hill holds deer, the
             cellar holds the estate blend, and the team holds firm opinions on the correct order
             in which to enjoy them. Book ahead or decide at breakfast — both work.
