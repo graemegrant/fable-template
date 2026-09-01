@@ -1,0 +1,9 @@
+# Modern baseline — drops the legacy-JS transpile/polyfill layer from the
+# client bundle. Covers all browsers that support native ES modules.
+[production]
+defaults and fully supports es6-module
+
+[development]
+last 1 chrome version
+last 1 firefox version
+last 1 safari version

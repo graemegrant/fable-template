@@ -10,6 +10,7 @@ export interface Room {
   type: 'Classic' | 'Deluxe' | 'Suite';
   description: string;
   heroImage: Img;
+  imageAlt?: string;
   gallery?: Img[];
   rate: number;
   sqm: number;
@@ -28,6 +29,7 @@ export interface Experience {
   category: string;
   description: string;
   heroImage: Img;
+  imageAlt?: string;
   duration: string;
   price: string;
   seasons?: string[];
@@ -59,6 +61,7 @@ export interface JournalPost {
   excerpt: string;
   body?: unknown[];
   heroImage: Img;
+  imageAlt?: string;
   featured?: boolean;
 }
 

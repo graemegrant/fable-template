@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { hotelConfig } from '@/hotel.config';
-import { sanityFetch } from '@/lib/sanity';
+import { sanityFetch, imgSrc } from '@/lib/sanity';
+import { pageMetadata } from '@/lib/seo';
+import { breadcrumbList, HOTEL_ID } from '@/lib/schema';
 import { ROOM_BY_SLUG_QUERY, ROOMS_QUERY } from '@/lib/queries';
 import { rooms as fallbackRooms } from '@/lib/data';
 import type { Room } from '@/lib/types';
@@ -13,19 +15,31 @@ import { FadeUp, StaggerGrid, StaggerItem } from '@/components/Motion';
 import { BookButton } from '@/components/BookingModal';
 import MobileBookBar from '@/components/MobileBookBar';
 
-export const dynamic = 'force-dynamic';
+/* Prebuild the rooms we ship statically; CMS-only slugs render on demand
+   and then cache for the same window. */
+export const revalidate = 600;
+export function generateStaticParams() {
+  return fallbackRooms.map((r) => ({ slug: r.slug }));
+}
 
 type Props = { params: Promise<{ slug: string }> };
 
-/* SEO from static data only — never blocks on the CMS. */
+/* Reads the CMS (with the static entry as fallback) so a room authored
+   only in Sanity still gets a real title, description and canonical. */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const room = fallbackRooms.find((r) => r.slug === slug);
+  const room = await sanityFetch<Room | null>(
+    ROOM_BY_SLUG_QUERY,
+    { slug },
+    fallbackRooms.find((r) => r.slug === slug) ?? null,
+  );
   if (!room) return { title: 'Rooms & Suites' };
-  return {
-    title: `${room.name} — ${room.type} Room`,
-    description: `${room.name} at ${hotelConfig.name}: ${room.sqm} sqm, sleeps ${room.occupancy}, from £${room.rate} per night.`,
-  };
+  return pageMetadata({
+    title: `${room.name} — ${room.type}, ${hotelConfig.location.locality}`,
+    description: `${room.name} at ${hotelConfig.name}, ${hotelConfig.location.locality}: ${room.sqm} sqm, sleeps ${room.occupancy}, from £${room.rate} per night.`,
+    path: `/rooms/${room.slug}`,
+    image: `/rooms/${room.slug}/opengraph-image`,
+  });
 }
 
 export default async function RoomDetailPage({ params }: Props) {
@@ -40,21 +54,39 @@ export default async function RoomDetailPage({ params }: Props) {
   const allRooms = await sanityFetch<Room[]>(ROOMS_QUERY, {}, fallbackRooms);
   const related = allRooms.filter((r) => r.slug !== room.slug).slice(0, 3);
 
+  const roomUrl = `${hotelConfig.siteUrl}/rooms/${room.slug}`;
+  const priceValidUntil = `${new Date().getFullYear() + 1}-12-31`;
   const roomSchema = {
     '@context': 'https://schema.org',
     '@type': 'HotelRoom',
     name: room.name,
     description: room.description,
+    url: roomUrl,
+    image: [imgSrc(room.heroImage, 1200)],
     occupancy: { '@type': 'QuantitativeValue', maxValue: room.occupancy },
     floorSize: { '@type': 'QuantitativeValue', value: room.sqm, unitCode: 'MTK' },
-    containedInPlace: { '@type': 'LodgingBusiness', name: hotelConfig.name, url: hotelConfig.siteUrl },
-    offers: { '@type': 'Offer', price: room.rate, priceCurrency: 'GBP' },
+    containedInPlace: { '@id': HOTEL_ID, '@type': 'Hotel', name: hotelConfig.name, url: hotelConfig.siteUrl },
+    offers: {
+      '@type': 'Offer',
+      price: room.rate,
+      priceCurrency: 'GBP',
+      availability: 'https://schema.org/InStock',
+      url: roomUrl,
+      priceValidUntil,
+    },
   };
+
+  const breadcrumbs = breadcrumbList([
+    ['Home', '/'],
+    ['Rooms & Suites', '/rooms'],
+    [room.name, `/rooms/${room.slug}`],
+  ]);
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(roomSchema) }} />
-      <PageHero eyebrow={`${room.type} room`} title={room.name} subtitle={room.view} image={room.heroImage} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
+      <PageHero eyebrow={`${room.type} room · ${hotelConfig.location.locality}`} title={room.name} subtitle={room.view} image={room.heroImage} imageAlt={room.imageAlt} />
 
       <section className="mx-auto max-w-7xl px-6 py-20 pb-32 lg:px-10 lg:py-28">
         <div className="grid gap-16 lg:grid-cols-1fr-360">
@@ -112,7 +144,7 @@ export default async function RoomDetailPage({ params }: Props) {
               </BookButton>
               <p className="mt-5 text-center font-body text-xs text-ink/60">
                 Or call{' '}
-                <a href={`tel:${hotelConfig.contact.phone.replace(/[^+\d]/g, '')}`} className="text-forest underline decoration-gold underline-offset-4">
+                <a href={`tel:${hotelConfig.contact.phoneHref}`} className="text-forest underline decoration-gold underline-offset-4">
                   {hotelConfig.contact.phone}
                 </a>
               </p>

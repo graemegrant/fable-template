@@ -1,5 +1,5 @@
-import type { Metadata } from 'next';
 import { hotelConfig } from '@/hotel.config';
+import { pageMetadata } from '@/lib/seo';
 import { sanityFetch } from '@/lib/sanity';
 import { OFFERS_QUERY } from '@/lib/queries';
 import { offers as fallbackOffers, IMG } from '@/lib/data';
@@ -9,10 +9,11 @@ import OfferCard from '@/components/OfferCard';
 import DirectBookingBanner from '@/components/DirectBookingBanner';
 import { FadeUp } from '@/components/Motion';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Special Offers',
   description: `Current offers at ${hotelConfig.name} — seasonal stays, midweek escapes and celebrations, always best booked direct.`,
-};
+  path: '/offers',
+});
 
 export default async function OffersPage() {
   const offers = await sanityFetch<Offer[]>(OFFERS_QUERY, {}, fallbackOffers);

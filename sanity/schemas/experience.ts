@@ -13,6 +13,13 @@ export default defineType({
     }),
     defineField({ name: 'description', type: 'text', rows: 5 }),
     defineField({ name: 'heroImage', type: 'image', options: { hotspot: true } }),
+    defineField({
+      name: 'imageAlt',
+      title: 'Hero image alt text',
+      type: 'string',
+      description:
+        'Describes the hero image for search engines and screen readers. Leave blank to auto-generate from the experience name.',
+    }),
     defineField({ name: 'duration', type: 'string', description: 'e.g. "2 hours", "Full day"' }),
     defineField({ name: 'price', type: 'string', description: 'e.g. "From £85 per person"' }),
     defineField({

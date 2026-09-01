@@ -1,22 +1,25 @@
-import type { Metadata } from 'next';
 import { hotelConfig } from '@/hotel.config';
+import { pageMetadata } from '@/lib/seo';
 import { directions, attractions, IMG } from '@/lib/data';
 import PageHero from '@/components/PageHero';
 import SectionLabel from '@/components/SectionLabel';
 import { FadeUp, StaggerGrid, StaggerItem } from '@/components/Motion';
 
-export const metadata: Metadata = {
-  title: 'Location & Directions',
+export const metadata = pageMetadata({
+  title: `Location & Directions — ${hotelConfig.location.locality}`,
   description: `Finding ${hotelConfig.name}: directions by road, rail and air, and what to see in Highland Perthshire once you arrive.`,
-};
+  path: '/location',
+});
 
-const mapSrc = `https://www.google.com/maps?q=${hotelConfig.location.lat},${hotelConfig.location.lng}&z=11&output=embed`;
+const mapQuery = encodeURIComponent(`${hotelConfig.name}, ${hotelConfig.location.address}`);
+const mapSrc = `https://www.google.com/maps?q=${mapQuery}&z=15&output=embed`;
+const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${mapQuery}`;
 
 export default function LocationPage() {
   return (
     <>
       <PageHero
-        eyebrow="Finding us"
+        eyebrow={`Finding us · ${hotelConfig.location.locality}`}
         title="End of the road, start of the glen"
         subtitle={`${hotelConfig.location.address} — ninety minutes from Edinburgh, four miles from the nearest reason to hurry.`}
         image={IMG.glen}
@@ -56,8 +59,16 @@ export default function LocationPage() {
               />
             </div>
             <p className="mt-4 font-body text-xs text-ink/60">
-              Postcode for satnavs: {hotelConfig.location.address.split(',').pop()?.trim()} — then follow the stone herons, not the satnav’s despair.
+              Postcode for satnavs: {hotelConfig.location.postalCode} — then follow the stone herons, not the satnav’s despair.
             </p>
+            <a
+              href={directionsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-block rounded-ctrl border border-forest px-7 py-3.5 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-forest hover:text-parchment"
+            >
+              Get directions
+            </a>
           </FadeUp>
         </div>
       </section>

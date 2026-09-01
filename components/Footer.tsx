@@ -73,7 +73,7 @@ export default function Footer() {
             </p>
             <address className="mt-6 font-body text-sm not-italic leading-relaxed text-parchment/70">
               {hotelConfig.location.address}<br />
-              {hotelConfig.location.region}
+              {hotelConfig.location.regionLabel}
             </address>
           </div>
 
@@ -104,7 +104,7 @@ export default function Footer() {
             <p className="mt-8 font-body text-2xs uppercase tracking-30 text-gold">Contact</p>
             <ul className="mt-5 space-y-3 font-body text-sm text-parchment/80">
               <li>
-                <a href={`tel:${hotelConfig.contact.phone.replace(/[^+\d]/g, '')}`} className="transition-colors hover:text-gold">
+                <a href={`tel:${hotelConfig.contact.phoneHref}`} className="transition-colors hover:text-gold">
                   {hotelConfig.contact.phone}
                 </a>
               </li>
@@ -144,7 +144,7 @@ export default function Footer() {
             © {year} {hotelConfig.name}. All rights reserved.
           </p>
           <p className="font-body text-xs text-parchment/50">
-            {hotelConfig.location.region} · {hotelConfig.priceRange}
+            {hotelConfig.location.regionLabel} · {hotelConfig.priceRange}
           </p>
         </div>
       </div>

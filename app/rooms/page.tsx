@@ -1,5 +1,5 @@
-import type { Metadata } from 'next';
 import { hotelConfig } from '@/hotel.config';
+import { pageMetadata } from '@/lib/seo';
 import { sanityFetch } from '@/lib/sanity';
 import { ROOMS_QUERY } from '@/lib/queries';
 import { rooms as fallbackRooms, IMG } from '@/lib/data';
@@ -10,10 +10,11 @@ import TrustStrip from '@/components/TrustStrip';
 import DirectBookingBanner from '@/components/DirectBookingBanner';
 import { FadeUp } from '@/components/Motion';
 
-export const metadata: Metadata = {
-  title: 'Rooms & Suites',
-  description: `The twelve rooms of ${hotelConfig.name}: classic rooms, deluxe doubles and suites, each facing the glen, the garden or the river.`,
-};
+export const metadata = pageMetadata({
+  title: `Rooms & Suites in ${hotelConfig.location.locality}`,
+  description: `The rooms of ${hotelConfig.name}: classic rooms, deluxe doubles and suites, each facing the glen, the garden or the river.`,
+  path: '/rooms',
+});
 
 export default async function RoomsPage() {
   const rooms = await sanityFetch<Room[]>(ROOMS_QUERY, {}, fallbackRooms);
@@ -21,7 +22,7 @@ export default async function RoomsPage() {
   return (
     <>
       <PageHero
-        eyebrow="Stay"
+        eyebrow={`Stay · ${hotelConfig.location.locality}`}
         title="Rooms & suites"
         subtitle="Twelve rooms, no two alike, every one facing something worth waking up to."
         image={IMG.room1}

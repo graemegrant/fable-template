@@ -9,23 +9,31 @@ export default function PageHero({
   title,
   subtitle,
   image,
+  imageAlt,
   tall = false,
 }: {
   eyebrow: string;
   title: string;
   subtitle?: string;
   image: unknown;
+  imageAlt?: string;
   tall?: boolean;
 }) {
   return (
     <section className={`relative flex items-end ${tall ? 'min-h-78vh' : 'min-h-58vh'} bg-forest`}>
       <Image
         src={imgSrc(image)}
-        alt={title}
+        alt={imageAlt ?? title}
         fill
         priority
+        quality={65}
         sizes="100vw"
-        className="object-cover opacity-50"
+        className="object-cover opacity-60"
+      />
+      {/* Bottom-weighted scrim so the heading holds contrast over any photo. */}
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-gradient-to-t from-forestdeep/85 via-forest/40 to-forest/20"
       />
       <div className="relative mx-auto w-full max-w-7xl px-6 pb-16 pt-40 lg:px-10 lg:pb-20">
         <HeroEntrance>

@@ -172,7 +172,7 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
           </ul>
           <p className="mt-5 font-body text-xs text-ink/60">
             Prefer to talk? Call{' '}
-            <a href={`tel:${hotelConfig.contact.phone.replace(/[^+\d]/g, '')}`} className="text-forest underline decoration-gold underline-offset-4">
+            <a href={`tel:${hotelConfig.contact.phoneHref}`} className="text-forest underline decoration-gold underline-offset-4">
               {hotelConfig.contact.phone}
             </a>
           </p>
