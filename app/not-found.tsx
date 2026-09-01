@@ -4,9 +4,10 @@ import { hotelConfig } from '@/hotel.config';
 import SectionLabel from '@/components/SectionLabel';
 import { PageFade } from '@/components/Motion';
 
+// Next injects `noindex` for not-found automatically — don't also set the
+// `robots` key here or the page emits two <meta name="robots"> tags.
 export const metadata: Metadata = {
   title: 'Page not found',
-  robots: { index: false, follow: true },
 };
 
 export default function NotFound() {

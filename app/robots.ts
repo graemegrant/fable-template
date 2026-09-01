@@ -23,6 +23,6 @@ export default function robots(): MetadataRoute.Robots {
       ...AI_CRAWLERS.map((userAgent) => ({ userAgent, allow: '/', disallow })),
     ],
     sitemap: `${hotelConfig.siteUrl}/sitemap.xml`,
-    host: hotelConfig.siteUrl,
+    host: new URL(hotelConfig.siteUrl).host,
   };
 }
