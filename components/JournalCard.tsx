@@ -23,7 +23,7 @@ export default function JournalCard({
         <div className="relative aspect-landscape overflow-hidden rounded-img md:aspect-auto md:min-h-480px">
           <Image
             src={imgSrc(post.heroImage)}
-            alt={post.title}
+            alt={post.imageAlt ?? post.title}
             fill
             sizes="(min-width: 768px) 50vw, 100vw"
             className="object-cover transition-transform duration-1200 ease-out-expo group-hover:scale-103"

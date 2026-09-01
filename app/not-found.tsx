@@ -1,7 +1,13 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { hotelConfig } from '@/hotel.config';
 import SectionLabel from '@/components/SectionLabel';
 import { PageFade } from '@/components/Motion';
+
+export const metadata: Metadata = {
+  title: 'Page not found',
+  robots: { index: false, follow: true },
+};
 
 export default function NotFound() {
   return (
@@ -30,7 +36,7 @@ export default function NotFound() {
           </Link>
         </div>
         <p className="mt-10 font-body text-xs text-parchment/50">
-          {hotelConfig.name} · {hotelConfig.location.region}
+          {hotelConfig.name} · {hotelConfig.location.regionLabel}
         </p>
       </PageFade>
     </div>

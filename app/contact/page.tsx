@@ -1,5 +1,5 @@
-import type { Metadata } from 'next';
 import { hotelConfig } from '@/hotel.config';
+import { pageMetadata } from '@/lib/seo';
 import { faqs, IMG } from '@/lib/data';
 import PageHero from '@/components/PageHero';
 import ContactForm from '@/components/ContactForm';
@@ -7,10 +7,11 @@ import FaqAccordion from '@/components/FaqAccordion';
 import SectionLabel from '@/components/SectionLabel';
 import { FadeUp } from '@/components/Motion';
 
-export const metadata: Metadata = {
-  title: 'Contact',
-  description: `Contact ${hotelConfig.name} — enquiries answered by a person within one working day. Phone, email, or the form, whichever suits.`,
-};
+export const metadata = pageMetadata({
+  title: 'Contact & Directions',
+  description: `Contact ${hotelConfig.name} in ${hotelConfig.location.locality} — enquiries answered by a person within one working day. Phone, email, or the form, whichever suits.`,
+  path: '/contact',
+});
 
 export default function ContactPage() {
   return (
@@ -37,7 +38,7 @@ export default function ContactPage() {
                 <div>
                   <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">Telephone</dt>
                   <dd className="mt-1">
-                    <a href={`tel:${hotelConfig.contact.phone.replace(/[^+\d]/g, '')}`} className="font-heading text-xl font-medium text-forest">
+                    <a href={`tel:${hotelConfig.contact.phoneHref}`} className="font-heading text-xl font-medium text-forest">
                       {hotelConfig.contact.phone}
                     </a>
                   </dd>
@@ -55,14 +56,25 @@ export default function ContactPage() {
                   <dd className="mt-1 font-body text-sm leading-relaxed text-ink/80">
                     {hotelConfig.name}<br />
                     {hotelConfig.location.address}<br />
-                    {hotelConfig.location.region}
+                    {hotelConfig.location.regionLabel}
+                  </dd>
+                  <dd className="mt-2">
+                    <a
+                      href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+                        `${hotelConfig.name}, ${hotelConfig.location.address}`,
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-body text-2xs uppercase tracking-20 text-gold transition-colors hover:text-forest"
+                    >
+                      Get directions →
+                    </a>
                   </dd>
                 </div>
                 <div>
                   <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">Reception hours</dt>
                   <dd className="mt-1 font-body text-sm leading-relaxed text-ink/80">
-                    7am – 11pm daily.<br />
-                    Night porter on duty after hours.
+                    {hotelConfig.reception.display}
                   </dd>
                 </div>
               </dl>

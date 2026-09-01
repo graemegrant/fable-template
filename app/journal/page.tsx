@@ -1,5 +1,5 @@
-import type { Metadata } from 'next';
 import { hotelConfig } from '@/hotel.config';
+import { pageMetadata } from '@/lib/seo';
 import { sanityFetch } from '@/lib/sanity';
 import { JOURNAL_QUERY } from '@/lib/queries';
 import { journalPosts as fallbackPosts, IMG } from '@/lib/data';
@@ -8,10 +8,11 @@ import PageHero from '@/components/PageHero';
 import JournalCard from '@/components/JournalCard';
 import { FadeUp, StaggerGrid, StaggerItem } from '@/components/Motion';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Journal',
   description: `Notes from ${hotelConfig.name}: the garden, the glen, the kitchen and the people who keep the house.`,
-};
+  path: '/journal',
+});
 
 export default async function JournalPage() {
   const posts = await sanityFetch<JournalPost[]>(JOURNAL_QUERY, {}, fallbackPosts);

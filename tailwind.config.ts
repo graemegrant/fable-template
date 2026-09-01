@@ -1,8 +1,11 @@
 import type { Config } from 'tailwindcss';
+import { palette } from './lib/tokens';
 
 /**
  * Colour tokens — the single place to re-skin for a new client.
  * Names are semantic so component classes never change between clients.
+ * The seven hex values live in `lib/tokens.ts` so server-side image
+ * generation can share them; edit them there, not here.
  *
  * Craigmore heritage palette (2026 refresh): peat, stone, aged brass.
  * Depth comes from gradient merges (see globals.css) rather than flat fills.
@@ -11,15 +14,7 @@ const config: Config = {
   content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}'],
   theme: {
     extend: {
-      colors: {
-        forest: '#2B2119',      // peat — primary dark
-        forestdeep: '#1B1510',  // deepest peat — footers, gradients
-        gold: '#A67C3D',        // aged brass — accents on light
-        goldbright: '#E8C083',  // bright brass — accents on dark (contrast-safe)
-        parchment: '#EFEAE1',   // stone — primary light
-        warmgrey: '#E3DCCF',    // deep stone — alt bands, cards
-        ink: '#241D16',         // text
-      },
+      colors: { ...palette },
       borderRadius: {
         ctrl: '10px',   // buttons, inputs — contour-bias: approachable controls
         card: '18px',   // cards, tiles
@@ -74,6 +69,9 @@ const config: Config = {
       spacing: {
         '7px': '7px',
         '9px': '9px',
+        // Height reserved for the slim mobile cookie bar, so MobileBookBar
+        // can sit directly above it while consent is pending.
+        cookiebar: '4.25rem',
       },
       maxWidth: {
         '20ch': '20ch',
@@ -87,6 +85,7 @@ const config: Config = {
         '260vh': '260vh',
       },
       minHeight: {
+        '85vh': '85vh',
         '78vh': '78vh',
         '58vh': '58vh',
         '480px': '480px',

@@ -1,7 +1,7 @@
-import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { hotelConfig } from '@/hotel.config';
+import { pageMetadata } from '@/lib/seo';
 import { sanityFetch } from '@/lib/sanity';
 import {
   FEATURED_ROOMS_QUERY, EXPERIENCES_QUERY, OFFERS_QUERY, TESTIMONIALS_QUERY, JOURNAL_QUERY,
@@ -23,10 +23,13 @@ import GlenMoment from '@/components/GlenMoment';
 import StatsBand from '@/components/StatsBand';
 import { BookButton } from '@/components/BookingModal';
 
-export const metadata: Metadata = {
-  title: `${hotelConfig.name} — ${hotelConfig.tagline}`,
+export const metadata = pageMetadata({
+  title: {
+    absolute: `${hotelConfig.name} — ${hotelConfig.seo.descriptor} in ${hotelConfig.seo.locationLabel}`,
+  },
   description: hotelConfig.description,
-};
+  path: '/',
+});
 
 export default async function HomePage() {
   const [rooms, experiences, offers, testimonials, journalPosts] = await Promise.all([
@@ -117,7 +120,7 @@ export default async function HomePage() {
 
       {/* Dining pull-quote */}
       <section className="relative bg-forest">
-        <Image src={IMG.dining1} alt="The dining room at night" fill sizes="100vw" className="object-cover opacity-25" />
+        <Image src={IMG.dining1} alt="" fill sizes="100vw" className="object-cover opacity-25" />
         <div className="relative mx-auto max-w-4xl px-6 py-28 text-center lg:py-40">
           <FadeUp>
             <SectionLabel variant="parchment">The dining room</SectionLabel>
@@ -229,7 +232,7 @@ export default async function HomePage() {
                 Check availability
               </BookButton>
               <a
-                href={`tel:${hotelConfig.contact.phone.replace(/[^+\d]/g, '')}`}
+                href={`tel:${hotelConfig.contact.phoneHref}`}
                 className="w-64 rounded-ctrl border border-parchment/60 px-8 py-4 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-parchment hover:text-forest sm:w-auto"
               >
                 {hotelConfig.contact.phone}

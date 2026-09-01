@@ -1,16 +1,17 @@
-import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { hotelConfig } from '@/hotel.config';
+import { pageMetadata } from '@/lib/seo';
 import { voucherTypes, IMG } from '@/lib/data';
 import PageHero from '@/components/PageHero';
 import SectionLabel from '@/components/SectionLabel';
 import { FadeUp, StaggerGrid, StaggerItem } from '@/components/Motion';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Gift Vouchers',
   description: `Gift vouchers for ${hotelConfig.name} — stays, dinners and open amounts, posted properly or delivered by email.`,
-};
+  path: '/gift-vouchers',
+});
 
 export default function GiftVouchersPage() {
   return (
@@ -57,7 +58,7 @@ export default function GiftVouchersPage() {
         <FadeUp className="mt-16 border-t border-ink/10 pt-10 text-center">
           <p className="font-body text-sm text-ink/70">
             Prefer to order by phone? Call{' '}
-            <a href={`tel:${hotelConfig.contact.phone.replace(/[^+\d]/g, '')}`} className="text-forest underline decoration-gold underline-offset-4">
+            <a href={`tel:${hotelConfig.contact.phoneHref}`} className="text-forest underline decoration-gold underline-offset-4">
               {hotelConfig.contact.phone}
             </a>{' '}
             — vouchers ordered before 2pm catch the day’s post.

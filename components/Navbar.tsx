@@ -86,15 +86,16 @@ export default function Navbar() {
               ) : (
                 <button
                   type="button"
+                  aria-haspopup="true"
                   className={`font-body text-2xs uppercase tracking-25 transition-colors ${
-                    isActive(item) ? 'text-gold' : 'text-parchment group-hover:text-gold'
+                    isActive(item) ? 'text-gold' : 'text-parchment group-focus-within:text-gold group-hover:text-gold'
                   }`}
                 >
                   {item.label}
                 </button>
               )}
               {item.children && (
-                <div className="invisible absolute left-1/2 top-full -translate-x-1/2 pt-5 opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100">
+                <div className="invisible absolute left-1/2 top-full -translate-x-1/2 pt-5 opacity-0 transition-all duration-300 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
                   <ul className="w-56 border-t-2 border-gold bg-forest py-3">
                     {item.children.map((child) => (
                       <li key={child.href}>
@@ -117,7 +118,7 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-6 lg:flex">
           <a
-            href={`tel:${hotelConfig.contact.phone.replace(/[^+\d]/g, '')}`}
+            href={`tel:${hotelConfig.contact.phoneHref}`}
             className="hidden font-body text-xs text-parchment/80 transition-colors hover:text-gold xl:block"
           >
             {hotelConfig.contact.phone}
@@ -125,10 +126,10 @@ export default function Navbar() {
           <BookButton className="rounded-ctrl border border-gold bg-gold px-6 py-3 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-transparent hover:text-gold" />
         </div>
 
-        {/* Mobile toggle */}
+        {/* Mobile toggle — 48×48 hit area (WCAG 2.5.8) */}
         <button
           type="button"
-          className="flex flex-col gap-7px p-2 lg:hidden"
+          className="-mr-2 flex size-12 flex-col items-center justify-center gap-7px lg:hidden"
           onClick={() => setMobileOpen((v) => !v)}
           aria-expanded={mobileOpen}
           aria-label="Toggle menu"

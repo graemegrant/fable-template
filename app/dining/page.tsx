@@ -1,16 +1,17 @@
-import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { hotelConfig } from '@/hotel.config';
+import { pageMetadata } from '@/lib/seo';
 import { IMG, menus, team } from '@/lib/data';
 import PageHero from '@/components/PageHero';
 import SectionLabel from '@/components/SectionLabel';
 import { FadeUp, StaggerGrid, StaggerItem } from '@/components/Motion';
 
-export const metadata: Metadata = {
-  title: 'Dining',
-  description: `The dining room at ${hotelConfig.name}: estate cooking by head chef Calum Ross — the river, the hill and the walled garden, in season and in order.`,
-};
+export const metadata = pageMetadata({
+  title: `Dining & Restaurant in ${hotelConfig.location.locality}`,
+  description: `The dining room at ${hotelConfig.name}, ${hotelConfig.location.locality}: estate cooking by head chef Calum Ross — the river, the hill and the walled garden, in season and in order.`,
+  path: '/dining',
+});
 
 const chef = team.find((t) => t.role === 'Head Chef');
 
@@ -18,7 +19,7 @@ export default function DiningPage() {
   return (
     <>
       <PageHero
-        eyebrow="The dining room"
+        eyebrow={`The dining room · ${hotelConfig.location.locality}`}
         title="Cooking that answers to the glen"
         subtitle="One dining room, thirty covers, a kitchen fed by the river, the hill and a walled garden planted in 1847."
         image={IMG.dining1}

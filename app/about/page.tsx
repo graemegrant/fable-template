@@ -1,6 +1,6 @@
-import type { Metadata } from 'next';
 import Image from 'next/image';
 import { hotelConfig } from '@/hotel.config';
+import { pageMetadata } from '@/lib/seo';
 import { sanityFetch } from '@/lib/sanity';
 import { TEAM_QUERY } from '@/lib/queries';
 import { team as fallbackTeam, pressMentions, IMG } from '@/lib/data';
@@ -10,10 +10,11 @@ import TeamCard from '@/components/TeamCard';
 import SectionLabel from '@/components/SectionLabel';
 import { FadeUp, StaggerGrid, StaggerItem } from '@/components/Motion';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Our Story',
   description: `The history, people and quiet convictions of ${hotelConfig.name} — a Victorian shooting lodge remade as Highland Perthshire’s most particular small hotel.`,
-};
+  path: '/about',
+});
 
 export default async function AboutPage() {
   const team = await sanityFetch<TeamMember[]>(TEAM_QUERY, {}, fallbackTeam);

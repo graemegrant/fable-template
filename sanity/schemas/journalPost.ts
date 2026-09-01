@@ -23,6 +23,13 @@ export default defineType({
       ],
     }),
     defineField({ name: 'heroImage', type: 'image', options: { hotspot: true } }),
+    defineField({
+      name: 'imageAlt',
+      title: 'Hero image alt text',
+      type: 'string',
+      description:
+        'Describes the hero image for search engines and screen readers. Leave blank to fall back to the post title.',
+    }),
     defineField({ name: 'featured', title: 'Feature at top of Journal', type: 'boolean', initialValue: false }),
   ],
   preview: { select: { title: 'title', subtitle: 'category', media: 'heroImage' } },

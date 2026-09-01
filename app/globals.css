@@ -2,10 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --font-heading: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
-  --font-body: 'Jost', 'Century Gothic', Verdana, sans-serif;
-}
+/* --font-heading / --font-body are provided by next/font (see app/layout.tsx),
+   scoped to the <html> element via its generated className. */
 
 @layer base {
   html {

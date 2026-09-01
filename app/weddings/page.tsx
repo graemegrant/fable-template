@@ -1,16 +1,17 @@
-import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { hotelConfig } from '@/hotel.config';
+import { pageMetadata } from '@/lib/seo';
 import { IMG } from '@/lib/data';
 import PageHero from '@/components/PageHero';
 import SectionLabel from '@/components/SectionLabel';
 import { FadeUp, StaggerGrid, StaggerItem } from '@/components/Motion';
 
-export const metadata: Metadata = {
-  title: 'Weddings',
+export const metadata = pageMetadata({
+  title: `Weddings — ${hotelConfig.location.regionLabel}`,
   description: `Weddings at ${hotelConfig.name}: the whole house, the south lawn and four hundred acres, for one wedding at a time.`,
-};
+  path: '/weddings',
+});
 
 const venues = [
   {
@@ -37,7 +38,7 @@ export default function WeddingsPage() {
   return (
     <>
       <PageHero
-        eyebrow="Weddings"
+        eyebrow={`Weddings · ${hotelConfig.location.regionLabel}`}
         title="One wedding. The whole house."
         subtitle="We host a handful of weddings a year, never more than one at a time, and never two the same."
         image={IMG.wedding1}

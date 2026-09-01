@@ -89,8 +89,30 @@ See `SANITY-SCHEMA.md` for the six content collections.
 - `MobileBookBar` (sticky mobile booking bar) stays on all client sites.
 - `TrustStrip` items (from `hotel.config.ts`) stay above the fold on the
   homepage.
-- JSON-LD (`LodgingBusiness`, `HotelRoom`, `BlogPosting`) and
+- JSON-LD (`Hotel`, `HotelRoom`, `BlogPosting`, `BreadcrumbList`) and
   `sitemap.ts`/`robots.ts` must not be removed or broken by a page change.
+
+- CTA label is always "Check availability," never "Book now" — opens in
+  the same tab, not a new tab.
+
+- "Best rate guaranteed" language (or equivalent, in the site's own
+  voice) must appear in at least four places across the site — this is
+  the single most commonly under-delivered CRO detail in past builds.
+
+- Only one primary CTA per viewport/section — don't stack competing
+  calls to action.
+
+- Animation performance budget: heavy motion measurably hurts mobile
+  conversion — keep hero/scroll animations light on mobile viewports.
+  (`Motion.tsx` already suppresses scroll/entrance reveals on phone-width
+  viewports and under `prefers-reduced-motion`.)
+
+- SEO is part of the deliverable, not an afterthought. The template ships
+  SEO-complete; per-client SEO work and the `/seo audit` workflow are
+  documented in `SEO-PROCESS.md`. Structured data uses `@type: "Hotel"`
+  (+ `HotelRoom`, `BlogPosting`, `BreadcrumbList`) — don't downgrade it.
+  Never add `FAQPage` schema (retired by Google) or a fabricated
+  `aggregateRating`.
 
 ## 6. Local Experiences
 

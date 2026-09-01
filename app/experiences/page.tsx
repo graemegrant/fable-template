@@ -1,5 +1,5 @@
-import type { Metadata } from 'next';
 import { hotelConfig } from '@/hotel.config';
+import { pageMetadata } from '@/lib/seo';
 import { sanityFetch } from '@/lib/sanity';
 import { EXPERIENCES_QUERY } from '@/lib/queries';
 import { experiences as fallbackExperiences, IMG } from '@/lib/data';
@@ -9,10 +9,11 @@ import ExperienceCard from '@/components/ExperienceCard';
 import DirectBookingBanner from '@/components/DirectBookingBanner';
 import { FadeUp, StaggerGrid, StaggerItem } from '@/components/Motion';
 
-export const metadata: Metadata = {
-  title: 'Experiences',
-  description: `Whisky, water, hill and hawk — the estate experiences at ${hotelConfig.name}, all arranged by the house, all starting at the front door.`,
-};
+export const metadata = pageMetadata({
+  title: `Things to Do in ${hotelConfig.seo.locationLabel}`,
+  description: `Whisky, water, hill and hawk — guest experiences at ${hotelConfig.name} in ${hotelConfig.location.locality}, all arranged by the house, all starting at the front door.`,
+  path: '/experiences',
+});
 
 export default async function ExperiencesPage() {
   const experiences = await sanityFetch<Experience[]>(EXPERIENCES_QUERY, {}, fallbackExperiences);
@@ -20,7 +21,7 @@ export default async function ExperiencesPage() {
   return (
     <>
       <PageHero
-        eyebrow="The estate"
+        eyebrow={`Experiences · ${hotelConfig.location.locality}`}
         title="Days, properly spent"
         subtitle="Everything below starts at the front door and is arranged by the house. Bring boots; we have the rest."
         image={IMG.walk}

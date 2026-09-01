@@ -9,7 +9,7 @@ export default function ExperienceCard({ experience }: { experience: Experience 
       <div className="relative aspect-tall overflow-hidden rounded-img bg-warmgrey">
         <Image
           src={imgSrc(experience.heroImage, 1000)}
-          alt={experience.name}
+          alt={experience.imageAlt ?? `${experience.name} — ${experience.category}`}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="object-cover transition-transform duration-1200 ease-out-expo group-hover:scale-104"

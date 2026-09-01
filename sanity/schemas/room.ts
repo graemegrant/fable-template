@@ -14,6 +14,13 @@ export default defineType({
     }),
     defineField({ name: 'description', type: 'text', rows: 5 }),
     defineField({ name: 'heroImage', type: 'image', options: { hotspot: true } }),
+    defineField({
+      name: 'imageAlt',
+      title: 'Hero image alt text',
+      type: 'string',
+      description:
+        'Describes the hero image for search engines and screen readers. Leave blank to auto-generate from the room name and view.',
+    }),
     defineField({ name: 'gallery', type: 'array', of: [{ type: 'image', options: { hotspot: true } }] }),
     defineField({ name: 'rate', title: 'Rate from (£/night)', type: 'number' }),
     defineField({ name: 'sqm', title: 'Size (sqm)', type: 'number' }),

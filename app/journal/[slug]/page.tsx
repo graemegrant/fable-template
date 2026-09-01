@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { hotelConfig } from '@/hotel.config';
 import { sanityFetch, imgSrc } from '@/lib/sanity';
+import { pageMetadata } from '@/lib/seo';
+import { breadcrumbList } from '@/lib/schema';
 import { JOURNAL_BY_SLUG_QUERY, FEATURED_ROOMS_QUERY } from '@/lib/queries';
 import { journalPosts as fallbackPosts, rooms as fallbackRooms } from '@/lib/data';
 import type { JournalPost, Room } from '@/lib/types';
@@ -12,15 +14,30 @@ import PortableText from '@/components/PortableText';
 import SectionLabel from '@/components/SectionLabel';
 import { FadeUp } from '@/components/Motion';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 600;
+export function generateStaticParams() {
+  return fallbackPosts.map((p) => ({ slug: p.slug }));
+}
 
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = fallbackPosts.find((p) => p.slug === slug);
+  const post = await sanityFetch<JournalPost | null>(
+    JOURNAL_BY_SLUG_QUERY,
+    { slug },
+    fallbackPosts.find((p) => p.slug === slug) ?? null,
+  );
   if (!post) return { title: 'Journal' };
-  return { title: post.title, description: post.excerpt };
+  return pageMetadata({
+    title: post.title,
+    description: post.excerpt,
+    path: `/journal/${post.slug}`,
+    image: `/journal/${post.slug}/opengraph-image`,
+    type: 'article',
+    publishedTime: post.publishedAt,
+    modifiedTime: post.publishedAt,
+  });
 }
 
 function formatDate(d?: string) {
@@ -47,16 +64,34 @@ export default async function JournalPostPage({ params }: Props) {
     '@type': 'BlogPosting',
     headline: post.title,
     description: post.excerpt,
+    image: [imgSrc(post.heroImage, 1200)],
     datePublished: post.publishedAt,
-    author: { '@type': 'Person', name: post.author },
-    publisher: { '@type': 'Organization', name: hotelConfig.name, url: hotelConfig.siteUrl },
-    mainEntityOfPage: `${hotelConfig.siteUrl}/journal/${post.slug}`,
+    dateModified: post.publishedAt,
+    author: { '@type': 'Person', name: post.author, url: `${hotelConfig.siteUrl}/about` },
+    publisher: {
+      '@type': 'Organization',
+      name: hotelConfig.name,
+      url: hotelConfig.siteUrl,
+      logo: { '@type': 'ImageObject', url: `${hotelConfig.siteUrl}/icon` },
+    },
+    url: `${hotelConfig.siteUrl}/journal/${post.slug}`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${hotelConfig.siteUrl}/journal/${post.slug}`,
+    },
   };
+
+  const breadcrumbs = breadcrumbList([
+    ['Home', '/'],
+    ['Journal', '/journal'],
+    [post.title, `/journal/${post.slug}`],
+  ]);
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }} />
-      <PageHero eyebrow={post.category} title={post.title} subtitle={`${post.author} · ${formatDate(post.publishedAt)} · ${post.readingTime ?? ''}`} image={post.heroImage} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
+      <PageHero eyebrow={post.category} title={post.title} subtitle={`${post.author} · ${formatDate(post.publishedAt)} · ${post.readingTime ?? ''}`} image={post.heroImage} imageAlt={post.imageAlt} />
 
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
         <div className="grid gap-16 lg:grid-cols-1fr-340">
