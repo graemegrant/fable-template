@@ -7,6 +7,12 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **SEO audit follow-up** (`/seo audit` against the live demo). `KenBurnsHero`
+  reserves space for the cookie banner on mobile so the hero CTAs aren't
+  covered before consent is decided; `KenBurnsHero`/`PageHero` hero images
+  get `fetchPriority="high"` (Next 15 doesn't derive it from `priority`
+  automatically); `next.config.ts` adds a `Content-Security-Policy`, scoped
+  off `/studio` so Sanity Studio's eval/worker/blob usage keeps working.
 - **SEO hardening** (ported from the Selkie Bay dry run — `/seo audit`
   codebase + live passes). Adds: `lib/seo.ts` `pageMetadata()` for
   per-route canonical + OG + Twitter; CMS-aware `generateMetadata` and

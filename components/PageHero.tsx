@@ -26,6 +26,7 @@ export default function PageHero({
         alt={imageAlt ?? title}
         fill
         priority
+        fetchPriority="high"
         quality={65}
         sizes="100vw"
         className="object-cover opacity-60"
