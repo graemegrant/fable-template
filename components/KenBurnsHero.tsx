@@ -6,9 +6,16 @@ import { hotelConfig } from '@/hotel.config';
 import { HeroEntrance } from './Motion';
 import { BookButton } from './BookingModal';
 import { imgSrc } from '@/lib/sanity';
+import { useCookieConsent } from '@/lib/useCookieConsent';
 
 /** Full-screen homepage hero with a slow Ken Burns drift and staged text entrance. */
 export default function KenBurnsHero({ image }: { image: unknown }) {
+  // While the cookie banner is still up it can cover the lower CTA on short
+  // mobile viewports (AGENTS.md §5 — BookButton must stay reachable), so the
+  // centered content reserves the same height the banner occupies elsewhere
+  // (tailwind.config.ts `cookiebar` token) until the visitor makes a choice.
+  const consentDecided = useCookieConsent();
+
   return (
     <section className="relative flex min-h-85vh items-center justify-center overflow-hidden bg-forest">
       <div className="animate-kenburns absolute inset-0">
@@ -17,6 +24,7 @@ export default function KenBurnsHero({ image }: { image: unknown }) {
           alt={`${hotelConfig.name}, ${hotelConfig.location.regionLabel}`}
           fill
           priority
+          fetchPriority="high"
           quality={68}
           sizes="100vw"
           className="object-cover"
@@ -32,7 +40,7 @@ export default function KenBurnsHero({ image }: { image: unknown }) {
         }}
       />
 
-      <div className="relative px-6 text-center">
+      <div className={`relative px-6 text-center ${consentDecided ? '' : 'pb-cookiebar'}`}>
         <HeroEntrance delay={0.2}>
           <p className="font-body text-2xs uppercase tracking-40 text-goldbright">
             {hotelConfig.seo.descriptor} · {hotelConfig.seo.locationLabel}

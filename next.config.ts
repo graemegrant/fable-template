@@ -17,6 +17,28 @@ const securityHeaders = [
   },
 ];
 
+/**
+ * Content-Security-Policy for the public site only — deliberately excluded
+ * from /studio (source pattern below), since Sanity Studio needs eval,
+ * workers and blob: URLs to run and a locked-down CSP breaks it outright.
+ * 'unsafe-eval' is dev-only (Next's HMR needs it); production never gets it.
+ * Sanity project ID is per-client (hotel.config.ts), so connect-src/img-src
+ * use wildcard subdomains rather than hardcoding one client's host.
+ */
+const isDev = process.env.NODE_ENV !== 'production';
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval' " : ''}https://www.googletagmanager.com`,
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: https://images.unsplash.com https://cdn.sanity.io",
+  "font-src 'self' data:",
+  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.api.sanity.io https://*.apicdn.sanity.io",
+  "frame-src https://www.google.com",
+  "frame-ancestors 'self'",
+  "base-uri 'self'",
+  "form-action 'self'",
+].join('; ');
+
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
@@ -25,7 +47,13 @@ const nextConfig: NextConfig = {
     ],
   },
   async headers() {
-    return [{ source: '/:path*', headers: securityHeaders }];
+    return [
+      { source: '/:path*', headers: securityHeaders },
+      {
+        source: '/((?!studio).*)',
+        headers: [{ key: 'Content-Security-Policy', value: contentSecurityPolicy }],
+      },
+    ];
   },
   // Guardrail: ESLint (including the token rules in eslint.config.mjs)
   // now runs during `next build`. It was previously set to
