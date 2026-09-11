@@ -1,38 +1,39 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { Link, usePathname } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
 import { BookButton } from './BookingModal';
 
-type NavChild = { label: string; href: string };
-type NavItem = { label: string; href?: string; children?: NavChild[] };
+type NavChild = { labelKey: string; href: string };
+type NavItem = { labelKey: string; href?: string; children?: NavChild[] };
 
 const NAV: NavItem[] = [
   {
-    label: 'Stay',
+    labelKey: 'stay',
     children: [
-      { label: 'Rooms & Suites', href: '/rooms' },
-      { label: 'Special Offers', href: '/offers' },
+      { labelKey: 'roomsAndSuites', href: '/rooms' },
+      { labelKey: 'specialOffers', href: '/offers' },
     ],
   },
-  { label: 'Dining', href: '/dining' },
-  { label: 'Experiences', href: '/experiences' },
-  { label: 'Weddings', href: '/weddings' },
-  { label: 'Gift Vouchers', href: '/gift-vouchers' },
+  { labelKey: 'dining', href: '/dining' },
+  { labelKey: 'experiences', href: '/experiences' },
+  { labelKey: 'weddings', href: '/weddings' },
+  { labelKey: 'giftVouchers', href: '/gift-vouchers' },
   {
-    label: 'Discover',
+    labelKey: 'discover',
     children: [
-      { label: 'Journal', href: '/journal' },
-      { label: 'Our Story', href: '/about' },
-      { label: 'Location', href: '/location' },
-      { label: 'Contact', href: '/contact' },
+      { labelKey: 'journal', href: '/journal' },
+      { labelKey: 'ourStory', href: '/about' },
+      { labelKey: 'location', href: '/location' },
+      { labelKey: 'contact', href: '/contact' },
     ],
   },
 ];
 
 export default function Navbar() {
+  const t = useTranslations('nav');
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -73,7 +74,7 @@ export default function Navbar() {
         {/* Desktop nav */}
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Main">
           {NAV.map((item) => (
-            <div key={item.label} className="group relative">
+            <div key={item.labelKey} className="group relative">
               {item.href ? (
                 <Link
                   href={item.href}
@@ -81,7 +82,7 @@ export default function Navbar() {
                     isActive(item) ? 'text-gold' : 'text-parchment hover:text-gold'
                   }`}
                 >
-                  {item.label}
+                  {t(item.labelKey)}
                 </Link>
               ) : (
                 <button
@@ -91,7 +92,7 @@ export default function Navbar() {
                     isActive(item) ? 'text-gold' : 'text-parchment group-focus-within:text-gold group-hover:text-gold'
                   }`}
                 >
-                  {item.label}
+                  {t(item.labelKey)}
                 </button>
               )}
               {item.children && (
@@ -105,7 +106,7 @@ export default function Navbar() {
                             pathname.startsWith(child.href) ? 'text-gold' : 'text-parchment/85 hover:text-gold'
                           }`}
                         >
-                          {child.label}
+                          {t(child.labelKey)}
                         </Link>
                       </li>
                     ))}
@@ -132,7 +133,7 @@ export default function Navbar() {
           className="-mr-2 flex size-12 flex-col items-center justify-center gap-7px lg:hidden"
           onClick={() => setMobileOpen((v) => !v)}
           aria-expanded={mobileOpen}
-          aria-label="Toggle menu"
+          aria-label={t('toggleMenu')}
         >
           <span className={`block h-px w-7 bg-parchment transition-transform duration-300 ${mobileOpen ? 'translate-y-2 rotate-45' : ''}`} />
           <span className={`block h-px w-7 bg-parchment transition-opacity duration-300 ${mobileOpen ? 'opacity-0' : ''}`} />
@@ -150,33 +151,33 @@ export default function Navbar() {
           {NAV.map((item) =>
             item.href ? (
               <Link
-                key={item.label}
+                key={item.labelKey}
                 href={item.href}
                 className="block border-b border-parchment/10 py-4 font-body text-xs uppercase tracking-25 text-parchment"
               >
-                {item.label}
+                {t(item.labelKey)}
               </Link>
             ) : (
-              <div key={item.label} className="border-b border-parchment/10">
+              <div key={item.labelKey} className="border-b border-parchment/10">
                 <button
                   type="button"
                   className="flex w-full items-center justify-between py-4 font-body text-xs uppercase tracking-25 text-parchment"
-                  onClick={() => setOpenAccordion(openAccordion === item.label ? null : item.label)}
-                  aria-expanded={openAccordion === item.label}
+                  onClick={() => setOpenAccordion(openAccordion === item.labelKey ? null : item.labelKey)}
+                  aria-expanded={openAccordion === item.labelKey}
                 >
-                  {item.label}
-                  <span className={`transition-transform duration-300 ${openAccordion === item.label ? 'rotate-45' : ''}`}>+</span>
+                  {t(item.labelKey)}
+                  <span className={`transition-transform duration-300 ${openAccordion === item.labelKey ? 'rotate-45' : ''}`}>+</span>
                 </button>
                 <div
                   className={`overflow-hidden transition-max-height duration-500 ease-out-expo ${
-                    openAccordion === item.label ? 'max-h-64' : 'max-h-0'
+                    openAccordion === item.labelKey ? 'max-h-64' : 'max-h-0'
                   }`}
                 >
                   <ul className="space-y-3 pb-5 pl-4">
                     {item.children?.map((child) => (
                       <li key={child.href}>
                         <Link href={child.href} className="font-body text-xs uppercase tracking-20 text-parchment/70">
-                          {child.label}
+                          {t(child.labelKey)}
                         </Link>
                       </li>
                     ))}

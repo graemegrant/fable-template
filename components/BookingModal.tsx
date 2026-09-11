@@ -8,8 +8,11 @@
 import {
   createContext, useCallback, useContext, useEffect, useState, type ReactNode,
 } from 'react';
-import { useRouter } from 'next/navigation';
+import { useTranslations, useLocale } from 'next-intl';
+import { useRouter } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
+import { pickLocale } from '@/lib/resolveLocale';
+import type { Locale } from '@/lib/locales';
 import { ModalEntrance, AnimatePresence, motion } from './Motion';
 
 const BookingContext = createContext<{ open: (roomHint?: string) => void; close: () => void }>({
@@ -31,9 +34,10 @@ export function BookButton({
   roomHint?: string;
 }) {
   const { open } = useBooking();
+  const t = useTranslations('common');
   return (
     <button type="button" onClick={() => open(roomHint)} className={className}>
-      {children ?? 'Check availability'}
+      {children ?? t('checkAvailability')}
     </button>
   );
 }
@@ -46,6 +50,9 @@ function todayPlus(days: number) {
 
 function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHint?: string }) {
   const router = useRouter();
+  const t = useTranslations('booking');
+  const tCommon = useTranslations('common');
+  const locale = useLocale() as Locale;
   const [arrival, setArrival] = useState(todayPlus(7));
   const [departure, setDeparture] = useState(todayPlus(9));
   const [guests, setGuests] = useState(2);
@@ -92,24 +99,24 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
       onClick={onClose}
       role="dialog"
       aria-modal="true"
-      aria-label="Book a stay"
+      aria-label={t('bookAStay')}
     >
       <ModalEntrance className="w-full max-w-lg">
         <div className="bg-parchment p-8 sm:p-10" onClick={(e) => e.stopPropagation()}>
           <div className="flex items-start justify-between">
             <div>
-              <p className="font-body text-2xs uppercase tracking-30 text-gold">Direct booking</p>
-              <h2 className="mt-2 font-heading text-3xl font-medium text-ink">Book a stay</h2>
+              <p className="font-body text-2xs uppercase tracking-30 text-gold">{t('directBooking')}</p>
+              <h2 className="mt-2 font-heading text-3xl font-medium text-ink">{t('bookAStay')}</h2>
               {roomHint && (
                 <p className="mt-1 font-body text-xs text-ink/60">
-                  Enquiring about: <span className="text-forest">{roomHint}</span>
+                  {t('enquiringAbout')} <span className="text-forest">{roomHint}</span>
                 </p>
               )}
             </div>
             <button
               type="button"
               onClick={onClose}
-              aria-label="Close booking"
+              aria-label={t('close')}
               className="font-body text-2xl leading-none text-ink/50 transition-colors hover:text-ink"
             >
               ×
@@ -119,7 +126,7 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
           <form onSubmit={submit} className="mt-8 space-y-5">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="arrival" className={label}>Arrival</label>
+                <label htmlFor="arrival" className={label}>{t('arrival')}</label>
                 <input id="arrival" type="date" required value={arrival} min={todayPlus(0)}
                   onChange={(e) => {
                     const next = e.target.value;
@@ -130,27 +137,27 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
                   }} className={`mt-2 ${field}`} />
               </div>
               <div>
-                <label htmlFor="departure" className={label}>Departure</label>
+                <label htmlFor="departure" className={label}>{t('departure')}</label>
                 <input id="departure" type="date" required value={departure} min={arrival}
                   onChange={(e) => setDeparture(e.target.value)} className={`mt-2 ${field}`} />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="guests" className={label}>Guests</label>
+                <label htmlFor="guests" className={label}>{t('guests')}</label>
                 <select id="guests" value={guests} onChange={(e) => setGuests(Number(e.target.value))}
                   className={`mt-2 ${field}`}>
                   {[1, 2, 3, 4, 5, 6].map((n) => (
-                    <option key={n} value={n}>{n} {n === 1 ? 'guest' : 'guests'}</option>
+                    <option key={n} value={n}>{t('guestCount', { count: n })}</option>
                   ))}
                 </select>
               </div>
               <div>
-                <label htmlFor="rooms" className={label}>Rooms</label>
+                <label htmlFor="rooms" className={label}>{t('rooms')}</label>
                 <select id="rooms" value={roomCount} onChange={(e) => setRoomCount(Number(e.target.value))}
                   className={`mt-2 ${field}`}>
                   {[1, 2, 3].map((n) => (
-                    <option key={n} value={n}>{n} {n === 1 ? 'room' : 'rooms'}</option>
+                    <option key={n} value={n}>{t('roomCount', { count: n })}</option>
                   ))}
                 </select>
               </div>
@@ -159,19 +166,19 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
               type="submit"
               className="w-full rounded-ctrl bg-forest px-8 py-4 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest"
             >
-              Check availability
+              {tCommon('checkAvailability')}
             </button>
           </form>
 
           <ul className="mt-7 space-y-2 border-t border-ink/10 pt-6">
-            {hotelConfig.trustItems.map((item) => (
-              <li key={item} className="flex items-center gap-3 font-body text-xs text-ink/70">
-                <span className="h-px w-4 bg-gold" aria-hidden /> {item}
+            {hotelConfig.trustItems.map((item, i) => (
+              <li key={i} className="flex items-center gap-3 font-body text-xs text-ink/70">
+                <span className="h-px w-4 bg-gold" aria-hidden /> {pickLocale(item, locale)}
               </li>
             ))}
           </ul>
           <p className="mt-5 font-body text-xs text-ink/60">
-            Prefer to talk? Call{' '}
+            {t('preferToTalk')}{' '}
             <a href={`tel:${hotelConfig.contact.phoneHref}`} className="text-forest underline decoration-gold underline-offset-4">
               {hotelConfig.contact.phone}
             </a>

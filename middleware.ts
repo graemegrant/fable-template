@@ -1,12 +1,17 @@
-import { NextResponse, type NextRequest } from 'next/server';
+import createIntlMiddleware from 'next-intl/middleware';
+import type { NextRequest } from 'next/server';
+import { routing } from '@/i18n/routing';
 
 /**
- * Canonical-host guard.
+ * Locale routing (next-intl) composed with the canonical-host noindex
+ * guard. Both concerns share one matcher below — see the comment there
+ * for why /studio and /api are excluded from locale routing entirely.
  *
- * Any deployment served on a host that is NOT the configured production
- * domain (Vercel preview URLs, the raw `<project>.vercel.app` alias, a
- * staging domain) gets `X-Robots-Tag: noindex` so it can never be indexed
- * and compete with / cannibalise the real site.
+ * Canonical-host guard: any deployment served on a host that is NOT the
+ * configured production domain (Vercel preview URLs, the raw
+ * `<project>.vercel.app` alias, a staging domain) gets
+ * `X-Robots-Tag: noindex` so it can never be indexed and compete with /
+ * cannibalise the real site.
  *
  * - No-op until `NEXT_PUBLIC_SITE_URL` is set (an un-configured build keeps
  *   its default indexable behaviour — see NEW-CLIENT-CHECKLIST.md §4).
@@ -26,8 +31,10 @@ const PROD_HOST = (() => {
 const GUARD_ENABLED =
   Boolean(PROD_HOST) && process.env.ALLOW_ALL_HOSTS_INDEXABLE !== 'true';
 
+const intlMiddleware = createIntlMiddleware(routing);
+
 export function middleware(req: NextRequest) {
-  const res = NextResponse.next();
+  const res = intlMiddleware(req);
 
   if (GUARD_ENABLED) {
     const host = req.headers.get('host') ?? '';
@@ -39,6 +46,20 @@ export function middleware(req: NextRequest) {
   return res;
 }
 
+/**
+ * Locale routing only applies to the app/[locale] tree. /studio and /api
+ * stay unprefixed (Sanity Studio, the contact-form API route) — they
+ * never pass through this middleware at all, so they no longer receive
+ * the noindex guard either (intentional: Studio already sets
+ * `robots: noindex` via its own metadata; API routes were never
+ * indexable pages). The extensionless metadata routes (opengraph-image,
+ * icon, apple-icon) also live outside app/[locale] and are excluded by
+ * name; every other extension-bearing path (robots.txt, sitemap.xml,
+ * manifest.webmanifest, llms.txt, static assets) is excluded by the
+ * trailing dot-match.
+ */
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|.*\\.(?:ico|png|svg|txt|xml|webmanifest)$).*)'],
+  matcher: [
+    '/((?!api|studio|_next/static|_next/image|opengraph-image|icon|apple-icon|.*\\..*).*)',
+  ],
 };

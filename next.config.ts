@@ -1,4 +1,7 @@
 import type { NextConfig } from 'next';
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
 /** Baseline security headers applied to every route. Vercel also sets HSTS
  *  on custom domains; declaring it here keeps it correct on any host.
@@ -62,4 +65,4 @@ const nextConfig: NextConfig = {
   // that's exactly the gap AGENTS.md §3 and eslint.config.mjs exist to close.
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

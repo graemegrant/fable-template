@@ -55,6 +55,13 @@ Check `CHANGELOG.md` in the template repo first so you know what a given
 update actually touches before pulling it into a live, revenue-generating
 client site.
 
+Template-level i18n *plumbing* (routing, `lib/resolveLocale.ts`, the
+generated Sanity locale field types, message-file infrastructure) is a
+normal template → client pull like any other fix. A client's actual
+translated *content* — Sanity field values, `messages/{locale}.json`
+overrides, `hotel.config.ts` locale entries — is client-specific and
+must never be cherry-picked back into `fable-template`.
+
 ## 5. Tagging launches
 
 ```bash

@@ -1,5 +1,7 @@
 import { ImageResponse } from 'next/og';
 import { hotelConfig } from '@/hotel.config';
+import { pickLocale } from './resolveLocale';
+import { DEFAULT_LOCALE } from './locales';
 import { palette } from './tokens';
 
 /** Shared renderer for the file-convention Open Graph images
@@ -41,7 +43,7 @@ export function renderOgImage({
             color: palette.goldbright,
           }}
         >
-          {eyebrow ?? `${hotelConfig.seo.descriptor} · ${hotelConfig.seo.locationLabel}`}
+          {eyebrow ?? `${pickLocale(hotelConfig.seo.descriptor, DEFAULT_LOCALE)} · ${pickLocale(hotelConfig.seo.locationLabel, DEFAULT_LOCALE)}`}
         </div>
         <div
           style={{

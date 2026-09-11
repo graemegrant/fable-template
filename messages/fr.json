@@ -1,0 +1,53 @@
+{
+  "common": {
+    "checkAvailability": "Vérifier les disponibilités"
+  },
+  "nav": {
+    "stay": "Séjour",
+    "roomsAndSuites": "Chambres et suites",
+    "specialOffers": "Offres spéciales",
+    "dining": "Restauration",
+    "experiences": "Expériences",
+    "weddings": "Mariages",
+    "giftVouchers": "Chèques-cadeaux",
+    "discover": "Découvrir",
+    "journal": "Journal",
+    "ourStory": "Notre histoire",
+    "location": "Lieu",
+    "locationAndDirections": "Lieu et itinéraire",
+    "contact": "Contact",
+    "toggleMenu": "Ouvrir le menu"
+  },
+  "footer": {
+    "explore": "Explorer",
+    "visit": "Visite",
+    "contactHeading": "Contact",
+    "seasonalLetterHeading": "La lettre saisonnière",
+    "seasonalLetterBody": "Ce que fait le glen, ce que prépare la cuisine, et les offres en avant-première. Quatre lettres par an.",
+    "emailAddressLabel": "Adresse e-mail",
+    "emailPlaceholder": "Votre adresse e-mail",
+    "subscribe": "S’abonner",
+    "subscribed": "Merci — vous êtes sur la liste. Les lettres arrivent chaque saison, jamais plus souvent.",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "rightsReserved": "Tous droits réservés."
+  },
+  "booking": {
+    "directBooking": "Réservation directe",
+    "bookAStay": "Réserver un séjour",
+    "enquiringAbout": "Demande concernant :",
+    "close": "Fermer la réservation",
+    "arrival": "Arrivée",
+    "departure": "Départ",
+    "guests": "Voyageurs",
+    "rooms": "Chambres",
+    "guestCount": "{count, plural, one {# voyageur} other {# voyageurs}}",
+    "roomCount": "{count, plural, one {# chambre} other {# chambres}}",
+    "preferToTalk": "Vous préférez appeler ? Composez le"
+  },
+  "cookies": {
+    "message": "Nous utilisons un nombre limité de cookies pour faire fonctionner le site et, avec votre consentement, pour comprendre comment nos hôtes l’utilisent. Aucune publicité.",
+    "essential": "Essentiels",
+    "acceptAll": "Tout accepter"
+  }
+}

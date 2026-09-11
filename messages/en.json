@@ -1,0 +1,53 @@
+{
+  "common": {
+    "checkAvailability": "Check availability"
+  },
+  "nav": {
+    "stay": "Stay",
+    "roomsAndSuites": "Rooms & Suites",
+    "specialOffers": "Special Offers",
+    "dining": "Dining",
+    "experiences": "Experiences",
+    "weddings": "Weddings",
+    "giftVouchers": "Gift Vouchers",
+    "discover": "Discover",
+    "journal": "Journal",
+    "ourStory": "Our Story",
+    "location": "Location",
+    "locationAndDirections": "Location & Directions",
+    "contact": "Contact",
+    "toggleMenu": "Toggle menu"
+  },
+  "footer": {
+    "explore": "Explore",
+    "visit": "Visit",
+    "contactHeading": "Contact",
+    "seasonalLetterHeading": "The seasonal letter",
+    "seasonalLetterBody": "What the glen is doing, what the kitchen is planning, and first word on offers. Four letters a year.",
+    "emailAddressLabel": "Email address",
+    "emailPlaceholder": "Your email address",
+    "subscribe": "Subscribe",
+    "subscribed": "Thank you — you’re on the list. Letters arrive seasonally, never more.",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "rightsReserved": "All rights reserved."
+  },
+  "booking": {
+    "directBooking": "Direct booking",
+    "bookAStay": "Book a stay",
+    "enquiringAbout": "Enquiring about:",
+    "close": "Close booking",
+    "arrival": "Arrival",
+    "departure": "Departure",
+    "guests": "Guests",
+    "rooms": "Rooms",
+    "guestCount": "{count, plural, one {# guest} other {# guests}}",
+    "roomCount": "{count, plural, one {# room} other {# rooms}}",
+    "preferToTalk": "Prefer to talk? Call"
+  },
+  "cookies": {
+    "message": "We use a small number of cookies to run the site and, with your consent, to understand how guests use it. No advertising.",
+    "essential": "Essential",
+    "acceptAll": "Accept all"
+  }
+}

@@ -1,8 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
+import { useLocale } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
+import { pickLocale } from '@/lib/resolveLocale';
+import type { Locale } from '@/lib/locales';
 import { HeroEntrance } from './Motion';
 import { BookButton } from './BookingModal';
 import { imgSrc } from '@/lib/sanity';
@@ -15,13 +18,14 @@ export default function KenBurnsHero({ image }: { image: unknown }) {
   // centered content reserves the same height the banner occupies elsewhere
   // (tailwind.config.ts `cookiebar` token) until the visitor makes a choice.
   const consentDecided = useCookieConsent();
+  const locale = useLocale() as Locale;
 
   return (
     <section className="relative flex min-h-85vh items-center justify-center overflow-hidden bg-forest">
       <div className="animate-kenburns absolute inset-0">
         <Image
           src={imgSrc(image, 1920)}
-          alt={`${hotelConfig.name}, ${hotelConfig.location.regionLabel}`}
+          alt={`${hotelConfig.name}, ${pickLocale(hotelConfig.location.regionLabel, locale)}`}
           fill
           priority
           fetchPriority="high"
@@ -43,7 +47,7 @@ export default function KenBurnsHero({ image }: { image: unknown }) {
       <div className={`relative px-6 text-center ${consentDecided ? '' : 'pb-cookiebar'}`}>
         <HeroEntrance delay={0.2}>
           <p className="font-body text-2xs uppercase tracking-40 text-goldbright">
-            {hotelConfig.seo.descriptor} · {hotelConfig.seo.locationLabel}
+            {pickLocale(hotelConfig.seo.descriptor, locale)} · {pickLocale(hotelConfig.seo.locationLabel, locale)}
           </p>
         </HeroEntrance>
         <HeroEntrance delay={0.45}>
@@ -53,16 +57,14 @@ export default function KenBurnsHero({ image }: { image: unknown }) {
         </HeroEntrance>
         <HeroEntrance delay={0.7}>
           <p className="mt-6 font-heading text-xl font-medium italic text-parchment/90 md:text-2xl">
-            {hotelConfig.tagline}
+            {pickLocale(hotelConfig.tagline, locale)}
           </p>
         </HeroEntrance>
         <HeroEntrance delay={0.95}>
           {/* One primary CTA (booking, solid) per AGENTS.md §5; rooms is the
               quieter secondary. */}
           <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <BookButton className="w-64 rounded-ctrl bg-gold px-8 py-4 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-parchment sm:w-auto">
-              Check availability
-            </BookButton>
+            <BookButton className="w-64 rounded-ctrl bg-gold px-8 py-4 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-parchment sm:w-auto" />
             <Link
               href="/rooms"
               className="w-64 rounded-ctrl border border-parchment/60 px-8 py-4 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-parchment hover:text-forest sm:w-auto"

@@ -7,6 +7,26 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Multilingual (i18n) support**, template-wide, configurable per client
+  via `lib/locales.ts` (default demo set: `en`/`fr`/`de`). Adds:
+  `next-intl` locale routing (`localePrefix: 'always'` — every URL is
+  locale-prefixed, e.g. `/en/rooms`); `app/` restructured to
+  `app/[locale]/...` (`/studio` and `/api` deliberately excluded);
+  `middleware.ts` composes locale routing with the existing
+  canonical-host noindex guard; field-level Sanity i18n via generated
+  `localeString`/`localeText`/`localeBlockContent` object types
+  (`sanity/schemas/objects/locale-fields.ts`) across all 6 content
+  schemas; `lib/resolveLocale.ts` `pickLocale()` — the shared fallback
+  mechanism so any untranslated field/document/UI message falls back to
+  the default locale rather than rendering blank; `lib/data.ts` and
+  `hotel.config.ts` translatable fields restructured to the
+  `LocaleField` shape; `messages/{locale}.json` for UI chrome (nav,
+  footer, booking modal, cookie banner) with real EN/FR/DE translations;
+  `lib/seo.ts` `pageMetadata()` and `app/sitemap.ts` emit full
+  `hreflang`/`alternates.languages` + `x-default` per page; JSON-LD
+  gains `inLanguage`. New `AGENTS.md` §9 documents the hard rule: never
+  fabricate translated marketing/editorial prose, only UI-chrome strings
+  are translated directly in the template.
 - **SEO audit follow-up** (`/seo audit` against the live demo). `KenBurnsHero`
   reserves space for the cookie banner on mobile so the hero CTAs aren't
   covered before consent is decided; `KenBurnsHero`/`PageHero` hero images

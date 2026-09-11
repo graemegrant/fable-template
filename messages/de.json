@@ -1,0 +1,53 @@
+{
+  "common": {
+    "checkAvailability": "Verfügbarkeit prüfen"
+  },
+  "nav": {
+    "stay": "Aufenthalt",
+    "roomsAndSuites": "Zimmer & Suiten",
+    "specialOffers": "Sonderangebote",
+    "dining": "Restaurant",
+    "experiences": "Erlebnisse",
+    "weddings": "Hochzeiten",
+    "giftVouchers": "Geschenkgutscheine",
+    "discover": "Entdecken",
+    "journal": "Journal",
+    "ourStory": "Unsere Geschichte",
+    "location": "Lage",
+    "locationAndDirections": "Lage & Anfahrt",
+    "contact": "Kontakt",
+    "toggleMenu": "Menü öffnen"
+  },
+  "footer": {
+    "explore": "Entdecken",
+    "visit": "Besuch",
+    "contactHeading": "Kontakt",
+    "seasonalLetterHeading": "Der saisonale Brief",
+    "seasonalLetterBody": "Was im Glen gerade passiert, was die Küche plant, und Angebote als Erste erfahren. Vier Briefe im Jahr.",
+    "emailAddressLabel": "E-Mail-Adresse",
+    "emailPlaceholder": "Ihre E-Mail-Adresse",
+    "subscribe": "Abonnieren",
+    "subscribed": "Danke — Sie stehen auf der Liste. Die Briefe kommen saisonal, nie öfter.",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "rightsReserved": "Alle Rechte vorbehalten."
+  },
+  "booking": {
+    "directBooking": "Direktbuchung",
+    "bookAStay": "Aufenthalt buchen",
+    "enquiringAbout": "Anfrage zu:",
+    "close": "Buchung schließen",
+    "arrival": "Anreise",
+    "departure": "Abreise",
+    "guests": "Gäste",
+    "rooms": "Zimmer",
+    "guestCount": "{count, plural, one {# Gast} other {# Gäste}}",
+    "roomCount": "{count, plural, one {# Zimmer} other {# Zimmer}}",
+    "preferToTalk": "Lieber telefonisch? Rufen Sie an unter"
+  },
+  "cookies": {
+    "message": "Wir verwenden eine kleine Zahl an Cookies, um die Website zu betreiben, und, mit Ihrer Zustimmung, um zu verstehen, wie Gäste sie nutzen. Keine Werbung.",
+    "essential": "Nur essenzielle",
+    "acceptAll": "Alle akzeptieren"
+  }
+}

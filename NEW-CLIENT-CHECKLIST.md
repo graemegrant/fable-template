@@ -22,12 +22,18 @@ Start-to-launch checklist for a new client build. Works alongside
 - [ ] Re-skin the seven tokens in `lib/tokens.ts` (not `tailwind.config.ts` —
       it now reads from there, and so does OG-image generation)
 - [ ] Copy `CLIENT-ONBOARDING-TEMPLATE.md` to `/docs/clients/[hotel-slug].md`, fill it in
+- [ ] Set `lib/locales.ts` to this client's locale set; rewrite
+      `hotel.config.ts`'s translatable (`LocaleField`) fields for each
+      configured locale (AGENTS.md §9)
 
 ## 3. CMS
 - [ ] Create client's Sanity project, set env vars
 - [ ] Confirm app still runs in static-fallback mode if Sanity vars are ever blank
 - [ ] Populate all six collections (SANITY-SCHEMA.md) with real content
 - [ ] Local Experiences content reflects real regional partnerships, not placeholder filler
+- [ ] Confirm editors have filled in at least the default-locale
+      sub-field on every translatable Sanity field — Studio validation
+      warns but doesn't block publish
 
 ## 4. Booking + email
 - [ ] Set `NEXT_PUBLIC_BOOKING_ENGINE_URL` to the client's real booking engine
@@ -79,6 +85,8 @@ Start-to-launch checklist for a new client build. Works alongside
       and `checkinTime` is ISO (`"15:00:00"`, not `"3pm"`)
 - [ ] `/sitemap.xml`, `/robots.txt`, `/llms.txt`, `/opengraph-image` all
       return 200 on the live host
+- [ ] Verify `hreflang` alternates + `x-default` in view-source on all
+      configured locales, not just the default (AGENTS.md §9)
 - [ ] Non-production hosts serve `X-Robots-Tag: noindex` (the
       `middleware.ts` canonical-host guard — automatic once
       `NEXT_PUBLIC_SITE_URL` is set)
