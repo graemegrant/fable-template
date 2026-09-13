@@ -6,7 +6,7 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({ name: 'guestName', type: 'string', validation: (r) => r.required() }),
-    defineField({ name: 'quote', type: 'text', rows: 4, validation: (r) => r.required() }),
+    defineField({ name: 'quote', type: 'localeText', validation: (r) => r.required() }),
     defineField({ name: 'rating', type: 'number', validation: (r) => r.min(1).max(5) }),
     defineField({ name: 'roomStayed', type: 'string' }),
     defineField({ name: 'date', type: 'date' }),

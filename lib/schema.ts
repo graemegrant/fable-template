@@ -1,6 +1,8 @@
 import { hotelConfig } from '@/hotel.config';
 import { imgSrc } from '@/lib/sanity';
 import { IMG, testimonials } from '@/lib/data';
+import { bcp47For, DEFAULT_LOCALE, type Locale } from '@/lib/locales';
+import { pickLocale } from '@/lib/resolveLocale';
 
 /** Stable node id for the hotel entity — referenced from HotelRoom,
  *  BreadcrumbList and page-level blocks so everything resolves to one place. */
@@ -10,16 +12,17 @@ export const HOTEL_ID = `${hotelConfig.siteUrl}/#hotel`;
  * The primary business entity. `@type: "Hotel"` (a LodgingBusiness subtype)
  * is Google's preferred type for hotel structured data.
  */
-export function hotelSchema() {
+export function hotelSchema(locale: Locale = DEFAULT_LOCALE) {
   const { location, contact, reception } = hotelConfig;
   return {
     '@context': 'https://schema.org',
     '@type': 'Hotel',
     '@id': HOTEL_ID,
     name: hotelConfig.name,
-    description: hotelConfig.description,
+    description: pickLocale(hotelConfig.description, locale),
     url: hotelConfig.siteUrl,
     image: [imgSrc(IMG.heroHouse, 1200)],
+    inLanguage: bcp47For(locale),
     telephone: contact.phoneHref,
     email: contact.email,
     priceRange: hotelConfig.priceRange,
@@ -57,7 +60,7 @@ export function hotelSchema() {
     ],
     amenityFeature: hotelConfig.amenities.map((name) => ({
       '@type': 'LocationFeatureSpecification',
-      name,
+      name: pickLocale(name, locale),
       value: true,
     })),
     // Off by default. Enable via hotelConfig.seo.publishAggregateRating only
@@ -82,8 +85,10 @@ export function hotelSchema() {
 }
 
 /** BreadcrumbList for a deep page. Pass ordered [name, path] pairs
- *  including the current page; paths are root-relative. */
-export function breadcrumbList(trail: Array<[name: string, path: string]>) {
+ *  including the current page; paths are root-relative and WITHOUT the
+ *  locale prefix — this function adds it, so callers don't duplicate that
+ *  logic (same convention as lib/seo.ts pageMetadata()). */
+export function breadcrumbList(trail: Array<[name: string, path: string]>, locale: Locale = DEFAULT_LOCALE) {
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -91,7 +96,7 @@ export function breadcrumbList(trail: Array<[name: string, path: string]>) {
       '@type': 'ListItem',
       position: i + 1,
       name,
-      item: `${hotelConfig.siteUrl}${path}`,
+      item: `${hotelConfig.siteUrl}/${locale}${path}`,
     })),
   };
 }

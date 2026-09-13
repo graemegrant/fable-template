@@ -149,3 +149,36 @@ An AI coding agent must **not**, without explicit human sign-off:
 6. The `.github/workflows/guardrails.yml` check is green on the PR —
    this runs 1–3 automatically on every push, so a red check means
    something above wasn't actually satisfied locally
+
+## 9. Multilingual / i18n
+
+- `lib/locales.ts` is the single source of truth for a client's locale
+  set — the same pattern as `hotel.config.ts` for identity: rewrite it
+  per client (add/remove locales), don't change the mechanism around it.
+- Every URL carries a locale segment, including the default
+  (`localePrefix: 'always'` in `i18n/routing.ts`) — `/en/rooms`,
+  `/fr/rooms`, never a bare `/rooms`. `/studio` and `/api` deliberately
+  stay outside `app/[locale]` and outside locale routing entirely —
+  don't move them in.
+- **Never fabricate translated marketing/editorial prose** for a locale
+  that hasn't been translated yet — room descriptions, journal posts,
+  FAQ answers, page intro copy. Leave the field/key absent; it falls
+  back to the default locale automatically (`lib/resolveLocale.ts`
+  `pickLocale()` for content, the deep-merge in `i18n/request.ts` for UI
+  messages). A blank or broken page is worse than an English fallback; a
+  machine-translated placeholder pretending to be real copy is worse
+  still.
+- UI-chrome strings (nav, buttons, form labels, cookie banner) are the
+  one category safe to translate directly in the template — they're
+  fixed interface vocabulary, not brand content. They live in
+  `messages/{locale}.json`.
+- `common.checkAvailability` is the single authored CTA key, in every
+  locale — never hardcode a second copy of "Check availability" (or its
+  translation) anywhere; this is what keeps §5's CTA-consistency rule
+  locale-proof.
+- Sanity translatable fields use the generated `localeString` /
+  `localeText` / `localeBlockContent` object types
+  (`sanity/schemas/objects/locale-fields.ts`), not
+  `@sanity/document-internationalization` — don't introduce that plugin
+  without discussing the migration first (see SANITY-SCHEMA.md for the
+  scaling caveat).

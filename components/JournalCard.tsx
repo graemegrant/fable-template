@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import SectionLabel from './SectionLabel';
 import { imgSrc } from '@/lib/sanity';
 import type { JournalPost } from '@/lib/types';

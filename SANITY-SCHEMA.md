@@ -20,11 +20,13 @@ to design, not something to assume is already built.
 
 ## Build order for a new client repo
 
-1. Fully rewrite `hotel.config.ts` (client identity — see §4 of AGENTS.md)
-2. Re-skin `tailwind.config.ts` (seven brand tokens)
-3. Set up the client's Sanity project, point env vars at it
-4. Populate the six collections below with real content
-5. Only then move to page-level copy/layout changes
+1. Confirm `lib/locales.ts` — the client's locale set drives the fields
+   generated below, so set this before the Sanity project is populated
+2. Fully rewrite `hotel.config.ts` (client identity — see §4 of AGENTS.md)
+3. Re-skin `tailwind.config.ts` (seven brand tokens)
+4. Set up the client's Sanity project, point env vars at it
+5. Populate the six collections below with real content
+6. Only then move to page-level copy/layout changes
 
 ## The six collections (`sanity/schemas/`)
 
@@ -40,6 +42,24 @@ to design, not something to assume is already built.
 All six are registered in `sanity/schemas/index.ts` — if you add a new
 schema file, it must be imported and added to the `schemaTypes` array
 there or it won't appear in Studio.
+
+**Translatable fields above (name/title/description/quote/role/bio etc.,
+per AGENTS.md §9) are not plain strings** — they use one of three
+generated object types from `sanity/schemas/objects/locale-fields.ts`:
+`localeString`, `localeText`, or `localeBlockContent` (rich text —
+`journalPost.body` is the only field using this one). Each type
+generates one Studio sub-field per locale in `lib/locales.ts`. Slugs,
+`journalPost.author`, `teamMember.name`, and `testimonial.guestName`
+stay plain strings (proper nouns / non-translatable), as do enums
+(`room.type`, `experience.category`, etc.) and all non-text fields.
+
+**Scaling caveat:** this field-level pattern (one Studio field per
+locale, collapsed into one object) is fine editorially through roughly
+5–6 locales. Past that, the per-field UI gets cramped and
+`@sanity/document-internationalization`'s per-document model (separate
+documents per language, linked via a translation reference) becomes the
+better trade-off — that's a real migration to design, not a drop-in
+swap, so don't reach for it without discussing it first.
 
 ## Static-fallback mode
 

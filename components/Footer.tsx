@@ -1,26 +1,30 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+import { useTranslations, useLocale } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
+import { pickLocale } from '@/lib/resolveLocale';
+import type { Locale } from '@/lib/locales';
 
 const exploreLinks = [
-  { label: 'Rooms & Suites', href: '/rooms' },
-  { label: 'Dining', href: '/dining' },
-  { label: 'Experiences', href: '/experiences' },
-  { label: 'Weddings', href: '/weddings' },
-  { label: 'Special Offers', href: '/offers' },
-  { label: 'Gift Vouchers', href: '/gift-vouchers' },
-];
+  { labelKey: 'roomsAndSuites', href: '/rooms' },
+  { labelKey: 'dining', href: '/dining' },
+  { labelKey: 'experiences', href: '/experiences' },
+  { labelKey: 'weddings', href: '/weddings' },
+  { labelKey: 'specialOffers', href: '/offers' },
+  { labelKey: 'giftVouchers', href: '/gift-vouchers' },
+] as const;
 
 const visitLinks = [
-  { label: 'Our Story', href: '/about' },
-  { label: 'Journal', href: '/journal' },
-  { label: 'Location & Directions', href: '/location' },
-  { label: 'Contact', href: '/contact' },
-];
+  { labelKey: 'ourStory', href: '/about' },
+  { labelKey: 'journal', href: '/journal' },
+  { labelKey: 'locationAndDirections', href: '/location' },
+  { labelKey: 'contact', href: '/contact' },
+] as const;
 
 function NewsletterForm() {
+  const t = useTranslations('footer');
   const [email, setEmail] = useState('');
   const [done, setDone] = useState(false);
 
@@ -39,28 +43,31 @@ function NewsletterForm() {
   }
 
   if (done) {
-    return <p className="font-body text-sm text-parchment/80">Thank you — you’re on the list. Letters arrive seasonally, never more.</p>;
+    return <p className="font-body text-sm text-parchment/80">{t('subscribed')}</p>;
   }
   return (
     <form onSubmit={submit} className="flex border-b border-parchment/30">
-      <label htmlFor="newsletter-email" className="sr-only">Email address</label>
+      <label htmlFor="newsletter-email" className="sr-only">{t('emailAddressLabel')}</label>
       <input
         id="newsletter-email"
         type="email"
         required
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="Your email address"
+        placeholder={t('emailPlaceholder')}
         className="w-full bg-transparent py-3 font-body text-sm text-parchment placeholder:text-parchment/40 focus:outline-none"
       />
       <button type="submit" className="shrink-0 rounded-none border border-gold px-4 py-2 font-body text-2xs uppercase tracking-25 text-gold transition-colors hover:bg-gold hover:text-forest">
-        Subscribe →
+        {t('subscribe')} →
       </button>
     </form>
   );
 }
 
 export default function Footer() {
+  const t = useTranslations('footer');
+  const tNav = useTranslations('nav');
+  const locale = useLocale() as Locale;
   const year = new Date().getFullYear();
   return (
     <footer className="bg-forest text-parchment">
@@ -69,21 +76,21 @@ export default function Footer() {
           <div>
             <p className="font-heading text-2xl font-medium">{hotelConfig.name}</p>
             <p className="mt-3 max-w-xs font-body text-sm font-light leading-relaxed text-parchment/70">
-              {hotelConfig.tagline}
+              {pickLocale(hotelConfig.tagline, locale)}
             </p>
             <address className="mt-6 font-body text-sm not-italic leading-relaxed text-parchment/70">
               {hotelConfig.location.address}<br />
-              {hotelConfig.location.regionLabel}
+              {pickLocale(hotelConfig.location.regionLabel, locale)}
             </address>
           </div>
 
           <div>
-            <p className="font-body text-2xs uppercase tracking-30 text-gold">Explore</p>
+            <p className="font-body text-2xs uppercase tracking-30 text-gold">{t('explore')}</p>
             <ul className="mt-5 space-y-3">
               {exploreLinks.map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className="font-body text-sm text-parchment/80 transition-colors hover:text-gold">
-                    {l.label}
+                    {tNav(l.labelKey)}
                   </Link>
                 </li>
               ))}
@@ -91,17 +98,17 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="font-body text-2xs uppercase tracking-30 text-gold">Visit</p>
+            <p className="font-body text-2xs uppercase tracking-30 text-gold">{t('visit')}</p>
             <ul className="mt-5 space-y-3">
               {visitLinks.map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className="font-body text-sm text-parchment/80 transition-colors hover:text-gold">
-                    {l.label}
+                    {tNav(l.labelKey)}
                   </Link>
                 </li>
               ))}
             </ul>
-            <p className="mt-8 font-body text-2xs uppercase tracking-30 text-gold">Contact</p>
+            <p className="mt-8 font-body text-2xs uppercase tracking-30 text-gold">{t('contactHeading')}</p>
             <ul className="mt-5 space-y-3 font-body text-sm text-parchment/80">
               <li>
                 <a href={`tel:${hotelConfig.contact.phoneHref}`} className="transition-colors hover:text-gold">
@@ -117,9 +124,9 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="font-body text-2xs uppercase tracking-30 text-gold">The seasonal letter</p>
+            <p className="font-body text-2xs uppercase tracking-30 text-gold">{t('seasonalLetterHeading')}</p>
             <p className="mt-5 font-body text-sm font-light leading-relaxed text-parchment/70">
-              What the glen is doing, what the kitchen is planning, and first word on offers. Four letters a year.
+              {t('seasonalLetterBody')}
             </p>
             <div className="mt-6">
               <NewsletterForm />
@@ -127,11 +134,11 @@ export default function Footer() {
             <div className="mt-8 flex gap-6">
               <a href={hotelConfig.contact.instagram} target="_blank" rel="noopener noreferrer"
                 className="font-body text-2xs uppercase tracking-25 text-parchment/70 transition-colors hover:text-gold">
-                Instagram
+                {t('instagram')}
               </a>
               <a href={hotelConfig.contact.facebook} target="_blank" rel="noopener noreferrer"
                 className="font-body text-2xs uppercase tracking-25 text-parchment/70 transition-colors hover:text-gold">
-                Facebook
+                {t('facebook')}
               </a>
             </div>
           </div>
@@ -141,10 +148,10 @@ export default function Footer() {
       <div className="border-t border-parchment/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 p-6 sm:flex-row lg:px-10">
           <p className="font-body text-xs text-parchment/50">
-            © {year} {hotelConfig.name}. All rights reserved.
+            © {year} {hotelConfig.name}. {t('rightsReserved')}
           </p>
           <p className="font-body text-xs text-parchment/50">
-            {hotelConfig.location.regionLabel} · {hotelConfig.priceRange}
+            {pickLocale(hotelConfig.location.regionLabel, locale)} · {hotelConfig.priceRange}
           </p>
         </div>
       </div>

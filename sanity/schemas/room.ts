@@ -5,19 +5,19 @@ export default defineType({
   title: 'Rooms',
   type: 'document',
   fields: [
-    defineField({ name: 'name', type: 'string', validation: (r) => r.required() }),
-    defineField({ name: 'slug', type: 'slug', options: { source: 'name' }, validation: (r) => r.required() }),
+    defineField({ name: 'name', type: 'localeString', validation: (r) => r.required() }),
+    defineField({ name: 'slug', type: 'slug', options: { source: 'name.en' }, validation: (r) => r.required() }),
     defineField({
       name: 'type', type: 'string',
       options: { list: ['Classic', 'Deluxe', 'Suite'], layout: 'radio' },
       validation: (r) => r.required(),
     }),
-    defineField({ name: 'description', type: 'text', rows: 5 }),
+    defineField({ name: 'description', type: 'localeText' }),
     defineField({ name: 'heroImage', type: 'image', options: { hotspot: true } }),
     defineField({
       name: 'imageAlt',
       title: 'Hero image alt text',
-      type: 'string',
+      type: 'localeString',
       description:
         'Describes the hero image for search engines and screen readers. Leave blank to auto-generate from the room name and view.',
     }),
@@ -27,9 +27,9 @@ export default defineType({
     defineField({ name: 'occupancy', title: 'Max occupancy', type: 'number' }),
     defineField({ name: 'floor', type: 'string' }),
     defineField({ name: 'view', type: 'string' }),
-    defineField({ name: 'amenities', type: 'array', of: [{ type: 'string' }] }),
+    defineField({ name: 'amenities', type: 'array', of: [{ type: 'localeString' }] }),
     defineField({ name: 'featured', title: 'Feature on homepage', type: 'boolean', initialValue: false }),
     defineField({ name: 'active', title: 'Bookable / visible', type: 'boolean', initialValue: true }),
   ],
-  preview: { select: { title: 'name', subtitle: 'type', media: 'heroImage' } },
+  preview: { select: { title: 'name.en', subtitle: 'type', media: 'heroImage' } },
 });

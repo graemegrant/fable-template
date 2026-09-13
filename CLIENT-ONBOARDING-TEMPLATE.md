@@ -45,6 +45,11 @@ and fill it in. The template file at repo root stays blank.
 - Project ID:
 - Dataset:
 
+**Languages** (→ `lib/locales.ts`)
+- Locale set (default first):
+- Locales with real, human-translated content vs. English fallback:
+- Translation process/vendor, if any:
+
 **Local Experiences partners** (regional exclusivity — see AGENTS.md §6)
 - Partner 1:
 - Partner 2:
