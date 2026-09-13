@@ -1,0 +1,54 @@
+{
+  "common": {
+    "checkAvailability": "Comprobar disponibilidad",
+    "changeLanguage": "Cambiar idioma"
+  },
+  "nav": {
+    "stay": "Alojamiento",
+    "roomsAndSuites": "Habitaciones y suites",
+    "specialOffers": "Ofertas especiales",
+    "dining": "Restaurante",
+    "experiences": "Experiencias",
+    "weddings": "Bodas",
+    "giftVouchers": "Cheques regalo",
+    "discover": "Descubrir",
+    "journal": "Diario",
+    "ourStory": "Nuestra historia",
+    "location": "Ubicación",
+    "locationAndDirections": "Ubicación y cómo llegar",
+    "contact": "Contacto",
+    "toggleMenu": "Abrir menú"
+  },
+  "footer": {
+    "explore": "Explorar",
+    "visit": "Visitar",
+    "contactHeading": "Contacto",
+    "seasonalLetterHeading": "La carta de temporada",
+    "seasonalLetterBody": "Lo que ocurre en el valle, lo que prepara la cocina, y las ofertas antes que nadie. Cuatro cartas al año.",
+    "emailAddressLabel": "Dirección de correo electrónico",
+    "emailPlaceholder": "Su dirección de correo electrónico",
+    "subscribe": "Suscribirse",
+    "subscribed": "Gracias — ya está en la lista. Las cartas llegan cada temporada, nunca con más frecuencia.",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "rightsReserved": "Todos los derechos reservados."
+  },
+  "booking": {
+    "directBooking": "Reserva directa",
+    "bookAStay": "Reservar una estancia",
+    "enquiringAbout": "Consulta sobre:",
+    "close": "Cerrar reserva",
+    "arrival": "Llegada",
+    "departure": "Salida",
+    "guests": "Huéspedes",
+    "rooms": "Habitaciones",
+    "guestCount": "{count, plural, one {# huésped} other {# huéspedes}}",
+    "roomCount": "{count, plural, one {# habitación} other {# habitaciones}}",
+    "preferToTalk": "¿Prefiere llamar? Marque"
+  },
+  "cookies": {
+    "message": "Utilizamos un número reducido de cookies para el funcionamiento del sitio y, con su consentimiento, para entender cómo lo usan nuestros huéspedes. Sin publicidad.",
+    "essential": "Esenciales",
+    "acceptAll": "Aceptar todas"
+  }
+}

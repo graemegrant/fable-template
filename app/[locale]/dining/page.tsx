@@ -62,7 +62,7 @@ export default async function DiningPage({ params }: { params: Promise<{ locale:
             </p>
           </FadeUp>
           <FadeUp delay={0.15}>
-            <div className="relative aspect-portrait">
+            <div className="relative aspect-portrait overflow-hidden rounded-img">
               <Image src={IMG.food1} alt="A dish from the tasting menu" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
             </div>
           </FadeUp>
@@ -104,7 +104,7 @@ export default async function DiningPage({ params }: { params: Promise<{ locale:
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-24">
           <FadeUp>
-            <div className="relative aspect-landscape">
+            <div className="relative aspect-landscape overflow-hidden rounded-img">
               <Image src={IMG.dining2} alt="The private dining room" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
             </div>
           </FadeUp>
@@ -133,7 +133,7 @@ export default async function DiningPage({ params }: { params: Promise<{ locale:
           <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
             <div className="grid items-center gap-12 lg:grid-cols-360-1fr lg:gap-24">
               <FadeUp>
-                <div className="relative aspect-tall">
+                <div className="relative aspect-tall overflow-hidden rounded-img">
                   <Image src={String(chef.headshot)} alt={chef.name} fill sizes="(min-width: 1024px) 360px, 100vw" className="object-cover" />
                 </div>
               </FadeUp>

@@ -82,7 +82,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </Link>
           </FadeUp>
           <FadeUp delay={0.15}>
-            <div className="relative aspect-portrait">
+            <div className="relative aspect-portrait overflow-hidden rounded-img">
               <Image src={IMG.exterior} alt="The house from the south lawn" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
             </div>
           </FadeUp>
@@ -179,7 +179,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-24">
             <FadeUp>
-              <div className="relative aspect-landscape">
+              <div className="relative aspect-landscape overflow-hidden rounded-img">
                 <Image src={IMG.glen} alt="The glen below the house" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
               </div>
             </FadeUp>

@@ -104,7 +104,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-24">
             <FadeUp>
-              <div className="relative aspect-landscape">
+              <div className="relative aspect-landscape overflow-hidden rounded-img">
                 <Image src={IMG.garden} alt="The walled garden" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
               </div>
             </FadeUp>

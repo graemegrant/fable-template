@@ -1,6 +1,7 @@
 {
   "common": {
-    "checkAvailability": "Check availability"
+    "checkAvailability": "Check availability",
+    "changeLanguage": "Change language"
   },
   "nav": {
     "stay": "Stay",

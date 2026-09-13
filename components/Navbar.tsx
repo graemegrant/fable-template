@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { Link, usePathname } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
+import { LOCALES, type Locale } from '@/lib/locales';
 import { BookButton } from './BookingModal';
 
 type NavChild = { labelKey: string; href: string };
@@ -34,6 +35,8 @@ const NAV: NavItem[] = [
 
 export default function Navbar() {
   const t = useTranslations('nav');
+  const tCommon = useTranslations('common');
+  const locale = useLocale() as Locale;
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -124,6 +127,36 @@ export default function Navbar() {
           >
             {hotelConfig.contact.phone}
           </a>
+
+          {/* Language switcher — preserves the current page, only swaps locale */}
+          <div className="group relative">
+            <button
+              type="button"
+              aria-haspopup="true"
+              aria-label={tCommon('changeLanguage')}
+              className="font-body text-2xs uppercase tracking-25 text-parchment transition-colors group-focus-within:text-gold group-hover:text-gold"
+            >
+              {locale}
+            </button>
+            <div className="invisible absolute right-0 top-full pt-5 opacity-0 transition-all duration-300 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+              <ul className="w-40 border-t-2 border-gold bg-forest py-3">
+                {LOCALES.map((l) => (
+                  <li key={l.id}>
+                    <Link
+                      href={pathname}
+                      locale={l.id}
+                      className={`block px-6 py-2.5 font-body text-2xs uppercase tracking-20 transition-colors ${
+                        l.id === locale ? 'text-gold' : 'text-parchment/85 hover:text-gold'
+                      }`}
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
           <BookButton className="rounded-ctrl border border-gold bg-gold px-6 py-3 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-transparent hover:text-gold" />
         </div>
 
@@ -186,6 +219,22 @@ export default function Navbar() {
               </div>
             ),
           )}
+          {/* Language switcher */}
+          <div className="flex items-center gap-5 border-b border-parchment/10 py-4" role="group" aria-label={tCommon('changeLanguage')}>
+            {LOCALES.map((l) => (
+              <Link
+                key={l.id}
+                href={pathname}
+                locale={l.id}
+                className={`font-body text-xs uppercase tracking-25 ${
+                  l.id === locale ? 'text-gold' : 'text-parchment/70'
+                }`}
+              >
+                {l.id}
+              </Link>
+            ))}
+          </div>
+
           <div className="pt-6">
             <BookButton className="w-full rounded-ctrl bg-gold px-6 py-4 font-body text-2xs uppercase tracking-25 text-forest" />
           </div>

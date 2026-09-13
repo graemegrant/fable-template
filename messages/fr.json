@@ -1,6 +1,7 @@
 {
   "common": {
-    "checkAvailability": "Vérifier les disponibilités"
+    "checkAvailability": "Vérifier les disponibilités",
+    "changeLanguage": "Changer de langue"
   },
   "nav": {
     "stay": "Séjour",

@@ -123,7 +123,7 @@ export default async function JournalPostPage({ params }: Props) {
               <div className="border border-ink/10 bg-warmgrey p-8 lg:sticky lg:top-28">
                 <SectionLabel>Stay with us</SectionLabel>
                 <Link href={`/rooms/${featuredRoom.slug}`} className="group mt-5 block">
-                  <div className="relative aspect-landscape overflow-hidden">
+                  <div className="relative aspect-landscape overflow-hidden rounded-img">
                     <Image
                       src={imgSrc(featuredRoom.heroImage, 800)}
                       alt={featuredRoom.name}

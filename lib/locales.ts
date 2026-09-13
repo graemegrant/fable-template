@@ -11,6 +11,7 @@ export const LOCALES = [
   { id: 'en', label: 'English', bcp47: 'en-GB' },
   { id: 'fr', label: 'Français', bcp47: 'fr-FR' },
   { id: 'de', label: 'Deutsch', bcp47: 'de-DE' },
+  { id: 'es', label: 'Español', bcp47: 'es-ES' },
 ] as const;
 
 export type Locale = (typeof LOCALES)[number]['id'];

@@ -74,7 +74,7 @@ export default async function WeddingsPage({ params }: { params: Promise<{ local
             </p>
           </FadeUp>
           <FadeUp delay={0.15}>
-            <div className="relative aspect-portrait">
+            <div className="relative aspect-portrait overflow-hidden rounded-img">
               <Image src={IMG.wedding2} alt="A wedding table dressed in the dining room" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
             </div>
           </FadeUp>
