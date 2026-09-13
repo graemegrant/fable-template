@@ -48,6 +48,9 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: 'cdn.sanity.io' },
     ],
+    // Must list every `quality` value used with next/image (KenBurnsHero
+    // uses 68, PageHero uses 65) — Next 16 rejects unconfigured qualities.
+    qualities: [65, 68],
   },
   async headers() {
     return [
