@@ -9,3 +9,5 @@ next-env.d.ts
 .DS_Store
 install.log
 build.log
+.claude/
+scratchpad/
