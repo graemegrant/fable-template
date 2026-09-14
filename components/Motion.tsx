@@ -93,26 +93,42 @@ export function HeroEntrance({ children, className, delay = 0 }: MotionProps) {
   );
 }
 
-function gridVariants(still: boolean): Variants {
-  return {
-    hidden: {},
-    show: { transition: { staggerChildren: still ? 0 : 0.12 } },
-  };
-}
+/*
+ * Fixed, module-level variant objects — never recreated per render. Passing
+ * a new `variants` object identity on every render (as an earlier version
+ * of this file did, computing it inline from `still`) breaks Framer
+ * Motion's whileInView-driven variant propagation from StaggerGrid down to
+ * its StaggerItem children: any re-render before the viewport observer
+ * fires (e.g. Navbar's scroll-listener re-rendering the tree) hands the
+ * grid a variants object it no longer recognises, and the pending 'show'
+ * transition silently never arrives — freezing every item at its hidden
+ * (invisible) state. Two stable variant sets (animated vs. instant) are
+ * swapped by reference instead, which Framer Motion tracks correctly.
+ */
+const gridVariants: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.12 } },
+};
+const gridVariantsStill: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0 } },
+};
 
-function itemVariants(still: boolean): Variants {
-  return {
-    hidden: { opacity: still ? 1 : 0, y: still ? 0 : 28 },
-    show: { opacity: 1, y: 0, transition: { duration: still ? 0 : 0.9, ease: EASE } },
-  };
-}
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 28 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.9, ease: EASE } },
+};
+const itemVariantsStill: Variants = {
+  hidden: { opacity: 1, y: 0 },
+  show: { opacity: 1, y: 0, transition: { duration: 0, ease: EASE } },
+};
 
 export function StaggerGrid({ children, className }: MotionProps) {
   const still = useStill();
   return (
     <m.div
       className={className}
-      variants={gridVariants(still)}
+      variants={still ? gridVariantsStill : gridVariants}
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, margin: '-60px' }}
@@ -125,7 +141,7 @@ export function StaggerGrid({ children, className }: MotionProps) {
 export function StaggerItem({ children, className }: MotionProps) {
   const still = useStill();
   return (
-    <m.div className={className} variants={itemVariants(still)} initial="hidden">
+    <m.div className={className} variants={still ? itemVariantsStill : itemVariants}>
       {children}
     </m.div>
   );
