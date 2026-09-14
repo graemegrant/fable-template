@@ -51,6 +51,14 @@ const nextConfig: NextConfig = {
     // Must list every `quality` value used with next/image (KenBurnsHero
     // uses 68, PageHero uses 65) — Next 16 rejects unconfigured qualities.
     qualities: [65, 68],
+    // No image source in this codebase is ever fetched wider than 1920px
+    // (see lib/data.ts `u()` and lib/sanity.ts `imgSrc()` — both cap at
+    // 1800-1920). Next's default deviceSizes go up to 3840, so a
+    // high-DPI viewport (2x/3x DPR is now the common case) was selecting
+    // that bucket for the full-bleed hero and forcing the optimizer to
+    // upscale a 1800px source to 3840px on every cache miss — slower to
+    // generate and blurrier than just serving the 1920px variant.
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
   },
   async headers() {
     return [
