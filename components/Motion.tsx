@@ -51,15 +51,27 @@ function useStill(): boolean {
   return Boolean(reduce) || narrow;
 }
 
+/*
+ * still-aware animations below never toggle `animate`/`whileInView` between
+ * a target object and `undefined`. `useStill()` starts false on first
+ * client render (matching SSR) and flips true a moment later once the
+ * viewport check resolves; if the target prop itself disappears mid-flight,
+ * Framer Motion freezes the element at whatever value it had reached —
+ * almost always still the *initial* (invisible) one, since the flip lands
+ * before the transition has visibly progressed. That froze whole sections
+ * (hero text, every FadeUp/StaggerGrid block) at opacity:0 permanently on
+ * phone-width viewports. Instead, `still` only ever shortens the duration
+ * to ~0 — the target is always reachable.
+ */
 export function FadeUp({ children, className, delay = 0 }: MotionProps) {
   const still = useStill();
   return (
     <m.div
       className={className}
-      initial={still ? false : { opacity: 0, y: 28 }}
-      whileInView={still ? undefined : { opacity: 1, y: 0 }}
+      initial={{ opacity: still ? 1 : 0, y: still ? 0 : 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.9, delay, ease: EASE }}
+      transition={{ duration: still ? 0 : 0.9, delay: still ? 0 : delay, ease: EASE }}
     >
       {children}
     </m.div>
@@ -72,33 +84,37 @@ export function HeroEntrance({ children, className, delay = 0 }: MotionProps) {
   return (
     <m.div
       className={className}
-      initial={still ? false : { opacity: 0, y: 32 }}
-      animate={still ? undefined : { opacity: 1, y: 0 }}
-      transition={{ duration: 1.1, delay, ease: EASE }}
+      initial={{ opacity: still ? 1 : 0, y: still ? 0 : 32 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: still ? 0 : 1.1, delay: still ? 0 : delay, ease: EASE }}
     >
       {children}
     </m.div>
   );
 }
 
-const gridVariants: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.12 } },
-};
+function gridVariants(still: boolean): Variants {
+  return {
+    hidden: {},
+    show: { transition: { staggerChildren: still ? 0 : 0.12 } },
+  };
+}
 
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 28 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.9, ease: EASE } },
-};
+function itemVariants(still: boolean): Variants {
+  return {
+    hidden: { opacity: still ? 1 : 0, y: still ? 0 : 28 },
+    show: { opacity: 1, y: 0, transition: { duration: still ? 0 : 0.9, ease: EASE } },
+  };
+}
 
 export function StaggerGrid({ children, className }: MotionProps) {
   const still = useStill();
   return (
     <m.div
       className={className}
-      variants={still ? undefined : gridVariants}
-      initial={still ? false : 'hidden'}
-      whileInView={still ? undefined : 'show'}
+      variants={gridVariants(still)}
+      initial="hidden"
+      whileInView="show"
       viewport={{ once: true, margin: '-60px' }}
     >
       {children}
@@ -109,11 +125,7 @@ export function StaggerGrid({ children, className }: MotionProps) {
 export function StaggerItem({ children, className }: MotionProps) {
   const still = useStill();
   return (
-    <m.div
-      className={className}
-      variants={still ? undefined : itemVariants}
-      initial={still ? false : undefined}
-    >
+    <m.div className={className} variants={itemVariants(still)} initial="hidden">
       {children}
     </m.div>
   );
@@ -124,9 +136,9 @@ export function PageFade({ children, className }: MotionProps) {
   return (
     <m.div
       className={className}
-      initial={still ? false : { opacity: 0 }}
-      animate={still ? undefined : { opacity: 1 }}
-      transition={{ duration: 0.7, ease: EASE }}
+      initial={{ opacity: still ? 1 : 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: still ? 0 : 0.7, ease: EASE }}
     >
       {children}
     </m.div>
@@ -163,16 +175,16 @@ export function ClipReveal({ children, className }: MotionProps) {
     <m.div
       className={className}
       style={{ overflow: 'hidden' }}
-      initial={still ? false : { clipPath: 'inset(0 0 100% 0)' }}
-      whileInView={still ? undefined : { clipPath: 'inset(0 0 0% 0)' }}
+      initial={{ clipPath: still ? 'inset(0 0 0% 0)' : 'inset(0 0 100% 0)' }}
+      whileInView={{ clipPath: 'inset(0 0 0% 0)' }}
       viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 1.2, ease: EASE }}
+      transition={{ duration: still ? 0 : 1.2, ease: EASE }}
     >
       <m.div
-        initial={still ? false : { scale: 1.08 }}
-        whileInView={still ? undefined : { scale: 1 }}
+        initial={{ scale: still ? 1 : 1.08 }}
+        whileInView={{ scale: 1 }}
         viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 1.6, ease: EASE }}
+        transition={{ duration: still ? 0 : 1.6, ease: EASE }}
       >
         {children}
       </m.div>
