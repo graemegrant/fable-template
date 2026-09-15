@@ -1,22 +1,26 @@
 import Image from 'next/image';
+import { getTranslations, getLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import SectionLabel from './SectionLabel';
 import { imgSrc } from '@/lib/sanity';
+import { bcp47For, type Locale } from '@/lib/locales';
 import type { JournalPost } from '@/lib/types';
 
-function formatDate(d?: string) {
+function formatDate(d: string | undefined, locale: Locale) {
   if (!d) return '';
-  return new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  return new Date(d).toLocaleDateString(bcp47For(locale), { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
 /** Two variants: `featured` (full-width split hero) and `standard` (grid card). */
-export default function JournalCard({
+export default async function JournalCard({
   post,
   variant = 'standard',
 }: {
   post: JournalPost;
   variant?: 'standard' | 'featured';
 }) {
+  const t = await getTranslations('shared');
+  const locale = (await getLocale()) as Locale;
   if (variant === 'featured') {
     return (
       <Link href={`/journal/${post.slug}`} className="group grid gap-0 bg-forest md:grid-cols-2">
@@ -30,15 +34,15 @@ export default function JournalCard({
           />
         </div>
         <div className="flex flex-col justify-center p-10 lg:p-16">
-          <SectionLabel variant="parchment">{post.category} — Featured</SectionLabel>
+          <SectionLabel variant="parchment">{post.category} — {t('featuredSuffix')}</SectionLabel>
           <h2 className="mt-5 font-heading text-3xl font-medium leading-tight text-parchment md:text-4xl">
             {post.title}
           </h2>
           <p className="mt-5 font-body text-sm font-light leading-relaxed text-parchment/75">{post.excerpt}</p>
           <p className="mt-8 font-body text-2xs uppercase tracking-25 text-parchment/60">
-            {post.author} · {formatDate(post.publishedAt)} · {post.readingTime}
+            {post.author} · {formatDate(post.publishedAt, locale)} · {post.readingTime}
           </p>
-          <span className="mt-6 font-body text-2xs uppercase tracking-25 text-gold">Read the story →</span>
+          <span className="mt-6 font-body text-2xs uppercase tracking-25 text-gold">{t('readTheStory')}</span>
         </div>
       </Link>
     );
@@ -60,7 +64,7 @@ export default function JournalCard({
         <h3 className="mt-3 font-heading text-2xl font-medium leading-snug text-ink">{post.title}</h3>
         <p className="mt-3 font-body text-sm font-light leading-relaxed text-ink/70">{post.excerpt}</p>
         <p className="mt-4 font-body text-2xs uppercase tracking-20 text-ink/50">
-          {formatDate(post.publishedAt)} · {post.readingTime}
+          {formatDate(post.publishedAt, locale)} · {post.readingTime}
         </p>
       </div>
     </Link>

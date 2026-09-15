@@ -1,9 +1,18 @@
+'use client';
+
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { imgSrc } from '@/lib/sanity';
 import type { Room } from '@/lib/types';
 
+/* Client component (not async + getTranslations) because RoomsFilter
+   imports it directly from a 'use client' module — a Server Component
+   using server-only APIs can't be pulled into a client import graph.
+   useTranslations works fine here since NextIntlClientProvider (root
+   layout) already supplies messages to the whole client tree. */
 export default function RoomCard({ room }: { room: Room }) {
+  const t = useTranslations('shared');
   return (
     <Link href={`/rooms/${room.slug}`} className="group block">
       <div className="relative aspect-portrait overflow-hidden rounded-img bg-warmgrey">
@@ -21,14 +30,14 @@ export default function RoomCard({ room }: { room: Room }) {
       <div className="pt-6">
         <h3 className="font-heading text-2xl font-medium text-ink">{room.name}</h3>
         <p className="mt-2 font-body text-xs uppercase tracking-20 text-ink/60">
-          {room.sqm} sqm · Sleeps {room.occupancy}
+          {room.sqm} {t('sqm')} · {t('sleeps')} {room.occupancy}
         </p>
         <div className="mt-4 flex items-center justify-between border-t border-ink/10 pt-4">
           <p className="font-body text-sm text-ink/80">
-            From <span className="font-heading text-xl text-forest">£{room.rate}</span> / night
+            {t('from')} <span className="font-heading text-xl text-forest">£{room.rate}</span> {t('perNight')}
           </p>
           <span className="font-body text-2xs uppercase tracking-20 text-gold transition-colors group-hover:text-forest">
-            View room →
+            {t('viewRoom')}
           </span>
         </div>
       </div>

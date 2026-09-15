@@ -8,6 +8,7 @@
 import { useRef, useState } from 'react';
 import { useInView, useReducedMotion, motion, useMotionValue, animate } from 'framer-motion';
 import { useEffect } from 'react';
+import { useTranslations, useLocale } from 'next-intl';
 
 interface Stat {
   value: number;
@@ -45,14 +46,19 @@ function StatItem({ stat }: { stat: Stat }) {
   );
 }
 
-const STATS: Stat[] = [
-  { value: 12, render: (n) => `${n}`, label: 'Rooms, no more' },
-  { value: 1863, render: (n) => `${n}`, label: 'Same family of thought' },
-  { value: 19, render: (n) => `${n} mi`, label: 'To the nearest traffic light' },
-  { value: 400, render: (n) => `${n.toLocaleString()}`, label: 'Acres of glen to yourselves' },
-];
-
 export default function StatsBand() {
+  const t = useTranslations('stats');
+  const locale = useLocale();
+  // The distance is a physical fact, not prose — converted to km for
+  // locales that use metric (19 mi ≈ 31 km) rather than left mistranslated
+  // as "19 km", which would understate the real distance.
+  const isMetric = locale !== 'en';
+  const stats: Stat[] = [
+    { value: 12, render: (n) => `${n}`, label: t('rooms') },
+    { value: 1863, render: (n) => `${n}`, label: t('family') },
+    { value: isMetric ? 31 : 19, render: (n) => `${n} ${isMetric ? 'km' : 'mi'}`, label: t('trafficLight') },
+    { value: 400, render: (n) => `${n.toLocaleString()}`, label: t('acres') },
+  ];
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -61,7 +67,7 @@ export default function StatsBand() {
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
       className="mx-auto grid max-w-7xl grid-cols-2 gap-8 border-t border-gold/30 px-6 pt-12 md:grid-cols-4 lg:px-10"
     >
-      {STATS.map((s) => (
+      {stats.map((s) => (
         <StatItem key={s.label} stat={s} />
       ))}
     </motion.div>

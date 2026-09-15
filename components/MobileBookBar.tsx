@@ -6,6 +6,7 @@
  * Sits above the cookie bar while consent is still pending so the primary
  * booking CTA is never covered (AGENTS.md §5).
  */
+import { useTranslations } from 'next-intl';
 import { BookButton } from './BookingModal';
 import { useCookieConsent } from '@/lib/useCookieConsent';
 
@@ -16,6 +17,7 @@ export default function MobileBookBar({
   rate: number;
   roomName: string;
 }) {
+  const t = useTranslations('shared');
   const consentDecided = useCookieConsent();
 
   return (
@@ -30,7 +32,7 @@ export default function MobileBookBar({
         </p>
         <p className="font-heading text-2xl font-medium leading-none text-forest">
           £{rate}
-          <span className="font-body text-xs font-light text-ink/60"> / night</span>
+          <span className="font-body text-xs font-light text-ink/60"> {t('perNight')}</span>
         </p>
       </div>
       <BookButton roomHint={roomName} className="shrink-0 rounded-ctrl bg-forest px-6 py-3.5 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest" />

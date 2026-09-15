@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { StaggerGrid, StaggerItem } from './Motion';
 import RoomCard from './RoomCard';
 import type { Room } from '@/lib/types';
@@ -8,26 +9,27 @@ import type { Room } from '@/lib/types';
 const TYPES = ['All', 'Classic', 'Deluxe', 'Suite'] as const;
 
 export default function RoomsFilter({ rooms }: { rooms: Room[] }) {
+  const t = useTranslations('shared');
   const [active, setActive] = useState<(typeof TYPES)[number]>('All');
   const filtered = active === 'All' ? rooms : rooms.filter((r) => r.type === active);
 
   return (
     <div>
-      <div className="flex flex-wrap items-center gap-2 border-b border-ink/10 pb-8" role="tablist" aria-label="Filter rooms by type">
-        {TYPES.map((t) => (
+      <div className="flex flex-wrap items-center gap-2 border-b border-ink/10 pb-8" role="tablist" aria-label={t('filterRoomsAriaLabel')}>
+        {TYPES.map((ty) => (
           <button
-            key={t}
+            key={ty}
             type="button"
             role="tab"
-            aria-selected={active === t}
-            onClick={() => setActive(t)}
+            aria-selected={active === ty}
+            onClick={() => setActive(ty)}
             className={`px-6 py-3 font-body text-2xs uppercase tracking-25 transition-colors duration-300 ${
-              active === t ? 'bg-forest text-parchment' : 'text-ink/60 hover:text-forest'
+              active === ty ? 'bg-forest text-parchment' : 'text-ink/60 hover:text-forest'
             }`}
           >
-            {t}
+            {ty === 'All' ? t('allRoomTypes') : ty}
             <span className="ml-2 text-3xs opacity-60">
-              {t === 'All' ? rooms.length : rooms.filter((r) => r.type === t).length}
+              {ty === 'All' ? rooms.length : rooms.filter((r) => r.type === ty).length}
             </span>
           </button>
         ))}
@@ -41,7 +43,7 @@ export default function RoomsFilter({ rooms }: { rooms: Room[] }) {
         ))}
       </StaggerGrid>
       {filtered.length === 0 && (
-        <p className="mt-12 font-body text-sm text-ink/60">No rooms of this type are currently available.</p>
+        <p className="mt-12 font-body text-sm text-ink/60">{t('noRoomsOfType')}</p>
       )}
     </div>
   );

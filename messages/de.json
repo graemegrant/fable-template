@@ -245,5 +245,63 @@
     "beginHeadingLine2": "Entscheidungen folgen von selbst.",
     "beginBody": "Hochzeitsbesichtigungen finden an den meisten Wochentagen statt und beinhalten ein Mittagessen — wir glauben daran, Ihnen die Arbeit der Küche früh zu zeigen. Termine für die kommenden zwei Jahre werden jeden Januar veröffentlicht.",
     "enquireDate": "Nach einem Termin fragen"
+  },
+  "shared": {
+    "sqm": "m²",
+    "sleeps": "Schläft",
+    "from": "Ab",
+    "perNight": "/ Nacht",
+    "viewRoom": "Zimmer ansehen →",
+    "viewOffer": "Angebot ansehen →",
+    "enquireAboutOffer": "Anfrage zu diesem Angebot",
+    "featuredSuffix": "Empfohlen",
+    "readTheStory": "Geschichte lesen →",
+    "bookDirectLabel": "Direkt buchen.",
+    "bookDirectBody": "Der beste Preis, das beste Zimmer Ihrer Kategorie, und ein Dram, der bei Ihrer Ankunft auf Sie wartet.",
+    "allRoomTypes": "Alle",
+    "filterRoomsAriaLabel": "Zimmer nach Typ filtern",
+    "noRoomsOfType": "Zimmer dieses Typs sind derzeit nicht verfügbar.",
+    "guestBookLabel": "Gästebuch",
+    "testimonialPrev": "Vorheriges Zitat",
+    "testimonialNext": "Nächstes Zitat",
+    "testimonialDot": "Erfahrungsbericht {count}",
+    "galleryOpenPhoto": "Foto {n} von {total} öffnen",
+    "galleryPhotoSuffix": "Foto {n}",
+    "galleryTitle": "Fotogalerie",
+    "galleryClose": "Galerie schließen",
+    "galleryPrevious": "Vorheriges Foto",
+    "galleryNext": "Nächstes Foto"
+  },
+  "contactForm": {
+    "subjectGeneral": "Allgemeine Anfrage",
+    "subjectRoomBooking": "Zimmerbuchung",
+    "subjectDiningReservation": "Restaurantreservierung",
+    "subjectWeddingsEvents": "Hochzeiten & Veranstaltungen",
+    "subjectGiftVouchers": "Geschenkgutscheine",
+    "subjectPress": "Presse",
+    "thankYou": "Vielen Dank.",
+    "confirmationBody": "Ihre Anfrage ist bei uns eingegangen. Ein Mitglied des Teams — ein Mensch, kein System — wird innerhalb eines Werktags antworten.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Ihr Name",
+    "emailLabel": "E-Mail",
+    "emailPlaceholder": "sie@beispiel.de",
+    "phoneLabel": "Telefon",
+    "optionalLabel": "(optional)",
+    "phonePlaceholder": "+44",
+    "subjectLabel": "Betreff",
+    "messageLabel": "Nachricht",
+    "messagePlaceholder": "Wie können wir Ihnen helfen?",
+    "sending": "Wird gesendet…",
+    "sendEnquiry": "Anfrage senden",
+    "errorMessage": "Beim Senden ist etwas schiefgelaufen. Bitte versuchen Sie es erneut, oder schreiben Sie uns direkt — die Adresse steht daneben."
+  },
+  "stats": {
+    "rooms": "Zimmer, nicht mehr",
+    "family": "Dieselbe Geisteshaltung seit jeher",
+    "trafficLight": "Bis zur nächsten Ampel",
+    "acres": "Morgen Tal ganz für sich allein"
+  },
+  "glenMoment": {
+    "eyebrow": "Das Tal"
   }
 }
