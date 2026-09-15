@@ -1,3 +1,4 @@
+import { getTranslations } from 'next-intl/server';
 import { hotelConfig } from '@/hotel.config';
 import { pageMetadata } from '@/lib/seo';
 import { directions, attractions, IMG } from '@/lib/data';
@@ -25,20 +26,21 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${mapQ
 export default async function LocationPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: rawLocale } = await params;
   const locale: Locale = isLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
+  const t = await getTranslations('location');
   return (
     <>
       <PageHero
-        eyebrow={`Finding us · ${hotelConfig.location.locality}`}
-        title="End of the road, start of the glen"
-        subtitle={`${hotelConfig.location.address} — ninety minutes from Edinburgh, four miles from the nearest reason to hurry.`}
+        eyebrow={`${t('eyebrowLabel')} · ${hotelConfig.location.locality}`}
+        title={t('title')}
+        subtitle={`${hotelConfig.location.address} ${t('subtitleSuffix')}`}
         image={IMG.glen}
       />
 
       {/* Directions grid */}
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
         <FadeUp>
-          <SectionLabel>Getting here</SectionLabel>
-          <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">Four ways in</h2>
+          <SectionLabel>{t('gettingHereLabel')}</SectionLabel>
+          <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">{t('fourWaysIn')}</h2>
         </FadeUp>
         <StaggerGrid className="mt-14 grid gap-10 sm:grid-cols-2">
           {directions.map((d, i) => (
@@ -56,19 +58,19 @@ export default async function LocationPage({ params }: { params: Promise<{ local
       <section className="bg-warmgrey">
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
           <FadeUp>
-            <SectionLabel>The map</SectionLabel>
-            <h2 className="mt-5 font-heading text-4xl font-medium text-ink">Where the glen narrows</h2>
+            <SectionLabel>{t('mapLabel')}</SectionLabel>
+            <h2 className="mt-5 font-heading text-4xl font-medium text-ink">{t('mapHeading')}</h2>
             <div className="mt-10 aspect-video w-full border border-ink/10 bg-parchment">
               <iframe
                 src={mapSrc}
-                title={`Map showing ${hotelConfig.name}`}
+                title={`${t('mapTitlePrefix')} ${hotelConfig.name}`}
                 className="size-full"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
             <p className="mt-4 font-body text-xs text-ink/60">
-              Postcode for satnavs: {hotelConfig.location.postalCode} — then follow the stone herons, not the satnav’s despair.
+              {t('postcodePrefix')} {hotelConfig.location.postalCode} {t('postcodeSuffix')}
             </p>
             <a
               href={directionsUrl}
@@ -76,7 +78,7 @@ export default async function LocationPage({ params }: { params: Promise<{ local
               rel="noopener noreferrer"
               className="mt-6 inline-block rounded-ctrl border border-forest px-7 py-3.5 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-forest hover:text-parchment"
             >
-              Get directions
+              {t('getDirections')}
             </a>
           </FadeUp>
         </div>
@@ -85,8 +87,8 @@ export default async function LocationPage({ params }: { params: Promise<{ local
       {/* Nearby attractions */}
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
         <FadeUp>
-          <SectionLabel>Beyond the estate</SectionLabel>
-          <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">Worth leaving the fire for</h2>
+          <SectionLabel>{t('beyondEstateLabel')}</SectionLabel>
+          <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">{t('worthLeavingFireFor')}</h2>
         </FadeUp>
         <StaggerGrid className="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {attractions.map((a) => (

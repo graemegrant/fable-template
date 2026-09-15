@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { getTranslations } from 'next-intl/server';
 import { hotelConfig } from '@/hotel.config';
 import { pageMetadata } from '@/lib/seo';
 import { sanityFetch } from '@/lib/sanity';
@@ -28,13 +29,14 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   const locale: Locale = isLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
   const rawTeam = await sanityFetch<TeamMemberI18n[]>(TEAM_QUERY, {}, fallbackTeam);
   const team = rawTeam.map((m) => resolveTeamMember(m, locale));
+  const t = await getTranslations('about');
 
   return (
     <>
       <PageHero
-        eyebrow="Our story"
-        title="A house with opinions"
-        subtitle="Built 1847. Rebuilt around comfort, cooking and quiet ever since."
+        eyebrow={t('eyebrow')}
+        title={t('title')}
+        subtitle={t('subtitle')}
         image={IMG.exterior}
       />
 
@@ -42,29 +44,16 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-24">
           <FadeUp>
-            <SectionLabel>The history</SectionLabel>
+            <SectionLabel>{t('historyLabel')}</SectionLabel>
             <h2 className="mt-5 font-heading text-4xl font-medium leading-tight text-ink md:text-5xl">
-              1847 to now, lightly edited
+              {t('historyHeading')}
             </h2>
           </FadeUp>
           <FadeUp delay={0.1}>
             <div className="space-y-5 font-body text-base font-light leading-body text-ink/80">
-              <p>
-                Craigmore was built as a shooting lodge by a Dundee jute baron with more money
-                than restraint, which explains the turret. For a century it hosted shooting
-                parties, jealous cousins and at least one scandal the village still references.
-              </p>
-              <p>
-                The present custodians bought the house in 2019 and spent three years doing the
-                unglamorous things first — roof, pipes, kitchen — before opening twelve rooms in
-                2022. The brief, pinned to the office wall, has not changed: a house that feels
-                inherited rather than designed, food that needs no adjectives, and staff who
-                remember your name before you have repeated it.
-              </p>
-              <p>
-                The turret, for the record, is now the smallest reading room in Scotland. The
-                scandal remains unconfirmed.
-              </p>
+              <p>{t('historyP1')}</p>
+              <p>{t('historyP2')}</p>
+              <p>{t('historyP3')}</p>
             </div>
           </FadeUp>
         </div>
@@ -74,13 +63,12 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <section className="bg-forest">
         <div className="mx-auto max-w-4xl px-6 py-24 text-center lg:py-32">
           <FadeUp>
-            <SectionLabel variant="parchment">The ethos</SectionLabel>
+            <SectionLabel variant="parchment">{t('ethosLabel')}</SectionLabel>
             <blockquote className="mt-8 font-heading text-3xl font-medium italic leading-snug text-parchment md:text-4xl">
-              “Luxury is not gold taps. Luxury is silence, a fire someone else lit, and dinner
-              that knows where it came from.”
+              “{t('ethosQuote')}”
             </blockquote>
             <p className="mt-8 font-body text-2xs uppercase tracking-25 text-parchment/60">
-              The brief, 2019 — still on the office wall
+              {t('ethosAttribution')}
             </p>
           </FadeUp>
         </div>
@@ -89,8 +77,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       {/* Team */}
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
         <FadeUp>
-          <SectionLabel>The people</SectionLabel>
-          <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">Who keeps the house</h2>
+          <SectionLabel>{t('peopleLabel')}</SectionLabel>
+          <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">{t('peopleHeading')}</h2>
         </FadeUp>
         <StaggerGrid className="mt-14 grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
           {team.map((member) => (
@@ -105,26 +93,17 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-24">
             <FadeUp>
               <div className="relative aspect-landscape overflow-hidden rounded-img">
-                <Image src={IMG.garden} alt="The walled garden" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+                <Image src={IMG.garden} alt={t('gardenAlt')} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
               </div>
             </FadeUp>
             <FadeUp delay={0.15}>
-              <SectionLabel>Sustainability</SectionLabel>
+              <SectionLabel>{t('sustainabilityLabel')}</SectionLabel>
               <h2 className="mt-5 font-heading text-4xl font-medium leading-tight text-ink md:text-5xl">
-                Quietly, but seriously
+                {t('sustainabilityHeading')}
               </h2>
               <div className="mt-6 space-y-5 font-body text-base font-light leading-body text-ink/80">
-                <p>
-                  We heat the house with a biomass boiler fed by our own woodland, draw water
-                  from our own spring, and grow a meaningful share of the kitchen’s vegetables
-                  inside the 1847 wall. What we cannot grow, we buy within forty miles where the
-                  quality allows — and it usually does.
-                </p>
-                <p>
-                  No single-use plastics in the rooms, two EV chargers in the courtyard, and a
-                  rewilding plan for the upper glen that the grouse have opinions about. We
-                  publish the numbers annually rather than the slogans.
-                </p>
+                <p>{t('sustainabilityP1')}</p>
+                <p>{t('sustainabilityP2')}</p>
               </div>
             </FadeUp>
           </div>
@@ -134,7 +113,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       {/* Press */}
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
         <FadeUp>
-          <SectionLabel className="text-center">In print</SectionLabel>
+          <SectionLabel className="text-center">{t('inPrintLabel')}</SectionLabel>
         </FadeUp>
         <StaggerGrid className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {pressMentions.map((press) => (

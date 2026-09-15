@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
 import { pickLocale } from '@/lib/resolveLocale';
@@ -19,6 +19,7 @@ export default function KenBurnsHero({ image }: { image: unknown }) {
   // (tailwind.config.ts `cookiebar` token) until the visitor makes a choice.
   const consentDecided = useCookieConsent();
   const locale = useLocale() as Locale;
+  const t = useTranslations('home');
 
   return (
     <section className="relative flex min-h-85vh items-center justify-center overflow-hidden bg-forest">
@@ -69,7 +70,7 @@ export default function KenBurnsHero({ image }: { image: unknown }) {
               href="/rooms"
               className="w-64 rounded-ctrl border border-parchment/60 px-8 py-4 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-parchment hover:text-forest sm:w-auto"
             >
-              View the rooms
+              {t('viewTheRooms')}
             </Link>
           </div>
         </HeroEntrance>

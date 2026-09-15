@@ -1,3 +1,4 @@
+import { getTranslations } from 'next-intl/server';
 import { hotelConfig } from '@/hotel.config';
 import { pageMetadata } from '@/lib/seo';
 import { sanityFetch } from '@/lib/sanity';
@@ -27,21 +28,20 @@ export default async function ExperiencesPage({ params }: { params: Promise<{ lo
   const locale: Locale = isLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
   const rawExperiences = await sanityFetch<ExperienceI18n[]>(EXPERIENCES_QUERY, {}, fallbackExperiences);
   const experiences = rawExperiences.map((e) => resolveExperience(e, locale));
+  const t = await getTranslations('experiencesPage');
 
   return (
     <>
       <PageHero
-        eyebrow={`Experiences · ${hotelConfig.location.locality}`}
-        title="Days, properly spent"
-        subtitle="Everything below starts at the front door and is arranged by the house. Bring boots; we have the rest."
+        eyebrow={`${t('eyebrowLabel')} · ${hotelConfig.location.locality}`}
+        title={t('title')}
+        subtitle={t('subtitle')}
         image={IMG.walk}
       />
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
         <FadeUp>
           <p className="max-w-2xl font-body text-base font-light leading-body text-ink/80">
-            Four hundred acres earn their keep. The river holds salmon, the hill holds deer, the
-            cellar holds the estate blend, and the team holds firm opinions on the correct order
-            in which to enjoy them. Book ahead or decide at breakfast — both work.
+            {t('intro')}
           </p>
         </FadeUp>
         <StaggerGrid className="mt-14 grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">

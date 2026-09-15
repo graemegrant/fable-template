@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
 import { pageMetadata } from '@/lib/seo';
@@ -36,12 +37,13 @@ export default async function DiningPage({ params }: { params: Promise<{ locale:
       detail: pickLocale(item.detail, locale) ?? '',
     })),
   }));
+  const t = await getTranslations('dining');
   return (
     <>
       <PageHero
-        eyebrow={`The dining room · ${hotelConfig.location.locality}`}
-        title="Cooking that answers to the glen"
-        subtitle="One dining room, thirty covers, a kitchen fed by the river, the hill and a walled garden planted in 1847."
+        eyebrow={`${t('diningRoomLabel')} · ${hotelConfig.location.locality}`}
+        title={t('title')}
+        subtitle={t('subtitle')}
         image={IMG.dining1}
         tall
       />
@@ -50,20 +52,17 @@ export default async function DiningPage({ params }: { params: Promise<{ locale:
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-24">
           <FadeUp>
-            <SectionLabel>The philosophy</SectionLabel>
+            <SectionLabel>{t('philosophyLabel')}</SectionLabel>
             <h2 className="mt-5 font-heading text-4xl font-medium leading-tight text-ink md:text-5xl">
-              Nothing arrives by motorway if it can walk from the garden.
+              {t('philosophyHeading')}
             </h2>
             <p className="mt-6 font-body text-base font-light leading-body text-ink/80">
-              The menu is written daily, in pencil, after the kitchen has spoken to the gardener,
-              the ghillie and the weather. Venison from the hill, salmon when the river allows,
-              vegetables that were soil-side at dawn. The wine cellar leans old-world; the whisky
-              shelf leans local; the portions lean generous.
+              {t('philosophyBody')}
             </p>
           </FadeUp>
           <FadeUp delay={0.15}>
             <div className="relative aspect-portrait overflow-hidden rounded-img">
-              <Image src={IMG.food1} alt="A dish from the tasting menu" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+              <Image src={IMG.food1} alt={t('tastingDishAlt')} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
             </div>
           </FadeUp>
         </div>
@@ -73,10 +72,10 @@ export default async function DiningPage({ params }: { params: Promise<{ locale:
       <section className="bg-warmgrey">
         <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
           <FadeUp>
-            <SectionLabel>The menus</SectionLabel>
-            <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">What the day allows</h2>
+            <SectionLabel>{t('menusLabel')}</SectionLabel>
+            <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">{t('menusHeading')}</h2>
             <p className="mt-5 max-w-xl font-body text-sm font-light leading-relaxed text-ink/70">
-              Sample menus — the kitchen rewrites them daily, and the glen has final approval.
+              {t('menusIntro')}
             </p>
           </FadeUp>
           <StaggerGrid className="mt-14 grid gap-10 lg:grid-cols-3">
@@ -105,23 +104,20 @@ export default async function DiningPage({ params }: { params: Promise<{ locale:
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-24">
           <FadeUp>
             <div className="relative aspect-landscape overflow-hidden rounded-img">
-              <Image src={IMG.dining2} alt="The private dining room" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+              <Image src={IMG.dining2} alt={t('privateDiningRoomAlt')} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
             </div>
           </FadeUp>
           <FadeUp delay={0.15}>
-            <SectionLabel>Private dining</SectionLabel>
-            <h2 className="mt-5 font-heading text-4xl font-medium leading-tight text-ink md:text-5xl">The Library Table</h2>
+            <SectionLabel>{t('privateDiningLabel')}</SectionLabel>
+            <h2 className="mt-5 font-heading text-4xl font-medium leading-tight text-ink md:text-5xl">{t('libraryTableHeading')}</h2>
             <p className="mt-6 font-body text-base font-light leading-body text-ink/80">
-              Twelve seats, one long oak table, and the library fire at your back. The room takes
-              birthdays, board awaydays and proposals with equal discretion — the kitchen will
-              build a menu around the occasion, and the sommelier will overdeliver. Bookable for
-              lunch or dinner, residents and non-residents alike.
+              {t('libraryTableBody')}
             </p>
             <Link
               href="/contact"
               className="mt-9 inline-block rounded-ctrl border border-forest px-8 py-4 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-forest hover:text-parchment"
             >
-              Enquire about private dining
+              {t('enquirePrivateDining')}
             </Link>
           </FadeUp>
         </div>
@@ -138,15 +134,14 @@ export default async function DiningPage({ params }: { params: Promise<{ locale:
                 </div>
               </FadeUp>
               <FadeUp delay={0.15}>
-                <SectionLabel variant="parchment">The chef</SectionLabel>
+                <SectionLabel variant="parchment">{t('chefLabel')}</SectionLabel>
                 <h2 className="mt-5 font-heading text-4xl font-medium text-parchment md:text-5xl">{chef.name}</h2>
                 <p className="mt-2 font-body text-2xs uppercase tracking-25 text-gold">{chef.role}</p>
                 <p className="mt-6 max-w-2xl font-body text-base font-light leading-body text-parchment/80">
-                  {chef.bio} His tasting menu — six courses, whole table, no theatrics — has become
-                  the quiet reason a number of guests time their stays around dinner.
+                  {chef.bio}{t('chefBioSuffix')}
                 </p>
                 <p className="mt-8 font-heading text-2xl font-medium italic text-parchment/90">
-                  “I don’t have a style. I have a postcode.”
+                  “{t('chefQuote')}”
                 </p>
               </FadeUp>
             </div>

@@ -1,3 +1,4 @@
+import { getTranslations } from 'next-intl/server';
 import { hotelConfig } from '@/hotel.config';
 import { pageMetadata } from '@/lib/seo';
 import { sanityFetch } from '@/lib/sanity';
@@ -28,13 +29,14 @@ export default async function JournalPage({ params }: { params: Promise<{ locale
   const posts = rawPosts.map((p) => resolveJournalPost(p, locale));
   const featured = posts.find((p) => p.featured) ?? posts[0];
   const rest = posts.filter((p) => p.slug !== featured?.slug);
+  const t = await getTranslations('journalPage');
 
   return (
     <>
       <PageHero
-        eyebrow="The journal"
-        title="Notes from the glen"
-        subtitle="The garden, the kitchen, the hill and the house — written by the people who keep them."
+        eyebrow={t('eyebrow')}
+        title={t('title')}
+        subtitle={t('subtitle')}
         image={IMG.forest}
       />
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
