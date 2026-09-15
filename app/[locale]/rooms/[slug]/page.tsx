@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 import { hotelConfig } from '@/hotel.config';
 import { sanityFetch, imgSrc } from '@/lib/sanity';
 import { pageMetadata } from '@/lib/seo';
@@ -92,23 +93,24 @@ export default async function RoomDetailPage({ params }: Props) {
     ['Rooms & Suites', '/rooms'],
     [room.name, `/rooms/${room.slug}`],
   ], locale);
+  const t = await getTranslations('roomDetail');
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(roomSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
-      <PageHero eyebrow={`${room.type} room · ${hotelConfig.location.locality}`} title={room.name} subtitle={room.view} image={room.heroImage} imageAlt={room.imageAlt} />
+      <PageHero eyebrow={`${t('roomTypeLabel', { type: room.type })} · ${hotelConfig.location.locality}`} title={room.name} subtitle={room.view} image={room.heroImage} imageAlt={room.imageAlt} />
 
       <section className="mx-auto max-w-7xl px-6 py-20 pb-32 lg:px-10 lg:py-28">
         <div className="grid gap-16 lg:grid-cols-1fr-360">
           <div>
             <FadeUp>
-              <SectionLabel>The room</SectionLabel>
+              <SectionLabel>{t('theRoom')}</SectionLabel>
               <p className="mt-6 font-body text-lg font-light leading-body text-ink/85">{room.description}</p>
             </FadeUp>
 
             <FadeUp className="mt-16">
-              <SectionLabel>In the room</SectionLabel>
+              <SectionLabel>{t('inTheRoom')}</SectionLabel>
               <ul className="mt-6 grid gap-x-10 gap-y-3 sm:grid-cols-2">
                 {room.amenities.map((a) => (
                   <li key={a} className="flex gap-3 font-body text-sm text-ink/80">
@@ -121,7 +123,7 @@ export default async function RoomDetailPage({ params }: Props) {
 
             {room.gallery && room.gallery.length > 0 && (
               <FadeUp className="mt-16">
-                <SectionLabel>Gallery</SectionLabel>
+                <SectionLabel>{t('gallery')}</SectionLabel>
                 <div className="mt-6">
                   <GalleryLightbox images={room.gallery} alt={room.name} />
                 </div>
@@ -132,17 +134,17 @@ export default async function RoomDetailPage({ params }: Props) {
           {/* Sticky booking sidebar */}
           <aside>
             <div className="border border-ink/10 bg-warmgrey p-8 lg:sticky lg:top-28">
-              <p className="font-body text-2xs uppercase tracking-25 text-ink/60">From</p>
+              <p className="font-body text-2xs uppercase tracking-25 text-ink/60">{t('from')}</p>
               <p className="mt-2 font-heading text-5xl font-medium text-forest">
                 £{room.rate}
-                <span className="font-body text-sm font-light text-ink/60"> / night</span>
+                <span className="font-body text-sm font-light text-ink/60"> {t('perNight')}</span>
               </p>
               <dl className="mt-8 space-y-3 border-t border-ink/10 pt-7">
                 {[
-                  ['Size', `${room.sqm} sqm`],
-                  ['Sleeps', `${room.occupancy}`],
-                  ['Floor', room.floor],
-                  ['Outlook', room.view],
+                  [t('size'), `${room.sqm} ${t('sqmUnit')}`],
+                  [t('sleeps'), `${room.occupancy}`],
+                  [t('floor'), room.floor],
+                  [t('outlook'), room.view],
                 ].filter(([, v]) => v).map(([k, v]) => (
                   <div key={k} className="flex justify-between gap-6">
                     <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">{k}</dt>
@@ -152,7 +154,7 @@ export default async function RoomDetailPage({ params }: Props) {
               </dl>
               <BookButton roomHint={room.name} className="mt-8 w-full rounded-ctrl bg-forest px-8 py-4 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest" />
               <p className="mt-5 text-center font-body text-xs text-ink/60">
-                Or call{' '}
+                {t('orCall')}{' '}
                 <a href={`tel:${hotelConfig.contact.phoneHref}`} className="text-forest underline decoration-gold underline-offset-4">
                   {hotelConfig.contact.phone}
                 </a>
@@ -173,8 +175,8 @@ export default async function RoomDetailPage({ params }: Props) {
       <section className="bg-warmgrey">
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
           <FadeUp>
-            <SectionLabel>Also worth a look</SectionLabel>
-            <h2 className="mt-5 font-heading text-4xl font-medium text-ink">Other rooms</h2>
+            <SectionLabel>{t('alsoWorthLook')}</SectionLabel>
+            <h2 className="mt-5 font-heading text-4xl font-medium text-ink">{t('otherRooms')}</h2>
           </FadeUp>
           <StaggerGrid className="mt-12 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((r) => (

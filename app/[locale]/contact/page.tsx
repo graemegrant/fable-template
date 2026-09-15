@@ -1,3 +1,4 @@
+import { getTranslations } from 'next-intl/server';
 import { hotelConfig } from '@/hotel.config';
 import { pageMetadata } from '@/lib/seo';
 import { faqs, IMG } from '@/lib/data';
@@ -24,29 +25,30 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
   const { locale: rawLocale } = await params;
   const locale: Locale = isLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
   const resolvedFaqs = faqs.map((f) => ({ q: pickLocale(f.q, locale) ?? '', a: pickLocale(f.a, locale) ?? '' }));
+  const t = await getTranslations('contact');
   return (
     <>
       <PageHero
-        eyebrow="Contact"
-        title="Talk to the house"
-        subtitle="A person answers. Usually Isla. Always within one working day."
+        eyebrow={t('eyebrow')}
+        title={t('title')}
+        subtitle={t('subtitle')}
         image={IMG.exterior}
       />
 
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
         <div className="grid gap-16 lg:grid-cols-1fr-380">
           <FadeUp>
-            <SectionLabel>Your enquiry</SectionLabel>
-            <h2 className="mb-10 mt-5 font-heading text-4xl font-medium text-ink">Write to us</h2>
+            <SectionLabel>{t('enquiryLabel')}</SectionLabel>
+            <h2 className="mb-10 mt-5 font-heading text-4xl font-medium text-ink">{t('writeToUs')}</h2>
             <ContactForm />
           </FadeUp>
 
           <FadeUp delay={0.15}>
             <div className="border border-ink/10 bg-warmgrey p-8">
-              <SectionLabel>Directly</SectionLabel>
+              <SectionLabel>{t('directlyLabel')}</SectionLabel>
               <dl className="mt-6 space-y-6">
                 <div>
-                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">Telephone</dt>
+                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">{t('telephone')}</dt>
                   <dd className="mt-1">
                     <a href={`tel:${hotelConfig.contact.phoneHref}`} className="font-heading text-xl font-medium text-forest">
                       {hotelConfig.contact.phone}
@@ -54,7 +56,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">Email</dt>
+                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">{t('email')}</dt>
                   <dd className="mt-1">
                     <a href={`mailto:${hotelConfig.contact.email}`} className="font-heading text-xl font-medium text-forest">
                       {hotelConfig.contact.email}
@@ -62,7 +64,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">Address</dt>
+                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">{t('address')}</dt>
                   <dd className="mt-1 font-body text-sm leading-relaxed text-ink/80">
                     {hotelConfig.name}<br />
                     {hotelConfig.location.address}<br />
@@ -77,12 +79,12 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                       rel="noopener noreferrer"
                       className="font-body text-2xs uppercase tracking-20 text-gold transition-colors hover:text-forest"
                     >
-                      Get directions →
+                      {t('getDirections')}
                     </a>
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">Reception hours</dt>
+                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">{t('receptionHours')}</dt>
                   <dd className="mt-1 font-body text-sm leading-relaxed text-ink/80">
                     {pickLocale(hotelConfig.reception.display, locale)}
                   </dd>
@@ -96,8 +98,8 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
       <section className="bg-warmgrey">
         <div className="mx-auto max-w-3xl px-6 py-20 lg:py-28">
           <FadeUp>
-            <SectionLabel>Before you ask</SectionLabel>
-            <h2 className="mb-10 mt-5 font-heading text-4xl font-medium text-ink">Questions, anticipated</h2>
+            <SectionLabel>{t('beforeYouAskLabel')}</SectionLabel>
+            <h2 className="mb-10 mt-5 font-heading text-4xl font-medium text-ink">{t('questionsAnticipated')}</h2>
             <FaqAccordion items={resolvedFaqs} />
           </FadeUp>
         </div>

@@ -69,13 +69,22 @@ export default function Navbar() {
         solid ? 'bg-forest' : 'bg-transparent'
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
+      <div className="mx-auto flex max-w-7xl items-center px-6 py-5 lg:px-10">
         <Link href="/" className="font-heading text-2xl font-medium tracking-wide text-parchment">
           {hotelConfig.name}
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden items-center gap-8 lg:flex" aria-label="Main">
+        {/* Desktop nav — a fixed margin gives a consistent gap from the logo;
+            justify-between previously let this collapse to a noticeably
+            tighter gap than the nav's own item spacing on wide viewports,
+            since it only balances space against the (wide) right-hand
+            cluster, not against the logo directly. The 1024–1279px band
+            (lg but not yet xl, where the phone number is still hidden) has
+            no slack at all — six top-level items plus the logo and the
+            language/CTA cluster fill it edge to edge — so both the item
+            gap and the logo margin step down there and only open up at
+            xl+, where there's actually room. */}
+        <nav className="hidden items-center gap-5 lg:ml-4 lg:flex xl:ml-10 xl:gap-6" aria-label="Main">
           {NAV.map((item) => (
             <div key={item.labelKey} className="group relative">
               {item.href ? (
@@ -120,7 +129,7 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-6 lg:flex">
+        <div className="ml-auto hidden items-center gap-5 lg:flex">
           <a
             href={`tel:${hotelConfig.contact.phoneHref}`}
             className="hidden font-body text-xs text-parchment/80 transition-colors hover:text-gold xl:block"

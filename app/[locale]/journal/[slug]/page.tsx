@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import Image from 'next/image';
 import { hotelConfig } from '@/hotel.config';
@@ -45,9 +46,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 }
 
-function formatDate(d?: string) {
+function formatDate(d: string | undefined, locale: Locale) {
   if (!d) return '';
-  return new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  return new Date(d).toLocaleDateString(bcp47For(locale), { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
 export default async function JournalPostPage({ params }: Props) {
@@ -94,12 +95,13 @@ export default async function JournalPostPage({ params }: Props) {
     ['Journal', '/journal'],
     [post.title, `/journal/${post.slug}`],
   ], locale);
+  const t = await getTranslations('journalDetail');
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
-      <PageHero eyebrow={post.category} title={post.title} subtitle={`${post.author} · ${formatDate(post.publishedAt)} · ${post.readingTime ?? ''}`} image={post.heroImage} imageAlt={post.imageAlt} />
+      <PageHero eyebrow={post.category} title={post.title} subtitle={`${post.author} · ${formatDate(post.publishedAt, locale)} · ${post.readingTime ?? ''}`} image={post.heroImage} imageAlt={post.imageAlt} />
 
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
         <div className="grid gap-16 lg:grid-cols-1fr-340">
@@ -112,7 +114,7 @@ export default async function JournalPostPage({ params }: Props) {
             </article>
             <div className="mt-14 border-t border-ink/10 pt-8">
               <Link href="/journal" className="font-body text-2xs uppercase tracking-25 text-gold transition-colors hover:text-forest">
-                ← Back to the journal
+                {t('backToJournal')}
               </Link>
             </div>
           </FadeUp>
@@ -121,7 +123,7 @@ export default async function JournalPostPage({ params }: Props) {
           {featuredRoom && (
             <aside>
               <div className="border border-ink/10 bg-warmgrey p-8 lg:sticky lg:top-28">
-                <SectionLabel>Stay with us</SectionLabel>
+                <SectionLabel>{t('stayWithUs')}</SectionLabel>
                 <Link href={`/rooms/${featuredRoom.slug}`} className="group mt-5 block">
                   <div className="relative aspect-landscape overflow-hidden rounded-img">
                     <Image
@@ -134,10 +136,10 @@ export default async function JournalPostPage({ params }: Props) {
                   </div>
                   <h3 className="mt-5 font-heading text-2xl font-medium text-ink">{featuredRoom.name}</h3>
                   <p className="mt-2 font-body text-sm text-ink/70">
-                    From <span className="font-heading text-lg text-forest">£{featuredRoom.rate}</span> / night
+                    {t('from')} <span className="font-heading text-lg text-forest">£{featuredRoom.rate}</span> {t('perNight')}
                   </p>
                   <span className="mt-4 inline-block font-body text-2xs uppercase tracking-20 text-gold transition-colors group-hover:text-forest">
-                    View the room —
+                    {t('viewTheRoom')}
                   </span>
                 </Link>
               </div>

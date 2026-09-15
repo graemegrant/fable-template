@@ -1,3 +1,4 @@
+import { getTranslations } from 'next-intl/server';
 import { hotelConfig } from '@/hotel.config';
 import { pageMetadata } from '@/lib/seo';
 import { sanityFetch } from '@/lib/sanity';
@@ -27,13 +28,14 @@ export default async function OffersPage({ params }: { params: Promise<{ locale:
   const locale: Locale = isLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
   const rawOffers = await sanityFetch<OfferI18n[]>(OFFERS_QUERY, {}, fallbackOffers);
   const offers = rawOffers.map((o) => resolveOffer(o, locale));
+  const t = await getTranslations('offersPage');
 
   return (
     <>
       <PageHero
-        eyebrow="Special offers"
-        title="Reasons, if you need one"
-        subtitle="Every offer below is exclusive to direct bookings — the agencies get our rack rates and our regards."
+        eyebrow={t('eyebrow')}
+        title={t('title')}
+        subtitle={t('subtitle')}
         image={IMG.fire}
       />
       <section className="mx-auto max-w-7xl space-y-24 px-6 py-20 lg:space-y-32 lg:px-10 lg:py-28">

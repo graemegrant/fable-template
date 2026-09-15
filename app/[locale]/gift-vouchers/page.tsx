@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
 import { pageMetadata } from '@/lib/seo';
@@ -23,21 +24,20 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function GiftVouchersPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: rawLocale } = await params;
   const locale: Locale = isLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
+  const t = await getTranslations('giftVouchers');
   return (
     <>
       <PageHero
-        eyebrow="Gift vouchers"
-        title="Give someone the glen"
-        subtitle="Posted in proper envelopes with wax we take slightly too seriously, or emailed within the hour."
+        eyebrow={t('eyebrow')}
+        title={t('title')}
+        subtitle={t('subtitle')}
         image={IMG.loch}
       />
 
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
         <FadeUp>
           <p className="max-w-2xl font-body text-base font-light leading-body text-ink/80">
-            All vouchers are valid for eighteen months, exchangeable against anything the house
-            does, and transferable — generosity should not come with small print. Order by phone,
-            email or the enquiry form, and we will arrange payment and delivery the same day.
+            {t('intro')}
           </p>
         </FadeUp>
 
@@ -56,7 +56,7 @@ export default async function GiftVouchersPage({ params }: { params: Promise<{ l
                     href="/contact"
                     className="mt-8 block rounded-ctrl bg-forest px-8 py-4 text-center font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest"
                   >
-                    Purchase this voucher
+                    {t('purchaseThis')}
                   </Link>
                 </div>
               </article>
@@ -66,11 +66,11 @@ export default async function GiftVouchersPage({ params }: { params: Promise<{ l
 
         <FadeUp className="mt-16 border-t border-ink/10 pt-10 text-center">
           <p className="font-body text-sm text-ink/70">
-            Prefer to order by phone? Call{' '}
+            {t('phonePrefix')}{' '}
             <a href={`tel:${hotelConfig.contact.phoneHref}`} className="text-forest underline decoration-gold underline-offset-4">
               {hotelConfig.contact.phone}
             </a>{' '}
-            — vouchers ordered before 2pm catch the day’s post.
+            {t('phoneSuffix')}
           </p>
         </FadeUp>
       </section>

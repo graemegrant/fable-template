@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 import { hotelConfig } from '@/hotel.config';
 import { sanityFetch } from '@/lib/sanity';
 import { pageMetadata } from '@/lib/seo';
@@ -63,6 +64,7 @@ export default async function ExperienceDetailPage({ params }: Props) {
     ['Experiences', '/experiences'],
     [exp.name, `/experiences/${exp.slug}`],
   ], locale);
+  const t = await getTranslations('experienceDetail');
 
   return (
     <>
@@ -73,13 +75,13 @@ export default async function ExperienceDetailPage({ params }: Props) {
         <div className="grid gap-16 lg:grid-cols-1fr-360">
           <div>
             <FadeUp>
-              <SectionLabel>The experience</SectionLabel>
+              <SectionLabel>{t('theExperience')}</SectionLabel>
               <p className="mt-6 font-body text-lg font-light leading-body text-ink/85">{exp.description}</p>
             </FadeUp>
 
             {exp.includes && exp.includes.length > 0 && (
               <FadeUp className="mt-16">
-                <SectionLabel>What’s included</SectionLabel>
+                <SectionLabel>{t('whatsIncluded')}</SectionLabel>
                 <ul className="mt-6 space-y-3">
                   {exp.includes.map((inc) => (
                     <li key={inc} className="flex gap-3 font-body text-sm text-ink/80">
@@ -94,20 +96,20 @@ export default async function ExperienceDetailPage({ params }: Props) {
 
           <aside>
             <div className="border border-ink/10 bg-warmgrey p-8 lg:sticky lg:top-28">
-              <p className="font-body text-2xs uppercase tracking-25 text-ink/60">Pricing</p>
+              <p className="font-body text-2xs uppercase tracking-25 text-ink/60">{t('pricing')}</p>
               <p className="mt-3 font-heading text-3xl font-medium text-forest">{exp.price}</p>
               <dl className="mt-8 space-y-3 border-t border-ink/10 pt-7">
                 <div className="flex justify-between gap-6">
-                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">Duration</dt>
+                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">{t('duration')}</dt>
                   <dd className="font-body text-sm text-ink/85">{exp.duration}</dd>
                 </div>
                 <div className="flex justify-between gap-6">
-                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">Category</dt>
+                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">{t('category')}</dt>
                   <dd className="font-body text-sm text-ink/85">{exp.category}</dd>
                 </div>
                 {exp.seasons && exp.seasons.length > 0 && (
                   <div className="flex justify-between gap-6">
-                    <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">Season</dt>
+                    <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">{t('season')}</dt>
                     <dd className="text-right font-body text-sm text-ink/85">{exp.seasons.join(', ')}</dd>
                   </div>
                 )}
@@ -116,10 +118,10 @@ export default async function ExperienceDetailPage({ params }: Props) {
                 href="/contact"
                 className="mt-8 block w-full rounded-ctrl bg-forest px-8 py-4 text-center font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest"
               >
-                Arrange this experience
+                {t('arrangeThis')}
               </Link>
               <p className="mt-5 text-center font-body text-xs text-ink/60">
-                Staying with us? Ask at the desk — same-day is often possible.
+                {t('askAtDesk')}
               </p>
             </div>
           </aside>
@@ -129,8 +131,8 @@ export default async function ExperienceDetailPage({ params }: Props) {
       <section className="bg-warmgrey">
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
           <FadeUp>
-            <SectionLabel>While you’re here</SectionLabel>
-            <h2 className="mt-5 font-heading text-4xl font-medium text-ink">More from the estate</h2>
+            <SectionLabel>{t('whileYoureHere')}</SectionLabel>
+            <h2 className="mt-5 font-heading text-4xl font-medium text-ink">{t('moreFromEstate')}</h2>
           </FadeUp>
           <StaggerGrid className="mt-12 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((e) => (

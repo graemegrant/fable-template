@@ -1,3 +1,4 @@
+import { getTranslations } from 'next-intl/server';
 import { hotelConfig } from '@/hotel.config';
 import { pageMetadata } from '@/lib/seo';
 import { sanityFetch } from '@/lib/sanity';
@@ -28,22 +29,21 @@ export default async function RoomsPage({ params }: { params: Promise<{ locale: 
   const locale: Locale = isLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
   const rawRooms = await sanityFetch<RoomI18n[]>(ROOMS_QUERY, {}, fallbackRooms);
   const rooms = rawRooms.map((r) => resolveRoom(r, locale));
+  const t = await getTranslations('roomsPage');
 
   return (
     <>
       <PageHero
-        eyebrow={`Stay · ${hotelConfig.location.locality}`}
-        title="Rooms & suites"
-        subtitle="Twelve rooms, no two alike, every one facing something worth waking up to."
+        eyebrow={`${t('eyebrowLabel')} · ${hotelConfig.location.locality}`}
+        title={t('title')}
+        subtitle={t('subtitle')}
         image={IMG.room1}
       />
       <TrustStrip />
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
         <FadeUp>
           <p className="max-w-2xl font-body text-base font-light leading-body text-ink/80">
-            Every room comes with breakfast, the run of four hundred acres, and housekeeping that
-            believes in hospital corners. Suites add space and sitting rooms; Classics add the
-            particular smugness of having chosen well for less.
+            {t('intro')}
           </p>
         </FadeUp>
         <div className="mt-14">

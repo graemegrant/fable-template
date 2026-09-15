@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
 import { pageMetadata } from '@/lib/seo';
@@ -20,36 +21,21 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   });
 }
 
-const venues = [
-  {
-    name: 'The South Lawn',
-    capacity: 'Up to 120 guests',
-    detail: 'Ceremonies under open sky with the glen as witness. A marquee takes the weather question off the table; the view refuses to be upstaged either way.',
-    image: IMG.wedding1,
-  },
-  {
-    name: 'The Dining Room & Hall',
-    capacity: 'Up to 60 seated',
-    detail: 'Candlelit dinners at long tables, the fire lit, the kitchen cooking the best wedding food either of your families will admit to having eaten.',
-    image: IMG.dining2,
-  },
-  {
-    name: 'The Library',
-    capacity: 'Up to 20 guests',
-    detail: 'For the small and serious: an intimate ceremony by the fire, a dram for the witnesses, and dinner to follow. Elopements handled with enthusiasm.',
-    image: IMG.fire,
-  },
-];
-
 export default async function WeddingsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: rawLocale } = await params;
   const locale: Locale = isLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
+  const t = await getTranslations('weddings');
+  const venues = [
+    { name: t('southLawnName'), capacity: t('southLawnCapacity'), detail: t('southLawnDetail'), image: IMG.wedding1 },
+    { name: t('diningRoomName'), capacity: t('diningRoomCapacity'), detail: t('diningRoomDetail'), image: IMG.dining2 },
+    { name: t('libraryName'), capacity: t('libraryCapacity'), detail: t('libraryDetail'), image: IMG.fire },
+  ];
   return (
     <>
       <PageHero
-        eyebrow={`Weddings · ${pickLocale(hotelConfig.location.regionLabel, locale)}`}
-        title="One wedding. The whole house."
-        subtitle="We host a handful of weddings a year, never more than one at a time, and never two the same."
+        eyebrow={`${t('eyebrowLabel')} · ${pickLocale(hotelConfig.location.regionLabel, locale)}`}
+        title={t('title')}
+        subtitle={t('subtitle')}
         image={IMG.wedding1}
         tall
       />
@@ -57,25 +43,20 @@ export default async function WeddingsPage({ params }: { params: Promise<{ local
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-24">
           <FadeUp>
-            <SectionLabel>How it works</SectionLabel>
+            <SectionLabel>{t('howItWorksLabel')}</SectionLabel>
             <h2 className="mt-5 font-heading text-4xl font-medium leading-tight text-ink md:text-5xl">
-              Exclusive use, as standard
+              {t('exclusiveUseHeading')}
             </h2>
             <p className="mt-6 font-body text-base font-light leading-body text-ink/80">
-              When you marry at Craigmore, the house is yours: all twelve rooms, the lawns, the
-              library, the dining room, the staff. Your guests wake up where the party ended. Our
-              events team — which is to say, Eleanor and whoever she deems worthy — handles
-              everything from celebrant to ceilidh band, with one planning visit each season and
-              an opinion available whenever asked.
+              {t('exclusiveUseP1')}
             </p>
             <p className="mt-5 font-body text-base font-light leading-body text-ink/80">
-              Exclusive-use weekends from £18,000 including all accommodation. Licensed for
-              ceremonies indoors and out.
+              {t('exclusiveUseP2')}
             </p>
           </FadeUp>
           <FadeUp delay={0.15}>
             <div className="relative aspect-portrait overflow-hidden rounded-img">
-              <Image src={IMG.wedding2} alt="A wedding table dressed in the dining room" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+              <Image src={IMG.wedding2} alt={t('weddingTableAlt')} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
             </div>
           </FadeUp>
         </div>
@@ -84,8 +65,8 @@ export default async function WeddingsPage({ params }: { params: Promise<{ local
       <section className="bg-warmgrey">
         <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
           <FadeUp>
-            <SectionLabel>The settings</SectionLabel>
-            <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">Three ways to say it</h2>
+            <SectionLabel>{t('settingsLabel')}</SectionLabel>
+            <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">{t('settingsHeading')}</h2>
           </FadeUp>
           <StaggerGrid className="mt-14 grid gap-10 lg:grid-cols-3">
             {venues.map((v) => (
@@ -109,19 +90,18 @@ export default async function WeddingsPage({ params }: { params: Promise<{ local
       <section className="bg-forest">
         <div className="mx-auto max-w-4xl px-6 py-24 text-center lg:py-32">
           <FadeUp>
-            <SectionLabel variant="parchment">Begin</SectionLabel>
+            <SectionLabel variant="parchment">{t('beginLabel')}</SectionLabel>
             <h2 className="mt-6 font-heading text-4xl font-medium leading-tight text-parchment md:text-6xl">
-              Come and walk the lawn.<br />Decisions follow naturally.
+              {t('beginHeadingLine1')}<br />{t('beginHeadingLine2')}
             </h2>
             <p className="mx-auto mt-6 max-w-xl font-body text-base font-light leading-relaxed text-parchment/75">
-              Wedding viewings run most weekdays and include lunch — we believe in showing you
-              the kitchen’s work early. Dates for the coming two years are released each January.
+              {t('beginBody')}
             </p>
             <Link
               href="/contact"
               className="mt-10 inline-block rounded-ctrl bg-gold px-10 py-4 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-parchment"
             >
-              Enquire about a date
+              {t('enquireDate')}
             </Link>
           </FadeUp>
         </div>

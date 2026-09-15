@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
 import { pageMetadata } from '@/lib/seo';
@@ -41,6 +42,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: rawLocale } = await params;
   const locale: Locale = isLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
+  const t = await getTranslations('home');
 
   const [rawRooms, rawExperiences, rawOffers, rawTestimonials, rawJournalPosts] = await Promise.all([
     sanityFetch<RoomI18n[]>(FEATURED_ROOMS_QUERY, {}, fallback.rooms.filter((r) => r.featured).slice(0, 3)),
@@ -64,26 +66,23 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-24">
           <FadeUp>
-            <SectionLabel>The house</SectionLabel>
+            <SectionLabel>{t('houseLabel')}</SectionLabel>
             <h2 className="mt-5 font-heading text-4xl font-medium leading-tight text-ink md:text-5xl">
-              Twelve rooms. Four hundred acres. No agenda.
+              {t('houseHeading')}
             </h2>
             <p className="mt-6 font-body text-base font-light leading-body text-ink/80">
-              Craigmore House sits where the glen narrows and the road gives up — a Victorian
-              shooting lodge rebuilt around the things that matter: open fires, deep baths,
-              a kitchen that answers to the estate rather than to fashion, and silence of a
-              quality you will want to take home.
+              {t('houseIntro')}
             </p>
             <Link
               href="/about"
               className="mt-9 inline-block rounded-ctrl border border-forest px-8 py-4 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-forest hover:text-parchment"
             >
-              Our story
+              {t('ourStory')}
             </Link>
           </FadeUp>
           <FadeUp delay={0.15}>
             <div className="relative aspect-portrait overflow-hidden rounded-img">
-              <Image src={IMG.exterior} alt="The house from the south lawn" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+              <Image src={IMG.exterior} alt={t('exteriorAlt')} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
             </div>
           </FadeUp>
         </div>
@@ -100,11 +99,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
           <FadeUp className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <SectionLabel>Stay</SectionLabel>
-              <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">Rooms & suites</h2>
+              <SectionLabel>{t('roomsLabel')}</SectionLabel>
+              <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">{t('roomsHeading')}</h2>
             </div>
             <Link href="/rooms" className="font-body text-2xs uppercase tracking-25 text-gold transition-colors hover:text-forest">
-              All twelve rooms →
+              {t('allRooms')}
             </Link>
           </FadeUp>
           <StaggerGrid className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
@@ -119,11 +118,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
         <FadeUp className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <SectionLabel>Beyond the door</SectionLabel>
-            <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">Days, properly spent</h2>
+            <SectionLabel>{t('experiencesLabel')}</SectionLabel>
+            <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">{t('experiencesHeading')}</h2>
           </div>
           <Link href="/experiences" className="font-body text-2xs uppercase tracking-25 text-gold transition-colors hover:text-forest">
-            All experiences →
+            {t('allExperiences')}
           </Link>
         </FadeUp>
         <StaggerGrid className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
@@ -138,19 +137,18 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <Image src={IMG.dining1} alt="" fill sizes="100vw" className="object-cover opacity-25" />
         <div className="relative mx-auto max-w-4xl px-6 py-28 text-center lg:py-40">
           <FadeUp>
-            <SectionLabel variant="parchment">The dining room</SectionLabel>
+            <SectionLabel variant="parchment">{t('diningLabel')}</SectionLabel>
             <blockquote className="mt-8 font-heading text-3xl font-medium italic leading-snug text-parchment md:text-5xl">
-              “The larder is the glen itself — the river, the hill, and a walled garden that has
-              fed this house since 1847.”
+              “{t('diningQuote')}”
             </blockquote>
             <p className="mt-8 font-body text-2xs uppercase tracking-25 text-parchment/60">
-              Calum Ross, Head Chef
+              {t('diningQuoteAttribution')}
             </p>
             <Link
               href="/dining"
               className="mt-10 inline-block rounded-ctrl border border-parchment/60 px-8 py-4 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-parchment hover:text-forest"
             >
-              Dining at the house
+              {t('diningCta')}
             </Link>
           </FadeUp>
         </div>
@@ -160,11 +158,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
         <FadeUp className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <SectionLabel>Special offers</SectionLabel>
-            <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">Reasons, if you need one</h2>
+            <SectionLabel>{t('offersLabel')}</SectionLabel>
+            <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">{t('offersHeading')}</h2>
           </div>
           <Link href="/offers" className="font-body text-2xs uppercase tracking-25 text-gold transition-colors hover:text-forest">
-            All offers →
+            {t('allOffers')}
           </Link>
         </FadeUp>
         <StaggerGrid className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
@@ -180,25 +178,22 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-24">
             <FadeUp>
               <div className="relative aspect-landscape overflow-hidden rounded-img">
-                <Image src={IMG.glen} alt="The glen below the house" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+                <Image src={IMG.glen} alt={t('glenAlt')} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
               </div>
             </FadeUp>
             <FadeUp delay={0.15}>
-              <SectionLabel>Finding us</SectionLabel>
+              <SectionLabel>{t('locationLabel')}</SectionLabel>
               <h2 className="mt-5 font-heading text-4xl font-medium leading-tight text-ink md:text-5xl">
-                Ninety minutes from Edinburgh. A world from anywhere.
+                {t('locationHeading')}
               </h2>
               <p className="mt-6 font-body text-base font-light leading-body text-ink/80">
-                Off the A9 at Pitlochry, four miles up a single-track road that ends at our gates.
-                Direct trains from London, Edinburgh and Inverness; we collect from the platform.
-                The last half mile is gravel, hills, and the growing suspicion that you have made
-                an excellent decision.
+                {t('locationIntro')}
               </p>
               <Link
                 href="/location"
                 className="mt-9 inline-block rounded-ctrl border border-forest px-8 py-4 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-forest hover:text-parchment"
               >
-                Directions & the area
+                {t('locationCta')}
               </Link>
             </FadeUp>
           </div>
@@ -210,11 +205,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
           <FadeUp className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <SectionLabel>From the house</SectionLabel>
-              <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">Stories & dispatches</h2>
+              <SectionLabel>{t('journalLabel')}</SectionLabel>
+              <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">{t('journalHeading')}</h2>
             </div>
             <Link href="/journal" className="font-body text-2xs uppercase tracking-25 text-gold transition-colors hover:text-forest">
-              All stories →
+              {t('allStories')}
             </Link>
           </FadeUp>
           <StaggerGrid className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
@@ -238,9 +233,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="bg-forest">
         <div className="mx-auto max-w-4xl px-6 py-24 text-center lg:py-32">
           <FadeUp>
-            <SectionLabel variant="parchment">The next step</SectionLabel>
+            <SectionLabel variant="parchment">{t('finalLabel')}</SectionLabel>
             <h2 className="mt-6 font-heading text-4xl font-medium leading-tight text-parchment md:text-6xl">
-              The glen will still be here.<br />Your dates may not.
+              {t('finalHeadingLine1')}<br />{t('finalHeadingLine2')}
             </h2>
             <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <BookButton className="w-64 rounded-ctrl bg-gold px-8 py-4 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-parchment sm:w-auto" />
