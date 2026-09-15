@@ -245,5 +245,63 @@
     "beginHeadingLine2": "Decisions follow naturally.",
     "beginBody": "Wedding viewings run most weekdays and include lunch — we believe in showing you the kitchen’s work early. Dates for the coming two years are released each January.",
     "enquireDate": "Enquire about a date"
+  },
+  "shared": {
+    "sqm": "sqm",
+    "sleeps": "Sleeps",
+    "from": "From",
+    "perNight": "/ night",
+    "viewRoom": "View room →",
+    "viewOffer": "View offer →",
+    "enquireAboutOffer": "Enquire about this offer",
+    "featuredSuffix": "Featured",
+    "readTheStory": "Read the story →",
+    "bookDirectLabel": "Book direct.",
+    "bookDirectBody": "The best rate, the best room in your category, and a dram waiting when you arrive.",
+    "allRoomTypes": "All",
+    "filterRoomsAriaLabel": "Filter rooms by type",
+    "noRoomsOfType": "No rooms of this type are currently available.",
+    "guestBookLabel": "Guest book",
+    "testimonialPrev": "Previous testimonial",
+    "testimonialNext": "Next testimonial",
+    "testimonialDot": "Testimonial {count}",
+    "galleryOpenPhoto": "Open photo {n} of {total}",
+    "galleryPhotoSuffix": "photo {n}",
+    "galleryTitle": "Photo gallery",
+    "galleryClose": "Close gallery",
+    "galleryPrevious": "Previous photo",
+    "galleryNext": "Next photo"
+  },
+  "contactForm": {
+    "subjectGeneral": "General enquiry",
+    "subjectRoomBooking": "Room booking",
+    "subjectDiningReservation": "Dining reservation",
+    "subjectWeddingsEvents": "Weddings & events",
+    "subjectGiftVouchers": "Gift vouchers",
+    "subjectPress": "Press",
+    "thankYou": "Thank you.",
+    "confirmationBody": "Your enquiry is with us. A member of the team — a person, not a system — will reply within one working day.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@example.com",
+    "phoneLabel": "Phone",
+    "optionalLabel": "(optional)",
+    "phonePlaceholder": "+44",
+    "subjectLabel": "Subject",
+    "messageLabel": "Message",
+    "messagePlaceholder": "How can we help?",
+    "sending": "Sending…",
+    "sendEnquiry": "Send enquiry",
+    "errorMessage": "Something went wrong sending that. Please try again, or email us directly — the address is alongside."
+  },
+  "stats": {
+    "rooms": "Rooms, no more",
+    "family": "Same family of thought",
+    "trafficLight": "To the nearest traffic light",
+    "acres": "Acres of glen to yourselves"
+  },
+  "glenMoment": {
+    "eyebrow": "The glen"
   }
 }

@@ -245,5 +245,63 @@
     "beginHeadingLine2": "Las decisiones llegan solas.",
     "beginBody": "Las visitas para bodas se realizan la mayoría de los días laborables e incluyen almuerzo: creemos en mostrarle pronto el trabajo de la cocina. Las fechas de los próximos dos años se publican cada enero.",
     "enquireDate": "Consultar sobre una fecha"
+  },
+  "shared": {
+    "sqm": "m²",
+    "sleeps": "Capacidad",
+    "from": "Desde",
+    "perNight": "/ noche",
+    "viewRoom": "Ver la habitación →",
+    "viewOffer": "Ver la oferta →",
+    "enquireAboutOffer": "Consultar sobre esta oferta",
+    "featuredSuffix": "Destacado",
+    "readTheStory": "Leer la historia →",
+    "bookDirectLabel": "Reserve directamente.",
+    "bookDirectBody": "La mejor tarifa, la mejor habitación de su categoría, y un dram esperándole a su llegada.",
+    "allRoomTypes": "Todas",
+    "filterRoomsAriaLabel": "Filtrar habitaciones por tipo",
+    "noRoomsOfType": "No hay habitaciones de este tipo disponibles actualmente.",
+    "guestBookLabel": "Libro de visitas",
+    "testimonialPrev": "Testimonio anterior",
+    "testimonialNext": "Testimonio siguiente",
+    "testimonialDot": "Testimonio {count}",
+    "galleryOpenPhoto": "Abrir foto {n} de {total}",
+    "galleryPhotoSuffix": "foto {n}",
+    "galleryTitle": "Galería de fotos",
+    "galleryClose": "Cerrar galería",
+    "galleryPrevious": "Foto anterior",
+    "galleryNext": "Foto siguiente"
+  },
+  "contactForm": {
+    "subjectGeneral": "Consulta general",
+    "subjectRoomBooking": "Reserva de habitación",
+    "subjectDiningReservation": "Reserva de restaurante",
+    "subjectWeddingsEvents": "Bodas y eventos",
+    "subjectGiftVouchers": "Cheques regalo",
+    "subjectPress": "Prensa",
+    "thankYou": "Gracias.",
+    "confirmationBody": "Su consulta ya está con nosotros. Un miembro del equipo —una persona, no un sistema— responderá en un día laborable.",
+    "nameLabel": "Nombre",
+    "namePlaceholder": "Su nombre",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "usted@ejemplo.com",
+    "phoneLabel": "Teléfono",
+    "optionalLabel": "(opcional)",
+    "phonePlaceholder": "+44",
+    "subjectLabel": "Asunto",
+    "messageLabel": "Mensaje",
+    "messagePlaceholder": "¿Cómo podemos ayudarle?",
+    "sending": "Enviando…",
+    "sendEnquiry": "Enviar consulta",
+    "errorMessage": "Algo salió mal al enviarlo. Inténtelo de nuevo, o escríbanos directamente: la dirección aparece al lado."
+  },
+  "stats": {
+    "rooms": "Habitaciones, ni una más",
+    "family": "Misma familia de pensamiento",
+    "trafficLight": "Hasta el semáforo más cercano",
+    "acres": "Acres de valle solo para ustedes"
+  },
+  "glenMoment": {
+    "eyebrow": "El valle"
   }
 }

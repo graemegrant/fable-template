@@ -1,11 +1,12 @@
 import Image from 'next/image';
+import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import SectionLabel from './SectionLabel';
 import { imgSrc } from '@/lib/sanity';
 import type { Offer } from '@/lib/types';
 
 /** Two variants: `grid` (card) and `feature` (alternating split layout). */
-export default function OfferCard({
+export default async function OfferCard({
   offer,
   variant = 'grid',
   flip = false,
@@ -14,6 +15,7 @@ export default function OfferCard({
   variant?: 'grid' | 'feature';
   flip?: boolean;
 }) {
+  const t = await getTranslations('shared');
   if (variant === 'feature') {
     return (
       <article className="grid items-center gap-10 md:grid-cols-2 lg:gap-20">
@@ -49,7 +51,7 @@ export default function OfferCard({
             href="/contact"
             className="mt-9 inline-block rounded-ctrl border border-forest px-8 py-4 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-forest hover:text-parchment"
           >
-            Enquire about this offer
+            {t('enquireAboutOffer')}
           </Link>
         </div>
       </article>
@@ -76,7 +78,7 @@ export default function OfferCard({
         <h3 className="font-heading text-2xl font-medium text-ink">{offer.title}</h3>
         <p className="mt-2 font-body text-xs uppercase tracking-20 text-ink/60">{offer.subtitle}</p>
         <span className="mt-4 inline-block font-body text-2xs uppercase tracking-20 text-gold transition-colors group-hover:text-forest">
-          View offer →
+          {t('viewOffer')}
         </span>
       </div>
     </Link>

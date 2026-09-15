@@ -1,11 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { AnimatePresence, motion, EASE } from './Motion';
 import SectionLabel from './SectionLabel';
 import type { Testimonial } from '@/lib/types';
 
 export default function TestimonialSlider({ testimonials }: { testimonials: Testimonial[] }) {
+  const t = useTranslations('shared');
   const [index, setIndex] = useState(0);
   if (!testimonials.length) return null;
   const current = testimonials[index];
@@ -14,7 +16,7 @@ export default function TestimonialSlider({ testimonials }: { testimonials: Test
 
   return (
     <div className="relative mx-auto max-w-3xl text-center">
-      <SectionLabel variant="parchment" className="mb-10">Guest book</SectionLabel>
+      <SectionLabel variant="parchment" className="mb-10">{t('guestBookLabel')}</SectionLabel>
       <div className="min-h-260px sm:min-h-220px">
         <AnimatePresence mode="wait">
           <motion.figure
@@ -37,7 +39,7 @@ export default function TestimonialSlider({ testimonials }: { testimonials: Test
       </div>
 
       <div className="mt-10 flex items-center justify-center gap-8">
-        <button type="button" onClick={() => go(-1)} aria-label="Previous testimonial"
+        <button type="button" onClick={() => go(-1)} aria-label={t('testimonialPrev')}
           className="font-body text-sm tracking-widest text-parchment/60 transition-colors hover:text-gold">
           ←
         </button>
@@ -47,12 +49,12 @@ export default function TestimonialSlider({ testimonials }: { testimonials: Test
               key={i}
               type="button"
               onClick={() => setIndex(i)}
-              aria-label={`Testimonial ${i + 1}`}
+              aria-label={t('testimonialDot', { count: i + 1 })}
               className={`size-1.5 transition-colors duration-300 ${i === index ? 'bg-gold' : 'bg-parchment/30'}`}
             />
           ))}
         </div>
-        <button type="button" onClick={() => go(1)} aria-label="Next testimonial"
+        <button type="button" onClick={() => go(1)} aria-label={t('testimonialNext')}
           className="font-body text-sm tracking-widest text-parchment/60 transition-colors hover:text-gold">
           →
         </button>
