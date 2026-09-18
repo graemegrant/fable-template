@@ -70,9 +70,12 @@ const t4 = (en: string, fr: string, de: string, es: string): LocaleField => ({ e
 
 export const rooms: RoomI18n[] = [
   {
-    name: t4('The Schiehallion Suite', 'La Suite Schiehallion', 'Die Schiehallion-Suite', 'La Suite Schiehallion'),
+    // Craigmore is the "named-room" edge case (SANITY-SCHEMA.md): every
+    // room is genuinely one-of-a-kind, so its proper name goes directly
+    // in roomType rather than a shared category — roomCount stays 1.
+    roomType: t4('The Schiehallion Suite', 'La Suite Schiehallion', 'Die Schiehallion-Suite', 'La Suite Schiehallion'),
     slug: 'schiehallion-suite',
-    type: 'Suite',
+    roomCount: 1,
     description: t4(
       'The principal suite, occupying the south-west corner of the second floor. A separate sitting room with open fire, a bedroom hung with estate maps, and a bathroom built around a cast-iron bath that looks straight down the glen. On a clear evening you can watch the light leave Schiehallion without lifting your head from the pillow.',
       'La suite principale, à l’angle sud-ouest du deuxième étage. Un salon indépendant avec feu de cheminée, une chambre ornée de cartes du domaine, et une salle de bain organisée autour d’une baignoire en fonte qui donne directement sur le glen. Par une soirée claire, vous pouvez regarder la lumière quitter le Schiehallion sans lever la tête de l’oreiller.',
@@ -101,9 +104,9 @@ export const rooms: RoomI18n[] = [
     active: true,
   },
   {
-    name: t4('The Atholl Suite', 'La Suite Atholl', 'Die Atholl-Suite', 'La Suite Atholl'),
+    roomType: t4('The Atholl Suite', 'La Suite Atholl', 'Die Atholl-Suite', 'La Suite Atholl'),
     slug: 'atholl-suite',
-    type: 'Suite',
+    roomCount: 1,
     description: t4(
       'A first-floor suite over the south lawn, with the longest view in the house — down the avenue of limes to the river. Panelled walls, a writing desk that guests tend to photograph, and a dressing room that makes a week-long stay feel sensible.',
       'Une suite au premier étage donnant sur la pelouse sud, avec la plus belle vue de la maison — le long de l’allée de tilleuls jusqu’à la rivière. Murs lambrissés, un bureau que les hôtes ont tendance à photographier, et un dressing qui rend un séjour d’une semaine tout à fait raisonnable.',
@@ -131,9 +134,9 @@ export const rooms: RoomI18n[] = [
     active: true,
   },
   {
-    name: t4('The Garry', 'La Garry', 'Das Garry-Zimmer', 'La Garry'),
+    roomType: t4('The Garry', 'La Garry', 'Das Garry-Zimmer', 'La Garry'),
     slug: 'the-garry',
-    type: 'Deluxe',
+    roomCount: 1,
     description: t4(
       'A generous first-floor double overlooking the walled garden. The bed faces the window deliberately — mornings here are the argument for the room. Bathroom in honed marble with both bath and shower.',
       'Une chambre double spacieuse au premier étage, avec vue sur le jardin clos. Le lit fait face à la fenêtre, à dessein — les matins ici sont le meilleur argument en faveur de la chambre. Salle de bain en marbre adouci avec baignoire et douche.',
@@ -159,9 +162,9 @@ export const rooms: RoomI18n[] = [
     active: true,
   },
   {
-    name: t4('The Tummel', 'La Tummel', 'Das Tummel-Zimmer', 'La Tummel'),
+    roomType: t4('The Tummel', 'La Tummel', 'Das Tummel-Zimmer', 'La Tummel'),
     slug: 'the-tummel',
-    type: 'Deluxe',
+    roomCount: 1,
     description: t4(
       'Second floor, river side. Sloped ceilings, a deep window with a view of the water, and the quietest corridor in the house. Popular with returning guests who book it by name.',
       'Deuxième étage, côté rivière. Plafonds mansardés, une fenêtre profonde avec vue sur l’eau, et le couloir le plus silencieux de la maison. Très prisée des hôtes fidèles qui la réservent nommément.',
@@ -186,9 +189,9 @@ export const rooms: RoomI18n[] = [
     active: true,
   },
   {
-    name: t4('The Birnam', 'La Birnam', 'Das Birnam-Zimmer', 'La Birnam'),
+    roomType: t4('The Birnam', 'La Birnam', 'Das Birnam-Zimmer', 'La Birnam'),
     slug: 'the-birnam',
-    type: 'Classic',
+    roomCount: 1,
     description: t4(
       'A ground-floor double off the garden corridor, with its own door to the courtyard — the room to take if you travel with a dog or simply prefer to slip out early. Compact, warm, and quietly handsome.',
       'Une chambre double au rez-de-chaussée, donnant sur le couloir du jardin, avec sa propre porte sur la cour — la chambre à choisir si vous voyagez avec un chien ou préférez simplement sortir tôt sans déranger. Compacte, chaleureuse et discrètement élégante.',
@@ -213,9 +216,9 @@ export const rooms: RoomI18n[] = [
     active: true,
   },
   {
-    name: t4('The Faskally', 'La Faskally', 'Das Faskally-Zimmer', 'La Faskally'),
+    roomType: t4('The Faskally', 'La Faskally', 'Das Faskally-Zimmer', 'La Faskally'),
     slug: 'the-faskally',
-    type: 'Classic',
+    roomCount: 1,
     description: t4(
       'Tucked under the eaves on the second floor with a porthole view of the woodland. The smallest room in the house and, by some accounts, the best loved — all the comfort, none of the ceremony.',
       'Nichée sous les combles au deuxième étage, avec une vue en hublot sur les bois. La plus petite chambre de la maison et, selon certains, la plus aimée — tout le confort, sans la moindre cérémonie.',

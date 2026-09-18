@@ -18,24 +18,35 @@ export default function RoomCard({ room }: { room: Room }) {
       <div className="relative aspect-portrait overflow-hidden rounded-img bg-warmgrey">
         <Image
           src={imgSrc(room.heroImage, 1000)}
-          alt={room.imageAlt ?? `${room.name} — ${room.view ?? `${room.type} room`}`}
+          alt={room.imageAlt ?? `${room.roomType}${room.view ? ` — ${room.view}` : ''}`}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="object-cover transition-transform duration-1200 ease-out-expo group-hover:scale-104"
         />
-        <span className="absolute left-0 top-6 bg-forest px-4 py-2 font-body text-3xs uppercase tracking-25 text-parchment">
-          {room.type}
-        </span>
       </div>
       <div className="pt-6">
-        <h3 className="font-heading text-2xl font-medium text-ink">{room.name}</h3>
+        <h3 className="font-heading text-2xl font-medium text-ink">{room.roomType}</h3>
+        {/* Only populated for the rare case where a physical room has its
+            own name distinct from its category — see lib/types.ts Room. */}
+        {room.name && (
+          <p className="mt-1 font-body text-xs uppercase tracking-20 text-ink/50">{room.name}</p>
+        )}
         <p className="mt-2 font-body text-xs uppercase tracking-20 text-ink/60">
           {room.sqm} {t('sqm')} · {t('sleeps')} {room.occupancy}
         </p>
         <div className="mt-4 flex items-center justify-between border-t border-ink/10 pt-4">
-          <p className="font-body text-sm text-ink/80">
-            {t('from')} <span className="font-heading text-xl text-forest">£{room.rate}</span> {t('perNight')}
-          </p>
+          <div>
+            <p className="font-body text-sm text-ink/80">
+              {t('from')} <span className="font-heading text-xl text-forest">£{room.rate}</span> {t('perNight')}
+            </p>
+            {/* Display copy only — never drives availability (AGENTS.md
+                philosophy: the booking engine owns inventory, not the
+                marketing site). Suppressed at 1 since "1 available" reads
+                oddly for what's effectively a single room. */}
+            {room.roomCount != null && room.roomCount > 1 && (
+              <p className="mt-0.5 font-body text-xs text-ink/50">{t('roomsAvailable', { count: room.roomCount })}</p>
+            )}
+          </div>
           <span className="font-body text-2xs uppercase tracking-20 text-gold transition-colors group-hover:text-forest">
             {t('viewRoom')}
           </span>

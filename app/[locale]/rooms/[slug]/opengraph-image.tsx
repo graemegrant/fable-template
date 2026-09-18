@@ -26,8 +26,8 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
   const room = rawRoom ? resolveRoom(rawRoom, locale) : null;
   const locationLabel = pickLocale(hotelConfig.seo.locationLabel, locale);
   return renderOgImage({
-    eyebrow: room ? `${room.type} Room · ${locationLabel}` : locationLabel,
-    title: room ? room.name : 'Rooms & Suites',
+    eyebrow: locationLabel,
+    title: room ? room.roomType : 'Rooms & Suites',
     footer: room ? `From £${room.rate} / night` : undefined,
   });
 }

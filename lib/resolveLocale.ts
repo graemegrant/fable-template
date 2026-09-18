@@ -29,7 +29,8 @@ function pickLocaleArray<T>(fields: LocaleField<T>[] | undefined, locale: Locale
 export function resolveRoom(raw: RoomI18n, locale: Locale): Room {
   return {
     ...raw,
-    name: pickLocale(raw.name, locale) ?? '',
+    roomType: pickLocale(raw.roomType, locale) ?? '',
+    name: raw.name ? pickLocale(raw.name, locale) : undefined,
     description: pickLocale(raw.description, locale) ?? '',
     imageAlt: pickLocale(raw.imageAlt, locale),
     amenities: pickLocaleArray(raw.amenities, locale),
