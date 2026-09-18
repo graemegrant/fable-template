@@ -169,10 +169,14 @@ export default function Navbar() {
           <BookButton className="rounded-ctrl border border-gold bg-gold px-6 py-3 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-transparent hover:text-gold" />
         </div>
 
-        {/* Mobile toggle — 48×48 hit area (WCAG 2.5.8) */}
+        {/* Mobile toggle — 48×48 hit area (WCAG 2.5.8). ml-auto pins it to the
+            far right: on mobile, nav and the desktop right-hand cluster are
+            both hidden, so this button is the only flex item after the logo
+            and needs its own push — the ml-auto on that desktop cluster
+            (above) only applies when that cluster is actually visible. */}
         <button
           type="button"
-          className="-mr-2 flex size-12 flex-col items-center justify-center gap-7px lg:hidden"
+          className="-mr-2 ml-auto flex size-12 flex-col items-center justify-center gap-7px lg:hidden"
           onClick={() => setMobileOpen((v) => !v)}
           aria-expanded={mobileOpen}
           aria-label={t('toggleMenu')}
