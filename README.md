@@ -18,10 +18,10 @@ Production-ready luxury hotel website. Clone this repo and update `hotel.config.
 # 1. Clone and install
 git clone <repo> craigmore-house
 cd craigmore-house
-npm install           # or: pnpm install
+npm install            # npm only — see AGENTS.md §1a
 
 # 2. Copy env template
-cp .env.local.example .env.local
+cp .env.example .env.local
 
 # 3. Run dev server
 npm run dev
@@ -87,7 +87,7 @@ Then update:
 | Route | Page |
 |---|---|
 | `/` | Homepage — Ken Burns hero, rooms preview, testimonials |
-| `/rooms` | Rooms listing with filter (All / Classic / Deluxe / Suite) |
+| `/rooms` | Rooms listing — filter tabs derive from whatever room types/categories are configured (see `SANITY-SCHEMA.md`) |
 | `/rooms/[slug]` | Room detail — gallery lightbox, sticky booking sidebar |
 | `/experiences` | Experiences grid |
 | `/experiences/[slug]` | Experience detail |
@@ -106,9 +106,9 @@ Then update:
 
 ## CMS Collections (Sanity)
 
-Schemas in `sanity/schemas/`:
+Schemas in `sanity/schemas/` (full detail in `SANITY-SCHEMA.md`):
 
-- **Room** — name, slug, type, price, images, description, amenities, maxOccupancy
+- **Room** — roomType, name (optional), slug, rate, images, description, amenities, occupancy, roomCount
 - **Experience** — name, slug, category, images, description, duration, price
 - **Offer** — title, slug, images, description, validUntil, priceFrom
 - **Journal Post** — title, slug, publishedAt, author, coverImage, body (Portable Text)
@@ -147,6 +147,16 @@ Access Sanity Studio at `/studio` (requires `NEXT_PUBLIC_SANITY_PROJECT_ID`).
 
 ---
 
+## Ongoing Development
+
+Adding pages, sections, content, or images to a **live** client site —
+without downtime — is documented in `DEVELOPMENT-WORKFLOW.md`. Short
+version: content (rooms, experiences, offers, journal, testimonials,
+team, photography) goes through Sanity Studio with no deploy at all;
+everything else (new pages, components, layout/design changes) goes
+through a git branch → Vercel preview deployment → PR → atomic
+production deploy, none of which ever takes the site offline.
+
 ## Deployment (Vercel)
 
 ```bash
@@ -155,7 +165,11 @@ Access Sanity Studio at `/studio` (requires `NEXT_PUBLIC_SANITY_PROJECT_ID`).
 # Deploy
 ```
 
-All pages with dynamic slugs use `export const dynamic = 'force-dynamic'` — compatible with Vercel Serverless and Edge runtimes.
+Pages with dynamic slugs (`/rooms/[slug]`, `/experiences/[slug]`,
+`/journal/[slug]`) are statically pre-rendered via `generateStaticParams`
+and revalidated on Sanity's ISR window (`CONTENT_REVALIDATE`,
+`lib/sanity.ts`) — not `force-dynamic`. See `DEVELOPMENT-WORKFLOW.md`
+for what that means for how fast a content change actually goes live.
 
 ---
 

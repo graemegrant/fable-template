@@ -5,6 +5,12 @@ template" button, which means there's no ongoing git link back to the
 template by default. This file defines how that link is maintained
 deliberately, and the branch/tag conventions used across every repo.
 
+For the day-to-day practice of shipping a change to a *live* client
+site — which changes need a branch/PR at all vs. which go straight
+through Sanity, and why none of it causes downtime — see
+`DEVELOPMENT-WORKFLOW.md`. This file is about the git mechanics
+specifically; that one is about the end-to-end workflow.
+
 ## 1. On creating a new client repo
 
 Immediately after creating the repo from the template:
