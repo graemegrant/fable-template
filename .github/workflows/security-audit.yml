@@ -1,5 +1,10 @@
 name: Security Audit
 
+# `guardrails.yml` now runs this same audit (plus a secret scan) as a
+# blocking check on every push/PR, so this workflow's job is narrower:
+# catch a dependency that *becomes* vulnerable after merge, when a new
+# CVE is disclosed against something already sitting in package-lock.json
+# with no new PR to trigger a re-check.
 on:
   schedule:
     - cron: '0 8 * * 1'   # every Monday, 08:00 UTC
@@ -14,5 +19,5 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - run: npm ci
-      - name: npm audit (high/critical only)
-        run: npm audit --audit-level=high
+      - name: npm audit (high/critical only, allowlist-aware — see .audit-ci.jsonc)
+        run: npx audit-ci --config .audit-ci.jsonc

@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Full history, not the default shallow clone — the gitleaks
+          # step below scans git history, not just the working tree.
+          fetch-depth: 0
 
       - name: Read Node version from .nvmrc
         id: nvmrc
@@ -23,6 +27,24 @@ jobs:
 
       - name: Install (npm only — see AGENTS.md §1a)
         run: npm ci
+
+      - name: Secret scan (gitleaks — SECURITY.md §1)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release download --repo gitleaks/gitleaks --pattern '*linux_x64.tar.gz' --output gitleaks.tar.gz --clobber
+          tar -xzf gitleaks.tar.gz gitleaks
+          ./gitleaks detect --source . --redact --no-banner
+
+      - name: Dependency audit (high/critical — blocks merge, not just the weekly cron)
+        # Wraps `npm audit` with an allowlist (.audit-ci.jsonc) instead of
+        # calling it raw — a handful of current high/critical findings are
+        # only reachable through Sanity CLI/build tooling that requires a
+        # major-version bump to clear (see the file's own comments and
+        # AGENTS.md §1 — that's a deliberate, sign-off-required change,
+        # not something this gate should force). This still fails the
+        # build on any genuinely NEW high/critical advisory.
+        run: npx audit-ci --config .audit-ci.jsonc
 
       - name: Lint (AGENTS.md §3 token rules)
         run: npm run lint

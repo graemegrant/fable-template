@@ -1,0 +1,30 @@
+{
+  // Blocking dependency-vulnerability gate for guardrails.yml — see
+  // MAINTENANCE.md and SECURITY.md. Fails the build on any high/critical
+  // advisory NOT explicitly allowlisted below, so a genuinely NEW
+  // vulnerability still blocks a PR; only these specific, individually
+  // reasoned-about findings are let through.
+  //
+  // Revisit this whole list whenever sanity/next-sanity/next gets a
+  // deliberate major-version upgrade (AGENTS.md §1 — that's a real,
+  // sign-off-required change, not something to do silently just to
+  // clear an audit). Re-generate with:
+  //   npm audit --audit-level=high --json
+  "high": true,
+  "allowlist": [
+    // adm-zip / decompress / glob (via @architect/*) — reached only
+    // through @sanity/cli's own deploy tooling (`sanity deploy`, i.e.
+    // Sanity's own hosted-hosting feature). This template deploys via
+    // Vercel, never invokes that code path, and it isn't part of the
+    // public site's runtime bundle. Fix requires sanity@6.x (breaking).
+    "GHSA-xcpc-8h2w-3j85", // adm-zip, high
+    "GHSA-mp2f-45pm-3cg9", // decompress, critical
+    "GHSA-5j98-mcp5-4vw2", // glob, high
+
+    // postcss — bundled inside next@15.x's own build-time tooling (CSS
+    // processing during `next build`), not shipped to the browser or
+    // touched by the request path. Fix requires next@16.x (breaking).
+    "GHSA-6g55-p6wh-862q", // postcss, high
+    "GHSA-r28c-9q8g-f849" // postcss, high
+  ]
+}
