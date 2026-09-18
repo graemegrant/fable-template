@@ -16,17 +16,23 @@ export default async function TrustStrip({ variant = 'light' }: { variant?: 'lig
   const t = await getTranslations('shared');
   return (
     <div className={dark ? 'bg-forest text-parchment' : 'bg-warmgrey text-ink'}>
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-2 py-5">
-          <li className="flex items-center gap-10">
+      <div className="mx-auto max-w-7xl px-6 py-8 lg:px-10">
+        <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3">
+          <li className="flex items-center gap-4">
             <span className={`font-body text-2xs uppercase tracking-25 ${dark ? 'text-goldbright' : 'text-gold'}`}>
               {t('bookDirectLabel')}
             </span>
+            <span className={`h-4 w-px ${dark ? 'bg-parchment/25' : 'bg-ink/15'}`} aria-hidden />
           </li>
           {hotelConfig.trustItems.map((item, i) => (
-            <li key={i} className="flex items-center gap-10">
-              <span className={`hidden h-px w-8 sm:block ${dark ? 'bg-parchment/30' : 'bg-ink/20'}`} aria-hidden />
-              <span className="font-body text-2xs uppercase tracking-25">{pickLocale(item, locale)}</span>
+            <li key={i}>
+              <span
+                className={`inline-block rounded-full border px-4 py-1.5 font-body text-2xs uppercase tracking-25 ${
+                  dark ? 'border-parchment/25 text-parchment' : 'border-ink/25 text-ink'
+                }`}
+              >
+                {pickLocale(item, locale)}
+              </span>
             </li>
           ))}
         </ul>

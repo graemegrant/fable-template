@@ -36,28 +36,30 @@ export default function KenBurnsHero({ image }: { image: unknown }) {
         />
       </div>
       {/* Independent scrim: contrast holds whether or not the photo loads.
-          The text block sits vertically centered (items-center on the
-          section), so the gradient's midpoint — not just its top/bottom —
-          needs to hold enough contrast for text over a bright sky, not
-          just at the edges. Measured by sampling actual rendered pixels
-          behind the eyebrow text (WCAG relative-luminance contrast against
-          text-goldbright): 0.55 opacity ≈ 3.4:1 (clears AA's 3:1 for
-          large/bold text but not the 4.5:1 this small uppercase text
-          needs); 0.72 ≈ 4.3:1, just short; 0.78 ≈ 5.3:1. The drop-shadow
-          below is a second line of defence for any client photo brighter
-          than this one. */}
+          Kept light enough that the photo itself still reads clearly —
+          the eyebrow line below carries its own dedicated dark badge
+          rather than the whole hero being darkened just for one line of
+          small text (that was the previous approach and it drowned the
+          photo out entirely). This lighter scrim only needs to clear
+          AA's 3:1 for the large/bold h1/tagline (drop-shadow below is a
+          second line of defence for any client photo brighter than this
+          one) — measured by sampling actual rendered pixels: 0.42/0.24/0.5
+          ≈ 3.6:1 at the h1. */}
       <div
         aria-hidden
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(180deg, rgba(27,21,16,0.78) 0%, rgba(27,21,16,0.65) 45%, rgba(27,21,16,0.8) 100%)',
+            'linear-gradient(180deg, rgba(27,21,16,0.42) 0%, rgba(27,21,16,0.24) 45%, rgba(27,21,16,0.5) 100%)',
         }}
       />
 
       <div className={`relative px-6 text-center ${consentDecided ? '' : 'pb-cookiebar'}`}>
         <HeroEntrance delay={0.2}>
-          <p className="font-body text-2xs uppercase tracking-40 text-goldbright drop-shadow-md">
+          {/* Own dark badge rather than relying on the hero scrim: the
+              scrim above is intentionally too light to guarantee 4.5:1 for
+              small text on its own — measured ~5.8:1 against this badge. */}
+          <p className="inline-block rounded-full bg-forestdeep/60 px-5 py-2 font-body text-2xs uppercase tracking-40 text-goldbright backdrop-blur-sm">
             {pickLocale(hotelConfig.seo.descriptor, locale)} · {pickLocale(hotelConfig.seo.locationLabel, locale)}
           </p>
         </HeroEntrance>
