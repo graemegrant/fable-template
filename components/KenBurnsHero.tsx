@@ -35,29 +35,39 @@ export default function KenBurnsHero({ image }: { image: unknown }) {
           className="object-cover"
         />
       </div>
-      {/* Independent scrim: contrast holds whether or not the photo loads */}
+      {/* Independent scrim: contrast holds whether or not the photo loads.
+          The text block sits vertically centered (items-center on the
+          section), so the gradient's midpoint — not just its top/bottom —
+          needs to hold enough contrast for text over a bright sky, not
+          just at the edges. Measured by sampling actual rendered pixels
+          behind the eyebrow text (WCAG relative-luminance contrast against
+          text-goldbright): 0.55 opacity ≈ 3.4:1 (clears AA's 3:1 for
+          large/bold text but not the 4.5:1 this small uppercase text
+          needs); 0.72 ≈ 4.3:1, just short; 0.78 ≈ 5.3:1. The drop-shadow
+          below is a second line of defence for any client photo brighter
+          than this one. */}
       <div
         aria-hidden
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(180deg, rgba(27,21,16,0.55) 0%, rgba(27,21,16,0.25) 40%, rgba(27,21,16,0.6) 100%)',
+            'linear-gradient(180deg, rgba(27,21,16,0.78) 0%, rgba(27,21,16,0.65) 45%, rgba(27,21,16,0.8) 100%)',
         }}
       />
 
       <div className={`relative px-6 text-center ${consentDecided ? '' : 'pb-cookiebar'}`}>
         <HeroEntrance delay={0.2}>
-          <p className="font-body text-2xs uppercase tracking-40 text-goldbright">
+          <p className="font-body text-2xs uppercase tracking-40 text-goldbright drop-shadow-md">
             {pickLocale(hotelConfig.seo.descriptor, locale)} · {pickLocale(hotelConfig.seo.locationLabel, locale)}
           </p>
         </HeroEntrance>
         <HeroEntrance delay={0.45}>
-          <h1 className="mt-6 font-heading text-6xl font-medium leading-none text-parchment md:text-8xl">
+          <h1 className="mt-6 font-heading text-6xl font-medium leading-none text-parchment drop-shadow-sm md:text-8xl">
             {hotelConfig.name}
           </h1>
         </HeroEntrance>
         <HeroEntrance delay={0.7}>
-          <p className="mt-6 font-heading text-xl font-medium italic text-parchment/90 md:text-2xl">
+          <p className="mt-6 font-heading text-xl font-medium italic text-parchment/90 drop-shadow-sm md:text-2xl">
             {pickLocale(hotelConfig.tagline, locale)}
           </p>
         </HeroEntrance>
