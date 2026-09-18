@@ -105,6 +105,11 @@ Start-to-launch checklist for a new client build. Works alongside
 - [ ] `docs/clients/[hotel-slug].md` fully filled in (this is the record
       of everything that varies for this client, for whoever touches the
       repo next)
+- [ ] Walk the client through `DEVELOPMENT-WORKFLOW.md` — specifically,
+      which of their day-to-day content changes (rooms, experiences,
+      offers, journal, testimonials, team, photography) they can make
+      themselves in Sanity Studio with zero involvement from you, vs.
+      what genuinely needs a code change
 - [ ] Set a reminder to re-run `/seo audit` ~4 weeks post-launch, once
       there is Search Console / CrUX field data to work with
 
