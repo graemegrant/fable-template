@@ -8,8 +8,9 @@ client repo cloned from `fable-template`.
 | What | Runs | Where to see it |
 |---|---|---|
 | Build/lint/typecheck on every push | every push + PR | `.github/workflows/guardrails.yml` — check tab on the repo |
+| Secret scan (gitleaks) + dependency audit — blocks merge | every push + PR | `.github/workflows/guardrails.yml` — a leaked credential or a high/critical vulnerability fails the PR check, same as a broken build |
 | Dependency update PRs (minor/patch grouped, majors individual) | weekly, Monday | Dependabot PRs on the repo |
-| Vulnerability scan | weekly, Monday | `.github/workflows/security-audit.yml` — red run if `npm audit` finds high/critical issues |
+| Vulnerability scan (backstop for CVEs disclosed against already-merged deps) | weekly, Monday | `.github/workflows/security-audit.yml` — red run if `npm audit` finds high/critical issues |
 | Sanity content backup | 1st of the month | `.github/workflows/sanity-backup.yml` — artifact on the Actions run, 90-day retention |
 
 **Turn on GitHub notifications for failed workflow runs** on each client
@@ -66,6 +67,15 @@ tells you it looks right.
       silently
 - [ ] Re-run through `NEW-CLIENT-CHECKLIST.md` §5 (guardrails
       verification) — confirms nothing's drifted since launch
+- [ ] Verify security headers are actually being served on the *live*
+      domain, not just present in `next.config.ts` — a code-level header
+      block is a promise, not proof it's reaching the browser. Run
+      `curl -I https://<client-domain>` and confirm
+      `Content-Security-Policy`, `Strict-Transport-Security`,
+      `X-Frame-Options` are all present, or check the same via
+      https://securityheaders.com/ or https://observatory.mozilla.org/
+      (free, no account needed, catches config drift a code review would
+      miss)
 
 ## Annually
 

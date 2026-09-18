@@ -15,6 +15,14 @@ If a secret is ever accidentally committed: rotate it immediately (in
 Sanity/Resend/wherever it was issued) — removing it from a later commit
 does not remove it from git history. Rotating is the only real fix.
 
+`.github/workflows/guardrails.yml` runs a gitleaks secret scan on every
+push and PR as a blocking check — this catches a leaked credential
+*before* it merges, which is the only point rotation isn't already the
+only fix. It scans full git history, so if it ever goes red on a repo
+that's been building for a while, treat it as real: rotate the
+credential, then either scrub history or add a scoped gitleaks allowlist
+entry for a confirmed-safe false positive — don't just silence the check.
+
 ## 2. Token scoping
 
 - **Sanity tokens**: create a dedicated token per purpose per client —

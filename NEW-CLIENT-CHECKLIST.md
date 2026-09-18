@@ -54,10 +54,17 @@ Start-to-launch checklist for a new client build. Works alongside
 - [ ] `npm run lint` passes — no inline hex, no arbitrary Tailwind values
 - [ ] `npm run build` passes with ESLint enabled (not `ignoreDuringBuilds`)
 - [ ] `tsc --noEmit` exits 0
-- [ ] `.github/workflows/guardrails.yml` CI check is green on the repo's `main` branch
+- [ ] `.github/workflows/guardrails.yml` CI check is green on the repo's `main` branch —
+      this now includes a blocking secret scan (gitleaks) and dependency
+      audit (`npm audit --audit-level=high`), not just build/lint/typecheck
+      (see `SECURITY.md`, `MAINTENANCE.md`)
 - [ ] Only `package-lock.json` is present — no `pnpm-lock.yaml`, no stray install log files
 - [ ] CRO elements untouched: `BookButton`, `BookingModal`, `MobileBookBar`, `TrustStrip`
 - [ ] JSON-LD, `sitemap.ts`, `robots.ts` still correct for the new domain
+- [ ] Security headers verified on the **live** domain post-deploy (not
+      just present in `next.config.ts`) — `curl -I https://<live-domain>`
+      or https://securityheaders.com/, confirm CSP/HSTS/X-Frame-Options
+      are actually being served (`MAINTENANCE.md`, repeat quarterly)
 
 ## 6. Real photography
 - [ ] All Unsplash/placeholder images swapped for the client's own photography
