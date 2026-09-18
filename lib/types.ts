@@ -15,9 +15,16 @@ export type Img = unknown;
 
 export interface Room {
   _id?: string;
-  name: string;
+  /** Primary identity of the listing — a category name for most clients
+   *  ("Garden Suite"), or a room's proper name for a client who genuinely
+   *  wants individually-named rooms (same field either way, see
+   *  SANITY-SCHEMA.md). Always populated; this is what RoomCard headlines. */
+  roomType: string;
+  /** Only populated when a specific physical room also has its own name
+   *  distinct from its roomType category — rare. Not the primary display
+   *  name (roomType is), shown as secondary text when present. */
+  name?: string;
   slug: string;
-  type: 'Classic' | 'Deluxe' | 'Suite';
   description: string;
   heroImage: Img;
   imageAlt?: string;
@@ -28,6 +35,9 @@ export interface Room {
   floor?: string;
   view?: string;
   amenities: string[];
+  /** How many physical rooms exist in this category — display copy only
+   *  ("6 Garden Suites available"), never used for availability/booking. */
+  roomCount?: number;
   featured?: boolean;
   active?: boolean;
 }
@@ -96,8 +106,9 @@ export interface TeamMember {
   displayOrder?: number;
 }
 
-export interface RoomI18n extends Omit<Room, 'name' | 'description' | 'imageAlt' | 'amenities'> {
-  name: LocaleField;
+export interface RoomI18n extends Omit<Room, 'roomType' | 'name' | 'description' | 'imageAlt' | 'amenities'> {
+  roomType: LocaleField;
+  name?: LocaleField;
   description: LocaleField;
   imageAlt?: LocaleField;
   amenities: LocaleField[];

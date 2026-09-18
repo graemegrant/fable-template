@@ -128,13 +128,13 @@ export default async function JournalPostPage({ params }: Props) {
                   <div className="relative aspect-landscape overflow-hidden rounded-img">
                     <Image
                       src={imgSrc(featuredRoom.heroImage, 800)}
-                      alt={featuredRoom.name}
+                      alt={featuredRoom.roomType}
                       fill
                       sizes="340px"
                       className="object-cover transition-transform duration-1200 ease-out-expo group-hover:scale-104"
                     />
                   </div>
-                  <h3 className="mt-5 font-heading text-2xl font-medium text-ink">{featuredRoom.name}</h3>
+                  <h3 className="mt-5 font-heading text-2xl font-medium text-ink">{featuredRoom.roomType}</h3>
                   <p className="mt-2 font-body text-sm text-ink/70">
                     {t('from')} <span className="font-heading text-lg text-forest">£{featuredRoom.rate}</span> {t('perNight')}
                   </p>

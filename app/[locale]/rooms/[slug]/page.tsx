@@ -41,8 +41,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const room = resolveRoom(rawRoom, locale);
   return pageMetadata({
     locale,
-    title: `${room.name} — ${room.type}, ${hotelConfig.location.locality}`,
-    description: `${room.name} at ${hotelConfig.name}, ${hotelConfig.location.locality}: ${room.sqm} sqm, sleeps ${room.occupancy}, from £${room.rate} per night.`,
+    title: `${room.roomType} — ${hotelConfig.location.locality}`,
+    description: `${room.roomType} at ${hotelConfig.name}, ${hotelConfig.location.locality}: ${room.sqm} sqm, sleeps ${room.occupancy}, from £${room.rate} per night.`,
     path: `/rooms/${room.slug}`,
     image: `/rooms/${room.slug}/opengraph-image`,
   });
@@ -70,7 +70,7 @@ export default async function RoomDetailPage({ params }: Props) {
   const roomSchema = {
     '@context': 'https://schema.org',
     '@type': 'HotelRoom',
-    name: room.name,
+    name: room.roomType,
     description: room.description,
     url: roomUrl,
     inLanguage: bcp47For(locale),
@@ -91,7 +91,7 @@ export default async function RoomDetailPage({ params }: Props) {
   const breadcrumbs = breadcrumbList([
     ['Home', '/'],
     ['Rooms & Suites', '/rooms'],
-    [room.name, `/rooms/${room.slug}`],
+    [room.roomType, `/rooms/${room.slug}`],
   ], locale);
   const t = await getTranslations('roomDetail');
 
@@ -99,7 +99,19 @@ export default async function RoomDetailPage({ params }: Props) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(roomSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
-      <PageHero eyebrow={`${t('roomTypeLabel', { type: room.type })} · ${hotelConfig.location.locality}`} title={room.name} subtitle={room.view} image={room.heroImage} imageAlt={room.imageAlt} />
+      {/* No "type" interpolation in the eyebrow any more — roomType is now
+          the page title itself (below), so repeating it in the eyebrow
+          would just say the same thing twice. subtitle combines name (only
+          for the rare case a physical room also has one distinct from its
+          roomType) and view — for Craigmore (name unset) this renders
+          identically to before the schema change. */}
+      <PageHero
+        eyebrow={`${t('stayLabel')} · ${hotelConfig.location.locality}`}
+        title={room.roomType}
+        subtitle={[room.name, room.view].filter(Boolean).join(' · ')}
+        image={room.heroImage}
+        imageAlt={room.imageAlt}
+      />
 
       <section className="mx-auto max-w-7xl px-6 py-20 pb-32 lg:px-10 lg:py-28">
         <div className="grid gap-16 lg:grid-cols-1fr-360">
@@ -125,7 +137,7 @@ export default async function RoomDetailPage({ params }: Props) {
               <FadeUp className="mt-16">
                 <SectionLabel>{t('gallery')}</SectionLabel>
                 <div className="mt-6">
-                  <GalleryLightbox images={room.gallery} alt={room.name} />
+                  <GalleryLightbox images={room.gallery} alt={room.roomType} />
                 </div>
               </FadeUp>
             )}
@@ -152,7 +164,7 @@ export default async function RoomDetailPage({ params }: Props) {
                   </div>
                 ))}
               </dl>
-              <BookButton roomHint={room.name} className="mt-8 w-full rounded-ctrl bg-forest px-8 py-4 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest" />
+              <BookButton roomHint={room.roomType} className="mt-8 w-full rounded-ctrl bg-forest px-8 py-4 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest" />
               <p className="mt-5 text-center font-body text-xs text-ink/60">
                 {t('orCall')}{' '}
                 <a href={`tel:${hotelConfig.contact.phoneHref}`} className="text-forest underline decoration-gold underline-offset-4">
@@ -187,7 +199,7 @@ export default async function RoomDetailPage({ params }: Props) {
       </section>
 
       {/* Mobile sticky booking bar — hidden on desktop where sidebar handles this */}
-      <MobileBookBar rate={room.rate} roomName={room.name} />
+      <MobileBookBar rate={room.rate} roomName={room.roomType} />
     </>
   );
 }

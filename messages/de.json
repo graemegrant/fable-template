@@ -205,7 +205,7 @@
     "intro": "Jedes Zimmer kommt mit Frühstück, freiem Zugang zu vierhundert Morgen Land, und einer Hauswirtschaft, die an ordentlich gemachte Betten glaubt. Suiten bieten zusätzlichen Platz und Wohnzimmer; Classic-Zimmer bieten die besondere Genugtuung, für weniger klug gewählt zu haben."
   },
   "roomDetail": {
-    "roomTypeLabel": "{type}-Zimmer",
+    "stayLabel": "Aufenthalt",
     "theRoom": "Das Zimmer",
     "inTheRoom": "Im Zimmer",
     "gallery": "Galerie",
@@ -252,6 +252,7 @@
     "from": "Ab",
     "perNight": "/ Nacht",
     "viewRoom": "Zimmer ansehen →",
+    "roomsAvailable": "{count} Zimmer verfügbar",
     "viewOffer": "Angebot ansehen →",
     "enquireAboutOffer": "Anfrage zu diesem Angebot",
     "featuredSuffix": "Empfohlen",

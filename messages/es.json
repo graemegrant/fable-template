@@ -205,7 +205,7 @@
     "intro": "Cada habitación incluye desayuno, libre acceso a los cuatrocientos acres, y un servicio de limpieza que cree firmemente en las camas bien hechas. Las suites añaden espacio y salones; las Classic añaden la particular satisfacción de haber elegido bien por menos."
   },
   "roomDetail": {
-    "roomTypeLabel": "Habitación {type}",
+    "stayLabel": "Alojamiento",
     "theRoom": "La habitación",
     "inTheRoom": "En la habitación",
     "gallery": "Galería",
@@ -252,6 +252,7 @@
     "from": "Desde",
     "perNight": "/ noche",
     "viewRoom": "Ver la habitación →",
+    "roomsAvailable": "{count} habitaciones disponibles",
     "viewOffer": "Ver la oferta →",
     "enquireAboutOffer": "Consultar sobre esta oferta",
     "featuredSuffix": "Destacado",

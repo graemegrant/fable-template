@@ -205,7 +205,7 @@
     "intro": "Every room comes with breakfast, the run of four hundred acres, and housekeeping that believes in hospital corners. Suites add space and sitting rooms; Classics add the particular smugness of having chosen well for less."
   },
   "roomDetail": {
-    "roomTypeLabel": "{type} room",
+    "stayLabel": "Stay",
     "theRoom": "The room",
     "inTheRoom": "In the room",
     "gallery": "Gallery",
@@ -252,6 +252,7 @@
     "from": "From",
     "perNight": "/ night",
     "viewRoom": "View room →",
+    "roomsAvailable": "{count} rooms available",
     "viewOffer": "View offer →",
     "enquireAboutOffer": "Enquire about this offer",
     "featuredSuffix": "Featured",

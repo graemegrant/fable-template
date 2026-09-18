@@ -32,7 +32,7 @@ to design, not something to assume is already built.
 
 | Schema file | Purpose | Key fields |
 |---|---|---|
-| `room.ts` | Room/suite listings | name, slug, type, price, images, description, amenities, maxOccupancy |
+| `room.ts` | Room/suite listings | roomType, name, slug, rate, images, description, amenities, occupancy, roomCount |
 | `experience.ts` | Local Experiences (see AGENTS.md §6 — regional exclusivity framing) | name, slug, category, images, description, duration, price |
 | `offer.ts` | Packages/offers | title, slug, images, description, validUntil, priceFrom |
 | `journalPost.ts` | Blog/journal | title, slug, publishedAt, author, coverImage, body (Portable Text) |
@@ -51,7 +51,27 @@ generated object types from `sanity/schemas/objects/locale-fields.ts`:
 generates one Studio sub-field per locale in `lib/locales.ts`. Slugs,
 `journalPost.author`, `teamMember.name`, and `testimonial.guestName`
 stay plain strings (proper nouns / non-translatable), as do enums
-(`room.type`, `experience.category`, etc.) and all non-text fields.
+(`experience.category`, etc.) and all non-text fields.
+
+**Rooms: category-based, not one-doc-per-physical-room.** `room.roomType`
+is the primary display identity, and it's free text, not an enum — most
+clients sell room *categories* ("Garden Suite", "Loch View Suite") that
+can cover many physical rooms, so one `room` document represents a
+category, and `roomCount` (a plain number, display copy only — e.g. "6
+Garden Suites available") says how many. A client who genuinely wants
+individually-named rooms instead (Craigmore House's own demo content is
+this case) just puts the room's proper name straight into `roomType` and
+leaves `roomCount` at 1 — there's no separate mode or toggle, it's the
+same field either way. The optional `room.name` field is for the rare
+case where a specific physical room has its own name *distinct* from its
+category (e.g. `roomType` "Garden Suite", `name` "The Rose Room") — leave
+it blank otherwise, including in the named-room case, where the proper
+name already lives in `roomType`. `roomCount` never drives availability
+or the booking flow; that stays the booking engine's job.
+`components/RoomsFilter.tsx` derives its filter tabs from the distinct
+`roomType` values present and hides the filter bar entirely when every
+room has a unique type (no grouping value in a 1:1 tabs-to-items list) —
+so Craigmore's own named-room set renders as an unfiltered grid.
 
 **Scaling caveat:** this field-level pattern (one Studio field per
 locale, collapsed into one object) is fine editorially through roughly

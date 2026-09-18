@@ -21,7 +21,8 @@ and fill it in. The template file at repo root stays blank.
 - Description:
 - Address / region / lat,lng:
 - Phone / email / social:
-- Room count:
+- Room count (total physical rooms, for identity copy — separate from
+  Sanity room categories below):
 - Star rating:
 - Price range (£/££/£££):
 - Check-in / check-out times:
@@ -73,7 +74,8 @@ and fill it in. The template file at repo root stays blank.
 - Booking engine account: client-owned — Codero holds deep-link URL only
 
 **Content status**
-- [ ] Rooms populated in Sanity
+- [ ] Rooms populated in Sanity (as categories with `roomCount`, or as
+      individually-named rooms — see SANITY-SCHEMA.md)
 - [ ] Experiences populated
 - [ ] Offers populated
 - [ ] Journal seeded (min. 3 posts)

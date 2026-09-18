@@ -205,7 +205,7 @@
     "intro": "Chaque chambre inclut le petit-déjeuner, le libre accès aux quatre cents acres, et un service d’étage qui croit fermement aux coins de lit à l’ancienne. Les suites ajoutent de l’espace et des salons ; les chambres Classic ajoutent la satisfaction particulière d’avoir bien choisi pour moins cher."
   },
   "roomDetail": {
-    "roomTypeLabel": "Chambre {type}",
+    "stayLabel": "Séjour",
     "theRoom": "La chambre",
     "inTheRoom": "Dans la chambre",
     "gallery": "Galerie",
@@ -252,6 +252,7 @@
     "from": "À partir de",
     "perNight": "/ nuit",
     "viewRoom": "Voir la chambre →",
+    "roomsAvailable": "{count} chambres disponibles",
     "viewOffer": "Voir l’offre →",
     "enquireAboutOffer": "Se renseigner sur cette offre",
     "featuredSuffix": "En vedette",
