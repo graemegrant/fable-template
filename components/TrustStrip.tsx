@@ -22,12 +22,15 @@ export default async function TrustStrip({ variant = 'light' }: { variant?: 'lig
             <span className={`font-body text-2xs uppercase tracking-25 ${dark ? 'text-goldbright' : 'text-gold'}`}>
               {t('bookDirectLabel')}
             </span>
-            <span className={`h-4 w-px ${dark ? 'bg-parchment/25' : 'bg-ink/15'}`} aria-hidden />
+            {/* Only makes sense inline with the first pill on the same row
+                — hidden below sm where "Book direct." wraps to its own
+                line and the divider would dangle with nothing after it. */}
+            <span className={`hidden h-4 w-px sm:block ${dark ? 'bg-parchment/25' : 'bg-ink/15'}`} aria-hidden />
           </li>
           {hotelConfig.trustItems.map((item, i) => (
             <li key={i}>
               <span
-                className={`inline-block rounded-full border px-4 py-1.5 font-body text-2xs uppercase tracking-25 ${
+                className={`inline-block whitespace-nowrap rounded-full border px-4 py-1.5 font-body text-2xs uppercase tracking-25 ${
                   dark ? 'border-parchment/25 text-parchment' : 'border-ink/25 text-ink'
                 }`}
               >
