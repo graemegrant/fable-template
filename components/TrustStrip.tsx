@@ -18,7 +18,13 @@ export default async function TrustStrip({ variant = 'light' }: { variant?: 'lig
     <div className={dark ? 'bg-forest text-parchment' : 'bg-warmgrey text-ink'}>
       <div className="mx-auto max-w-7xl px-6 py-8 lg:px-10">
         <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3">
-          <li className="flex items-center gap-4">
+          {/* basis-full forces this onto its own row below sm regardless of
+              viewport width — without it, "Book direct." shared a row with
+              just the first pill at some mobile widths (~390-428px) but not
+              others (~320-375px), an inconsistent pattern depending on
+              exactly how wide the phone was. Now it's always alone on
+              mobile, always inline with the first pill at sm+. */}
+          <li className="flex basis-full items-center justify-center gap-4 sm:basis-auto sm:justify-start">
             <span className={`font-body text-2xs uppercase tracking-25 ${dark ? 'text-goldbright' : 'text-gold'}`}>
               {t('bookDirectLabel')}
             </span>
