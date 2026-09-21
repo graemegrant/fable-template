@@ -17,27 +17,31 @@ export default async function TrustStrip({ variant = 'light' }: { variant?: 'lig
   return (
     <div className={dark ? 'bg-forest text-parchment' : 'bg-warmgrey text-ink'}>
       <div className="mx-auto max-w-7xl px-6 py-8 lg:px-10">
-        <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3">
-          {/* basis-full forces this onto its own row below sm regardless of
-              viewport width — without it, "Book direct." shared a row with
-              just the first pill at some mobile widths (~390-428px) but not
-              others (~320-375px), an inconsistent pattern depending on
-              exactly how wide the phone was. Now it's always alone on
-              mobile, always inline with the first pill at sm+. */}
-          <li className="flex basis-full items-center justify-center gap-4 sm:basis-auto sm:justify-start">
+        <p className={`text-center font-body text-2xs uppercase tracking-25 sm:hidden ${dark ? 'text-goldbright' : 'text-gold'}`}>
+          {t('bookDirectLabel')}
+        </p>
+        {/* Mobile: a plain divided list, each row full-width and centered —
+            no pill borders, so wildly different item lengths ("No Booking
+            Fees" vs "Complimentary Welcome Dram") never have to fight for
+            space in a fixed-width box the way a 2-column grid of pills did
+            (that overflowed on the longer items). Desktop keeps the
+            existing inline pill row unchanged. */}
+        <ul
+          className={`mt-4 flex flex-col divide-y sm:mt-0 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-4 sm:gap-y-3 sm:divide-y-0 ${
+            dark ? 'divide-parchment/15' : 'divide-ink/10'
+          }`}
+        >
+          <li className="hidden items-center gap-4 sm:flex">
             <span className={`font-body text-2xs uppercase tracking-25 ${dark ? 'text-goldbright' : 'text-gold'}`}>
               {t('bookDirectLabel')}
             </span>
-            {/* Only makes sense inline with the first pill on the same row
-                — hidden below sm where "Book direct." wraps to its own
-                line and the divider would dangle with nothing after it. */}
-            <span className={`hidden h-4 w-px sm:block ${dark ? 'bg-parchment/25' : 'bg-ink/15'}`} aria-hidden />
+            <span className={`h-4 w-px ${dark ? 'bg-parchment/25' : 'bg-ink/15'}`} aria-hidden />
           </li>
           {hotelConfig.trustItems.map((item, i) => (
-            <li key={i}>
+            <li key={i} className="py-3 text-center sm:py-0">
               <span
-                className={`inline-block whitespace-nowrap rounded-full border px-4 py-1.5 font-body text-2xs uppercase tracking-25 ${
-                  dark ? 'border-parchment/25 text-parchment' : 'border-ink/25 text-ink'
+                className={`font-body text-2xs uppercase tracking-25 sm:inline-block sm:whitespace-nowrap sm:rounded-full sm:border sm:px-4 sm:py-1.5 ${
+                  dark ? 'text-parchment sm:border-parchment/25' : 'text-ink sm:border-ink/25'
                 }`}
               >
                 {pickLocale(item, locale)}
