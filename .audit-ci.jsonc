@@ -18,6 +18,7 @@
     // Vercel, never invokes that code path, and it isn't part of the
     // public site's runtime bundle. Fix requires sanity@6.x (breaking).
     "GHSA-xcpc-8h2w-3j85", // adm-zip, high
+    "GHSA-7q85-xj36-vmfc", // adm-zip, high (DoS via uncontrolled memory allocation — disclosed 2026-09, same chain)
     "GHSA-mp2f-45pm-3cg9", // decompress, critical
     "GHSA-5j98-mcp5-4vw2", // glob, high
 
