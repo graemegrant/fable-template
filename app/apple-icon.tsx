@@ -18,7 +18,7 @@ export default function AppleIcon() {
           alignItems: 'center',
           justifyContent: 'center',
           background: palette.forest,
-          color: palette.goldbright,
+          color: palette.accentondark,
           fontSize: 120,
           fontFamily: 'Georgia, "Times New Roman", serif',
         }}

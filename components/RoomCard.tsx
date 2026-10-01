@@ -47,7 +47,7 @@ export default function RoomCard({ room }: { room: Room }) {
               <p className="mt-0.5 font-body text-xs text-ink/50">{t('roomsAvailable', { count: room.roomCount })}</p>
             )}
           </div>
-          <span className="font-body text-2xs uppercase tracking-20 text-gold transition-colors group-hover:text-forest">
+          <span className="font-body text-2xs uppercase tracking-20 text-accent transition-colors group-hover:text-forest">
             {t('viewRoom')}
           </span>
         </div>

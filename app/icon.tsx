@@ -19,7 +19,7 @@ export default function Icon() {
           alignItems: 'center',
           justifyContent: 'center',
           background: palette.forest,
-          color: palette.goldbright,
+          color: palette.accentondark,
           fontSize: 340,
           fontFamily: 'Georgia, "Times New Roman", serif',
         }}

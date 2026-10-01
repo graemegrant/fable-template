@@ -40,7 +40,7 @@ export function renderOgImage({
             fontSize: 24,
             letterSpacing: 6,
             textTransform: 'uppercase',
-            color: palette.goldbright,
+            color: palette.accentondark,
           }}
         >
           {eyebrow ?? `${pickLocale(hotelConfig.seo.descriptor, DEFAULT_LOCALE)} · ${pickLocale(hotelConfig.seo.locationLabel, DEFAULT_LOCALE)}`}
@@ -66,7 +66,7 @@ export function renderOgImage({
           }}
         >
           <span>{hotelConfig.name}</span>
-          <span style={{ color: palette.gold }}>
+          <span style={{ color: palette.accentondark }}>
             {footer ?? new URL(hotelConfig.siteUrl).host}
           </span>
         </div>

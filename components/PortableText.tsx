@@ -15,7 +15,7 @@ const components: PortableTextComponents = {
       <h3 className="mb-4 mt-10 font-heading text-2xl font-medium text-ink">{children}</h3>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="my-10 border-l-2 border-gold pl-8 font-heading text-2xl font-medium italic leading-relaxed text-forest">
+      <blockquote className="my-10 border-l-2 border-accent pl-8 font-heading text-2xl font-medium italic leading-relaxed text-forest">
         {children}
       </blockquote>
     ),
@@ -24,7 +24,7 @@ const components: PortableTextComponents = {
     link: ({ children, value }) => (
       <a
         href={value?.href}
-        className="text-forest underline decoration-gold underline-offset-4 transition-colors hover:text-gold"
+        className="text-forest underline decoration-accent underline-offset-4 transition-colors hover:text-accent"
         rel="noopener noreferrer"
       >
         {children}

@@ -74,7 +74,7 @@ export default function GlenMoment() {
     <div ref={trackRef} className="relative h-240vh md:h-260vh">
       <div className="bg-glen sticky top-0 flex h-screen items-center overflow-hidden">
         <div className="relative z-10 mx-auto w-full max-w-6xl px-6 lg:px-10">
-          <p className="font-body text-2xs uppercase tracking-30 text-goldbright">
+          <p className="font-body text-2xs uppercase tracking-30 text-accentondark">
             {t('eyebrow')}
           </p>
           <p className="mt-8 max-w-20ch font-heading text-3xl leading-heading text-parchment md:text-5xl lg:text-6xl">
@@ -83,7 +83,7 @@ export default function GlenMoment() {
                 key={i}
                 className={`transition-opacity duration-300 ${
                   isLit(i) ? 'opacity-100' : 'opacity-18'
-                } ${w.brass && isLit(i) ? 'italic text-goldbright' : ''}`}
+                } ${w.brass && isLit(i) ? 'italic text-accentondark' : ''}`}
               >
                 {w.text}{' '}
               </span>

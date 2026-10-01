@@ -85,7 +85,7 @@ export default async function ExperienceDetailPage({ params }: Props) {
                 <ul className="mt-6 space-y-3">
                   {exp.includes.map((inc) => (
                     <li key={inc} className="flex gap-3 font-body text-sm text-ink/80">
-                      <span className="mt-9px h-px w-5 shrink-0 bg-gold" aria-hidden />
+                      <span className="mt-9px h-px w-5 shrink-0 bg-accent" aria-hidden />
                       {inc}
                     </li>
                   ))}
@@ -116,7 +116,7 @@ export default async function ExperienceDetailPage({ params }: Props) {
               </dl>
               <Link
                 href="/contact"
-                className="mt-8 block w-full rounded-ctrl bg-forest px-8 py-4 text-center font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest"
+                className="mt-8 block w-full rounded-ctrl bg-forest px-8 py-4 text-center font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-accentfill hover:text-onaccent"
               >
                 {t('arrangeThis')}
               </Link>

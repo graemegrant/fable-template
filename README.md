@@ -5,7 +5,7 @@ Production-ready luxury hotel website. Clone this repo and update `hotel.config.
 ## Tech Stack
 
 - **Next.js 15** (App Router, TypeScript, strict mode)
-- **Tailwind CSS** — custom design tokens: `forest`, `gold`, `parchment`, `warmgrey`, `ink`
+- **Tailwind CSS** — custom design tokens: `forest`, `accent`, `accentfill`, `onaccent`, `accentondark`, `parchment`, `warmgrey`, `ink`
 - **Sanity v3** — headless CMS; app runs in static-fallback mode when Sanity is not configured
 - **Framer Motion** — page transitions, stagger reveals, hero entrance
 - **Resend** — contact/enquiry email; silent no-op when API key is absent

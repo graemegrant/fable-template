@@ -118,7 +118,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <StaggerGrid className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {pressMentions.map((press) => (
             <StaggerItem key={press.outlet}>
-              <figure className="border-t border-gold/50 pt-6 text-center">
+              <figure className="border-t border-accent/50 pt-6 text-center">
                 <blockquote className="font-heading text-xl font-medium italic leading-snug text-ink">
                   “{pickLocale(press.quote, locale)}”
                 </blockquote>

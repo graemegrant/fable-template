@@ -28,11 +28,13 @@ and fill it in. The template file at repo root stays blank.
 - Check-in / check-out times:
 - Trust strip items:
 
-**Brand tokens** (→ `tailwind.config.ts`)
+**Brand tokens** (→ `lib/tokens.ts`; each pairing must clear 4.5:1)
 - `forest` (primary dark):
 - `forestdeep` (deepest dark):
-- `gold` (accent, light bg):
-- `goldbright` (accent, dark bg):
+- `accent` (accent text/rules on light bg):
+- `accentfill` (button/badge/banner fill):
+- `onaccent` (text on accentfill):
+- `accentondark` (accent text/rules on dark bg):
 - `parchment` (primary light):
 - `warmgrey` (alt bands/cards):
 - `ink` (text):

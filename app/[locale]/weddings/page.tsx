@@ -77,7 +77,7 @@ export default async function WeddingsPage({ params }: { params: Promise<{ local
                   </div>
                   <div className="pt-6">
                     <h3 className="font-heading text-2xl font-medium text-ink">{v.name}</h3>
-                    <p className="mt-1 font-body text-2xs uppercase tracking-25 text-gold">{v.capacity}</p>
+                    <p className="mt-1 font-body text-2xs uppercase tracking-25 text-accent">{v.capacity}</p>
                     <p className="mt-4 font-body text-sm font-light leading-relaxed text-ink/75">{v.detail}</p>
                   </div>
                 </article>
@@ -99,7 +99,7 @@ export default async function WeddingsPage({ params }: { params: Promise<{ local
             </p>
             <Link
               href="/contact"
-              className="mt-10 inline-block rounded-ctrl bg-gold px-10 py-4 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-parchment"
+              className="mt-10 inline-block rounded-ctrl bg-accentfill px-10 py-4 font-body text-2xs uppercase tracking-25 text-onaccent transition-colors duration-300 hover:bg-parchment hover:text-forest"
             >
               {t('enquireDate')}
             </Link>

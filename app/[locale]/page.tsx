@@ -102,7 +102,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <SectionLabel>{t('roomsLabel')}</SectionLabel>
               <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">{t('roomsHeading')}</h2>
             </div>
-            <Link href="/rooms" className="font-body text-2xs uppercase tracking-25 text-gold transition-colors hover:text-forest">
+            <Link href="/rooms" className="font-body text-2xs uppercase tracking-25 text-accent transition-colors hover:text-forest">
               {t('allRooms')}
             </Link>
           </FadeUp>
@@ -121,7 +121,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <SectionLabel>{t('experiencesLabel')}</SectionLabel>
             <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">{t('experiencesHeading')}</h2>
           </div>
-          <Link href="/experiences" className="font-body text-2xs uppercase tracking-25 text-gold transition-colors hover:text-forest">
+          <Link href="/experiences" className="font-body text-2xs uppercase tracking-25 text-accent transition-colors hover:text-forest">
             {t('allExperiences')}
           </Link>
         </FadeUp>
@@ -161,7 +161,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <SectionLabel>{t('offersLabel')}</SectionLabel>
             <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">{t('offersHeading')}</h2>
           </div>
-          <Link href="/offers" className="font-body text-2xs uppercase tracking-25 text-gold transition-colors hover:text-forest">
+          <Link href="/offers" className="font-body text-2xs uppercase tracking-25 text-accent transition-colors hover:text-forest">
             {t('allOffers')}
           </Link>
         </FadeUp>
@@ -208,7 +208,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <SectionLabel>{t('journalLabel')}</SectionLabel>
               <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">{t('journalHeading')}</h2>
             </div>
-            <Link href="/journal" className="font-body text-2xs uppercase tracking-25 text-gold transition-colors hover:text-forest">
+            <Link href="/journal" className="font-body text-2xs uppercase tracking-25 text-accent transition-colors hover:text-forest">
               {t('allStories')}
             </Link>
           </FadeUp>
@@ -238,7 +238,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               {t('finalHeadingLine1')}<br />{t('finalHeadingLine2')}
             </h2>
             <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <BookButton className="w-64 rounded-ctrl bg-gold px-8 py-4 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-parchment sm:w-auto" />
+              <BookButton className="w-64 rounded-ctrl bg-accentfill px-8 py-4 font-body text-2xs uppercase tracking-25 text-onaccent transition-colors duration-300 hover:bg-parchment hover:text-forest sm:w-auto" />
               <a
                 href={`tel:${hotelConfig.contact.phoneHref}`}
                 className="w-64 rounded-ctrl border border-parchment/60 px-8 py-4 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-parchment hover:text-forest sm:w-auto"

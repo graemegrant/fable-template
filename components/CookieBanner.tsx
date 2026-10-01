@@ -29,7 +29,7 @@ export default function CookieBanner() {
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-70 border-t border-gold/40 bg-forest">
+    <div className="fixed inset-x-0 bottom-0 z-70 border-t border-accentondark/40 bg-forest">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:gap-5 sm:px-6 sm:py-4 lg:px-10">
         <p className="font-body text-3xs leading-snug text-parchment/80 sm:text-xs sm:leading-relaxed">
           {t('message')}

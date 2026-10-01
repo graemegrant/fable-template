@@ -59,7 +59,7 @@ export default function KenBurnsHero({ image }: { image: unknown }) {
           {/* Own dark badge rather than relying on the hero scrim: the
               scrim above is intentionally too light to guarantee 4.5:1 for
               small text on its own — measured ~5.8:1 against this badge. */}
-          <p className="inline-block rounded-full bg-forestdeep/60 px-5 py-2 font-body text-2xs uppercase tracking-40 text-goldbright backdrop-blur-sm">
+          <p className="inline-block rounded-full bg-forestdeep/60 px-5 py-2 font-body text-2xs uppercase tracking-40 text-accentondark backdrop-blur-sm">
             {pickLocale(hotelConfig.seo.descriptor, locale)} · {pickLocale(hotelConfig.seo.locationLabel, locale)}
           </p>
         </HeroEntrance>
@@ -77,7 +77,7 @@ export default function KenBurnsHero({ image }: { image: unknown }) {
           {/* One primary CTA (booking, solid) per AGENTS.md §5; rooms is the
               quieter secondary. */}
           <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <BookButton className="w-64 rounded-ctrl bg-gold px-8 py-4 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-parchment sm:w-auto" />
+            <BookButton className="w-64 rounded-ctrl bg-accentfill px-8 py-4 font-body text-2xs uppercase tracking-25 text-onaccent transition-colors duration-300 hover:bg-parchment hover:text-forest sm:w-auto" />
             <Link
               href="/rooms"
               className="w-64 rounded-ctrl border border-parchment/60 px-8 py-4 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-parchment hover:text-forest sm:w-auto"

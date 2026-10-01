@@ -19,7 +19,7 @@ Start-to-launch checklist for a new client build. Works alongside
       rich results.
 - [ ] `seo.descriptor` / `seo.locationLabel` set for this client (drive the
       homepage `<title>` and hero eyebrow)
-- [ ] Re-skin the seven tokens in `lib/tokens.ts` (not `tailwind.config.ts` —
+- [ ] Re-skin the nine tokens in `lib/tokens.ts` (not `tailwind.config.ts` —
       it now reads from there, and so does OG-image generation)
 - [ ] Copy `CLIENT-ONBOARDING-TEMPLATE.md` to `/docs/clients/[hotel-slug].md`, fill it in
 - [ ] Set `lib/locales.ts` to this client's locale set; rewrite

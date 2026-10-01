@@ -57,7 +57,7 @@ function NewsletterForm() {
         placeholder={t('emailPlaceholder')}
         className="w-full bg-transparent py-3 font-body text-sm text-parchment placeholder:text-parchment/40 focus:outline-none"
       />
-      <button type="submit" className="shrink-0 rounded-none border border-gold px-4 py-2 font-body text-2xs uppercase tracking-25 text-gold transition-colors hover:bg-gold hover:text-forest">
+      <button type="submit" className="shrink-0 rounded-none border border-accentondark px-4 py-2 font-body text-2xs uppercase tracking-25 text-accentondark transition-colors hover:border-accentfill hover:bg-accentfill hover:text-onaccent">
         {t('subscribe')} →
       </button>
     </form>
@@ -85,11 +85,11 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="font-body text-2xs uppercase tracking-30 text-gold">{t('explore')}</p>
+            <p className="font-body text-2xs uppercase tracking-30 text-accentondark">{t('explore')}</p>
             <ul className="mt-5 space-y-3">
               {exploreLinks.map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="font-body text-sm text-parchment/80 transition-colors hover:text-gold">
+                  <Link href={l.href} className="font-body text-sm text-parchment/80 transition-colors hover:text-accentondark">
                     {tNav(l.labelKey)}
                   </Link>
                 </li>
@@ -98,25 +98,25 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="font-body text-2xs uppercase tracking-30 text-gold">{t('visit')}</p>
+            <p className="font-body text-2xs uppercase tracking-30 text-accentondark">{t('visit')}</p>
             <ul className="mt-5 space-y-3">
               {visitLinks.map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="font-body text-sm text-parchment/80 transition-colors hover:text-gold">
+                  <Link href={l.href} className="font-body text-sm text-parchment/80 transition-colors hover:text-accentondark">
                     {tNav(l.labelKey)}
                   </Link>
                 </li>
               ))}
             </ul>
-            <p className="mt-8 font-body text-2xs uppercase tracking-30 text-gold">{t('contactHeading')}</p>
+            <p className="mt-8 font-body text-2xs uppercase tracking-30 text-accentondark">{t('contactHeading')}</p>
             <ul className="mt-5 space-y-3 font-body text-sm text-parchment/80">
               <li>
-                <a href={`tel:${hotelConfig.contact.phoneHref}`} className="transition-colors hover:text-gold">
+                <a href={`tel:${hotelConfig.contact.phoneHref}`} className="transition-colors hover:text-accentondark">
                   {hotelConfig.contact.phone}
                 </a>
               </li>
               <li>
-                <a href={`mailto:${hotelConfig.contact.email}`} className="transition-colors hover:text-gold">
+                <a href={`mailto:${hotelConfig.contact.email}`} className="transition-colors hover:text-accentondark">
                   {hotelConfig.contact.email}
                 </a>
               </li>
@@ -124,7 +124,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="font-body text-2xs uppercase tracking-30 text-gold">{t('seasonalLetterHeading')}</p>
+            <p className="font-body text-2xs uppercase tracking-30 text-accentondark">{t('seasonalLetterHeading')}</p>
             <p className="mt-5 font-body text-sm font-light leading-relaxed text-parchment/70">
               {t('seasonalLetterBody')}
             </p>
@@ -133,11 +133,11 @@ export default function Footer() {
             </div>
             <div className="mt-8 flex gap-6">
               <a href={hotelConfig.contact.instagram} target="_blank" rel="noopener noreferrer"
-                className="font-body text-2xs uppercase tracking-25 text-parchment/70 transition-colors hover:text-gold">
+                className="font-body text-2xs uppercase tracking-25 text-parchment/70 transition-colors hover:text-accentondark">
                 {t('instagram')}
               </a>
               <a href={hotelConfig.contact.facebook} target="_blank" rel="noopener noreferrer"
-                className="font-body text-2xs uppercase tracking-25 text-parchment/70 transition-colors hover:text-gold">
+                className="font-body text-2xs uppercase tracking-25 text-parchment/70 transition-colors hover:text-accentondark">
                 {t('facebook')}
               </a>
             </div>

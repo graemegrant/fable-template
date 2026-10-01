@@ -40,7 +40,7 @@ export default function TestimonialSlider({ testimonials }: { testimonials: Test
 
       <div className="mt-10 flex items-center justify-center gap-8">
         <button type="button" onClick={() => go(-1)} aria-label={t('testimonialPrev')}
-          className="font-body text-sm tracking-widest text-parchment/60 transition-colors hover:text-gold">
+          className="font-body text-sm tracking-widest text-parchment/60 transition-colors hover:text-accentondark">
           ←
         </button>
         <div className="flex gap-3">
@@ -50,12 +50,12 @@ export default function TestimonialSlider({ testimonials }: { testimonials: Test
               type="button"
               onClick={() => setIndex(i)}
               aria-label={t('testimonialDot', { count: i + 1 })}
-              className={`size-1.5 transition-colors duration-300 ${i === index ? 'bg-gold' : 'bg-parchment/30'}`}
+              className={`size-1.5 transition-colors duration-300 ${i === index ? 'bg-accentondark' : 'bg-parchment/30'}`}
             />
           ))}
         </div>
         <button type="button" onClick={() => go(1)} aria-label={t('testimonialNext')}
-          className="font-body text-sm tracking-widest text-parchment/60 transition-colors hover:text-gold">
+          className="font-body text-sm tracking-widest text-parchment/60 transition-colors hover:text-accentondark">
           →
         </button>
       </div>

@@ -45,7 +45,7 @@ export default async function LocationPage({ params }: { params: Promise<{ local
         <StaggerGrid className="mt-14 grid gap-10 sm:grid-cols-2">
           {directions.map((d, i) => (
             <StaggerItem key={i}>
-              <article className="h-full border-t border-gold/60 pt-6">
+              <article className="h-full border-t border-accent/60 pt-6">
                 <h3 className="font-heading text-2xl font-medium text-ink">{pickLocale(d.mode, locale)}</h3>
                 <p className="mt-3 font-body text-sm font-light leading-copy text-ink/75">{pickLocale(d.detail, locale)}</p>
               </article>
@@ -96,7 +96,7 @@ export default async function LocationPage({ params }: { params: Promise<{ local
               <article className="border-t border-ink/10 pt-5">
                 <div className="flex items-baseline justify-between gap-4">
                   <h3 className="font-heading text-xl font-medium text-ink">{a.name}</h3>
-                  <span className="shrink-0 font-body text-2xs uppercase tracking-20 text-gold">{a.distance}</span>
+                  <span className="shrink-0 font-body text-2xs uppercase tracking-20 text-accent">{a.distance}</span>
                 </div>
                 <p className="mt-3 font-body text-sm font-light leading-relaxed text-ink/75">{pickLocale(a.description, locale)}</p>
               </article>

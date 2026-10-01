@@ -83,7 +83,7 @@ export default async function DiningPage({ params }: { params: Promise<{ locale:
               <StaggerItem key={menu.name}>
                 <article className="h-full border border-ink/10 bg-parchment p-8">
                   <h3 className="font-heading text-2xl font-medium text-ink">{menu.name}</h3>
-                  <p className="mt-2 font-body text-2xs uppercase tracking-20 text-gold">{menu.note}</p>
+                  <p className="mt-2 font-body text-2xs uppercase tracking-20 text-accent">{menu.note}</p>
                   <ul className="mt-7 space-y-5 border-t border-ink/10 pt-7">
                     {menu.items.map((item) => (
                       <li key={item.dish}>
@@ -136,7 +136,7 @@ export default async function DiningPage({ params }: { params: Promise<{ locale:
               <FadeUp delay={0.15}>
                 <SectionLabel variant="parchment">{t('chefLabel')}</SectionLabel>
                 <h2 className="mt-5 font-heading text-4xl font-medium text-parchment md:text-5xl">{chef.name}</h2>
-                <p className="mt-2 font-body text-2xs uppercase tracking-25 text-gold">{chef.role}</p>
+                <p className="mt-2 font-body text-2xs uppercase tracking-25 text-accentondark">{chef.role}</p>
                 <p className="mt-6 max-w-2xl font-body text-base font-light leading-body text-parchment/80">
                   {chef.bio}{t('chefBioSuffix')}
                 </p>

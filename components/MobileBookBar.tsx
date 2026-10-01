@@ -35,7 +35,7 @@ export default function MobileBookBar({
           <span className="font-body text-xs font-light text-ink/60"> {t('perNight')}</span>
         </p>
       </div>
-      <BookButton roomHint={roomName} className="shrink-0 rounded-ctrl bg-forest px-6 py-3.5 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest" />
+      <BookButton roomHint={roomName} className="shrink-0 rounded-ctrl bg-forest px-6 py-3.5 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-accentfill hover:text-onaccent" />
     </div>
   );
 }

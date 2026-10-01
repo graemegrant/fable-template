@@ -29,7 +29,7 @@ export default async function NotFound() {
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link
             href="/"
-            className="rounded-ctrl bg-gold px-8 py-4 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-parchment"
+            className="rounded-ctrl bg-accentfill px-8 py-4 font-body text-2xs uppercase tracking-25 text-onaccent transition-colors duration-300 hover:bg-parchment hover:text-forest"
           >
             Back to the house
           </Link>

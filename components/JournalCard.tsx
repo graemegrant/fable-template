@@ -42,7 +42,7 @@ export default async function JournalCard({
           <p className="mt-8 font-body text-2xs uppercase tracking-25 text-parchment/60">
             {post.author} · {formatDate(post.publishedAt, locale)} · {post.readingTime}
           </p>
-          <span className="mt-6 font-body text-2xs uppercase tracking-25 text-gold">{t('readTheStory')}</span>
+          <span className="mt-6 font-body text-2xs uppercase tracking-25 text-accent">{t('readTheStory')}</span>
         </div>
       </Link>
     );

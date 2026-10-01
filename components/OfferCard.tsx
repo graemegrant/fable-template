@@ -28,7 +28,7 @@ export default async function OfferCard({
             className="object-cover"
           />
           {offer.tag && (
-            <span className="absolute left-0 top-6 bg-gold px-4 py-2 font-body text-3xs uppercase tracking-25 text-forest">
+            <span className="absolute left-0 top-6 bg-accentfill px-4 py-2 font-body text-3xs uppercase tracking-25 text-onaccent">
               {offer.tag}
             </span>
           )}
@@ -41,7 +41,7 @@ export default async function OfferCard({
             <ul className="mt-7 space-y-2.5 border-t border-ink/10 pt-7">
               {offer.inclusions.map((inc) => (
                 <li key={inc} className="flex gap-3 font-body text-sm text-ink/80">
-                  <span className="mt-7px h-px w-5 shrink-0 bg-gold" aria-hidden />
+                  <span className="mt-7px h-px w-5 shrink-0 bg-accent" aria-hidden />
                   {inc}
                 </li>
               ))}
@@ -69,7 +69,7 @@ export default async function OfferCard({
           className="object-cover transition-transform duration-1200 ease-out-expo group-hover:scale-104"
         />
         {offer.tag && (
-          <span className="absolute left-0 top-6 bg-gold px-4 py-2 font-body text-3xs uppercase tracking-25 text-forest">
+          <span className="absolute left-0 top-6 bg-accentfill px-4 py-2 font-body text-3xs uppercase tracking-25 text-onaccent">
             {offer.tag}
           </span>
         )}
@@ -77,7 +77,7 @@ export default async function OfferCard({
       <div className="pt-6">
         <h3 className="font-heading text-2xl font-medium text-ink">{offer.title}</h3>
         <p className="mt-2 font-body text-xs uppercase tracking-20 text-ink/60">{offer.subtitle}</p>
-        <span className="mt-4 inline-block font-body text-2xs uppercase tracking-20 text-gold transition-colors group-hover:text-forest">
+        <span className="mt-4 inline-block font-body text-2xs uppercase tracking-20 text-accent transition-colors group-hover:text-forest">
           {t('viewOffer')}
         </span>
       </div>

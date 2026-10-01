@@ -77,7 +77,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-body text-2xs uppercase tracking-20 text-gold transition-colors hover:text-forest"
+                      className="font-body text-2xs uppercase tracking-20 text-accent transition-colors hover:text-forest"
                     >
                       {t('getDirections')}
                     </a>

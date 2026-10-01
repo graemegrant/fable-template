@@ -7,6 +7,14 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Accent tokens renamed by role.** `gold` / `goldbright` are replaced by
+  `accent` (on light), `accentfill` + `onaccent` (solid fills and the
+  text on them) and `accentondark` (on dark), so each pairing can be
+  tuned to WCAG AA independently instead of one hue being traded off
+  between buttons and text. Values unchanged; Navbar, Footer, testimonial
+  controls, cookie banner and dining chef role now use `accentondark`
+  (was `gold` at 4.18:1 on forest — an AA failure). **Client repos:**
+  rename `gold`/`goldbright` keys in `lib/tokens.ts` when pulling this.
 - **Multilingual (i18n) support**, template-wide, configurable per client
   via `lib/locales.ts` (default demo set: `en`/`fr`/`de`). Adds:
   `next-intl` locale routing (`localePrefix: 'always'` — every URL is

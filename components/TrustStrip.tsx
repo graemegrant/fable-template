@@ -19,7 +19,7 @@ export default async function TrustStrip({ variant = 'light' }: { variant?: 'lig
       <div className="mx-auto max-w-7xl px-6 py-8 lg:px-10">
         <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3">
           <li className="flex items-center gap-4">
-            <span className={`font-body text-2xs uppercase tracking-25 ${dark ? 'text-goldbright' : 'text-gold'}`}>
+            <span className={`font-body text-2xs uppercase tracking-25 ${dark ? 'text-accentondark' : 'text-accent'}`}>
               {t('bookDirectLabel')}
             </span>
             <span className={`h-4 w-px ${dark ? 'bg-parchment/25' : 'bg-ink/15'}`} aria-hidden />

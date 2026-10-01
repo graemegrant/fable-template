@@ -91,7 +91,7 @@ export default function Navbar() {
                 <Link
                   href={item.href}
                   className={`font-body text-2xs uppercase tracking-25 transition-colors ${
-                    isActive(item) ? 'text-gold' : 'text-parchment hover:text-gold'
+                    isActive(item) ? 'text-accentondark' : 'text-parchment hover:text-accentondark'
                   }`}
                 >
                   {t(item.labelKey)}
@@ -101,7 +101,7 @@ export default function Navbar() {
                   type="button"
                   aria-haspopup="true"
                   className={`font-body text-2xs uppercase tracking-25 transition-colors ${
-                    isActive(item) ? 'text-gold' : 'text-parchment group-focus-within:text-gold group-hover:text-gold'
+                    isActive(item) ? 'text-accentondark' : 'text-parchment group-focus-within:text-accentondark group-hover:text-accentondark'
                   }`}
                 >
                   {t(item.labelKey)}
@@ -109,13 +109,13 @@ export default function Navbar() {
               )}
               {item.children && (
                 <div className="invisible absolute left-1/2 top-full -translate-x-1/2 pt-5 opacity-0 transition-all duration-300 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
-                  <ul className="w-56 border-t-2 border-gold bg-forest py-3">
+                  <ul className="w-56 border-t-2 border-accentondark bg-forest py-3">
                     {item.children.map((child) => (
                       <li key={child.href}>
                         <Link
                           href={child.href}
                           className={`block px-6 py-2.5 font-body text-2xs uppercase tracking-20 transition-colors ${
-                            pathname.startsWith(child.href) ? 'text-gold' : 'text-parchment/85 hover:text-gold'
+                            pathname.startsWith(child.href) ? 'text-accentondark' : 'text-parchment/85 hover:text-accentondark'
                           }`}
                         >
                           {t(child.labelKey)}
@@ -132,7 +132,7 @@ export default function Navbar() {
         <div className="ml-auto hidden items-center gap-5 lg:flex">
           <a
             href={`tel:${hotelConfig.contact.phoneHref}`}
-            className="hidden font-body text-xs text-parchment/80 transition-colors hover:text-gold xl:block"
+            className="hidden font-body text-xs text-parchment/80 transition-colors hover:text-accentondark xl:block"
           >
             {hotelConfig.contact.phone}
           </a>
@@ -143,19 +143,19 @@ export default function Navbar() {
               type="button"
               aria-haspopup="true"
               aria-label={tCommon('changeLanguage')}
-              className="font-body text-2xs uppercase tracking-25 text-parchment transition-colors group-focus-within:text-gold group-hover:text-gold"
+              className="font-body text-2xs uppercase tracking-25 text-parchment transition-colors group-focus-within:text-accentondark group-hover:text-accentondark"
             >
               {locale}
             </button>
             <div className="invisible absolute right-0 top-full pt-5 opacity-0 transition-all duration-300 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
-              <ul className="w-40 border-t-2 border-gold bg-forest py-3">
+              <ul className="w-40 border-t-2 border-accentondark bg-forest py-3">
                 {LOCALES.map((l) => (
                   <li key={l.id}>
                     <Link
                       href={pathname}
                       locale={l.id}
                       className={`block px-6 py-2.5 font-body text-2xs uppercase tracking-20 transition-colors ${
-                        l.id === locale ? 'text-gold' : 'text-parchment/85 hover:text-gold'
+                        l.id === locale ? 'text-accentondark' : 'text-parchment/85 hover:text-accentondark'
                       }`}
                     >
                       {l.label}
@@ -166,7 +166,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          <BookButton className="rounded-ctrl border border-gold bg-gold px-6 py-3 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-transparent hover:text-gold" />
+          <BookButton className="rounded-ctrl border border-accentfill bg-accentfill px-6 py-3 font-body text-2xs uppercase tracking-25 text-onaccent transition-colors duration-300 hover:bg-transparent hover:text-accentondark" />
         </div>
 
         {/* Mobile toggle — 48×48 hit area (WCAG 2.5.8). ml-auto pins it to the
@@ -240,7 +240,7 @@ export default function Navbar() {
                 href={pathname}
                 locale={l.id}
                 className={`font-body text-xs uppercase tracking-25 ${
-                  l.id === locale ? 'text-gold' : 'text-parchment/70'
+                  l.id === locale ? 'text-accentondark' : 'text-parchment/70'
                 }`}
               >
                 {l.id}
@@ -249,7 +249,7 @@ export default function Navbar() {
           </div>
 
           <div className="pt-6">
-            <BookButton className="w-full rounded-ctrl bg-gold px-6 py-4 font-body text-2xs uppercase tracking-25 text-forest" />
+            <BookButton className="w-full rounded-ctrl bg-accentfill px-6 py-4 font-body text-2xs uppercase tracking-25 text-onaccent" />
           </div>
         </nav>
       </div>
