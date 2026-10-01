@@ -19,7 +19,7 @@ export default async function OfferCard({
   if (variant === 'feature') {
     return (
       <article className="grid items-center gap-10 md:grid-cols-2 lg:gap-20">
-        <div className={`relative aspect-landscape overflow-hidden rounded-img bg-warmgrey ${flip ? 'md:order-2' : ''}`}>
+        <div className={`relative aspect-landscape overflow-hidden rounded-img bg-canvasalt ${flip ? 'md:order-2' : ''}`}>
           <Image
             src={imgSrc(offer.image)}
             alt={offer.title}
@@ -49,7 +49,7 @@ export default async function OfferCard({
           )}
           <Link
             href="/contact"
-            className="mt-9 inline-block rounded-ctrl border border-forest px-8 py-4 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-forest hover:text-parchment"
+            className="mt-9 inline-block rounded-ctrl border border-primary px-8 py-4 font-body text-2xs uppercase tracking-25 text-primary transition-colors duration-300 hover:bg-primary hover:text-canvas"
           >
             {t('enquireAboutOffer')}
           </Link>
@@ -60,7 +60,7 @@ export default async function OfferCard({
 
   return (
     <Link href={`/offers#${offer.slug}`} className="group block">
-      <div className="relative aspect-landscape overflow-hidden rounded-img bg-warmgrey">
+      <div className="relative aspect-landscape overflow-hidden rounded-img bg-canvasalt">
         <Image
           src={imgSrc(offer.image, 1000)}
           alt={offer.title}
@@ -77,7 +77,7 @@ export default async function OfferCard({
       <div className="pt-6">
         <h3 className="font-heading text-2xl font-medium text-ink">{offer.title}</h3>
         <p className="mt-2 font-body text-xs uppercase tracking-20 text-ink/60">{offer.subtitle}</p>
-        <span className="mt-4 inline-block font-body text-2xs uppercase tracking-20 text-accent transition-colors group-hover:text-forest">
+        <span className="mt-4 inline-block font-body text-2xs uppercase tracking-20 text-accent transition-colors group-hover:text-primary">
           {t('viewOffer')}
         </span>
       </div>

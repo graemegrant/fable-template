@@ -36,7 +36,7 @@ function StatItem({ stat }: { stat: Stat }) {
 
   return (
     <div ref={ref}>
-      <div className="font-heading text-4xl text-forest md:text-5xl">
+      <div className="font-heading text-4xl text-primary md:text-5xl">
         {stat.render(display)}
       </div>
       <div className="mt-2 font-body text-2xs uppercase leading-relaxed tracking-18 text-ink/60">

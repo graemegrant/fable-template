@@ -13,7 +13,7 @@ export default async function DirectBookingBanner() {
         </p>
         {/* No children passed — falls back to BookButton's own common.checkAvailability
             translation (AGENTS.md §9: never hardcode a second copy of that CTA). */}
-        <BookButton className="shrink-0 rounded-ctrl border border-onaccent px-7 py-3.5 font-body text-2xs uppercase tracking-25 text-onaccent transition-colors duration-300 hover:bg-forest hover:text-parchment" />
+        <BookButton className="shrink-0 rounded-ctrl border border-onaccent px-7 py-3.5 font-body text-2xs uppercase tracking-25 text-onaccent transition-colors duration-300 hover:bg-primary hover:text-canvas" />
       </div>
     </div>
   );

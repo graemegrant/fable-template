@@ -18,7 +18,7 @@ export default function Icon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: palette.forest,
+          background: palette.primary,
           color: palette.accentondark,
           fontSize: 340,
           fontFamily: 'Georgia, "Times New Roman", serif',

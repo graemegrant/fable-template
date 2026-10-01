@@ -29,14 +29,14 @@ and fill it in. The template file at repo root stays blank.
 - Trust strip items:
 
 **Brand tokens** (→ `lib/tokens.ts`; each pairing must clear 4.5:1)
-- `forest` (primary dark):
-- `forestdeep` (deepest dark):
+- `primary` (primary dark):
+- `primarydeep` (deepest dark):
 - `accent` (accent text/rules on light bg):
 - `accentfill` (button/badge/banner fill):
 - `onaccent` (text on accentfill):
 - `accentondark` (accent text/rules on dark bg):
-- `parchment` (primary light):
-- `warmgrey` (alt bands/cards):
+- `canvas` (primary light):
+- `canvasalt` (alt bands/cards):
 - `ink` (text):
 - Heading font / body font:
 

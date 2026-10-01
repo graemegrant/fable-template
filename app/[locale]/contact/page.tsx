@@ -44,13 +44,13 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
           </FadeUp>
 
           <FadeUp delay={0.15}>
-            <div className="border border-ink/10 bg-warmgrey p-8">
+            <div className="border border-ink/10 bg-canvasalt p-8">
               <SectionLabel>{t('directlyLabel')}</SectionLabel>
               <dl className="mt-6 space-y-6">
                 <div>
                   <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">{t('telephone')}</dt>
                   <dd className="mt-1">
-                    <a href={`tel:${hotelConfig.contact.phoneHref}`} className="font-heading text-xl font-medium text-forest">
+                    <a href={`tel:${hotelConfig.contact.phoneHref}`} className="font-heading text-xl font-medium text-primary">
                       {hotelConfig.contact.phone}
                     </a>
                   </dd>
@@ -58,7 +58,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                 <div>
                   <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">{t('email')}</dt>
                   <dd className="mt-1">
-                    <a href={`mailto:${hotelConfig.contact.email}`} className="font-heading text-xl font-medium text-forest">
+                    <a href={`mailto:${hotelConfig.contact.email}`} className="font-heading text-xl font-medium text-primary">
                       {hotelConfig.contact.email}
                     </a>
                   </dd>
@@ -77,7 +77,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-body text-2xs uppercase tracking-20 text-accent transition-colors hover:text-forest"
+                      className="font-body text-2xs uppercase tracking-20 text-accent transition-colors hover:text-primary"
                     >
                       {t('getDirections')}
                     </a>
@@ -95,7 +95,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
         </div>
       </section>
 
-      <section className="bg-warmgrey">
+      <section className="bg-canvasalt">
         <div className="mx-auto max-w-3xl px-6 py-20 lg:py-28">
           <FadeUp>
             <SectionLabel>{t('beforeYouAskLabel')}</SectionLabel>

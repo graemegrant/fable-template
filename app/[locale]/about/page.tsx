@@ -60,14 +60,14 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       </section>
 
       {/* Ethos */}
-      <section className="bg-forest">
+      <section className="bg-primary">
         <div className="mx-auto max-w-4xl px-6 py-24 text-center lg:py-32">
           <FadeUp>
-            <SectionLabel variant="parchment">{t('ethosLabel')}</SectionLabel>
-            <blockquote className="mt-8 font-heading text-3xl font-medium italic leading-snug text-parchment md:text-4xl">
+            <SectionLabel variant="ondark">{t('ethosLabel')}</SectionLabel>
+            <blockquote className="mt-8 font-heading text-3xl font-medium italic leading-snug text-canvas md:text-4xl">
               “{t('ethosQuote')}”
             </blockquote>
-            <p className="mt-8 font-body text-2xs uppercase tracking-25 text-parchment/60">
+            <p className="mt-8 font-body text-2xs uppercase tracking-25 text-canvas/60">
               {t('ethosAttribution')}
             </p>
           </FadeUp>
@@ -88,7 +88,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       </section>
 
       {/* Sustainability */}
-      <section className="bg-warmgrey">
+      <section className="bg-canvasalt">
         <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-24">
             <FadeUp>

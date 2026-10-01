@@ -145,9 +145,9 @@ export default async function RoomDetailPage({ params }: Props) {
 
           {/* Sticky booking sidebar */}
           <aside>
-            <div className="border border-ink/10 bg-warmgrey p-8 lg:sticky lg:top-28">
+            <div className="border border-ink/10 bg-canvasalt p-8 lg:sticky lg:top-28">
               <p className="font-body text-2xs uppercase tracking-25 text-ink/60">{t('from')}</p>
-              <p className="mt-2 font-heading text-5xl font-medium text-forest">
+              <p className="mt-2 font-heading text-5xl font-medium text-primary">
                 £{room.rate}
                 <span className="font-body text-sm font-light text-ink/60"> {t('perNight')}</span>
               </p>
@@ -164,10 +164,10 @@ export default async function RoomDetailPage({ params }: Props) {
                   </div>
                 ))}
               </dl>
-              <BookButton roomHint={room.roomType} className="mt-8 w-full rounded-ctrl bg-forest px-8 py-4 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-accentfill hover:text-onaccent" />
+              <BookButton roomHint={room.roomType} className="mt-8 w-full rounded-ctrl bg-primary px-8 py-4 font-body text-2xs uppercase tracking-25 text-canvas transition-colors duration-300 hover:bg-accentfill hover:text-onaccent" />
               <p className="mt-5 text-center font-body text-xs text-ink/60">
                 {t('orCall')}{' '}
-                <a href={`tel:${hotelConfig.contact.phoneHref}`} className="text-forest underline decoration-accent underline-offset-4">
+                <a href={`tel:${hotelConfig.contact.phoneHref}`} className="text-primary underline decoration-accent underline-offset-4">
                   {hotelConfig.contact.phone}
                 </a>
               </p>
@@ -184,7 +184,7 @@ export default async function RoomDetailPage({ params }: Props) {
       </section>
 
       {/* Related rooms */}
-      <section className="bg-warmgrey">
+      <section className="bg-canvasalt">
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
           <FadeUp>
             <SectionLabel>{t('alsoWorthLook')}</SectionLabel>

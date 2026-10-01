@@ -51,27 +51,31 @@ exposed to Tailwind by `tailwind.config.ts`):
 
 | Token | Hex | Use |
 |---|---|---|
-| `forest` | `#2B2119` | primary dark |
-| `forestdeep` | `#1B1510` | deepest dark — footers, gradients |
+| `primary` | `#2B2119` | dark sections, primary buttons; headings and emphasis text on `canvas` |
+| `primarydeep` | `#1B1510` | deepest dark — gradient ends, overlays |
 | `accent` | `#785828` | accent text, rules and borders on light backgrounds |
 | `accentfill` | `#A67C3D` | solid accent surfaces — buttons, badges, banners |
 | `onaccent` | `#2B2119` | text and icons on an `accentfill` surface |
 | `accentondark` | `#E8C083` | accent text, rules and borders on dark backgrounds |
-| `parchment` | `#EFEAE1` | primary light |
-| `warmgrey` | `#E3DCCF` | alt bands, cards |
+| `canvas` | `#EFEAE1` | page background; text on `primary` |
+| `canvasalt` | `#E3DCCF` | alternate bands, cards, image placeholders |
 | `ink` | `#241D16` | body text |
 
 Radii: `rounded-ctrl` (10px, buttons/inputs), `rounded-card` (18px),
 `rounded-img` (14px). Fonts: `font-heading` / `font-body` via CSS vars —
 never hardcode a font-family.
 
+`primary`/`canvas` are a dark/light pair used both as surfaces and as
+text on each other (`bg-primary text-canvas`, `bg-canvas text-primary`) —
+the contrast is symmetric, so unlike the accent they need no role split.
+
 The accent tokens are named by **role**, not colour, so a client can tune
 each one to clear WCAG AA (4.5:1) for its own pairing — one hue rarely
-passes both as text on parchment and as a fill under dark text. Pick by
-where the colour sits: `accent` on parchment/warmgrey, `accentondark` on
-forest/forestdeep, `accentfill` + `onaccent` together for any solid fill.
-A fill button that hovers to `bg-parchment` must also set
-`hover:text-forest`, since `onaccent` may be a light colour.
+passes both as text on canvas and as a fill under dark text. Pick by
+where the colour sits: `accent` on canvas/canvasalt, `accentondark` on
+primary/primarydeep, `accentfill` + `onaccent` together for any solid fill.
+A fill button that hovers to `bg-canvas` must also set
+`hover:text-primary`, since `onaccent` may be a light colour.
 
 **Re-skinning for a new client means editing the nine token values in
 `lib/tokens.ts` — never adding a one-off hex value in a component.**

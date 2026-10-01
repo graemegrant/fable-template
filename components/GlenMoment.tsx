@@ -77,7 +77,7 @@ export default function GlenMoment() {
           <p className="font-body text-2xs uppercase tracking-30 text-accentondark">
             {t('eyebrow')}
           </p>
-          <p className="mt-8 max-w-20ch font-heading text-3xl leading-heading text-parchment md:text-5xl lg:text-6xl">
+          <p className="mt-8 max-w-20ch font-heading text-3xl leading-heading text-canvas md:text-5xl lg:text-6xl">
             {SENTENCE.map((w, i) => (
               <span
                 key={i}

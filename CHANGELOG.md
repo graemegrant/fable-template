@@ -7,6 +7,11 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Base tokens renamed off colour names:** `forest` → `primary`,
+  `forestdeep` → `primarydeep`, `parchment` → `canvas`, `warmgrey` →
+  `canvasalt`; `SectionLabel` variant `parchment` → `ondark`. Values
+  unchanged. **Client repos:** rename these keys in `lib/tokens.ts` and
+  any client-only components when pulling this.
 - **Accent tokens renamed by role.** `gold` / `goldbright` are replaced by
   `accent` (on light), `accentfill` + `onaccent` (solid fills and the
   text on them) and `accentondark` (on dark), so each pairing can be

@@ -37,8 +37,8 @@ export default function ContactForm() {
 
   if (status === 'sent') {
     return (
-      <div className="border border-accent/50 bg-warmgrey p-10 text-center">
-        <p className="font-heading text-2xl font-medium text-forest">{t('thankYou')}</p>
+      <div className="border border-accent/50 bg-canvasalt p-10 text-center">
+        <p className="font-heading text-2xl font-medium text-primary">{t('thankYou')}</p>
         <p className="mt-3 font-body text-sm leading-relaxed text-ink/75">
           {t('confirmationBody')}
         </p>
@@ -77,7 +77,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === 'sending'}
-        className="rounded-ctrl bg-forest px-10 py-4 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-accentfill hover:text-onaccent disabled:opacity-60"
+        className="rounded-ctrl bg-primary px-10 py-4 font-body text-2xs uppercase tracking-25 text-canvas transition-colors duration-300 hover:bg-accentfill hover:text-onaccent disabled:opacity-60"
       >
         {status === 'sending' ? t('sending') : t('sendEnquiry')}
       </button>

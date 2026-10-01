@@ -69,7 +69,7 @@ export default async function DiningPage({ params }: { params: Promise<{ locale:
       </section>
 
       {/* Menus */}
-      <section className="bg-warmgrey">
+      <section className="bg-canvasalt">
         <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
           <FadeUp>
             <SectionLabel>{t('menusLabel')}</SectionLabel>
@@ -81,7 +81,7 @@ export default async function DiningPage({ params }: { params: Promise<{ locale:
           <StaggerGrid className="mt-14 grid gap-10 lg:grid-cols-3">
             {resolvedMenus.map((menu) => (
               <StaggerItem key={menu.name}>
-                <article className="h-full border border-ink/10 bg-parchment p-8">
+                <article className="h-full border border-ink/10 bg-canvas p-8">
                   <h3 className="font-heading text-2xl font-medium text-ink">{menu.name}</h3>
                   <p className="mt-2 font-body text-2xs uppercase tracking-20 text-accent">{menu.note}</p>
                   <ul className="mt-7 space-y-5 border-t border-ink/10 pt-7">
@@ -115,7 +115,7 @@ export default async function DiningPage({ params }: { params: Promise<{ locale:
             </p>
             <Link
               href="/contact"
-              className="mt-9 inline-block rounded-ctrl border border-forest px-8 py-4 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-forest hover:text-parchment"
+              className="mt-9 inline-block rounded-ctrl border border-primary px-8 py-4 font-body text-2xs uppercase tracking-25 text-primary transition-colors duration-300 hover:bg-primary hover:text-canvas"
             >
               {t('enquirePrivateDining')}
             </Link>
@@ -125,7 +125,7 @@ export default async function DiningPage({ params }: { params: Promise<{ locale:
 
       {/* Chef profile */}
       {chef && (
-        <section className="bg-forest">
+        <section className="bg-primary">
           <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
             <div className="grid items-center gap-12 lg:grid-cols-360-1fr lg:gap-24">
               <FadeUp>
@@ -134,13 +134,13 @@ export default async function DiningPage({ params }: { params: Promise<{ locale:
                 </div>
               </FadeUp>
               <FadeUp delay={0.15}>
-                <SectionLabel variant="parchment">{t('chefLabel')}</SectionLabel>
-                <h2 className="mt-5 font-heading text-4xl font-medium text-parchment md:text-5xl">{chef.name}</h2>
+                <SectionLabel variant="ondark">{t('chefLabel')}</SectionLabel>
+                <h2 className="mt-5 font-heading text-4xl font-medium text-canvas md:text-5xl">{chef.name}</h2>
                 <p className="mt-2 font-body text-2xs uppercase tracking-25 text-accentondark">{chef.role}</p>
-                <p className="mt-6 max-w-2xl font-body text-base font-light leading-body text-parchment/80">
+                <p className="mt-6 max-w-2xl font-body text-base font-light leading-body text-canvas/80">
                   {chef.bio}{t('chefBioSuffix')}
                 </p>
-                <p className="mt-8 font-heading text-2xl font-medium italic text-parchment/90">
+                <p className="mt-8 font-heading text-2xl font-medium italic text-canvas/90">
                   “{t('chefQuote')}”
                 </p>
               </FadeUp>

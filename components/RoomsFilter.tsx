@@ -35,7 +35,7 @@ export default function RoomsFilter({ rooms }: { rooms: Room[] }) {
               aria-selected={active === ty}
               onClick={() => setActive(ty)}
               className={`px-6 py-3 font-body text-2xs uppercase tracking-25 transition-colors duration-300 ${
-                active === ty ? 'bg-forest text-parchment' : 'text-ink/60 hover:text-forest'
+                active === ty ? 'bg-primary text-canvas' : 'text-ink/60 hover:text-primary'
               }`}
             >
               {ty === 'All' ? t('allRoomTypes') : ty}

@@ -95,9 +95,9 @@ export default async function ExperienceDetailPage({ params }: Props) {
           </div>
 
           <aside>
-            <div className="border border-ink/10 bg-warmgrey p-8 lg:sticky lg:top-28">
+            <div className="border border-ink/10 bg-canvasalt p-8 lg:sticky lg:top-28">
               <p className="font-body text-2xs uppercase tracking-25 text-ink/60">{t('pricing')}</p>
-              <p className="mt-3 font-heading text-3xl font-medium text-forest">{exp.price}</p>
+              <p className="mt-3 font-heading text-3xl font-medium text-primary">{exp.price}</p>
               <dl className="mt-8 space-y-3 border-t border-ink/10 pt-7">
                 <div className="flex justify-between gap-6">
                   <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">{t('duration')}</dt>
@@ -116,7 +116,7 @@ export default async function ExperienceDetailPage({ params }: Props) {
               </dl>
               <Link
                 href="/contact"
-                className="mt-8 block w-full rounded-ctrl bg-forest px-8 py-4 text-center font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-accentfill hover:text-onaccent"
+                className="mt-8 block w-full rounded-ctrl bg-primary px-8 py-4 text-center font-body text-2xs uppercase tracking-25 text-canvas transition-colors duration-300 hover:bg-accentfill hover:text-onaccent"
               >
                 {t('arrangeThis')}
               </Link>
@@ -128,7 +128,7 @@ export default async function ExperienceDetailPage({ params }: Props) {
         </div>
       </section>
 
-      <section className="bg-warmgrey">
+      <section className="bg-canvasalt">
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
           <FadeUp>
             <SectionLabel>{t('whileYoureHere')}</SectionLabel>

@@ -29,23 +29,23 @@ export default function CookieBanner() {
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-70 border-t border-accentondark/40 bg-forest">
+    <div className="fixed inset-x-0 bottom-0 z-70 border-t border-accentondark/40 bg-primary">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:gap-5 sm:px-6 sm:py-4 lg:px-10">
-        <p className="font-body text-3xs leading-snug text-parchment/80 sm:text-xs sm:leading-relaxed">
+        <p className="font-body text-3xs leading-snug text-canvas/80 sm:text-xs sm:leading-relaxed">
           {t('message')}
         </p>
         <div className="flex shrink-0 gap-2 sm:gap-3">
           <button
             type="button"
             onClick={() => choose('essential')}
-            className="rounded-ctrl border border-parchment/40 px-4 py-2.5 font-body text-3xs uppercase tracking-20 text-parchment transition-colors hover:border-parchment sm:px-5 sm:py-3"
+            className="rounded-ctrl border border-canvas/40 px-4 py-2.5 font-body text-3xs uppercase tracking-20 text-canvas transition-colors hover:border-canvas sm:px-5 sm:py-3"
           >
             {t('essential')}
           </button>
           <button
             type="button"
             onClick={() => choose('all')}
-            className="rounded-ctrl border border-parchment bg-parchment px-4 py-2.5 font-body text-3xs uppercase tracking-20 text-forest transition-colors hover:bg-transparent hover:text-parchment sm:px-5 sm:py-3"
+            className="rounded-ctrl border border-canvas bg-canvas px-4 py-2.5 font-body text-3xs uppercase tracking-20 text-primary transition-colors hover:bg-transparent hover:text-canvas sm:px-5 sm:py-3"
           >
             {t('acceptAll')}
           </button>

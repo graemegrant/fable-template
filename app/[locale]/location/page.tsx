@@ -55,12 +55,12 @@ export default async function LocationPage({ params }: { params: Promise<{ local
       </section>
 
       {/* Map embed slot */}
-      <section className="bg-warmgrey">
+      <section className="bg-canvasalt">
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
           <FadeUp>
             <SectionLabel>{t('mapLabel')}</SectionLabel>
             <h2 className="mt-5 font-heading text-4xl font-medium text-ink">{t('mapHeading')}</h2>
-            <div className="mt-10 aspect-video w-full border border-ink/10 bg-parchment">
+            <div className="mt-10 aspect-video w-full border border-ink/10 bg-canvas">
               <iframe
                 src={mapSrc}
                 title={`${t('mapTitlePrefix')} ${hotelConfig.name}`}
@@ -76,7 +76,7 @@ export default async function LocationPage({ params }: { params: Promise<{ local
               href={directionsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-block rounded-ctrl border border-forest px-7 py-3.5 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-forest hover:text-parchment"
+              className="mt-6 inline-block rounded-ctrl border border-primary px-7 py-3.5 font-body text-2xs uppercase tracking-25 text-primary transition-colors duration-300 hover:bg-primary hover:text-canvas"
             >
               {t('getDirections')}
             </a>

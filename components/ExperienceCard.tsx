@@ -6,7 +6,7 @@ import type { Experience } from '@/lib/types';
 export default function ExperienceCard({ experience }: { experience: Experience }) {
   return (
     <Link href={`/experiences/${experience.slug}`} className="group block">
-      <div className="relative aspect-tall overflow-hidden rounded-img bg-warmgrey">
+      <div className="relative aspect-tall overflow-hidden rounded-img bg-canvasalt">
         <Image
           src={imgSrc(experience.heroImage, 1000)}
           alt={experience.imageAlt ?? `${experience.name} — ${experience.category}`}
@@ -22,7 +22,7 @@ export default function ExperienceCard({ experience }: { experience: Experience 
         <h3 className="font-heading text-2xl font-medium text-ink">{experience.name}</h3>
         <div className="mt-3 flex items-center justify-between border-t border-ink/10 pt-4">
           <p className="font-body text-xs uppercase tracking-20 text-ink/60">{experience.duration}</p>
-          <p className="font-body text-sm text-forest">{experience.price}</p>
+          <p className="font-body text-sm text-primary">{experience.price}</p>
         </div>
       </div>
     </Link>

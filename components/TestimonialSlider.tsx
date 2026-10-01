@@ -16,7 +16,7 @@ export default function TestimonialSlider({ testimonials }: { testimonials: Test
 
   return (
     <div className="relative mx-auto max-w-3xl text-center">
-      <SectionLabel variant="parchment" className="mb-10">{t('guestBookLabel')}</SectionLabel>
+      <SectionLabel variant="ondark" className="mb-10">{t('guestBookLabel')}</SectionLabel>
       <div className="min-h-260px sm:min-h-220px">
         <AnimatePresence mode="wait">
           <motion.figure
@@ -26,10 +26,10 @@ export default function TestimonialSlider({ testimonials }: { testimonials: Test
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.7, ease: EASE }}
           >
-            <blockquote className="font-heading text-2xl font-medium italic leading-relaxed text-parchment md:text-3xl">
+            <blockquote className="font-heading text-2xl font-medium italic leading-relaxed text-canvas md:text-3xl">
               “{current.quote}”
             </blockquote>
-            <figcaption className="mt-8 font-body text-2xs uppercase tracking-25 text-parchment/60">
+            <figcaption className="mt-8 font-body text-2xs uppercase tracking-25 text-canvas/60">
               {current.guestName}
               {current.roomStayed && <> · {current.roomStayed}</>}
               {current.source && <> · {current.source}</>}
@@ -40,7 +40,7 @@ export default function TestimonialSlider({ testimonials }: { testimonials: Test
 
       <div className="mt-10 flex items-center justify-center gap-8">
         <button type="button" onClick={() => go(-1)} aria-label={t('testimonialPrev')}
-          className="font-body text-sm tracking-widest text-parchment/60 transition-colors hover:text-accentondark">
+          className="font-body text-sm tracking-widest text-canvas/60 transition-colors hover:text-accentondark">
           ←
         </button>
         <div className="flex gap-3">
@@ -50,12 +50,12 @@ export default function TestimonialSlider({ testimonials }: { testimonials: Test
               type="button"
               onClick={() => setIndex(i)}
               aria-label={t('testimonialDot', { count: i + 1 })}
-              className={`size-1.5 transition-colors duration-300 ${i === index ? 'bg-accentondark' : 'bg-parchment/30'}`}
+              className={`size-1.5 transition-colors duration-300 ${i === index ? 'bg-accentondark' : 'bg-canvas/30'}`}
             />
           ))}
         </div>
         <button type="button" onClick={() => go(1)} aria-label={t('testimonialNext')}
-          className="font-body text-sm tracking-widest text-parchment/60 transition-colors hover:text-accentondark">
+          className="font-body text-sm tracking-widest text-canvas/60 transition-colors hover:text-accentondark">
           →
         </button>
       </div>

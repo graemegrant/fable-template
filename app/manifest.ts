@@ -13,8 +13,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: pickLocale(hotelConfig.description, DEFAULT_LOCALE),
     start_url: `/${DEFAULT_LOCALE}`,
     display: 'standalone',
-    background_color: palette.parchment,
-    theme_color: palette.forest,
+    background_color: palette.canvas,
+    theme_color: palette.primary,
     icons: [
       { src: '/icon', type: 'image/png', sizes: '512x512' },
       { src: '/apple-icon', type: 'image/png', sizes: '180x180' },

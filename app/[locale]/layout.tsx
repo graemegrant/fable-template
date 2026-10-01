@@ -72,7 +72,7 @@ export async function generateMetadata({
 }
 
 export const viewport: Viewport = {
-  themeColor: palette.forest,
+  themeColor: palette.primary,
 };
 
 const ga4Id = process.env.NEXT_PUBLIC_GA4_ID;
