@@ -53,7 +53,7 @@ exposed to Tailwind by `tailwind.config.ts`):
 |---|---|---|
 | `forest` | `#2B2119` | primary dark |
 | `forestdeep` | `#1B1510` | deepest dark — footers, gradients |
-| `accent` | `#A67C3D` | accent text, rules and borders on light backgrounds |
+| `accent` | `#785828` | accent text, rules and borders on light backgrounds |
 | `accentfill` | `#A67C3D` | solid accent surfaces — buttons, badges, banners |
 | `onaccent` | `#2B2119` | text and icons on an `accentfill` surface |
 | `accentondark` | `#E8C083` | accent text, rules and borders on dark backgrounds |

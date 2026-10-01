@@ -18,7 +18,7 @@
 export const palette = {
   forest: '#2B2119', // peat — primary dark
   forestdeep: '#1B1510', // deepest peat — footers, gradients
-  accent: '#A67C3D', // aged brass — accent on light backgrounds
+  accent: '#785828', // aged brass, darkened — accent on light (5.43:1 parchment, 4.78:1 warmgrey)
   accentfill: '#A67C3D', // aged brass — solid fill surfaces
   onaccent: '#2B2119', // peat — text on accentfill
   accentondark: '#E8C083', // bright brass — accent on dark backgrounds

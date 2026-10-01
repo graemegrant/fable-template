@@ -15,6 +15,9 @@ into a revenue-generating site.
   controls, cookie banner and dining chef role now use `accentondark`
   (was `gold` at 4.18:1 on forest — an AA failure). **Client repos:**
   rename `gold`/`goldbright` keys in `lib/tokens.ts` when pulling this.
+- **Default `accent` darkened** from `#A67C3D` to `#785828` so the demo
+  palette clears AA as text: 5.43:1 on parchment, 4.78:1 on warmgrey (was
+  3.15:1 / 2.76:1). `accentfill` keeps `#A67C3D`.
 - **Multilingual (i18n) support**, template-wide, configurable per client
   via `lib/locales.ts` (default demo set: `en`/`fr`/`de`). Adds:
   `next-intl` locale routing (`localePrefix: 'always'` — every URL is
