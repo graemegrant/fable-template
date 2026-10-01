@@ -20,6 +20,14 @@
     "GHSA-xcpc-8h2w-3j85", // adm-zip, high
     "GHSA-mp2f-45pm-3cg9", // decompress, critical
     "GHSA-5j98-mcp5-4vw2", // glob, high
+    // Further adm-zip / decompress advisories on the same @sanity/cli
+    // path (zip DoS and memory exhaustion, SUID bits, extraction outside
+    // the target dir). Same reasoning and same sanity@6.x fix as above.
+    "GHSA-7q85-xj36-vmfc", // adm-zip, high
+    "GHSA-8238-w5pm-2374", // adm-zip, high
+    "GHSA-j5f4-cc29-5x44", // adm-zip, high
+    "GHSA-rcw4-f5rp-g42v", // adm-zip, high
+    "GHSA-hrh2-vp3x-79xf", // decompress, critical
 
     // postcss — bundled inside next@15.x's own build-time tooling (CSS
     // processing during `next build`), not shipped to the browser or
