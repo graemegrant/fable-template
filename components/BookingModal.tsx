@@ -15,9 +15,14 @@ import { pickLocale } from '@/lib/resolveLocale';
 import type { Locale } from '@/lib/locales';
 import { ModalEntrance, AnimatePresence, motion } from './Motion';
 
-const BookingContext = createContext<{ open: (roomHint?: string) => void; close: () => void }>({
+const BookingContext = createContext<{
+  open: (roomHint?: string) => void;
+  close: () => void;
+  isOpen: boolean;
+}>({
   open: () => {},
   close: () => {},
+  isOpen: false,
 });
 
 export function useBooking() {
@@ -42,10 +47,21 @@ export function BookButton({
   );
 }
 
+// Dates are built in the guest's local time. toISOString() would give the
+// UTC date, which is a day out late in the evening during BST.
+function isoDate(d: Date) {
+  return [d.getFullYear(), String(d.getMonth() + 1).padStart(2, '0'), String(d.getDate()).padStart(2, '0')].join('-');
+}
+
 function todayPlus(days: number) {
   const d = new Date();
   d.setDate(d.getDate() + days);
-  return d.toISOString().slice(0, 10);
+  return isoDate(d);
+}
+
+function addDays(date: string, days: number) {
+  const [y, m, d] = date.split('-').map(Number);
+  return isoDate(new Date(y, m - 1, d + days));
 }
 
 function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHint?: string }) {
@@ -131,14 +147,12 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
                   onChange={(e) => {
                     const next = e.target.value;
                     setArrival(next);
-                    if (next >= departure) setDeparture(
-                      new Date(new Date(next).getTime() + 2 * 86400000).toISOString().slice(0, 10)
-                    );
+                    if (next >= departure) setDeparture(addDays(next, 2));
                   }} className={`mt-2 ${field}`} />
               </div>
               <div>
                 <label htmlFor="departure" className={label}>{t('departure')}</label>
-                <input id="departure" type="date" required value={departure} min={arrival}
+                <input id="departure" type="date" required value={departure} min={addDays(arrival, 1)}
                   onChange={(e) => setDeparture(e.target.value)} className={`mt-2 ${field}`} />
               </div>
             </div>
@@ -195,7 +209,7 @@ export function BookingProvider({ children }: { children: ReactNode }) {
   const open = useCallback((hint?: string) => { setRoomHint(hint); setIsOpen(true); }, []);
   const close = useCallback(() => setIsOpen(false), []);
   return (
-    <BookingContext.Provider value={{ open, close }}>
+    <BookingContext.Provider value={{ open, close, isOpen }}>
       {children}
       <AnimatePresence>{isOpen && <BookingModalInner onClose={close} roomHint={roomHint} />}</AnimatePresence>
     </BookingContext.Provider>

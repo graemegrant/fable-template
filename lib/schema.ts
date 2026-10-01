@@ -24,14 +24,16 @@ export function hotelSchema(locale: Locale = DEFAULT_LOCALE) {
     image: [imgSrc(IMG.heroHouse, 1200)],
     inLanguage: bcp47For(locale),
     telephone: contact.phoneHref,
-    email: contact.email,
+    ...(contact.email ? { email: contact.email } : {}),
     priceRange: hotelConfig.priceRange,
     currenciesAccepted: 'GBP',
     starRating: { '@type': 'Rating', ratingValue: hotelConfig.starRating, bestRating: 5 },
     numberOfRooms: hotelConfig.rooms,
     checkinTime: hotelConfig.checkInISO,
     checkoutTime: hotelConfig.checkOutISO,
-    petsAllowed: hotelConfig.petsAllowed,
+    // Omitted when not a confirmed true/false (e.g. null while unknown)
+    // rather than guessed.
+    ...(typeof hotelConfig.petsAllowed === 'boolean' ? { petsAllowed: hotelConfig.petsAllowed } : {}),
     address: {
       '@type': 'PostalAddress',
       streetAddress: location.street,
@@ -80,7 +82,11 @@ export function hotelSchema(locale: Locale = DEFAULT_LOCALE) {
           },
         }
       : {}),
-    sameAs: [contact.instagram, contact.facebook],
+    // Empty profile URLs are dropped — an empty sameAs entry is invalid.
+    ...(() => {
+      const profiles = [contact.instagram, contact.facebook].filter(Boolean);
+      return profiles.length ? { sameAs: profiles } : {};
+    })(),
   };
 }
 

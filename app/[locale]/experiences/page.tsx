@@ -46,7 +46,7 @@ export default async function ExperiencesPage({ params }: { params: Promise<{ lo
         </FadeUp>
         <StaggerGrid className="mt-14 grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
           {experiences.map((exp) => (
-            <StaggerItem key={exp.slug}><ExperienceCard experience={exp} /></StaggerItem>
+            <StaggerItem key={exp.slug}><ExperienceCard experience={exp} headingLevel={2} /></StaggerItem>
           ))}
         </StaggerGrid>
       </section>

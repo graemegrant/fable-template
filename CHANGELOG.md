@@ -7,6 +7,15 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Fixes found on a client build** (all would ship on any
+  client): `llms.txt` built only from `hotel.config.ts` (it hard-coded
+  another hotel's description, nearest city and perks); Hotel JSON-LD
+  drops empty `sameAs`/email and an unconfirmed `petsAllowed`; listing
+  pages no longer skip h1 → h3 (cards take `headingLevel`); nav logo,
+  labels and CTA no longer wrap or collide at 1024–1279px; language
+  switcher hidden on single-locale sites; footer social links only when
+  set; booking modal dates use local time and departure must follow
+  arrival; `MobileBookBar` no longer sits on top of the open modal.
 - **Base tokens renamed off colour names:** `forest` → `primary`,
   `forestdeep` → `primarydeep`, `parchment` → `canvas`, `warmgrey` →
   `canvasalt`; `SectionLabel` variant `parchment` → `ondark`. Values
