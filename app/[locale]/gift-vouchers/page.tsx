@@ -44,7 +44,7 @@ export default async function GiftVouchersPage({ params }: { params: Promise<{ l
         <StaggerGrid className="mt-16 grid gap-10 lg:grid-cols-3">
           {voucherTypes.map((v, i) => (
             <StaggerItem key={i}>
-              <article className="flex h-full flex-col border border-ink/10">
+              <article className="flex h-full flex-col overflow-hidden rounded-card border border-ink/10">
                 <div className="relative aspect-landscape overflow-hidden bg-canvasalt">
                   <Image src={v.image} alt={pickLocale(v.name, locale) ?? ''} fill sizes="(min-width: 1024px) 33vw, 100vw" className="object-cover" />
                 </div>

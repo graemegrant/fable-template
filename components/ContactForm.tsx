@@ -32,12 +32,12 @@ export default function ContactForm() {
   }
 
   const field =
-    'w-full rounded-ctrl border border-ink/20 bg-transparent px-4 py-3.5 font-body text-sm text-ink placeholder:text-ink/40 focus:border-accent focus:outline-none';
+    'w-full rounded-ctrl border border-ink/20 bg-transparent px-4 py-3.5 font-body text-base text-ink placeholder:text-ink/40 focus:border-accent focus:outline-none sm:text-sm';
   const label = 'block font-body text-2xs uppercase tracking-25 text-ink/60';
 
   if (status === 'sent') {
     return (
-      <div className="border border-accent/50 bg-canvasalt p-10 text-center">
+      <div className="rounded-card border border-accent/50 bg-canvasalt p-10 text-center">
         <p className="font-heading text-2xl font-medium text-primary">{t('thankYou')}</p>
         <p className="mt-3 font-body text-sm leading-relaxed text-ink/75">
           {t('confirmationBody')}

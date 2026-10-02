@@ -102,7 +102,7 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
   }
 
   const field =
-    'w-full rounded-ctrl border border-ink/20 bg-canvas px-4 py-3.5 font-body text-sm text-ink focus:border-accent focus:outline-none';
+    'w-full rounded-ctrl border border-ink/20 bg-canvas px-4 py-3.5 font-body text-base text-ink focus:border-accent focus:outline-none sm:text-sm';
   const label = 'block font-body text-2xs uppercase tracking-25 text-ink/60';
 
   return (
@@ -118,7 +118,7 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
       aria-label={t('bookAStay')}
     >
       <ModalEntrance className="w-full max-w-lg">
-        <div className="bg-canvas p-8 sm:p-10" onClick={(e) => e.stopPropagation()}>
+        <div className="rounded-card bg-canvas p-8 sm:p-10" onClick={(e) => e.stopPropagation()}>
           <div className="flex items-start justify-between">
             <div>
               <p className="font-body text-2xs uppercase tracking-30 text-accent">{t('directBooking')}</p>

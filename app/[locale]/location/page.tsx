@@ -60,7 +60,7 @@ export default async function LocationPage({ params }: { params: Promise<{ local
           <FadeUp>
             <SectionLabel>{t('mapLabel')}</SectionLabel>
             <h2 className="mt-5 font-heading text-4xl font-medium text-ink">{t('mapHeading')}</h2>
-            <div className="mt-10 aspect-video w-full border border-ink/10 bg-canvas">
+            <div className="mt-10 aspect-video w-full overflow-hidden rounded-card border border-ink/10 bg-canvas">
               <iframe
                 src={mapSrc}
                 title={`${t('mapTitlePrefix')} ${hotelConfig.name}`}

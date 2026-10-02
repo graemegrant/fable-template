@@ -81,7 +81,7 @@ export default async function DiningPage({ params }: { params: Promise<{ locale:
           <StaggerGrid className="mt-14 grid gap-10 lg:grid-cols-3">
             {resolvedMenus.map((menu) => (
               <StaggerItem key={menu.name}>
-                <article className="h-full border border-ink/10 bg-canvas p-8">
+                <article className="h-full rounded-card border border-ink/10 bg-canvas p-8">
                   <h3 className="font-heading text-2xl font-medium text-ink">{menu.name}</h3>
                   <p className="mt-2 font-body text-2xs uppercase tracking-20 text-accent">{menu.note}</p>
                   <ul className="mt-7 space-y-5 border-t border-ink/10 pt-7">

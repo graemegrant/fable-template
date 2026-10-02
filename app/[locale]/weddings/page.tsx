@@ -72,7 +72,7 @@ export default async function WeddingsPage({ params }: { params: Promise<{ local
             {venues.map((v) => (
               <StaggerItem key={v.name}>
                 <article>
-                  <div className="relative aspect-landscape overflow-hidden bg-canvas">
+                  <div className="relative aspect-landscape overflow-hidden rounded-img bg-canvas">
                     <Image src={v.image} alt={v.name} fill sizes="(min-width: 1024px) 33vw, 100vw" className="object-cover" />
                   </div>
                   <div className="pt-6">

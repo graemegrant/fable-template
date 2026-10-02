@@ -145,7 +145,7 @@ export default async function RoomDetailPage({ params }: Props) {
 
           {/* Sticky booking sidebar */}
           <aside>
-            <div className="border border-ink/10 bg-canvasalt p-8 lg:sticky lg:top-28">
+            <div className="rounded-card border border-ink/10 bg-canvasalt p-8 lg:sticky lg:top-28">
               <p className="font-body text-2xs uppercase tracking-25 text-ink/60">{t('from')}</p>
               <p className="mt-2 font-heading text-5xl font-medium text-primary">
                 £{room.rate}

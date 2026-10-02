@@ -23,7 +23,7 @@ export default function ExperienceCard({
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="object-cover transition-transform duration-1200 ease-out-expo group-hover:scale-104"
         />
-        <span className="absolute left-0 top-6 bg-accentfill px-4 py-2 font-body text-3xs uppercase tracking-25 text-onaccent">
+        <span className="absolute left-0 top-6 rounded-r-ctrl bg-accentfill px-4 py-2 font-body text-3xs uppercase tracking-25 text-onaccent">
           {experience.category}
         </span>
       </div>
