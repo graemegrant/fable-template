@@ -7,6 +7,14 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Cookie banner in front of the booking bar.** On phones the banner wraps
+  to 116–146px but the bar was offset by a fixed 4.25rem, so the bar
+  covered it (at 360px "Accept all" couldn't be tapped). The banner is
+  now z-90 and publishes its real height (`--cookiebar-h`, read by the
+  `cookiebar` spacing token); buttons stack under the message on phones.
+  The hero gets top padding so it never slides under the header, and the
+  final CTA band gets a photo backdrop so it no longer merges with the
+  dark testimonials/reviews band above it.
 - **Node 24 in `.nvmrc`** (was 20.11.0, end-of-life since April 2026).
   New repos created via "Use this template" failed their first CI run:
   a cold `npm ci` on Node 20.11 / npm 10.2.4 reports "Missing:

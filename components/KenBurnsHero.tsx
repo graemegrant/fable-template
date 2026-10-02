@@ -54,7 +54,7 @@ export default function KenBurnsHero({ image }: { image: unknown }) {
         }}
       />
 
-      <div className={`relative px-6 text-center ${consentDecided ? '' : 'pb-cookiebar'}`}>
+      <div className={`relative px-6 pt-24 text-center ${consentDecided ? '' : 'pb-cookiebar'}`}>
         <HeroEntrance delay={0.2}>
           {/* Own dark badge rather than relying on the hero scrim: the
               scrim above is intentionally too light to guarantee 4.5:1 for
