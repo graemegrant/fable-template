@@ -7,6 +7,19 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Hotel-site standard (mobile-first, conversion, depth)** — see AGENTS.md
+  §4a. Mobile: 44px tap targets, 16px form fields on phones (no iOS
+  zoom), 11px minimum text, rounded corners everywhere, skip link, and a
+  site-wide `MobileBookBar` with tap-to-call. Conversion: booking-engine
+  adapter (`lib/bookingEngine.ts`, SynXis + generic), book-direct perk,
+  venue enquiry buttons with contact-subject preselect, room comparison
+  table, optional room `sqm`. Depth: facilities, review summary band,
+  config-driven stats, "Good to know" (`/policies`) and privacy pages,
+  "every stay includes" on room pages; team/press/testimonials hide when
+  empty. Compliance: GA4 loads only after cookie consent. **Client repos:**
+  new `hotel.config` fields (`bookingEngine`, `directBookingPerk`, `stats`,
+  `stayIncludes`, `reviewSummary`) and `lib/data` lists (`facilities`,
+  `policies`) must be filled from the client's real facts when pulling.
 - **Fixes found on a client build** (all would ship on any
   client): `llms.txt` built only from `hotel.config.ts` (it hard-coded
   another hotel's description, nearest city and perks); Hotel JSON-LD

@@ -88,13 +88,42 @@ set, add it to `tailwind.config.ts` as a named token, don't inline it.
 
 There is no Sanity "site settings" document. Per-client identity —
 name, tagline, location, contact details, room count, star rating,
-price range, check-in/out times, trust strip items — lives entirely in
-`hotel.config.ts` at the repo root. **This is the one file every new
+price range, check-in/out times, trust strip items, stats band figures,
+what every stay includes, the public review summary, the booking-engine
+provider and the book-direct perk — lives entirely in `hotel.config.ts`
+at the repo root. **This is the one file every new
 client build must fully rewrite before going further.** Sanity handles
 recurring *content* (rooms, experiences, offers, journal posts,
 testimonials, team members) — not one-off site identity fields.
 
 See `SANITY-SCHEMA.md` for the six content collections.
+
+Static page content that isn't in Sanity — `facilities`, `policies`
+("Good to know"), `faqs`, `menus` — lives in `lib/data.ts`. Write each
+client's from what they actually offer and their real policies; never
+carry the demo hotel's over. Sections hide themselves when a list is
+empty (facilities, team, press, stats, review summary), so leaving one
+empty is always better than filling it with something untrue.
+
+## 4a. Site standard (mobile-first, conversion, depth)
+
+Every client site should meet these — they were measured on a 390px
+viewport against current hotel-website guidance:
+
+- **Mobile first**: tap targets ≥ 44px (WCAG 2.5.8; inline text links
+  excepted); form fields 16px on phones (iOS zooms below that); no text
+  under 11px; no horizontal overflow; rounded corners on every boxed
+  element (`rounded-card` / `rounded-img` / `rounded-ctrl`).
+- **Conversion**: a booking CTA and tap-to-call on every page on mobile
+  (site-wide `MobileBookBar`); "from" prices on every room; a room
+  comparison table; booking information one tap from the booking modal;
+  enquiry buttons preselect the contact subject (`/contact?subject=…`).
+- **Depth**: each room has its own page with what every stay includes;
+  facilities in one place; plain-language "Good to know" (`/policies`);
+  a privacy & cookies page (`/privacy`, reviewed per client); social
+  proof that is genuine — individual testimonials only if real and
+  dated, otherwise the rating summary with a link to the source.
+- **Compliance**: analytics only after consent (`components/Analytics.tsx`).
 
 ## 5. CRO constraints (do not remove without sign-off)
 

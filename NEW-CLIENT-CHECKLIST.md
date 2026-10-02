@@ -21,6 +21,13 @@ Start-to-launch checklist for a new client build. Works alongside
       homepage `<title>` and hero eyebrow)
 - [ ] Re-skin the nine tokens in `lib/tokens.ts` (not `tailwind.config.ts` —
       it now reads from there, and so does OG-image generation)
+- [ ] `stats` (stats band), `stayIncludes` (room pages) and
+      `reviewSummary` (real platform figures, or null) set from real,
+      checkable facts — the demo hotel's must not ship
+- [ ] `directBookingPerk` set only if the hotel has agreed one (else null)
+- [ ] `lib/data.ts` `facilities` and `policies` rewritten from what the
+      hotel offers and its real policies (cancellation, children, dogs,
+      accessibility); `testimonials` / `team` / press only if genuine
 - [ ] Copy `CLIENT-ONBOARDING-TEMPLATE.md` to `/docs/clients/[hotel-slug].md`, fill it in
 - [ ] Set `lib/locales.ts` to this client's locale set; rewrite
       `hotel.config.ts`'s translatable (`LocaleField`) fields for each
@@ -37,6 +44,12 @@ Start-to-launch checklist for a new client build. Works alongside
 
 ## 4. Booking + email
 - [ ] Set `NEXT_PUBLIC_BOOKING_ENGINE_URL` to the client's real booking engine
+      — paste their existing link as-is; set `bookingEngine.provider` if
+      not auto-detected, then click through once to confirm dates, guests,
+      language and currency arrive correctly
+- [ ] Have the hotel review `/privacy` (it needs their legal entity as
+      data controller) before launch; if `NEXT_PUBLIC_GA4_ID` is set,
+      confirm analytics only loads after "Accept all"
 - [ ] Set `NEXT_PUBLIC_SITE_URL` to the live domain (canonicals, OG URLs,
       sitemap and JSON-LD all resolve against it — a wrong/blank value ships
       canonicals pointing at the template's fallback domain)
