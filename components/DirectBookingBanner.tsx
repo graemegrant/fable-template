@@ -1,15 +1,22 @@
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
+import { hotelConfig } from '@/hotel.config';
+import { pickLocale } from '@/lib/resolveLocale';
+import type { Locale } from '@/lib/locales';
 import { BookButton } from './BookingModal';
 
-/** Accent bar reminding guests why booking direct is the right call. */
+/** Accent bar reminding guests why booking direct is the right call.
+ *  Shows hotelConfig.directBookingPerk when the hotel has agreed one,
+ *  otherwise shared.bookDirectBody. */
 export default async function DirectBookingBanner() {
   const t = await getTranslations('shared');
+  const locale = (await getLocale()) as Locale;
+  const perk = hotelConfig.directBookingPerk;
   return (
     <div className="bg-accentfill">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 px-6 py-7 sm:flex-row lg:px-10">
         <p className="text-center font-body text-sm text-onaccent sm:text-left">
           <span className="font-medium">{t('bookDirectLabel')}</span>{' '}
-          {t('bookDirectBody')}
+          {perk ? pickLocale(perk, locale) : t('bookDirectBody')}
         </p>
         {/* No children passed — falls back to BookButton's own common.checkAvailability
             translation (AGENTS.md §9: never hardcode a second copy of that CTA). */}

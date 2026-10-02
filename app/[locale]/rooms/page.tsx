@@ -12,6 +12,8 @@ import RoomsFilter from '@/components/RoomsFilter';
 import TrustStrip from '@/components/TrustStrip';
 import DirectBookingBanner from '@/components/DirectBookingBanner';
 import { FadeUp } from '@/components/Motion';
+import SectionLabel from '@/components/SectionLabel';
+import { Link } from '@/i18n/navigation';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: rawLocale } = await params;
@@ -30,6 +32,7 @@ export default async function RoomsPage({ params }: { params: Promise<{ locale: 
   const rawRooms = await sanityFetch<RoomI18n[]>(ROOMS_QUERY, {}, fallbackRooms);
   const rooms = rawRooms.map((r) => resolveRoom(r, locale));
   const t = await getTranslations('roomsPage');
+  const showSize = rooms.some((r) => r.sqm);
 
   return (
     <>
@@ -49,6 +52,43 @@ export default async function RoomsPage({ params }: { params: Promise<{ locale: 
         <div className="mt-14">
           <RoomsFilter rooms={rooms} />
         </div>
+
+        {/* Compare at a glance */}
+        <FadeUp className="mt-24">
+          <SectionLabel>{t('compareLabel')}</SectionLabel>
+          <h2 className="mt-5 font-heading text-4xl font-medium text-ink">{t('compareHeading')}</h2>
+          <div className="mt-10 overflow-x-auto rounded-card border border-ink/10">
+            <table className="w-full text-left">
+              <thead className="bg-canvasalt">
+                <tr className="font-body text-2xs uppercase tracking-20 text-ink/60">
+                  <th scope="col" className="px-6 py-4 font-normal">{t('colRoom')}</th>
+                  {showSize && <th scope="col" className="hidden px-6 py-4 font-normal sm:table-cell">{t('colSize')}</th>}
+                  <th scope="col" className="px-6 py-4 font-normal">{t('colSleeps')}</th>
+                  <th scope="col" className="px-6 py-4 font-normal">{t('colFrom')}</th>
+                  <th scope="col" className="hidden px-6 py-4 sm:table-cell"><span className="sr-only">{t('viewRoom')}</span></th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-ink/10">
+                {rooms.map((room) => (
+                  <tr key={room.slug} className="font-body text-sm text-ink/85">
+                    <th scope="row" className="px-6 py-5 font-heading text-lg font-medium text-ink">
+                      <Link href={`/rooms/${room.slug}`} className="transition-colors hover:text-accent">{room.roomType}</Link>
+                    </th>
+                    {showSize && <td className="hidden px-6 py-5 sm:table-cell">{room.sqm ? `${room.sqm} ${t('sqmUnit')}` : '—'}</td>}
+                    <td className="px-6 py-5">{room.occupancy}</td>
+                    <td className="whitespace-nowrap px-6 py-5">£{room.rate} <span className="text-ink/60">{t('perNight')}</span></td>
+                    <td className="hidden px-6 py-5 text-right sm:table-cell">
+                      <Link href={`/rooms/${room.slug}`} className="inline-flex min-h-11 items-center whitespace-nowrap font-body text-2xs uppercase tracking-25 text-accent transition-colors hover:text-primary">
+                        {t('viewRoom')} →
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-4 font-body text-xs text-ink/60">{t('compareNote')}</p>
+        </FadeUp>
       </section>
       <DirectBookingBanner />
     </>

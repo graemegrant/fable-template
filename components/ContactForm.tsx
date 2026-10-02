@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 
 export default function ContactForm() {
@@ -11,6 +11,21 @@ export default function ContactForm() {
   ];
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [form, setForm] = useState({ name: '', email: '', phone: '', subject: SUBJECTS[0], message: '' });
+
+  // Links can preselect a subject, e.g. /contact?subject=events from the
+  // weddings page. Read on mount (not useSearchParams) so the contact
+  // page stays statically rendered.
+  const SUBJECT_KEYS: Record<string, string> = {
+    rooms: t('subjectRoomBooking'),
+    dining: t('subjectDiningReservation'),
+    events: t('subjectWeddingsEvents'),
+    vouchers: t('subjectGiftVouchers'),
+  };
+  useEffect(() => {
+    const preset = SUBJECT_KEYS[new URLSearchParams(window.location.search).get('subject') ?? ''];
+    if (preset) setForm((f) => ({ ...f, subject: preset }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- run once on mount
+  }, []);
 
   const set = (key: keyof typeof form) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,

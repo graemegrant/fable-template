@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return pageMetadata({
     locale,
     title: `${room.roomType} — ${hotelConfig.location.locality}`,
-    description: `${room.roomType} at ${hotelConfig.name}, ${hotelConfig.location.locality}: ${room.sqm} sqm, sleeps ${room.occupancy}, from £${room.rate} per night.`,
+    description: `${room.roomType} at ${hotelConfig.name}, ${hotelConfig.location.locality}: ${room.sqm ? `${room.sqm} sqm, ` : ''}sleeps ${room.occupancy}, from £${room.rate} per night.`,
     path: `/rooms/${room.slug}`,
     image: `/rooms/${room.slug}/opengraph-image`,
   });
@@ -76,7 +76,7 @@ export default async function RoomDetailPage({ params }: Props) {
     inLanguage: bcp47For(locale),
     image: [imgSrc(room.heroImage, 1200)],
     occupancy: { '@type': 'QuantitativeValue', maxValue: room.occupancy },
-    floorSize: { '@type': 'QuantitativeValue', value: room.sqm, unitCode: 'MTK' },
+    ...(room.sqm ? { floorSize: { '@type': 'QuantitativeValue', value: room.sqm, unitCode: 'MTK' } } : {}),
     containedInPlace: { '@id': HOTEL_ID, '@type': 'Hotel', name: hotelConfig.name, url: hotelConfig.siteUrl },
     offers: {
       '@type': 'Offer',
@@ -153,7 +153,7 @@ export default async function RoomDetailPage({ params }: Props) {
               </p>
               <dl className="mt-8 space-y-3 border-t border-ink/10 pt-7">
                 {[
-                  [t('size'), `${room.sqm} ${t('sqmUnit')}`],
+                  [t('size'), room.sqm ? `${room.sqm} ${t('sqmUnit')}` : ''],
                   [t('sleeps'), `${room.occupancy}`],
                   [t('floor'), room.floor],
                   [t('outlook'), room.view],

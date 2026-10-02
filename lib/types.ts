@@ -30,7 +30,9 @@ export interface Room {
   imageAlt?: string;
   gallery?: Img[];
   rate: number;
-  sqm: number;
+  /** Optional: left out of cards, the size row and schema until known,
+   *  rather than published as a guessed figure. */
+  sqm?: number;
   occupancy: number;
   floor?: string;
   view?: string;

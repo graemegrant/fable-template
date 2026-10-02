@@ -38,6 +38,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
         <div className="grid gap-16 lg:grid-cols-1fr-380">
           <FadeUp>
+            <span id="enquiry" className="block scroll-mt-28" aria-hidden />
             <SectionLabel>{t('enquiryLabel')}</SectionLabel>
             <h2 className="mb-10 mt-5 font-heading text-4xl font-medium text-ink">{t('writeToUs')}</h2>
             <ContactForm />

@@ -2,8 +2,9 @@
 
 /**
  * Booking system: context provider, modal, and a reusable BookButton.
- * Submits to the configured booking engine with query params; falls back
- * to /contact when no engine is configured.
+ * Hands off to the configured booking engine via lib/bookingEngine.ts
+ * (which owns each engine's parameter names); falls back to /contact
+ * when no engine is configured.
  */
 import {
   createContext, useCallback, useContext, useEffect, useState, type ReactNode,
@@ -12,7 +13,8 @@ import { useTranslations, useLocale } from 'next-intl';
 import { useRouter } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
 import { pickLocale } from '@/lib/resolveLocale';
-import type { Locale } from '@/lib/locales';
+import { bcp47For, type Locale } from '@/lib/locales';
+import { buildBookingUrl, resolveProvider } from '@/lib/bookingEngine';
 import { ModalEntrance, AnimatePresence, motion } from './Motion';
 
 const BookingContext = createContext<{
@@ -92,13 +94,14 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
       router.push('/contact');
       return;
     }
-    const params = new URLSearchParams({
-      checkin: arrival,
-      checkout: departure,
-      guests: String(guests),
-      rooms: String(roomCount),
+    window.location.href = buildBookingUrl(url, resolveProvider(url, hotelConfig.bookingEngine.provider), {
+      arrival,
+      departure,
+      adults: guests,
+      rooms: roomCount,
+      language: bcp47For(locale),
+      currency: hotelConfig.bookingEngine.currency,
     });
-    window.location.href = `${url}${url.includes('?') ? '&' : '?'}${params.toString()}`;
   }
 
   const field =

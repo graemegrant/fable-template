@@ -203,7 +203,17 @@
     "eyebrowLabel": "Stay",
     "title": "Rooms & suites",
     "subtitle": "Twelve rooms, no two alike, every one facing something worth waking up to.",
-    "intro": "Every room comes with breakfast, the run of four hundred acres, and housekeeping that believes in hospital corners. Suites add space and sitting rooms; Classics add the particular smugness of having chosen well for less."
+    "intro": "Every room comes with breakfast, the run of four hundred acres, and housekeeping that believes in hospital corners. Suites add space and sitting rooms; Classics add the particular smugness of having chosen well for less.",
+    "compareLabel": "At a glance",
+    "compareHeading": "Compare our rooms",
+    "colRoom": "Room",
+    "colSize": "Size",
+    "colSleeps": "Sleeps",
+    "colFrom": "From",
+    "sqmUnit": "sqm",
+    "perNight": "/ night",
+    "viewRoom": "View room",
+    "compareNote": "Prices are a guide — your exact rate is shown when you check availability."
   },
   "roomDetail": {
     "stayLabel": "Stay",
@@ -245,7 +255,8 @@
     "beginHeadingLine1": "Come and walk the lawn.",
     "beginHeadingLine2": "Decisions follow naturally.",
     "beginBody": "Wedding viewings run most weekdays and include lunch — we believe in showing you the kitchen’s work early. Dates for the coming two years are released each January.",
-    "enquireDate": "Enquire about a date"
+    "enquireDate": "Enquire about a date",
+    "enquireVenue": "Enquire about this space"
   },
   "shared": {
     "sqm": "sqm",

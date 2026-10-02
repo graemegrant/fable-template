@@ -12,6 +12,7 @@
  * a flat, unlocalized value.
  */
 import type { LocaleField } from './lib/locales';
+import type { BookingEngineProvider } from './lib/bookingEngine';
 
 export const hotelConfig = {
   name: 'Craigmore House',
@@ -108,6 +109,19 @@ export const hotelConfig = {
     publishAggregateRating: false,
   },
   bookingEngineUrl: process.env.NEXT_PUBLIC_BOOKING_ENGINE_URL || '',
+  /** How "Check availability" hands off to the engine (lib/bookingEngine.ts).
+   *  Paste the hotel's existing engine link into the env var as-is: stay
+   *  parameters on it (dates, guests, language, currency) are always
+   *  replaced, identifying ones (e.g. SynXis chain/hotel) are kept.
+   *  'auto' picks 'synxis' for be.synxis.com links, else 'generic'. */
+  bookingEngine: {
+    provider: 'auto' as BookingEngineProvider | 'auto',
+    currency: 'GBP',
+  },
+  /** The hotel's agreed book-direct perk, shown in the "Book direct" banner
+   *  in place of shared.bookDirectBody. Leave null until the hotel has
+   *  actually agreed one — never promise a perk it doesn't offer. */
+  directBookingPerk: null as LocaleField | null,
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.craigmorehouse.com',
   rooms: 12,
   starRating: 4,
