@@ -237,9 +237,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <ReviewsBand />
       )}
 
-      {/* Final CTA */}
-      <section className="bg-primary">
-        <div className="mx-auto max-w-4xl px-6 py-24 text-center lg:py-32">
+      {/* Final CTA — a photo under a dark overlay sets it apart from the dark
+          testimonials/reviews band directly above it (same treatment as the
+          dining band). Use an image that fits the headline. */}
+      <section className="relative overflow-hidden bg-primary">
+        <Image src={IMG.glen} alt="" fill sizes="100vw" className="object-cover opacity-25" />
+        <div className="relative mx-auto max-w-4xl px-6 py-24 text-center lg:py-32">
           <FadeUp>
             <SectionLabel variant="ondark">{t('finalLabel')}</SectionLabel>
             <h2 className="mt-6 font-heading text-4xl font-medium leading-tight text-canvas md:text-6xl">

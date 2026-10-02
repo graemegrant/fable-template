@@ -73,7 +73,10 @@ const config: Config = {
         '9px': '9px',
         // Height reserved for the slim mobile cookie bar, so MobileBookBar
         // can sit directly above it while consent is pending.
-        cookiebar: '4.25rem',
+        // Bottom offset for MobileBookBar while the cookie banner is showing:
+        // the banner publishes its real height as --cookiebar-h (it wraps to
+        // more lines on narrow phones); 4.25rem is the fallback.
+        cookiebar: 'var(--cookiebar-h, 4.25rem)',
         // Reserved under the footer on mobile so the site-wide MobileBookBar
         // never covers it.
         mobilebar: '5rem',
@@ -115,6 +118,8 @@ const config: Config = {
         '60': '60',
         '70': '70',
         '80': '80',
+        // Cookie banner — always in front, so its choices are never covered.
+        '90': '90',
       },
     },
   },
