@@ -154,9 +154,17 @@ export default function Footer() {
 
       <div className="border-t border-canvas/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 p-6 sm:flex-row lg:px-10">
-          <p className="font-body text-xs text-canvas/50">
-            © {year} {hotelConfig.name}. {t('rightsReserved')}
-          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1">
+            <p className="font-body text-xs text-canvas/50">
+              © {year} {hotelConfig.name}. {t('rightsReserved')}
+            </p>
+            <Link href="/policies" className="inline-flex min-h-11 items-center font-body text-xs text-canvas/50 transition-colors hover:text-accentondark">
+              {t('goodToKnow')}
+            </Link>
+            <Link href="/privacy" className="inline-flex min-h-11 items-center font-body text-xs text-canvas/50 transition-colors hover:text-accentondark">
+              {t('privacy')}
+            </Link>
+          </div>
           <p className="font-body text-xs text-canvas/50">
             {pickLocale(hotelConfig.location.regionLabel, locale)} · {hotelConfig.priceRange}
           </p>

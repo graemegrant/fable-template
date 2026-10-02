@@ -124,6 +124,30 @@ export const hotelConfig = {
   directBookingPerk: null as LocaleField | null,
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.craigmorehouse.com',
   rooms: 12,
+  /** Figures for the stats band. Real, checkable facts only. `metric`
+   *  (optional) replaces value/suffix for non-English locales, e.g. a
+   *  distance in km. An empty array hides the band. */
+  stats: [
+    { value: 12, label: { en: 'Rooms, no more', fr: 'Chambres, pas une de plus', de: 'Zimmer, nicht mehr', es: 'Habitaciones, ni una más' } },
+    { value: 1863, label: { en: 'Same family of thought', fr: 'Même famille d’esprit', de: 'Dieselbe Geisteshaltung seit jeher', es: 'Misma familia de pensamiento' } },
+    { value: 19, suffix: ' mi', metric: { value: 31, suffix: ' km' }, label: { en: 'To the nearest traffic light', fr: 'Jusqu’au feu le plus proche', de: 'Bis zur nächsten Ampel', es: 'Hasta el semáforo más cercano' } },
+    { value: 400, label: { en: 'Acres of glen to yourselves', fr: 'Acres de glen rien que pour vous', de: 'Morgen Tal ganz für sich allein', es: 'Acres de valle solo para ustedes' } },
+  ] as Array<{ value: number; prefix?: string; suffix?: string; metric?: { value: number; suffix: string }; label: LocaleField }>,
+  /** What every stay includes — listed on each room page with the
+   *  check-in/out times and a link to "Good to know". */
+  stayIncludes: [
+    { en: 'Free breakfast', fr: 'Petit-déjeuner offert', de: 'Kostenloses Frühstück', es: 'Desayuno incluido' },
+    { en: 'Free Wi-Fi', fr: 'Wi-Fi gratuit', de: 'Kostenloses WLAN', es: 'Wi-Fi gratuito' },
+    { en: 'Free on-site parking', fr: 'Parking gratuit sur place', de: 'Kostenlose Parkplätze vor Ort', es: 'Aparcamiento gratuito en el hotel' },
+    { en: 'EV charging', fr: 'Bornes de recharge électrique', de: 'Ladestationen für Elektrofahrzeuge', es: 'Puntos de recarga eléctrica' },
+  ] as LocaleField[],
+  /** Public review summary for the reviews band — visible text with a link
+   *  to read the reviews at source, NOT structured data (see
+   *  seo.publishAggregateRating). Use the platform's real, current
+   *  figures; null hides the band. Example:
+   *  { source: 'Google', rating: 4.6, countLabel: '300+', url: 'https://…',
+   *    praise: [{ en: 'Friendly staff' }] } */
+  reviewSummary: null as null | { source: string; rating: number; countLabel: string; url: string; praise: LocaleField[] },
   starRating: 4,
   priceRange: '£££',
   // Display strings for the page; checkInISO / checkOutISO are the

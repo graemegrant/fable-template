@@ -20,6 +20,8 @@ import ExperienceCard from '@/components/ExperienceCard';
 import OfferCard from '@/components/OfferCard';
 import TestimonialSlider from '@/components/TestimonialSlider';
 import DirectBookingBanner from '@/components/DirectBookingBanner';
+import Facilities from '@/components/Facilities';
+import ReviewsBand from '@/components/ReviewsBand';
 import { FadeUp, StaggerGrid, StaggerItem } from '@/components/Motion';
 import JournalCard from '@/components/JournalCard';
 import GlenMoment from '@/components/GlenMoment';
@@ -154,6 +156,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </div>
       </section>
 
+      <Facilities />
+
       {/* Offers grid */}
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
         <FadeUp className="flex flex-wrap items-end justify-between gap-6">
@@ -221,13 +225,17 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       </section>
 
       {/* Testimonials — directly above final CTA for maximum conversion impact */}
-      <section className="border-t border-canvas/10 bg-primary">
-        <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
-          <FadeUp>
-            <TestimonialSlider testimonials={testimonials} />
-          </FadeUp>
-        </div>
-      </section>
+      {testimonials.length > 0 ? (
+        <section className="border-t border-canvas/10 bg-primary">
+          <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+            <FadeUp>
+              <TestimonialSlider testimonials={testimonials} />
+            </FadeUp>
+          </div>
+        </section>
+      ) : (
+        <ReviewsBand />
+      )}
 
       {/* Final CTA */}
       <section className="bg-primary">

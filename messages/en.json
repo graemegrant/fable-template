@@ -32,7 +32,9 @@
     "subscribed": "Thank you — you’re on the list. Letters arrive seasonally, never more.",
     "instagram": "Instagram",
     "facebook": "Facebook",
-    "rightsReserved": "All rights reserved."
+    "rightsReserved": "All rights reserved.",
+    "goodToKnow": "Good to know",
+    "privacy": "Privacy & cookies"
   },
   "booking": {
     "directBooking": "Direct booking",
@@ -45,7 +47,8 @@
     "rooms": "Rooms",
     "guestCount": "{count, plural, one {# guest} other {# guests}}",
     "roomCount": "{count, plural, one {# room} other {# rooms}}",
-    "preferToTalk": "Prefer to talk? Call"
+    "preferToTalk": "Prefer to talk? Call",
+    "bookingInfo": "Check-in times, cancellations and other booking information"
   },
   "cookies": {
     "message": "We use a small number of cookies to run the site and, with your consent, to understand how guests use it. No advertising.",
@@ -229,7 +232,10 @@
     "outlook": "Outlook",
     "orCall": "Or call",
     "alsoWorthLook": "Also worth a look",
-    "otherRooms": "Other rooms"
+    "otherRooms": "Other rooms",
+    "everyStay": "Every stay includes",
+    "timesLine": "Check-in from {checkIn}, check-out by {checkOut}",
+    "goodToKnowLink": "Good to know: hotel information & policies"
   },
   "weddings": {
     "eyebrowLabel": "Weddings",
@@ -283,7 +289,13 @@
     "galleryTitle": "Photo gallery",
     "galleryClose": "Close gallery",
     "galleryPrevious": "Previous photo",
-    "galleryNext": "Next photo"
+    "galleryNext": "Next photo",
+    "facilitiesLabel": "At the hotel",
+    "facilitiesHeading": "Everything you need",
+    "reviewsLabel": "What guests say",
+    "reviewsHeading": "Rated {rating} on {source} by {count} guests",
+    "reviewsIntro": "The same things come up again and again in guests’ reviews:",
+    "readReviews": "Read the reviews on {source}"
   },
   "contactForm": {
     "subjectGeneral": "General enquiry",
@@ -316,5 +328,30 @@
   },
   "glenMoment": {
     "eyebrow": "The glen"
+  },
+  "policies": {
+    "eyebrow": "Good to know",
+    "title": "Hotel information & policies",
+    "subtitle": "Everything you need to know before you stay.",
+    "intro": "If there’s anything you can’t find here, call us and we’ll be happy to help:"
+  },
+  "privacy": {
+    "eyebrow": "Privacy & cookies",
+    "title": "Privacy & cookies",
+    "subtitle": "How we look after the information you share with us.",
+    "updated": "Last updated: {date}",
+    "whoTitle": "Who we are",
+    "whoBody": "{name}, {address}, is responsible for the personal information collected through this website. You can contact us at {email} or on {phone}.",
+    "collectTitle": "What we collect",
+    "collectBody": "When you send an enquiry, we receive the name, email address, phone number (if you give one) and message you enter. If you join our newsletter, we receive your email address. Room bookings are made through our booking engine provider, which handles your booking and payment details under its own privacy policy.",
+    "useTitle": "How we use it",
+    "useBody": "We use your details to reply to your enquiry, to manage your stay, and — only if you have signed up — to send you our newsletter. We never sell your information.",
+    "keepTitle": "How long we keep it",
+    "keepBody": "We keep enquiries only as long as we need them to deal with your request, and newsletter details until you unsubscribe.",
+    "cookiesTitle": "Cookies",
+    "cookiesBodyEssential": "This website uses an essential cookie to remember your cookie choice. We do not use analytics or advertising cookies.",
+    "cookiesBodyAnalytics": "This website uses an essential cookie to remember your cookie choice. If you choose “Accept all”, we also use Google Analytics cookies to understand how visitors use the site; they are never set before you choose. We do not use advertising cookies. You can change your choice at any time by clearing this site’s stored data in your browser.",
+    "rightsTitle": "Your rights",
+    "rightsBody": "Under UK data protection law you can ask to see, correct or delete the personal information we hold about you, or object to how we use it. Contact us using the details above. You also have the right to complain to the Information Commissioner’s Office (ico.org.uk)."
   }
 }

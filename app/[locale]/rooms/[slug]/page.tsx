@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { Link } from '@/i18n/navigation';
 import { getTranslations } from 'next-intl/server';
 import { hotelConfig } from '@/hotel.config';
 import { sanityFetch, imgSrc } from '@/lib/sanity';
@@ -131,6 +132,27 @@ export default async function RoomDetailPage({ params }: Props) {
                   </li>
                 ))}
               </ul>
+            </FadeUp>
+
+            <FadeUp className="mt-16">
+              <SectionLabel>{t('everyStay')}</SectionLabel>
+              <ul className="mt-6 grid gap-x-10 gap-y-3 sm:grid-cols-2">
+                {[
+                  ...hotelConfig.stayIncludes.map((item) => pickLocale(item, locale) ?? ''),
+                  t('timesLine', {
+                    checkIn: pickLocale(hotelConfig.checkIn, locale) ?? '',
+                    checkOut: pickLocale(hotelConfig.checkOut, locale) ?? '',
+                  }),
+                ].map((line) => (
+                  <li key={line} className="flex gap-3 font-body text-sm text-ink/80">
+                    <span className="mt-9px h-px w-5 shrink-0 bg-accent" aria-hidden />
+                    {line}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/policies" className="mt-4 inline-flex min-h-11 items-center font-body text-2xs uppercase tracking-25 text-accent transition-colors hover:text-primary">
+                {t('goodToKnowLink')} →
+              </Link>
             </FadeUp>
 
             {room.gallery && room.gallery.length > 0 && (

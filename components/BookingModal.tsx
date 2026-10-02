@@ -10,7 +10,7 @@ import {
   createContext, useCallback, useContext, useEffect, useState, type ReactNode,
 } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { useRouter } from '@/i18n/navigation';
+import { Link, useRouter } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
 import { pickLocale } from '@/lib/resolveLocale';
 import { bcp47For, type Locale } from '@/lib/locales';
@@ -194,7 +194,14 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
               </li>
             ))}
           </ul>
-          <p className="mt-5 font-body text-xs text-ink/60">
+          <Link
+            href="/policies"
+            onClick={onClose}
+            className="mt-5 inline-block font-body text-xs text-ink/60 underline decoration-accent underline-offset-4 transition-colors hover:text-primary"
+          >
+            {t('bookingInfo')}
+          </Link>
+          <p className="mt-3 font-body text-xs text-ink/60">
             {t('preferToTalk')}{' '}
             <a href={`tel:${hotelConfig.contact.phoneHref}`} className="text-primary underline decoration-accent underline-offset-4">
               {hotelConfig.contact.phone}
