@@ -40,7 +40,7 @@ export default async function NotFound() {
             Ask for directions
           </Link>
         </div>
-        <p className="mt-10 font-body text-xs text-canvas/50">
+        <p className="mt-10 font-body text-xs text-canvas/70">
           {hotelConfig.name} · {pickLocale(hotelConfig.location.regionLabel, locale)}
         </p>
       </PageFade>

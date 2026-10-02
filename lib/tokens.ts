@@ -19,7 +19,7 @@ export const palette = {
   primary: '#2B2119', // peat — primary dark
   primarydeep: '#1B1510', // deepest peat — footers, gradients
   accent: '#785828', // aged brass, darkened — accent on light (5.43:1 canvas, 4.78:1 canvasalt)
-  accentfill: '#A67C3D', // aged brass — solid fill surfaces
+  accentfill: '#B08646', // aged brass — solid fill surfaces (onaccent on it 4.75:1)
   onaccent: '#2B2119', // peat — text on accentfill
   accentondark: '#E8C083', // bright brass — accent on dark backgrounds
   canvas: '#EFEAE1', // stone — primary light

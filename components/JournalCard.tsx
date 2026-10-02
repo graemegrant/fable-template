@@ -63,7 +63,7 @@ export default async function JournalCard({
         <SectionLabel>{post.category}</SectionLabel>
         <h3 className="mt-3 font-heading text-2xl font-medium leading-snug text-ink">{post.title}</h3>
         <p className="mt-3 font-body text-sm font-light leading-relaxed text-ink/70">{post.excerpt}</p>
-        <p className="mt-4 font-body text-2xs uppercase tracking-20 text-ink/50">
+        <p className="mt-4 font-body text-2xs uppercase tracking-20 text-ink/70">
           {formatDate(post.publishedAt, locale)} · {post.readingTime}
         </p>
       </div>

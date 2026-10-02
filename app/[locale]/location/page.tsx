@@ -69,7 +69,7 @@ export default async function LocationPage({ params }: { params: Promise<{ local
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
-            <p className="mt-4 font-body text-xs text-ink/60">
+            <p className="mt-4 font-body text-xs text-ink/70">
               {t('postcodePrefix')} {hotelConfig.location.postalCode} {t('postcodeSuffix')}
             </p>
             <a

@@ -96,20 +96,20 @@ export default async function ExperienceDetailPage({ params }: Props) {
 
           <aside>
             <div className="rounded-card border border-ink/10 bg-canvasalt p-8 lg:sticky lg:top-28">
-              <p className="font-body text-2xs uppercase tracking-25 text-ink/60">{t('pricing')}</p>
+              <p className="font-body text-2xs uppercase tracking-25 text-ink/70">{t('pricing')}</p>
               <p className="mt-3 font-heading text-3xl font-medium text-primary">{exp.price}</p>
               <dl className="mt-8 space-y-3 border-t border-ink/10 pt-7">
                 <div className="flex justify-between gap-6">
-                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">{t('duration')}</dt>
+                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/70">{t('duration')}</dt>
                   <dd className="font-body text-sm text-ink/85">{exp.duration}</dd>
                 </div>
                 <div className="flex justify-between gap-6">
-                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">{t('category')}</dt>
+                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/70">{t('category')}</dt>
                   <dd className="font-body text-sm text-ink/85">{exp.category}</dd>
                 </div>
                 {exp.seasons && exp.seasons.length > 0 && (
                   <div className="flex justify-between gap-6">
-                    <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">{t('season')}</dt>
+                    <dt className="font-body text-2xs uppercase tracking-20 text-ink/70">{t('season')}</dt>
                     <dd className="text-right font-body text-sm text-ink/85">{exp.seasons.join(', ')}</dd>
                   </div>
                 )}
@@ -120,7 +120,7 @@ export default async function ExperienceDetailPage({ params }: Props) {
               >
                 {t('arrangeThis')}
               </Link>
-              <p className="mt-5 text-center font-body text-xs text-ink/60">
+              <p className="mt-5 text-center font-body text-xs text-ink/70">
                 {t('askAtDesk')}
               </p>
             </div>

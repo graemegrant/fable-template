@@ -42,7 +42,7 @@ function StatItem({ stat }: { stat: Stat }) {
       <div className="font-heading text-4xl text-primary md:text-5xl">
         {stat.render(display)}
       </div>
-      <div className="mt-2 font-body text-2xs uppercase leading-relaxed tracking-18 text-ink/60">
+      <div className="mt-2 font-body text-2xs uppercase leading-relaxed tracking-18 text-ink/70">
         {stat.label}
       </div>
     </div>

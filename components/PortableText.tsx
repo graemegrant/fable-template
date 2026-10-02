@@ -38,7 +38,7 @@ const components: PortableTextComponents = {
           <Image src={imgSrc(value)} alt={value?.caption || ''} fill sizes="(min-width: 768px) 720px, 100vw" className="object-cover" />
         </div>
         {value?.caption && (
-          <figcaption className="mt-3 font-body text-xs uppercase tracking-20 text-ink/50">
+          <figcaption className="mt-3 font-body text-xs uppercase tracking-20 text-ink/70">
             {value.caption}
           </figcaption>
         )}

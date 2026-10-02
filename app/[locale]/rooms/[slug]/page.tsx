@@ -168,10 +168,10 @@ export default async function RoomDetailPage({ params }: Props) {
           {/* Sticky booking sidebar */}
           <aside>
             <div className="rounded-card border border-ink/10 bg-canvasalt p-8 lg:sticky lg:top-28">
-              <p className="font-body text-2xs uppercase tracking-25 text-ink/60">{t('from')}</p>
+              <p className="font-body text-2xs uppercase tracking-25 text-ink/70">{t('from')}</p>
               <p className="mt-2 font-heading text-5xl font-medium text-primary">
                 £{room.rate}
-                <span className="font-body text-sm font-light text-ink/60"> {t('perNight')}</span>
+                <span className="font-body text-sm font-light text-ink/70"> {t('perNight')}</span>
               </p>
               <dl className="mt-8 space-y-3 border-t border-ink/10 pt-7">
                 {[
@@ -181,13 +181,13 @@ export default async function RoomDetailPage({ params }: Props) {
                   [t('outlook'), room.view],
                 ].filter(([, v]) => v).map(([k, v]) => (
                   <div key={k} className="flex justify-between gap-6">
-                    <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">{k}</dt>
+                    <dt className="font-body text-2xs uppercase tracking-20 text-ink/70">{k}</dt>
                     <dd className="text-right font-body text-sm text-ink/85">{v}</dd>
                   </div>
                 ))}
               </dl>
               <BookButton roomHint={room.roomType} className="mt-8 w-full rounded-ctrl bg-primary px-8 py-4 font-body text-2xs uppercase tracking-25 text-canvas transition-colors duration-300 hover:bg-accentfill hover:text-onaccent" />
-              <p className="mt-5 text-center font-body text-xs text-ink/60">
+              <p className="mt-5 text-center font-body text-xs text-ink/70">
                 {t('orCall')}{' '}
                 <a href={`tel:${hotelConfig.contact.phoneHref}`} className="text-primary underline decoration-accent underline-offset-4">
                   {hotelConfig.contact.phone}

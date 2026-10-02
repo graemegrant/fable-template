@@ -48,7 +48,7 @@ export default function ContactForm() {
 
   const field =
     'w-full rounded-ctrl border border-ink/20 bg-transparent px-4 py-3.5 font-body text-base text-ink placeholder:text-ink/40 focus:border-accent focus:outline-none sm:text-sm';
-  const label = 'block font-body text-2xs uppercase tracking-25 text-ink/60';
+  const label = 'block font-body text-2xs uppercase tracking-25 text-ink/70';
 
   if (status === 'sent') {
     return (

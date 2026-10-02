@@ -38,17 +38,17 @@ export default function MobileBookBar({
     >
       {roomName && rate !== undefined ? (
         <div className="min-w-0">
-          <p className="truncate font-body text-3xs uppercase tracking-20 text-ink/50">
+          <p className="truncate font-body text-3xs uppercase tracking-20 text-ink/70">
             {roomName}
           </p>
           <p className="font-heading text-2xl font-medium leading-none text-primary">
             £{rate}
-            <span className="font-body text-xs font-light text-ink/60"> {t('perNight')}</span>
+            <span className="font-body text-xs font-light text-ink/70"> {t('perNight')}</span>
           </p>
         </div>
       ) : (
         <div className="min-w-0">
-          <p className="truncate font-body text-3xs uppercase tracking-20 text-ink/50">
+          <p className="truncate font-body text-3xs uppercase tracking-20 text-ink/70">
             {tBooking('directBooking')}
           </p>
           <a

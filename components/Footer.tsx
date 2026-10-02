@@ -55,7 +55,7 @@ function NewsletterForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder={t('emailPlaceholder')}
-        className="w-full bg-transparent py-3 font-body text-base text-canvas placeholder:text-canvas/40 focus:outline-none sm:text-sm"
+        className="w-full bg-transparent py-3 font-body text-base text-canvas placeholder:text-canvas/60 focus:outline-none sm:text-sm"
       />
       <button type="submit" className="shrink-0 rounded-ctrl border border-accentondark px-4 py-2 font-body text-2xs uppercase tracking-25 text-accentondark transition-colors hover:border-accentfill hover:bg-accentfill hover:text-onaccent">
         {t('subscribe')} →
@@ -155,17 +155,17 @@ export default function Footer() {
       <div className="border-t border-canvas/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 p-6 sm:flex-row lg:px-10">
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1">
-            <p className="font-body text-xs text-canvas/50">
+            <p className="font-body text-xs text-canvas/70">
               © {year} {hotelConfig.name}. {t('rightsReserved')}
             </p>
-            <Link href="/policies" className="inline-flex min-h-11 items-center font-body text-xs text-canvas/50 transition-colors hover:text-accentondark">
+            <Link href="/policies" className="inline-flex min-h-11 items-center font-body text-xs text-canvas/70 transition-colors hover:text-accentondark">
               {t('goodToKnow')}
             </Link>
-            <Link href="/privacy" className="inline-flex min-h-11 items-center font-body text-xs text-canvas/50 transition-colors hover:text-accentondark">
+            <Link href="/privacy" className="inline-flex min-h-11 items-center font-body text-xs text-canvas/70 transition-colors hover:text-accentondark">
               {t('privacy')}
             </Link>
           </div>
-          <p className="font-body text-xs text-canvas/50">
+          <p className="font-body text-xs text-canvas/70">
             {pickLocale(hotelConfig.location.regionLabel, locale)} · {hotelConfig.priceRange}
           </p>
         </div>

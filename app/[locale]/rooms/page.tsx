@@ -60,7 +60,7 @@ export default async function RoomsPage({ params }: { params: Promise<{ locale: 
           <div className="mt-10 overflow-x-auto rounded-card border border-ink/10">
             <table className="w-full text-left">
               <thead className="bg-canvasalt">
-                <tr className="font-body text-2xs uppercase tracking-20 text-ink/60">
+                <tr className="font-body text-2xs uppercase tracking-20 text-ink/70">
                   <th scope="col" className="px-6 py-4 font-normal">{t('colRoom')}</th>
                   {showSize && <th scope="col" className="hidden px-6 py-4 font-normal sm:table-cell">{t('colSize')}</th>}
                   <th scope="col" className="px-6 py-4 font-normal">{t('colSleeps')}</th>
@@ -76,7 +76,7 @@ export default async function RoomsPage({ params }: { params: Promise<{ locale: 
                     </th>
                     {showSize && <td className="hidden px-6 py-5 sm:table-cell">{room.sqm ? `${room.sqm} ${t('sqmUnit')}` : '—'}</td>}
                     <td className="px-6 py-5">{room.occupancy}</td>
-                    <td className="whitespace-nowrap px-6 py-5">£{room.rate} <span className="text-ink/60">{t('perNight')}</span></td>
+                    <td className="whitespace-nowrap px-6 py-5">£{room.rate} <span className="text-ink/70">{t('perNight')}</span></td>
                     <td className="hidden px-6 py-5 text-right sm:table-cell">
                       <Link href={`/rooms/${room.slug}`} className="inline-flex min-h-11 items-center whitespace-nowrap font-body text-2xs uppercase tracking-25 text-accent transition-colors hover:text-primary">
                         {t('viewRoom')} →
@@ -87,7 +87,7 @@ export default async function RoomsPage({ params }: { params: Promise<{ locale: 
               </tbody>
             </table>
           </div>
-          <p className="mt-4 font-body text-xs text-ink/60">{t('compareNote')}</p>
+          <p className="mt-4 font-body text-xs text-ink/70">{t('compareNote')}</p>
         </FadeUp>
       </section>
       <DirectBookingBanner />

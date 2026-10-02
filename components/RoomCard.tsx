@@ -32,9 +32,9 @@ export default function RoomCard({ room, headingLevel = 3 }: { room: Room; headi
         {/* Only populated for the rare case where a physical room has its
             own name distinct from its category — see lib/types.ts Room. */}
         {room.name && (
-          <p className="mt-1 font-body text-xs uppercase tracking-20 text-ink/50">{room.name}</p>
+          <p className="mt-1 font-body text-xs uppercase tracking-20 text-ink/70">{room.name}</p>
         )}
-        <p className="mt-2 font-body text-xs uppercase tracking-20 text-ink/60">
+        <p className="mt-2 font-body text-xs uppercase tracking-20 text-ink/70">
           {room.sqm ? `${room.sqm} ${t('sqm')} · ` : ''}{t('sleeps')} {room.occupancy}
         </p>
         <div className="mt-4 flex items-center justify-between border-t border-ink/10 pt-4">
@@ -47,7 +47,7 @@ export default function RoomCard({ room, headingLevel = 3 }: { room: Room; headi
                 marketing site). Suppressed at 1 since "1 available" reads
                 oddly for what's effectively a single room. */}
             {room.roomCount != null && room.roomCount > 1 && (
-              <p className="mt-0.5 font-body text-xs text-ink/50">{t('roomsAvailable', { count: room.roomCount })}</p>
+              <p className="mt-0.5 font-body text-xs text-ink/70">{t('roomsAvailable', { count: room.roomCount })}</p>
             )}
           </div>
           <span className="font-body text-2xs uppercase tracking-20 text-accent transition-colors group-hover:text-primary">

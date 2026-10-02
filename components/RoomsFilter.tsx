@@ -35,7 +35,7 @@ export default function RoomsFilter({ rooms }: { rooms: Room[] }) {
               aria-selected={active === ty}
               onClick={() => setActive(ty)}
               className={`px-6 py-3 font-body text-2xs uppercase tracking-25 transition-colors duration-300 ${
-                active === ty ? 'bg-primary text-canvas' : 'text-ink/60 hover:text-primary'
+                active === ty ? 'bg-primary text-canvas' : 'text-ink/70 hover:text-primary'
               }`}
             >
               {ty === 'All' ? t('allRoomTypes') : ty}
@@ -55,7 +55,7 @@ export default function RoomsFilter({ rooms }: { rooms: Room[] }) {
         ))}
       </StaggerGrid>
       {filtered.length === 0 && (
-        <p className="mt-12 font-body text-sm text-ink/60">{t('noRoomsOfType')}</p>
+        <p className="mt-12 font-body text-sm text-ink/70">{t('noRoomsOfType')}</p>
       )}
     </div>
   );
