@@ -70,7 +70,7 @@ export default function Navbar() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center px-6 py-5 lg:px-10">
-        <Link href="/" className="shrink-0 whitespace-nowrap font-heading text-2xl font-medium tracking-wide text-canvas">
+        <Link href="/" className="inline-flex min-h-11 shrink-0 items-center whitespace-nowrap font-heading text-2xl font-medium tracking-wide text-canvas">
           {hotelConfig.name}
         </Link>
 
@@ -109,7 +109,7 @@ export default function Navbar() {
               )}
               {item.children && (
                 <div className="invisible absolute left-1/2 top-full -translate-x-1/2 pt-5 opacity-0 transition-all duration-300 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
-                  <ul className="w-56 border-t-2 border-accentondark bg-primary py-3">
+                  <ul className="w-56 overflow-hidden rounded-b-ctrl border-t-2 border-accentondark bg-primary py-3">
                     {item.children.map((child) => (
                       <li key={child.href}>
                         <Link
@@ -150,7 +150,7 @@ export default function Navbar() {
               {locale}
             </button>
             <div className="invisible absolute right-0 top-full pt-5 opacity-0 transition-all duration-300 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
-              <ul className="w-40 border-t-2 border-accentondark bg-primary py-3">
+              <ul className="w-40 overflow-hidden rounded-b-ctrl border-t-2 border-accentondark bg-primary py-3">
                 {LOCALES.map((l) => (
                   <li key={l.id}>
                     <Link
@@ -196,7 +196,7 @@ export default function Navbar() {
           mobileOpen ? 'max-h-nav-open' : 'max-h-0'
         }`}
       >
-        <nav className="space-y-1 px-6 pb-10 pt-4" aria-label="Mobile">
+        <nav className="space-y-1 px-6 pb-32 pt-4" aria-label="Mobile">
           {NAV.map((item) =>
             item.href ? (
               <Link
@@ -225,7 +225,7 @@ export default function Navbar() {
                   <ul className="space-y-3 pb-5 pl-4">
                     {item.children?.map((child) => (
                       <li key={child.href}>
-                        <Link href={child.href} className="font-body text-xs uppercase tracking-20 text-canvas/70">
+                        <Link href={child.href} className="flex min-h-11 items-center font-body text-xs uppercase tracking-20 text-canvas/70">
                           {t(child.labelKey)}
                         </Link>
                       </li>
@@ -243,7 +243,7 @@ export default function Navbar() {
                 key={l.id}
                 href={pathname}
                 locale={l.id}
-                className={`font-body text-xs uppercase tracking-25 ${
+                className={`inline-flex min-h-11 min-w-11 items-center justify-center font-body text-xs uppercase tracking-25 ${
                   l.id === locale ? 'text-accentondark' : 'text-canvas/70'
                 }`}
               >

@@ -37,7 +37,7 @@ export default function GalleryLightbox({ images, alt }: { images: unknown[]; al
             key={i}
             type="button"
             onClick={() => setOpenIndex(i)}
-            className={`group relative overflow-hidden bg-canvasalt ${i === 0 ? 'col-span-2 row-span-2 aspect-landscape' : 'aspect-landscape'}`}
+            className={`group relative overflow-hidden rounded-img bg-canvasalt ${i === 0 ? 'col-span-2 row-span-2 aspect-landscape' : 'aspect-landscape'}`}
             aria-label={t('galleryOpenPhoto', { n: i + 1, total: srcs.length })}
           >
             <Image

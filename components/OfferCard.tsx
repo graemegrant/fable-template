@@ -28,7 +28,7 @@ export default async function OfferCard({
             className="object-cover"
           />
           {offer.tag && (
-            <span className="absolute left-0 top-6 bg-accentfill px-4 py-2 font-body text-3xs uppercase tracking-25 text-onaccent">
+            <span className="absolute left-0 top-6 rounded-r-ctrl bg-accentfill px-4 py-2 font-body text-3xs uppercase tracking-25 text-onaccent">
               {offer.tag}
             </span>
           )}
@@ -69,7 +69,7 @@ export default async function OfferCard({
           className="object-cover transition-transform duration-1200 ease-out-expo group-hover:scale-104"
         />
         {offer.tag && (
-          <span className="absolute left-0 top-6 bg-accentfill px-4 py-2 font-body text-3xs uppercase tracking-25 text-onaccent">
+          <span className="absolute left-0 top-6 rounded-r-ctrl bg-accentfill px-4 py-2 font-body text-3xs uppercase tracking-25 text-onaccent">
             {offer.tag}
           </span>
         )}

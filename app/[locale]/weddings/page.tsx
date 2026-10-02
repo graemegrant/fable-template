@@ -68,17 +68,31 @@ export default async function WeddingsPage({ params }: { params: Promise<{ local
             <SectionLabel>{t('settingsLabel')}</SectionLabel>
             <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">{t('settingsHeading')}</h2>
           </FadeUp>
-          <StaggerGrid className="mt-14 grid gap-10 lg:grid-cols-3">
+          <StaggerGrid className="mt-14 grid gap-8 lg:grid-cols-3">
             {venues.map((v) => (
-              <StaggerItem key={v.name}>
-                <article>
-                  <div className="relative aspect-landscape overflow-hidden bg-canvas">
-                    <Image src={v.image} alt={v.name} fill sizes="(min-width: 1024px) 33vw, 100vw" className="object-cover" />
+              <StaggerItem key={v.name} className="h-full">
+                <article className="group flex h-full flex-col overflow-hidden rounded-card border border-ink/10 bg-canvas transition-shadow duration-300 hover:shadow-lg">
+                  <div className="relative aspect-landscape overflow-hidden">
+                    <Image
+                      src={v.image}
+                      alt={v.name}
+                      fill
+                      sizes="(min-width: 1024px) 33vw, 100vw"
+                      className="object-cover transition-transform duration-1200 ease-out-expo group-hover:scale-104"
+                    />
                   </div>
-                  <div className="pt-6">
+                  <div className="flex grow flex-col p-8">
                     <h3 className="font-heading text-2xl font-medium text-ink">{v.name}</h3>
                     <p className="mt-1 font-body text-2xs uppercase tracking-25 text-accent">{v.capacity}</p>
-                    <p className="mt-4 font-body text-sm font-light leading-relaxed text-ink/75">{v.detail}</p>
+                    <p className="mt-4 grow font-body text-sm font-light leading-relaxed text-ink/75">{v.detail}</p>
+                    {/* Outline (secondary) style — the section's primary CTA is the
+                        enquiry band below (AGENTS.md §5, one primary per section). */}
+                    <Link
+                      href="/contact?subject=events#enquiry"
+                      className="mt-8 block rounded-ctrl border border-primary px-5 py-3.5 text-center font-body text-2xs uppercase tracking-18 text-primary transition-colors duration-300 hover:bg-primary hover:text-canvas sm:px-6 sm:tracking-25"
+                    >
+                      {t('enquireVenue')}
+                    </Link>
                   </div>
                 </article>
               </StaggerItem>
@@ -98,7 +112,7 @@ export default async function WeddingsPage({ params }: { params: Promise<{ local
               {t('beginBody')}
             </p>
             <Link
-              href="/contact"
+              href="/contact?subject=events#enquiry"
               className="mt-10 inline-block rounded-ctrl bg-accentfill px-10 py-4 font-body text-2xs uppercase tracking-25 text-onaccent transition-colors duration-300 hover:bg-canvas hover:text-primary"
             >
               {t('enquireDate')}

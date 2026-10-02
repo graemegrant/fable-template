@@ -55,9 +55,9 @@ function NewsletterForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder={t('emailPlaceholder')}
-        className="w-full bg-transparent py-3 font-body text-sm text-canvas placeholder:text-canvas/40 focus:outline-none"
+        className="w-full bg-transparent py-3 font-body text-base text-canvas placeholder:text-canvas/40 focus:outline-none sm:text-sm"
       />
-      <button type="submit" className="shrink-0 rounded-none border border-accentondark px-4 py-2 font-body text-2xs uppercase tracking-25 text-accentondark transition-colors hover:border-accentfill hover:bg-accentfill hover:text-onaccent">
+      <button type="submit" className="shrink-0 rounded-ctrl border border-accentondark px-4 py-2 font-body text-2xs uppercase tracking-25 text-accentondark transition-colors hover:border-accentfill hover:bg-accentfill hover:text-onaccent">
         {t('subscribe')} →
       </button>
     </form>
@@ -70,7 +70,7 @@ export default function Footer() {
   const locale = useLocale() as Locale;
   const year = new Date().getFullYear();
   return (
-    <footer className="bg-primary text-canvas">
+    <footer className="bg-primary pb-mobilebar text-canvas lg:pb-0">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div>
@@ -136,13 +136,13 @@ export default function Footer() {
               <div className="mt-8 flex gap-6">
                 {hotelConfig.contact.instagram && (
                   <a href={hotelConfig.contact.instagram} target="_blank" rel="noopener noreferrer"
-                    className="font-body text-2xs uppercase tracking-25 text-canvas/70 transition-colors hover:text-accentondark">
+                    className="inline-flex min-h-11 items-center font-body text-2xs uppercase tracking-25 text-canvas/70 transition-colors hover:text-accentondark">
                     {t('instagram')}
                   </a>
                 )}
                 {hotelConfig.contact.facebook && (
                   <a href={hotelConfig.contact.facebook} target="_blank" rel="noopener noreferrer"
-                    className="font-body text-2xs uppercase tracking-25 text-canvas/70 transition-colors hover:text-accentondark">
+                    className="inline-flex min-h-11 items-center font-body text-2xs uppercase tracking-25 text-canvas/70 transition-colors hover:text-accentondark">
                     {t('facebook')}
                   </a>
                 )}
@@ -154,9 +154,17 @@ export default function Footer() {
 
       <div className="border-t border-canvas/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 p-6 sm:flex-row lg:px-10">
-          <p className="font-body text-xs text-canvas/50">
-            © {year} {hotelConfig.name}. {t('rightsReserved')}
-          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1">
+            <p className="font-body text-xs text-canvas/50">
+              © {year} {hotelConfig.name}. {t('rightsReserved')}
+            </p>
+            <Link href="/policies" className="inline-flex min-h-11 items-center font-body text-xs text-canvas/50 transition-colors hover:text-accentondark">
+              {t('goodToKnow')}
+            </Link>
+            <Link href="/privacy" className="inline-flex min-h-11 items-center font-body text-xs text-canvas/50 transition-colors hover:text-accentondark">
+              {t('privacy')}
+            </Link>
+          </div>
           <p className="font-body text-xs text-canvas/50">
             {pickLocale(hotelConfig.location.regionLabel, locale)} · {hotelConfig.priceRange}
           </p>

@@ -32,7 +32,9 @@ const config: Config = {
       // built-in scale.
       fontSize: {
         '2xs': '11px',
-        '3xs': '10px',
+        // Kept as a name for existing class usages, but no smaller than 2xs:
+        // 10px was below comfortable reading size on phones.
+        '3xs': '11px',
       },
       // Letter-spacing for uppercase tracked labels — named by their em
       // value since there's no semantic distinction between them beyond
@@ -72,6 +74,9 @@ const config: Config = {
         // Height reserved for the slim mobile cookie bar, so MobileBookBar
         // can sit directly above it while consent is pending.
         cookiebar: '4.25rem',
+        // Reserved under the footer on mobile so the site-wide MobileBookBar
+        // never covers it.
+        mobilebar: '5rem',
       },
       maxWidth: {
         '20ch': '20ch',

@@ -2,17 +2,19 @@
 
 /**
  * Booking system: context provider, modal, and a reusable BookButton.
- * Submits to the configured booking engine with query params; falls back
- * to /contact when no engine is configured.
+ * Hands off to the configured booking engine via lib/bookingEngine.ts
+ * (which owns each engine's parameter names); falls back to /contact
+ * when no engine is configured.
  */
 import {
   createContext, useCallback, useContext, useEffect, useState, type ReactNode,
 } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { useRouter } from '@/i18n/navigation';
+import { Link, useRouter } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
 import { pickLocale } from '@/lib/resolveLocale';
-import type { Locale } from '@/lib/locales';
+import { bcp47For, type Locale } from '@/lib/locales';
+import { buildBookingUrl, resolveProvider } from '@/lib/bookingEngine';
 import { ModalEntrance, AnimatePresence, motion } from './Motion';
 
 const BookingContext = createContext<{
@@ -92,17 +94,18 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
       router.push('/contact');
       return;
     }
-    const params = new URLSearchParams({
-      checkin: arrival,
-      checkout: departure,
-      guests: String(guests),
-      rooms: String(roomCount),
+    window.location.href = buildBookingUrl(url, resolveProvider(url, hotelConfig.bookingEngine.provider), {
+      arrival,
+      departure,
+      adults: guests,
+      rooms: roomCount,
+      language: bcp47For(locale),
+      currency: hotelConfig.bookingEngine.currency,
     });
-    window.location.href = `${url}${url.includes('?') ? '&' : '?'}${params.toString()}`;
   }
 
   const field =
-    'w-full rounded-ctrl border border-ink/20 bg-canvas px-4 py-3.5 font-body text-sm text-ink focus:border-accent focus:outline-none';
+    'w-full rounded-ctrl border border-ink/20 bg-canvas px-4 py-3.5 font-body text-base text-ink focus:border-accent focus:outline-none sm:text-sm';
   const label = 'block font-body text-2xs uppercase tracking-25 text-ink/60';
 
   return (
@@ -118,7 +121,7 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
       aria-label={t('bookAStay')}
     >
       <ModalEntrance className="w-full max-w-lg">
-        <div className="bg-canvas p-8 sm:p-10" onClick={(e) => e.stopPropagation()}>
+        <div className="rounded-card bg-canvas p-8 sm:p-10" onClick={(e) => e.stopPropagation()}>
           <div className="flex items-start justify-between">
             <div>
               <p className="font-body text-2xs uppercase tracking-30 text-accent">{t('directBooking')}</p>
@@ -191,7 +194,14 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
               </li>
             ))}
           </ul>
-          <p className="mt-5 font-body text-xs text-ink/60">
+          <Link
+            href="/policies"
+            onClick={onClose}
+            className="mt-5 inline-block font-body text-xs text-ink/60 underline decoration-accent underline-offset-4 transition-colors hover:text-primary"
+          >
+            {t('bookingInfo')}
+          </Link>
+          <p className="mt-3 font-body text-xs text-ink/60">
             {t('preferToTalk')}{' '}
             <a href={`tel:${hotelConfig.contact.phoneHref}`} className="text-primary underline decoration-accent underline-offset-4">
               {hotelConfig.contact.phone}

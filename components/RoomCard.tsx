@@ -35,7 +35,7 @@ export default function RoomCard({ room, headingLevel = 3 }: { room: Room; headi
           <p className="mt-1 font-body text-xs uppercase tracking-20 text-ink/50">{room.name}</p>
         )}
         <p className="mt-2 font-body text-xs uppercase tracking-20 text-ink/60">
-          {room.sqm} {t('sqm')} · {t('sleeps')} {room.occupancy}
+          {room.sqm ? `${room.sqm} ${t('sqm')} · ` : ''}{t('sleeps')} {room.occupancy}
         </p>
         <div className="mt-4 flex items-center justify-between border-t border-ink/10 pt-4">
           <div>

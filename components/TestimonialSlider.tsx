@@ -38,24 +38,27 @@ export default function TestimonialSlider({ testimonials }: { testimonials: Test
         </AnimatePresence>
       </div>
 
-      <div className="mt-10 flex items-center justify-center gap-8">
+      <div className="mt-10 flex items-center justify-center gap-1 sm:gap-6">
         <button type="button" onClick={() => go(-1)} aria-label={t('testimonialPrev')}
-          className="font-body text-sm tracking-widest text-canvas/60 transition-colors hover:text-accentondark">
+          className="inline-flex size-11 shrink-0 items-center justify-center font-body text-sm tracking-widest text-canvas/60 transition-colors hover:text-accentondark">
           ←
         </button>
-        <div className="flex gap-3">
+        <div className="flex">
           {testimonials.map((_, i) => (
             <button
               key={i}
               type="button"
               onClick={() => setIndex(i)}
               aria-label={t('testimonialDot', { count: i + 1 })}
-              className={`size-1.5 transition-colors duration-300 ${i === index ? 'bg-accentondark' : 'bg-canvas/30'}`}
-            />
+              aria-current={i === index}
+              className="inline-flex size-11 items-center justify-center"
+            >
+              <span className={`size-1.5 rounded-full transition-colors duration-300 ${i === index ? 'bg-accentondark' : 'bg-canvas/30'}`} aria-hidden />
+            </button>
           ))}
         </div>
         <button type="button" onClick={() => go(1)} aria-label={t('testimonialNext')}
-          className="font-body text-sm tracking-widest text-canvas/60 transition-colors hover:text-accentondark">
+          className="inline-flex size-11 shrink-0 items-center justify-center font-body text-sm tracking-widest text-canvas/60 transition-colors hover:text-accentondark">
           →
         </button>
       </div>

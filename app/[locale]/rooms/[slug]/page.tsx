@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { Link } from '@/i18n/navigation';
 import { getTranslations } from 'next-intl/server';
 import { hotelConfig } from '@/hotel.config';
 import { sanityFetch, imgSrc } from '@/lib/sanity';
@@ -42,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return pageMetadata({
     locale,
     title: `${room.roomType} — ${hotelConfig.location.locality}`,
-    description: `${room.roomType} at ${hotelConfig.name}, ${hotelConfig.location.locality}: ${room.sqm} sqm, sleeps ${room.occupancy}, from £${room.rate} per night.`,
+    description: `${room.roomType} at ${hotelConfig.name}, ${hotelConfig.location.locality}: ${room.sqm ? `${room.sqm} sqm, ` : ''}sleeps ${room.occupancy}, from £${room.rate} per night.`,
     path: `/rooms/${room.slug}`,
     image: `/rooms/${room.slug}/opengraph-image`,
   });
@@ -76,7 +77,7 @@ export default async function RoomDetailPage({ params }: Props) {
     inLanguage: bcp47For(locale),
     image: [imgSrc(room.heroImage, 1200)],
     occupancy: { '@type': 'QuantitativeValue', maxValue: room.occupancy },
-    floorSize: { '@type': 'QuantitativeValue', value: room.sqm, unitCode: 'MTK' },
+    ...(room.sqm ? { floorSize: { '@type': 'QuantitativeValue', value: room.sqm, unitCode: 'MTK' } } : {}),
     containedInPlace: { '@id': HOTEL_ID, '@type': 'Hotel', name: hotelConfig.name, url: hotelConfig.siteUrl },
     offers: {
       '@type': 'Offer',
@@ -133,6 +134,27 @@ export default async function RoomDetailPage({ params }: Props) {
               </ul>
             </FadeUp>
 
+            <FadeUp className="mt-16">
+              <SectionLabel>{t('everyStay')}</SectionLabel>
+              <ul className="mt-6 grid gap-x-10 gap-y-3 sm:grid-cols-2">
+                {[
+                  ...hotelConfig.stayIncludes.map((item) => pickLocale(item, locale) ?? ''),
+                  t('timesLine', {
+                    checkIn: pickLocale(hotelConfig.checkIn, locale) ?? '',
+                    checkOut: pickLocale(hotelConfig.checkOut, locale) ?? '',
+                  }),
+                ].map((line) => (
+                  <li key={line} className="flex gap-3 font-body text-sm text-ink/80">
+                    <span className="mt-9px h-px w-5 shrink-0 bg-accent" aria-hidden />
+                    {line}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/policies" className="mt-4 inline-flex min-h-11 items-center font-body text-2xs uppercase tracking-25 text-accent transition-colors hover:text-primary">
+                {t('goodToKnowLink')} →
+              </Link>
+            </FadeUp>
+
             {room.gallery && room.gallery.length > 0 && (
               <FadeUp className="mt-16">
                 <SectionLabel>{t('gallery')}</SectionLabel>
@@ -145,7 +167,7 @@ export default async function RoomDetailPage({ params }: Props) {
 
           {/* Sticky booking sidebar */}
           <aside>
-            <div className="border border-ink/10 bg-canvasalt p-8 lg:sticky lg:top-28">
+            <div className="rounded-card border border-ink/10 bg-canvasalt p-8 lg:sticky lg:top-28">
               <p className="font-body text-2xs uppercase tracking-25 text-ink/60">{t('from')}</p>
               <p className="mt-2 font-heading text-5xl font-medium text-primary">
                 £{room.rate}
@@ -153,7 +175,7 @@ export default async function RoomDetailPage({ params }: Props) {
               </p>
               <dl className="mt-8 space-y-3 border-t border-ink/10 pt-7">
                 {[
-                  [t('size'), `${room.sqm} ${t('sqmUnit')}`],
+                  [t('size'), room.sqm ? `${room.sqm} ${t('sqmUnit')}` : ''],
                   [t('sleeps'), `${room.occupancy}`],
                   [t('floor'), room.floor],
                   [t('outlook'), room.view],

@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from 'next';
-import Script from 'next/script';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, setRequestLocale } from 'next-intl/server';
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { Cormorant_Garamond, Jost } from 'next/font/google';
 import { hotelConfig } from '@/hotel.config';
 import { palette } from '@/lib/tokens';
@@ -14,6 +13,8 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CookieBanner from '@/components/CookieBanner';
 import { BookingProvider } from '@/components/BookingModal';
+import Analytics from '@/components/Analytics';
+import { SiteMobileBookBar } from '@/components/MobileBookBar';
 import '../globals.css';
 
 /* Self-hosted via next/font — no render-blocking request to Google's CDN,
@@ -92,6 +93,7 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
 
   const messages = await getMessages();
+  const tCommon = await getTranslations('common');
   const lodgingSchema = hotelSchema(locale);
 
   return (
@@ -101,23 +103,21 @@ export default async function LocaleLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(lodgingSchema) }}
         />
-        {ga4Id && (
-          <>
-            <Script src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`} strategy="afterInteractive" />
-            <Script id="ga4" strategy="afterInteractive">
-              {`window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${ga4Id}');`}
-            </Script>
-          </>
-        )}
+        {/* Analytics loads only after cookie consent — see components/Analytics.tsx */}
+        {ga4Id && <Analytics id={ga4Id} />}
         <NextIntlClientProvider messages={messages}>
           <MotionProvider>
             <BookingProvider>
+              <a
+                href="#main"
+                className="sr-only rounded-ctrl bg-accentfill px-5 py-3 font-body text-sm text-onaccent focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-80"
+              >
+                {tCommon('skipToContent')}
+              </a>
               <Navbar />
-              <main>{children}</main>
+              <main id="main">{children}</main>
               <Footer />
+              <SiteMobileBookBar />
               <CookieBanner />
             </BookingProvider>
           </MotionProvider>

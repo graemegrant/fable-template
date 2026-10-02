@@ -27,6 +27,10 @@ and fill it in. The template file at repo root stays blank.
 - Price range (£/££/£££):
 - Check-in / check-out times:
 - Trust strip items:
+- Stats band figures (real, checkable):
+- What every stay includes:
+- Public review summary (platform, rating, count, link) — or none:
+- Agreed book-direct perk — or none:
 
 **Brand tokens** (→ `lib/tokens.ts`; each pairing must clear 4.5:1)
 - `primary` (primary dark):
@@ -41,8 +45,16 @@ and fill it in. The template file at repo root stays blank.
 - Heading font / body font:
 
 **Booking engine**
-- Provider (FreeToBook / Guestline / SiteMinder / Little Hotelier / other):
+- Provider (SynXis / FreeToBook / Guestline / SiteMinder / Little Hotelier / other):
 - Deep-link URL:
+
+**Policies** (→ `lib/data.ts` `policies`, the "Good to know" page)
+- Cancellation & deposit terms:
+- Children / cots / extra beds:
+- Dogs:
+- Accessibility:
+- Parking:
+- Data controller (legal entity) for the privacy page:
 
 **Sanity**
 - Project ID:

@@ -8,7 +8,10 @@
 import { useRef, useState } from 'react';
 import { useInView, useReducedMotion, motion, useMotionValue, animate } from 'framer-motion';
 import { useEffect } from 'react';
-import { useTranslations, useLocale } from 'next-intl';
+import { useLocale } from 'next-intl';
+import { hotelConfig } from '@/hotel.config';
+import { pickLocale } from '@/lib/resolveLocale';
+import type { Locale } from '@/lib/locales';
 
 interface Stat {
   value: number;
@@ -46,19 +49,20 @@ function StatItem({ stat }: { stat: Stat }) {
   );
 }
 
+/** Figures come from hotelConfig.stats, so a client build can never
+ *  inherit another hotel’s numbers. Renders nothing when empty. */
 export default function StatsBand() {
-  const t = useTranslations('stats');
-  const locale = useLocale();
-  // The distance is a physical fact, not prose — converted to km for
-  // locales that use metric (19 mi ≈ 31 km) rather than left mistranslated
-  // as "19 km", which would understate the real distance.
+  const locale = useLocale() as Locale;
+  // `metric` swaps in a metric value/unit for non-English locales (e.g.
+  // 19 mi → 31 km) rather than leaving a mistranslated unit.
   const isMetric = locale !== 'en';
-  const stats: Stat[] = [
-    { value: 12, render: (n) => `${n}`, label: t('rooms') },
-    { value: 1863, render: (n) => `${n}`, label: t('family') },
-    { value: isMetric ? 31 : 19, render: (n) => `${n} ${isMetric ? 'km' : 'mi'}`, label: t('trafficLight') },
-    { value: 400, render: (n) => `${n.toLocaleString()}`, label: t('acres') },
-  ];
+  const stats: Stat[] = hotelConfig.stats.map((s) => {
+    const m = isMetric && s.metric ? s.metric : null;
+    const prefix = s.prefix ?? '';
+    const suffix = m ? m.suffix : (s.suffix ?? '');
+    return { value: m ? m.value : s.value, render: (n) => `${prefix}${n}${suffix}`, label: pickLocale(s.label, locale) ?? '' };
+  });
+  if (!stats.length) return null;
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

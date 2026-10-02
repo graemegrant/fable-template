@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 
 export default function ContactForm() {
@@ -11,6 +11,21 @@ export default function ContactForm() {
   ];
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [form, setForm] = useState({ name: '', email: '', phone: '', subject: SUBJECTS[0], message: '' });
+
+  // Links can preselect a subject, e.g. /contact?subject=events from the
+  // weddings page. Read on mount (not useSearchParams) so the contact
+  // page stays statically rendered.
+  const SUBJECT_KEYS: Record<string, string> = {
+    rooms: t('subjectRoomBooking'),
+    dining: t('subjectDiningReservation'),
+    events: t('subjectWeddingsEvents'),
+    vouchers: t('subjectGiftVouchers'),
+  };
+  useEffect(() => {
+    const preset = SUBJECT_KEYS[new URLSearchParams(window.location.search).get('subject') ?? ''];
+    if (preset) setForm((f) => ({ ...f, subject: preset }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- run once on mount
+  }, []);
 
   const set = (key: keyof typeof form) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
@@ -32,12 +47,12 @@ export default function ContactForm() {
   }
 
   const field =
-    'w-full rounded-ctrl border border-ink/20 bg-transparent px-4 py-3.5 font-body text-sm text-ink placeholder:text-ink/40 focus:border-accent focus:outline-none';
+    'w-full rounded-ctrl border border-ink/20 bg-transparent px-4 py-3.5 font-body text-base text-ink placeholder:text-ink/40 focus:border-accent focus:outline-none sm:text-sm';
   const label = 'block font-body text-2xs uppercase tracking-25 text-ink/60';
 
   if (status === 'sent') {
     return (
-      <div className="border border-accent/50 bg-canvasalt p-10 text-center">
+      <div className="rounded-card border border-accent/50 bg-canvasalt p-10 text-center">
         <p className="font-heading text-2xl font-medium text-primary">{t('thankYou')}</p>
         <p className="mt-3 font-body text-sm leading-relaxed text-ink/75">
           {t('confirmationBody')}

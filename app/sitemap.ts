@@ -38,7 +38,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
   const staticRoutes = [
     '', '/rooms', '/dining', '/experiences', '/weddings', '/offers',
-    '/journal', '/about', '/contact', '/location', '/gift-vouchers',
+    '/journal', '/about', '/contact', '/location', '/gift-vouchers', '/policies', '/privacy',
   ].flatMap((path) =>
     withLocales(path, {
       lastModified: now,

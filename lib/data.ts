@@ -824,6 +824,30 @@ export const team: TeamMemberI18n[] = [
    Prose fields use the same LocaleField wrapper as the CMS-backed content
    above, resolved with the same pickLocale() at each call site. */
 
+// Facilities at a glance (homepage + about). Demo content — write each
+// client's from what they actually offer; an empty list hides the section.
+export const facilities: Array<{ title: LocaleField; detail: LocaleField }> = [
+  { title: { en: 'Free parking & EV charging' }, detail: { en: 'Free parking for all guests, with two 22kW EV chargers in the courtyard.' } },
+  { title: { en: 'Breakfast included' }, detail: { en: 'A full breakfast is included in every stay.' } },
+  { title: { en: 'The dining room' }, detail: { en: 'Seasonal estate cooking, with a six-course tasting menu.' } },
+  { title: { en: 'Dog-friendly' }, detail: { en: 'Dogs are welcome in The Birnam and throughout the grounds on a lead.' } },
+  { title: { en: 'Step-free access' }, detail: { en: 'The Birnam and all ground-floor public rooms are step-free.' } },
+  { title: { en: 'Free Wi-Fi' }, detail: { en: 'Throughout the house, at no extra cost.' } },
+];
+
+// "Good to know" page (/policies). Demo content mirrors the demo FAQs —
+// write each client's from their real policies, never assumed ones.
+export const policies: Array<{ title: LocaleField; body: LocaleField }> = [
+  { title: { en: 'Check-in & check-out' }, body: { en: 'Check-in is from 3pm and check-out is by 11am. Early arrivals are welcome to leave luggage; late checkout until 1pm can usually be arranged.' } },
+  { title: { en: 'Breakfast' }, body: { en: 'A full breakfast is included in every room rate, served in the dining room.' } },
+  { title: { en: 'Booking, payment & cancellations' }, body: { en: 'The cancellation terms and any deposit depend on the rate you choose. They are shown before you confirm your booking, and again in your confirmation email.' } },
+  { title: { en: 'Children' }, body: { en: 'Children of all ages are welcome. Cots and extra beds are available in the suites.' } },
+  { title: { en: 'Dogs' }, body: { en: 'Dogs are welcome in The Birnam and throughout the grounds on a lead, at £25 per dog per stay.' } },
+  { title: { en: 'Accessibility' }, body: { en: 'The Birnam and all ground-floor public rooms are step-free, with a ramp for the front steps. Call us and we will talk through your needs.' } },
+  { title: { en: 'Parking & EV charging' }, body: { en: 'Parking is free for all guests, with two 22kW EV chargers in the courtyard.' } },
+  { title: { en: 'Weddings & exclusive use' }, body: { en: 'Weddings and exclusive-use stays have their own terms — ask us for details.' } },
+];
+
 export const faqs = [
   {
     q: t4('What are your check-in and check-out times?', 'Quels sont vos horaires d’arrivée et de départ ?', 'Wie sind Ihre Check-in- und Check-out-Zeiten?', '¿Cuáles son sus horarios de entrada y salida?'),

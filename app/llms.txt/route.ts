@@ -42,6 +42,7 @@ export function GET() {
     ['Special offers', '/offers', 'current direct-booking offers'],
     ['Experiences', '/experiences', 'things to do'],
     ['Location & directions', '/location', `how to reach ${location.locality} and what is nearby`],
+    ['Good to know', '/policies', 'check-in and check-out, cancellations, children, dogs, accessibility and parking'],
     ['Contact', '/contact', 'phone, email, enquiry form and frequently asked questions'],
     ['Our story', '/about', 'the history of the hotel'],
     ['Gift vouchers', '/gift-vouchers', 'gift vouchers'],

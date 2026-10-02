@@ -10,6 +10,8 @@ import { pickLocale, resolveTeamMember } from '@/lib/resolveLocale';
 import { isLocale, DEFAULT_LOCALE, type Locale } from '@/lib/locales';
 import PageHero from '@/components/PageHero';
 import TeamCard from '@/components/TeamCard';
+import Facilities from '@/components/Facilities';
+import ReviewsBand from '@/components/ReviewsBand';
 import SectionLabel from '@/components/SectionLabel';
 import { FadeUp, StaggerGrid, StaggerItem } from '@/components/Motion';
 
@@ -74,7 +76,11 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         </div>
       </section>
 
+      <Facilities />
+      <ReviewsBand />
+
       {/* Team */}
+      {team.length > 0 && (
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
         <FadeUp>
           <SectionLabel>{t('peopleLabel')}</SectionLabel>
@@ -86,6 +92,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           ))}
         </StaggerGrid>
       </section>
+      )}
 
       {/* Sustainability */}
       <section className="bg-canvasalt">
@@ -111,6 +118,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       </section>
 
       {/* Press */}
+      {pressMentions.length > 0 && (
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
         <FadeUp>
           <SectionLabel className="text-center">{t('inPrintLabel')}</SectionLabel>
@@ -130,6 +138,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           ))}
         </StaggerGrid>
       </section>
+      )}
     </>
   );
 }

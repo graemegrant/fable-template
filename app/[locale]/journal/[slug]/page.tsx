@@ -113,7 +113,7 @@ export default async function JournalPostPage({ params }: Props) {
               <PortableText value={post.body} />
             </article>
             <div className="mt-14 border-t border-ink/10 pt-8">
-              <Link href="/journal" className="font-body text-2xs uppercase tracking-25 text-accent transition-colors hover:text-primary">
+              <Link href="/journal" className="inline-flex min-h-11 items-center font-body text-2xs uppercase tracking-25 text-accent transition-colors hover:text-primary">
                 {t('backToJournal')}
               </Link>
             </div>
@@ -122,7 +122,7 @@ export default async function JournalPostPage({ params }: Props) {
           {/* Featured room sidebar */}
           {featuredRoom && (
             <aside>
-              <div className="border border-ink/10 bg-canvasalt p-8 lg:sticky lg:top-28">
+              <div className="rounded-card border border-ink/10 bg-canvasalt p-8 lg:sticky lg:top-28">
                 <SectionLabel>{t('stayWithUs')}</SectionLabel>
                 <Link href={`/rooms/${featuredRoom.slug}`} className="group mt-5 block">
                   <div className="relative aspect-landscape overflow-hidden rounded-img">
