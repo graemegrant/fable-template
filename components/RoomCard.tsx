@@ -11,8 +11,11 @@ import type { Room } from '@/lib/types';
    using server-only APIs can't be pulled into a client import graph.
    useTranslations works fine here since NextIntlClientProvider (root
    layout) already supplies messages to the whole client tree. */
-export default function RoomCard({ room }: { room: Room }) {
+/* headingLevel: 3 under a section h2 (homepage, related rooms); 2 on the
+   /rooms listing, where cards sit directly under the page h1. */
+export default function RoomCard({ room, headingLevel = 3 }: { room: Room; headingLevel?: 2 | 3 }) {
   const t = useTranslations('shared');
+  const Heading = headingLevel === 2 ? 'h2' : 'h3';
   return (
     <Link href={`/rooms/${room.slug}`} className="group block">
       <div className="relative aspect-portrait overflow-hidden rounded-img bg-canvasalt">
@@ -25,7 +28,7 @@ export default function RoomCard({ room }: { room: Room }) {
         />
       </div>
       <div className="pt-6">
-        <h3 className="font-heading text-2xl font-medium text-ink">{room.roomType}</h3>
+        <Heading className="font-heading text-2xl font-medium text-ink">{room.roomType}</Heading>
         {/* Only populated for the rare case where a physical room has its
             own name distinct from its category — see lib/types.ts Room. */}
         {room.name && (

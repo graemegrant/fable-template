@@ -4,10 +4,11 @@
  * Fixed bottom bar visible only on mobile for room detail pages.
  * Gives users a persistent booking CTA without the desktop sticky sidebar.
  * Sits above the cookie bar while consent is still pending so the primary
- * booking CTA is never covered (AGENTS.md §5).
+ * booking CTA is never covered (AGENTS.md §5), and steps aside while the
+ * booking modal is open (it would otherwise sit on top of it).
  */
 import { useTranslations } from 'next-intl';
-import { BookButton } from './BookingModal';
+import { BookButton, useBooking } from './BookingModal';
 import { useCookieConsent } from '@/lib/useCookieConsent';
 
 export default function MobileBookBar({
@@ -19,6 +20,9 @@ export default function MobileBookBar({
 }) {
   const t = useTranslations('shared');
   const consentDecided = useCookieConsent();
+  const { isOpen } = useBooking();
+
+  if (isOpen) return null;
 
   return (
     <div

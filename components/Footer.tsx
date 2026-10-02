@@ -131,16 +131,23 @@ export default function Footer() {
             <div className="mt-6">
               <NewsletterForm />
             </div>
-            <div className="mt-8 flex gap-6">
-              <a href={hotelConfig.contact.instagram} target="_blank" rel="noopener noreferrer"
-                className="font-body text-2xs uppercase tracking-25 text-canvas/70 transition-colors hover:text-accentondark">
-                {t('instagram')}
-              </a>
-              <a href={hotelConfig.contact.facebook} target="_blank" rel="noopener noreferrer"
-                className="font-body text-2xs uppercase tracking-25 text-canvas/70 transition-colors hover:text-accentondark">
-                {t('facebook')}
-              </a>
-            </div>
+            {/* Each profile link renders only when its URL is set in hotel.config. */}
+            {(hotelConfig.contact.instagram || hotelConfig.contact.facebook) && (
+              <div className="mt-8 flex gap-6">
+                {hotelConfig.contact.instagram && (
+                  <a href={hotelConfig.contact.instagram} target="_blank" rel="noopener noreferrer"
+                    className="font-body text-2xs uppercase tracking-25 text-canvas/70 transition-colors hover:text-accentondark">
+                    {t('instagram')}
+                  </a>
+                )}
+                {hotelConfig.contact.facebook && (
+                  <a href={hotelConfig.contact.facebook} target="_blank" rel="noopener noreferrer"
+                    className="font-body text-2xs uppercase tracking-25 text-canvas/70 transition-colors hover:text-accentondark">
+                    {t('facebook')}
+                  </a>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>

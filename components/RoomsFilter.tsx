@@ -50,7 +50,7 @@ export default function RoomsFilter({ rooms }: { rooms: Room[] }) {
       <StaggerGrid key={active} className="mt-12 grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((room) => (
           <StaggerItem key={room.slug}>
-            <RoomCard room={room} />
+            <RoomCard room={room} headingLevel={2} />
           </StaggerItem>
         ))}
       </StaggerGrid>

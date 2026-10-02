@@ -50,7 +50,7 @@ export default async function GiftVouchersPage({ params }: { params: Promise<{ l
                 </div>
                 <div className="flex grow flex-col p-8">
                   <SectionLabel>{v.price}</SectionLabel>
-                  <h3 className="mt-3 font-heading text-2xl font-medium text-ink">{pickLocale(v.name, locale)}</h3>
+                  <h2 className="mt-3 font-heading text-2xl font-medium text-ink">{pickLocale(v.name, locale)}</h2>
                   <p className="mt-4 grow font-body text-sm font-light leading-relaxed text-ink/75">{pickLocale(v.description, locale)}</p>
                   <Link
                     href="/contact"

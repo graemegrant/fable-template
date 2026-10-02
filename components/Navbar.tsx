@@ -70,7 +70,7 @@ export default function Navbar() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center px-6 py-5 lg:px-10">
-        <Link href="/" className="font-heading text-2xl font-medium tracking-wide text-canvas">
+        <Link href="/" className="shrink-0 whitespace-nowrap font-heading text-2xl font-medium tracking-wide text-canvas">
           {hotelConfig.name}
         </Link>
 
@@ -84,13 +84,13 @@ export default function Navbar() {
             language/CTA cluster fill it edge to edge — so both the item
             gap and the logo margin step down there and only open up at
             xl+, where there's actually room. */}
-        <nav className="hidden items-center gap-5 lg:ml-4 lg:flex xl:ml-10 xl:gap-6" aria-label="Main">
+        <nav className="hidden items-center gap-4 lg:ml-4 lg:flex xl:ml-10 xl:gap-6" aria-label="Main">
           {NAV.map((item) => (
             <div key={item.labelKey} className="group relative">
               {item.href ? (
                 <Link
                   href={item.href}
-                  className={`font-body text-2xs uppercase tracking-25 transition-colors ${
+                  className={`whitespace-nowrap font-body text-2xs uppercase tracking-18 transition-colors xl:tracking-25 ${
                     isActive(item) ? 'text-accentondark' : 'text-canvas hover:text-accentondark'
                   }`}
                 >
@@ -100,7 +100,7 @@ export default function Navbar() {
                 <button
                   type="button"
                   aria-haspopup="true"
-                  className={`font-body text-2xs uppercase tracking-25 transition-colors ${
+                  className={`whitespace-nowrap font-body text-2xs uppercase tracking-18 transition-colors xl:tracking-25 ${
                     isActive(item) ? 'text-accentondark' : 'text-canvas group-focus-within:text-accentondark group-hover:text-accentondark'
                   }`}
                 >
@@ -137,7 +137,9 @@ export default function Navbar() {
             {hotelConfig.contact.phone}
           </a>
 
-          {/* Language switcher — preserves the current page, only swaps locale */}
+          {/* Language switcher — preserves the current page, only swaps locale.
+              Hidden when the site has a single locale (nothing to switch to). */}
+          {LOCALES.length > 1 && (
           <div className="group relative">
             <button
               type="button"
@@ -165,8 +167,9 @@ export default function Navbar() {
               </ul>
             </div>
           </div>
+          )}
 
-          <BookButton className="rounded-ctrl border border-accentfill bg-accentfill px-6 py-3 font-body text-2xs uppercase tracking-25 text-onaccent transition-colors duration-300 hover:bg-transparent hover:text-accentondark" />
+          <BookButton className="whitespace-nowrap rounded-ctrl border border-accentfill bg-accentfill px-4 py-3 font-body text-2xs uppercase tracking-25 text-onaccent transition-colors duration-300 hover:bg-transparent hover:text-accentondark xl:px-6" />
         </div>
 
         {/* Mobile toggle — 48×48 hit area (WCAG 2.5.8). ml-auto pins it to the
@@ -232,7 +235,8 @@ export default function Navbar() {
               </div>
             ),
           )}
-          {/* Language switcher */}
+          {/* Language switcher — hidden for a single-locale site */}
+          {LOCALES.length > 1 && (
           <div className="flex items-center gap-5 border-b border-canvas/10 py-4" role="group" aria-label={tCommon('changeLanguage')}>
             {LOCALES.map((l) => (
               <Link
@@ -247,6 +251,7 @@ export default function Navbar() {
               </Link>
             ))}
           </div>
+          )}
 
           <div className="pt-6">
             <BookButton className="w-full rounded-ctrl bg-accentfill px-6 py-4 font-body text-2xs uppercase tracking-25 text-onaccent" />
