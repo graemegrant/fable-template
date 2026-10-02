@@ -7,6 +7,13 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Node 24 in `.nvmrc`** (was 20.11.0, end-of-life since April 2026).
+  New repos created via "Use this template" failed their first CI run:
+  a cold `npm ci` on Node 20.11 / npm 10.2.4 reports "Missing:
+  @swc/helpers@0.5.23 from lock file" on Linux even though the lockfile
+  is consistent; this repo only passed because of a warm npm cache. Node
+  24 matches Vercel and local builds. **Client repos:** pull this, and
+  set the Vercel project to Node 24 if it isn't already.
 - **Hotel-site standard (mobile-first, conversion, depth)** — see AGENTS.md
   §4a. Mobile: 44px tap targets, 16px form fields on phones (no iOS
   zoom), 11px minimum text, rounded corners everywhere, skip link, and a
