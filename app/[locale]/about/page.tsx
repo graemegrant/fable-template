@@ -130,7 +130,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 <blockquote className="font-heading text-xl font-medium italic leading-snug text-ink">
                   “{pickLocale(press.quote, locale)}”
                 </blockquote>
-                <figcaption className="mt-4 font-body text-2xs uppercase tracking-25 text-ink/50">
+                <figcaption className="mt-4 font-body text-2xs uppercase tracking-25 text-ink/70">
                   {press.outlet}
                 </figcaption>
               </figure>

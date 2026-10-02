@@ -76,7 +76,7 @@ export default async function OfferCard({
       </div>
       <div className="pt-6">
         <h3 className="font-heading text-2xl font-medium text-ink">{offer.title}</h3>
-        <p className="mt-2 font-body text-xs uppercase tracking-20 text-ink/60">{offer.subtitle}</p>
+        <p className="mt-2 font-body text-xs uppercase tracking-20 text-ink/70">{offer.subtitle}</p>
         <span className="mt-4 inline-block font-body text-2xs uppercase tracking-20 text-accent transition-colors group-hover:text-primary">
           {t('viewOffer')}
         </span>

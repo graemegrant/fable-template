@@ -51,7 +51,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
       <PageHero eyebrow={t('eyebrow')} title={t('title')} subtitle={t('subtitle')} image={IMG.dining1} />
       <section className="mx-auto max-w-3xl px-6 py-20 lg:py-28">
         <FadeUp>
-          <p className="font-body text-xs uppercase tracking-20 text-ink/50">{t('updated', values)}</p>
+          <p className="font-body text-xs uppercase tracking-20 text-ink/70">{t('updated', values)}</p>
           <div className="mt-10 space-y-12">
             {sections.map(([title, body]) => (
               <div key={title}>

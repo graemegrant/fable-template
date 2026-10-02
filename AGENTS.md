@@ -54,7 +54,7 @@ exposed to Tailwind by `tailwind.config.ts`):
 | `primary` | `#2B2119` | dark sections, primary buttons; headings and emphasis text on `canvas` |
 | `primarydeep` | `#1B1510` | deepest dark — gradient ends, overlays |
 | `accent` | `#785828` | accent text, rules and borders on light backgrounds |
-| `accentfill` | `#A67C3D` | solid accent surfaces — buttons, badges, banners |
+| `accentfill` | `#B08646` | solid accent surfaces — buttons, badges, banners (onaccent on it 4.75:1) |
 | `onaccent` | `#2B2119` | text and icons on an `accentfill` surface |
 | `accentondark` | `#E8C083` | accent text, rules and borders on dark backgrounds |
 | `canvas` | `#EFEAE1` | page background; text on `primary` |

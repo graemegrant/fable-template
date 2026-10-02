@@ -88,7 +88,7 @@ export default async function DiningPage({ params }: { params: Promise<{ locale:
                     {menu.items.map((item) => (
                       <li key={item.dish}>
                         <p className="font-heading text-lg font-medium text-ink">{item.dish}</p>
-                        <p className="mt-1 font-body text-sm font-light text-ink/65">{item.detail}</p>
+                        <p className="mt-1 font-body text-sm font-light text-ink/70">{item.detail}</p>
                       </li>
                     ))}
                   </ul>

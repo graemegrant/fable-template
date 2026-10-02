@@ -7,6 +7,12 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Contrast and hero CLS (SEO/Lighthouse pass).** Faded text `text-ink/50|60|65`
+  raised to `text-ink/70` (≥5.2:1 on canvas/canvasalt) across 18 files; footer
+  and 404 `text-canvas/50` → `/70` (was 4.38:1 on primary). `accentfill`
+  brightened `#A67C3D` → `#B08646` so `onaccent` text on it passes AA
+  (4.18:1 → 4.75:1). The hero no longer adds cookie-banner bottom padding
+  after hydration, which caused layout shift on first visit.
 - **Cookie banner in front of the booking bar.** On phones the banner wraps
   to 116–146px but the bar was offset by a fixed 4.25rem, so the bar
   covered it (at 360px "Accept all" couldn't be tapped). The banner is

@@ -49,7 +49,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
               <SectionLabel>{t('directlyLabel')}</SectionLabel>
               <dl className="mt-6 space-y-6">
                 <div>
-                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">{t('telephone')}</dt>
+                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/70">{t('telephone')}</dt>
                   <dd className="mt-1">
                     <a href={`tel:${hotelConfig.contact.phoneHref}`} className="inline-flex min-h-11 items-center font-heading text-xl font-medium text-primary">
                       {hotelConfig.contact.phone}
@@ -57,7 +57,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">{t('email')}</dt>
+                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/70">{t('email')}</dt>
                   <dd className="mt-1">
                     <a href={`mailto:${hotelConfig.contact.email}`} className="inline-flex min-h-11 items-center break-all font-heading text-xl font-medium text-primary">
                       {hotelConfig.contact.email}
@@ -65,7 +65,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">{t('address')}</dt>
+                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/70">{t('address')}</dt>
                   <dd className="mt-1 font-body text-sm leading-relaxed text-ink/80">
                     {hotelConfig.name}<br />
                     {hotelConfig.location.address}<br />
@@ -85,7 +85,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/50">{t('receptionHours')}</dt>
+                  <dt className="font-body text-2xs uppercase tracking-20 text-ink/70">{t('receptionHours')}</dt>
                   <dd className="mt-1 font-body text-sm leading-relaxed text-ink/80">
                     {pickLocale(hotelConfig.reception.display, locale)}
                   </dd>

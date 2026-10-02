@@ -30,7 +30,7 @@ export default function ExperienceCard({
       <div className="pt-6">
         <Heading className="font-heading text-2xl font-medium text-ink">{experience.name}</Heading>
         <div className="mt-3 flex items-center justify-between border-t border-ink/10 pt-4">
-          <p className="font-body text-xs uppercase tracking-20 text-ink/60">{experience.duration}</p>
+          <p className="font-body text-xs uppercase tracking-20 text-ink/70">{experience.duration}</p>
           <p className="font-body text-sm text-primary">{experience.price}</p>
         </div>
       </div>

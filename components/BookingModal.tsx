@@ -106,7 +106,7 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
 
   const field =
     'w-full rounded-ctrl border border-ink/20 bg-canvas px-4 py-3.5 font-body text-base text-ink focus:border-accent focus:outline-none sm:text-sm';
-  const label = 'block font-body text-2xs uppercase tracking-25 text-ink/60';
+  const label = 'block font-body text-2xs uppercase tracking-25 text-ink/70';
 
   return (
     <motion.div
@@ -127,7 +127,7 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
               <p className="font-body text-2xs uppercase tracking-30 text-accent">{t('directBooking')}</p>
               <h2 className="mt-2 font-heading text-3xl font-medium text-ink">{t('bookAStay')}</h2>
               {roomHint && (
-                <p className="mt-1 font-body text-xs text-ink/60">
+                <p className="mt-1 font-body text-xs text-ink/70">
                   {t('enquiringAbout')} <span className="text-primary">{roomHint}</span>
                 </p>
               )}
@@ -136,7 +136,7 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
               type="button"
               onClick={onClose}
               aria-label={t('close')}
-              className="font-body text-2xl leading-none text-ink/50 transition-colors hover:text-ink"
+              className="font-body text-2xl leading-none text-ink/70 transition-colors hover:text-ink"
             >
               ×
             </button>
@@ -197,11 +197,11 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
           <Link
             href="/policies"
             onClick={onClose}
-            className="mt-5 inline-block font-body text-xs text-ink/60 underline decoration-accent underline-offset-4 transition-colors hover:text-primary"
+            className="mt-5 inline-block font-body text-xs text-ink/70 underline decoration-accent underline-offset-4 transition-colors hover:text-primary"
           >
             {t('bookingInfo')}
           </Link>
-          <p className="mt-3 font-body text-xs text-ink/60">
+          <p className="mt-3 font-body text-xs text-ink/70">
             {t('preferToTalk')}{' '}
             <a href={`tel:${hotelConfig.contact.phoneHref}`} className="text-primary underline decoration-accent underline-offset-4">
               {hotelConfig.contact.phone}

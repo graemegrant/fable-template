@@ -9,7 +9,6 @@ import type { Locale } from '@/lib/locales';
 import { HeroEntrance } from './Motion';
 import { BookButton } from './BookingModal';
 import { imgSrc } from '@/lib/sanity';
-import { useCookieConsent } from '@/lib/useCookieConsent';
 
 /** Full-screen homepage hero with a slow Ken Burns drift and staged text entrance. */
 export default function KenBurnsHero({ image }: { image: unknown }) {
@@ -17,7 +16,6 @@ export default function KenBurnsHero({ image }: { image: unknown }) {
   // mobile viewports (AGENTS.md §5 — BookButton must stay reachable), so the
   // centered content reserves the same height the banner occupies elsewhere
   // (tailwind.config.ts `cookiebar` token) until the visitor makes a choice.
-  const consentDecided = useCookieConsent();
   const locale = useLocale() as Locale;
   const t = useTranslations('home');
 
@@ -54,7 +52,7 @@ export default function KenBurnsHero({ image }: { image: unknown }) {
         }}
       />
 
-      <div className={`relative px-6 pt-24 text-center ${consentDecided ? '' : 'pb-cookiebar'}`}>
+      <div className="relative px-6 pt-24 text-center">
         <HeroEntrance delay={0.2}>
           {/* Own dark badge rather than relying on the hero scrim: the
               scrim above is intentionally too light to guarantee 4.5:1 for
