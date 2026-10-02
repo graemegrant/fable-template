@@ -107,13 +107,13 @@ export default async function JournalPostPage({ params }: Props) {
         <div className="grid gap-16 lg:grid-cols-1fr-340">
           <FadeUp>
             <article className="max-w-3xl">
-              <p className="mb-10 border-l-2 border-gold pl-6 font-heading text-2xl font-medium italic leading-relaxed text-forest">
+              <p className="mb-10 border-l-2 border-accent pl-6 font-heading text-2xl font-medium italic leading-relaxed text-primary">
                 {post.excerpt}
               </p>
               <PortableText value={post.body} />
             </article>
             <div className="mt-14 border-t border-ink/10 pt-8">
-              <Link href="/journal" className="font-body text-2xs uppercase tracking-25 text-gold transition-colors hover:text-forest">
+              <Link href="/journal" className="font-body text-2xs uppercase tracking-25 text-accent transition-colors hover:text-primary">
                 {t('backToJournal')}
               </Link>
             </div>
@@ -122,7 +122,7 @@ export default async function JournalPostPage({ params }: Props) {
           {/* Featured room sidebar */}
           {featuredRoom && (
             <aside>
-              <div className="border border-ink/10 bg-warmgrey p-8 lg:sticky lg:top-28">
+              <div className="border border-ink/10 bg-canvasalt p-8 lg:sticky lg:top-28">
                 <SectionLabel>{t('stayWithUs')}</SectionLabel>
                 <Link href={`/rooms/${featuredRoom.slug}`} className="group mt-5 block">
                   <div className="relative aspect-landscape overflow-hidden rounded-img">
@@ -136,9 +136,9 @@ export default async function JournalPostPage({ params }: Props) {
                   </div>
                   <h3 className="mt-5 font-heading text-2xl font-medium text-ink">{featuredRoom.roomType}</h3>
                   <p className="mt-2 font-body text-sm text-ink/70">
-                    {t('from')} <span className="font-heading text-lg text-forest">£{featuredRoom.rate}</span> {t('perNight')}
+                    {t('from')} <span className="font-heading text-lg text-primary">£{featuredRoom.rate}</span> {t('perNight')}
                   </p>
-                  <span className="mt-4 inline-block font-body text-2xs uppercase tracking-20 text-gold transition-colors group-hover:text-forest">
+                  <span className="mt-4 inline-block font-body text-2xs uppercase tracking-20 text-accent transition-colors group-hover:text-primary">
                     {t('viewTheRoom')}
                   </span>
                 </Link>

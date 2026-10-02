@@ -22,7 +22,7 @@ export default function KenBurnsHero({ image }: { image: unknown }) {
   const t = useTranslations('home');
 
   return (
-    <section className="relative flex min-h-85vh items-center justify-center overflow-hidden bg-forest">
+    <section className="relative flex min-h-85vh items-center justify-center overflow-hidden bg-primary">
       <div className="animate-kenburns absolute inset-0">
         <Image
           src={imgSrc(image, 1920)}
@@ -59,17 +59,17 @@ export default function KenBurnsHero({ image }: { image: unknown }) {
           {/* Own dark badge rather than relying on the hero scrim: the
               scrim above is intentionally too light to guarantee 4.5:1 for
               small text on its own — measured ~5.8:1 against this badge. */}
-          <p className="inline-block rounded-full bg-forestdeep/60 px-5 py-2 font-body text-2xs uppercase tracking-40 text-goldbright backdrop-blur-sm">
+          <p className="inline-block rounded-full bg-primarydeep/60 px-5 py-2 font-body text-2xs uppercase tracking-40 text-accentondark backdrop-blur-sm">
             {pickLocale(hotelConfig.seo.descriptor, locale)} · {pickLocale(hotelConfig.seo.locationLabel, locale)}
           </p>
         </HeroEntrance>
         <HeroEntrance delay={0.45}>
-          <h1 className="mt-6 font-heading text-6xl font-medium leading-none text-parchment drop-shadow-sm md:text-8xl">
+          <h1 className="mt-6 font-heading text-6xl font-medium leading-none text-canvas drop-shadow-sm md:text-8xl">
             {hotelConfig.name}
           </h1>
         </HeroEntrance>
         <HeroEntrance delay={0.7}>
-          <p className="mt-6 font-heading text-xl font-medium italic text-parchment/90 drop-shadow-sm md:text-2xl">
+          <p className="mt-6 font-heading text-xl font-medium italic text-canvas/90 drop-shadow-sm md:text-2xl">
             {pickLocale(hotelConfig.tagline, locale)}
           </p>
         </HeroEntrance>
@@ -77,10 +77,10 @@ export default function KenBurnsHero({ image }: { image: unknown }) {
           {/* One primary CTA (booking, solid) per AGENTS.md §5; rooms is the
               quieter secondary. */}
           <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <BookButton className="w-64 rounded-ctrl bg-gold px-8 py-4 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-parchment sm:w-auto" />
+            <BookButton className="w-64 rounded-ctrl bg-accentfill px-8 py-4 font-body text-2xs uppercase tracking-25 text-onaccent transition-colors duration-300 hover:bg-canvas hover:text-primary sm:w-auto" />
             <Link
               href="/rooms"
-              className="w-64 rounded-ctrl border border-parchment/60 px-8 py-4 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-parchment hover:text-forest sm:w-auto"
+              className="w-64 rounded-ctrl border border-canvas/60 px-8 py-4 font-body text-2xs uppercase tracking-25 text-canvas transition-colors duration-300 hover:bg-canvas hover:text-primary sm:w-auto"
             >
               {t('viewTheRooms')}
             </Link>
@@ -89,7 +89,7 @@ export default function KenBurnsHero({ image }: { image: unknown }) {
       </div>
 
       <HeroEntrance delay={1.4} className="absolute bottom-10 left-1/2 -translate-x-1/2">
-        <div className="h-14 w-px bg-parchment/40" aria-hidden />
+        <div className="h-14 w-px bg-canvas/40" aria-hidden />
       </HeroEntrance>
     </section>
   );

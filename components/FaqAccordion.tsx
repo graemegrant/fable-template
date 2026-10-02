@@ -17,7 +17,7 @@ export default function FaqAccordion({ items }: { items: { q: string; a: string 
               aria-expanded={open === i}
             >
               <span className="font-heading text-xl font-medium text-ink">{item.q}</span>
-              <span className={`shrink-0 font-body text-xl text-gold transition-transform duration-300 ${open === i ? 'rotate-45' : ''}`}>
+              <span className={`shrink-0 font-body text-xl text-accent transition-transform duration-300 ${open === i ? 'rotate-45' : ''}`}>
                 +
               </span>
             </button>

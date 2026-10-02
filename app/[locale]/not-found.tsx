@@ -16,31 +16,31 @@ export const metadata: Metadata = {
 export default async function NotFound() {
   const locale = (await getLocale()) as Locale;
   return (
-    <div className="flex min-h-screen items-center justify-center bg-forest px-6">
+    <div className="flex min-h-screen items-center justify-center bg-primary px-6">
       <PageFade className="max-w-xl text-center">
-        <SectionLabel variant="parchment">Page not found</SectionLabel>
-        <h1 className="mt-6 font-heading text-6xl font-medium text-parchment">
+        <SectionLabel variant="ondark">Page not found</SectionLabel>
+        <h1 className="mt-6 font-heading text-6xl font-medium text-canvas">
           You’ve wandered off the path.
         </h1>
-        <p className="mt-6 font-body text-base font-light leading-relaxed text-parchment/75">
+        <p className="mt-6 font-body text-base font-light leading-relaxed text-canvas/75">
           It happens on four hundred acres. The page you’re after isn’t here — but the house is
           just over the rise, and the fire is lit.
         </p>
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link
             href="/"
-            className="rounded-ctrl bg-gold px-8 py-4 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-parchment"
+            className="rounded-ctrl bg-accentfill px-8 py-4 font-body text-2xs uppercase tracking-25 text-onaccent transition-colors duration-300 hover:bg-canvas hover:text-primary"
           >
             Back to the house
           </Link>
           <Link
             href="/contact"
-            className="rounded-ctrl border border-parchment/60 px-8 py-4 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-parchment hover:text-forest"
+            className="rounded-ctrl border border-canvas/60 px-8 py-4 font-body text-2xs uppercase tracking-25 text-canvas transition-colors duration-300 hover:bg-canvas hover:text-primary"
           >
             Ask for directions
           </Link>
         </div>
-        <p className="mt-10 font-body text-xs text-parchment/50">
+        <p className="mt-10 font-body text-xs text-canvas/50">
           {hotelConfig.name} · {pickLocale(hotelConfig.location.regionLabel, locale)}
         </p>
       </PageFade>

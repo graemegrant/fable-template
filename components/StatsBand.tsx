@@ -36,7 +36,7 @@ function StatItem({ stat }: { stat: Stat }) {
 
   return (
     <div ref={ref}>
-      <div className="font-heading text-4xl text-forest md:text-5xl">
+      <div className="font-heading text-4xl text-primary md:text-5xl">
         {stat.render(display)}
       </div>
       <div className="mt-2 font-body text-2xs uppercase leading-relaxed tracking-18 text-ink/60">
@@ -65,7 +65,7 @@ export default function StatsBand() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-      className="mx-auto grid max-w-7xl grid-cols-2 gap-8 border-t border-gold/30 px-6 pt-12 md:grid-cols-4 lg:px-10"
+      className="mx-auto grid max-w-7xl grid-cols-2 gap-8 border-t border-accent/30 px-6 pt-12 md:grid-cols-4 lg:px-10"
     >
       {stats.map((s) => (
         <StatItem key={s.label} stat={s} />

@@ -45,7 +45,7 @@ export default async function GiftVouchersPage({ params }: { params: Promise<{ l
           {voucherTypes.map((v, i) => (
             <StaggerItem key={i}>
               <article className="flex h-full flex-col border border-ink/10">
-                <div className="relative aspect-landscape overflow-hidden bg-warmgrey">
+                <div className="relative aspect-landscape overflow-hidden bg-canvasalt">
                   <Image src={v.image} alt={pickLocale(v.name, locale) ?? ''} fill sizes="(min-width: 1024px) 33vw, 100vw" className="object-cover" />
                 </div>
                 <div className="flex grow flex-col p-8">
@@ -54,7 +54,7 @@ export default async function GiftVouchersPage({ params }: { params: Promise<{ l
                   <p className="mt-4 grow font-body text-sm font-light leading-relaxed text-ink/75">{pickLocale(v.description, locale)}</p>
                   <Link
                     href="/contact"
-                    className="mt-8 block rounded-ctrl bg-forest px-8 py-4 text-center font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest"
+                    className="mt-8 block rounded-ctrl bg-primary px-8 py-4 text-center font-body text-2xs uppercase tracking-25 text-canvas transition-colors duration-300 hover:bg-accentfill hover:text-onaccent"
                   >
                     {t('purchaseThis')}
                   </Link>
@@ -67,7 +67,7 @@ export default async function GiftVouchersPage({ params }: { params: Promise<{ l
         <FadeUp className="mt-16 border-t border-ink/10 pt-10 text-center">
           <p className="font-body text-sm text-ink/70">
             {t('phonePrefix')}{' '}
-            <a href={`tel:${hotelConfig.contact.phoneHref}`} className="text-forest underline decoration-gold underline-offset-4">
+            <a href={`tel:${hotelConfig.contact.phoneHref}`} className="text-primary underline decoration-accent underline-offset-4">
               {hotelConfig.contact.phone}
             </a>{' '}
             {t('phoneSuffix')}

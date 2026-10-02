@@ -86,12 +86,12 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
   }
 
   const field =
-    'w-full rounded-ctrl border border-ink/20 bg-parchment px-4 py-3.5 font-body text-sm text-ink focus:border-gold focus:outline-none';
+    'w-full rounded-ctrl border border-ink/20 bg-canvas px-4 py-3.5 font-body text-sm text-ink focus:border-accent focus:outline-none';
   const label = 'block font-body text-2xs uppercase tracking-25 text-ink/60';
 
   return (
     <motion.div
-      className="fixed inset-0 z-60 flex items-center justify-center bg-forest/70 px-4"
+      className="fixed inset-0 z-60 flex items-center justify-center bg-primary/70 px-4"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -102,14 +102,14 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
       aria-label={t('bookAStay')}
     >
       <ModalEntrance className="w-full max-w-lg">
-        <div className="bg-parchment p-8 sm:p-10" onClick={(e) => e.stopPropagation()}>
+        <div className="bg-canvas p-8 sm:p-10" onClick={(e) => e.stopPropagation()}>
           <div className="flex items-start justify-between">
             <div>
-              <p className="font-body text-2xs uppercase tracking-30 text-gold">{t('directBooking')}</p>
+              <p className="font-body text-2xs uppercase tracking-30 text-accent">{t('directBooking')}</p>
               <h2 className="mt-2 font-heading text-3xl font-medium text-ink">{t('bookAStay')}</h2>
               {roomHint && (
                 <p className="mt-1 font-body text-xs text-ink/60">
-                  {t('enquiringAbout')} <span className="text-forest">{roomHint}</span>
+                  {t('enquiringAbout')} <span className="text-primary">{roomHint}</span>
                 </p>
               )}
             </div>
@@ -164,7 +164,7 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
             </div>
             <button
               type="submit"
-              className="w-full rounded-ctrl bg-forest px-8 py-4 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest"
+              className="w-full rounded-ctrl bg-primary px-8 py-4 font-body text-2xs uppercase tracking-25 text-canvas transition-colors duration-300 hover:bg-accentfill hover:text-onaccent"
             >
               {tCommon('checkAvailability')}
             </button>
@@ -173,13 +173,13 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
           <ul className="mt-7 space-y-2 border-t border-ink/10 pt-6">
             {hotelConfig.trustItems.map((item, i) => (
               <li key={i} className="flex items-center gap-3 font-body text-xs text-ink/70">
-                <span className="h-px w-4 bg-gold" aria-hidden /> {pickLocale(item, locale)}
+                <span className="h-px w-4 bg-accent" aria-hidden /> {pickLocale(item, locale)}
               </li>
             ))}
           </ul>
           <p className="mt-5 font-body text-xs text-ink/60">
             {t('preferToTalk')}{' '}
-            <a href={`tel:${hotelConfig.contact.phoneHref}`} className="text-forest underline decoration-gold underline-offset-4">
+            <a href={`tel:${hotelConfig.contact.phoneHref}`} className="text-primary underline decoration-accent underline-offset-4">
               {hotelConfig.contact.phone}
             </a>
           </p>

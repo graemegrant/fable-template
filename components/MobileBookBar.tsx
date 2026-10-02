@@ -22,7 +22,7 @@ export default function MobileBookBar({
 
   return (
     <div
-      className={`fixed inset-x-0 z-80 flex items-center justify-between gap-4 border-t border-ink/10 bg-parchment px-5 py-4 shadow-lg lg:hidden ${
+      className={`fixed inset-x-0 z-80 flex items-center justify-between gap-4 border-t border-ink/10 bg-canvas px-5 py-4 shadow-lg lg:hidden ${
         consentDecided ? 'bottom-0' : 'bottom-cookiebar'
       }`}
     >
@@ -30,12 +30,12 @@ export default function MobileBookBar({
         <p className="truncate font-body text-3xs uppercase tracking-20 text-ink/50">
           {roomName}
         </p>
-        <p className="font-heading text-2xl font-medium leading-none text-forest">
+        <p className="font-heading text-2xl font-medium leading-none text-primary">
           £{rate}
           <span className="font-body text-xs font-light text-ink/60"> {t('perNight')}</span>
         </p>
       </div>
-      <BookButton roomHint={roomName} className="shrink-0 rounded-ctrl bg-forest px-6 py-3.5 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest" />
+      <BookButton roomHint={roomName} className="shrink-0 rounded-ctrl bg-primary px-6 py-3.5 font-body text-2xs uppercase tracking-25 text-canvas transition-colors duration-300 hover:bg-accentfill hover:text-onaccent" />
     </div>
   );
 }

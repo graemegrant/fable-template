@@ -62,7 +62,7 @@ export default async function WeddingsPage({ params }: { params: Promise<{ local
         </div>
       </section>
 
-      <section className="bg-warmgrey">
+      <section className="bg-canvasalt">
         <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
           <FadeUp>
             <SectionLabel>{t('settingsLabel')}</SectionLabel>
@@ -72,12 +72,12 @@ export default async function WeddingsPage({ params }: { params: Promise<{ local
             {venues.map((v) => (
               <StaggerItem key={v.name}>
                 <article>
-                  <div className="relative aspect-landscape overflow-hidden bg-parchment">
+                  <div className="relative aspect-landscape overflow-hidden bg-canvas">
                     <Image src={v.image} alt={v.name} fill sizes="(min-width: 1024px) 33vw, 100vw" className="object-cover" />
                   </div>
                   <div className="pt-6">
                     <h3 className="font-heading text-2xl font-medium text-ink">{v.name}</h3>
-                    <p className="mt-1 font-body text-2xs uppercase tracking-25 text-gold">{v.capacity}</p>
+                    <p className="mt-1 font-body text-2xs uppercase tracking-25 text-accent">{v.capacity}</p>
                     <p className="mt-4 font-body text-sm font-light leading-relaxed text-ink/75">{v.detail}</p>
                   </div>
                 </article>
@@ -87,19 +87,19 @@ export default async function WeddingsPage({ params }: { params: Promise<{ local
         </div>
       </section>
 
-      <section className="bg-forest">
+      <section className="bg-primary">
         <div className="mx-auto max-w-4xl px-6 py-24 text-center lg:py-32">
           <FadeUp>
-            <SectionLabel variant="parchment">{t('beginLabel')}</SectionLabel>
-            <h2 className="mt-6 font-heading text-4xl font-medium leading-tight text-parchment md:text-6xl">
+            <SectionLabel variant="ondark">{t('beginLabel')}</SectionLabel>
+            <h2 className="mt-6 font-heading text-4xl font-medium leading-tight text-canvas md:text-6xl">
               {t('beginHeadingLine1')}<br />{t('beginHeadingLine2')}
             </h2>
-            <p className="mx-auto mt-6 max-w-xl font-body text-base font-light leading-relaxed text-parchment/75">
+            <p className="mx-auto mt-6 max-w-xl font-body text-base font-light leading-relaxed text-canvas/75">
               {t('beginBody')}
             </p>
             <Link
               href="/contact"
-              className="mt-10 inline-block rounded-ctrl bg-gold px-10 py-4 font-body text-2xs uppercase tracking-25 text-forest transition-colors duration-300 hover:bg-parchment"
+              className="mt-10 inline-block rounded-ctrl bg-accentfill px-10 py-4 font-body text-2xs uppercase tracking-25 text-onaccent transition-colors duration-300 hover:bg-canvas hover:text-primary"
             >
               {t('enquireDate')}
             </Link>

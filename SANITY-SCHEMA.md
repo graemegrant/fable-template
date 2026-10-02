@@ -23,7 +23,7 @@ to design, not something to assume is already built.
 1. Confirm `lib/locales.ts` — the client's locale set drives the fields
    generated below, so set this before the Sanity project is populated
 2. Fully rewrite `hotel.config.ts` (client identity — see §4 of AGENTS.md)
-3. Re-skin `tailwind.config.ts` (seven brand tokens)
+3. Re-skin `lib/tokens.ts` (nine brand tokens)
 4. Set up the client's Sanity project, point env vars at it
 5. Populate the six collections below with real content
 6. Only then move to page-level copy/layout changes

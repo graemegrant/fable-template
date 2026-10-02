@@ -15,7 +15,7 @@ export default function RoomCard({ room }: { room: Room }) {
   const t = useTranslations('shared');
   return (
     <Link href={`/rooms/${room.slug}`} className="group block">
-      <div className="relative aspect-portrait overflow-hidden rounded-img bg-warmgrey">
+      <div className="relative aspect-portrait overflow-hidden rounded-img bg-canvasalt">
         <Image
           src={imgSrc(room.heroImage, 1000)}
           alt={room.imageAlt ?? `${room.roomType}${room.view ? ` — ${room.view}` : ''}`}
@@ -37,7 +37,7 @@ export default function RoomCard({ room }: { room: Room }) {
         <div className="mt-4 flex items-center justify-between border-t border-ink/10 pt-4">
           <div>
             <p className="font-body text-sm text-ink/80">
-              {t('from')} <span className="font-heading text-xl text-forest">£{room.rate}</span> {t('perNight')}
+              {t('from')} <span className="font-heading text-xl text-primary">£{room.rate}</span> {t('perNight')}
             </p>
             {/* Display copy only — never drives availability (AGENTS.md
                 philosophy: the booking engine owns inventory, not the
@@ -47,7 +47,7 @@ export default function RoomCard({ room }: { room: Room }) {
               <p className="mt-0.5 font-body text-xs text-ink/50">{t('roomsAvailable', { count: room.roomCount })}</p>
             )}
           </div>
-          <span className="font-body text-2xs uppercase tracking-20 text-gold transition-colors group-hover:text-forest">
+          <span className="font-body text-2xs uppercase tracking-20 text-accent transition-colors group-hover:text-primary">
             {t('viewRoom')}
           </span>
         </div>

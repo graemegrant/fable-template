@@ -5,7 +5,7 @@ Production-ready luxury hotel website. Clone this repo and update `hotel.config.
 ## Tech Stack
 
 - **Next.js 15** (App Router, TypeScript, strict mode)
-- **Tailwind CSS** — custom design tokens: `forest`, `gold`, `parchment`, `warmgrey`, `ink`
+- **Tailwind CSS** — custom design tokens: `primary`, `primarydeep`, `accent`, `accentfill`, `onaccent`, `accentondark`, `canvas`, `canvasalt`, `ink`
 - **Sanity v3** — headless CMS; app runs in static-fallback mode when Sanity is not configured
 - **Framer Motion** — page transitions, stagger reveals, hero entrance
 - **Resend** — contact/enquiry email; silent no-op when API key is absent
@@ -124,7 +124,7 @@ Access Sanity Studio at `/studio` (requires `NEXT_PUBLIC_SANITY_PROJECT_ID`).
 | Component | Purpose |
 |---|---|
 | `KenBurnsHero` | Full-screen homepage hero with CSS Ken Burns pan |
-| `Navbar` | Scroll-aware (transparent → forest), dropdown nav, mobile accordion |
+| `Navbar` | Scroll-aware (transparent → primary), dropdown nav, mobile accordion |
 | `Footer` | 4-column layout, newsletter signup |
 | `BookingModal` | Context-driven booking widget; collects dates/guests/rooms |
 | `BookButton` | Trigger for BookingModal, usable anywhere |

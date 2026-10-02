@@ -30,7 +30,7 @@ export function renderOgImage({
           flexDirection: 'column',
           justifyContent: 'space-between',
           padding: '76px 80px',
-          background: palette.forest,
+          background: palette.primary,
           fontFamily: 'Georgia, "Times New Roman", serif',
         }}
       >
@@ -40,7 +40,7 @@ export function renderOgImage({
             fontSize: 24,
             letterSpacing: 6,
             textTransform: 'uppercase',
-            color: palette.goldbright,
+            color: palette.accentondark,
           }}
         >
           {eyebrow ?? `${pickLocale(hotelConfig.seo.descriptor, DEFAULT_LOCALE)} · ${pickLocale(hotelConfig.seo.locationLabel, DEFAULT_LOCALE)}`}
@@ -50,7 +50,7 @@ export function renderOgImage({
             display: 'flex',
             fontSize: 82,
             lineHeight: 1.06,
-            color: palette.parchment,
+            color: palette.canvas,
             maxWidth: 960,
           }}
         >
@@ -62,11 +62,11 @@ export function renderOgImage({
             justifyContent: 'space-between',
             alignItems: 'flex-end',
             fontSize: 24,
-            color: palette.parchment,
+            color: palette.canvas,
           }}
         >
           <span>{hotelConfig.name}</span>
-          <span style={{ color: palette.gold }}>
+          <span style={{ color: palette.accentondark }}>
             {footer ?? new URL(hotelConfig.siteUrl).host}
           </span>
         </div>

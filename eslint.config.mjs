@@ -45,7 +45,7 @@ const eslintConfig = [
 
       // No inline hex colours in className or style props anywhere in
       // app/ or components/. If a design needs a colour outside the
-      // seven brand tokens, it goes into tailwind.config.ts as a named
+      // nine brand tokens, it goes into tailwind.config.ts as a named
       // token — never inlined at the call site.
       'no-restricted-syntax': [
         'error',

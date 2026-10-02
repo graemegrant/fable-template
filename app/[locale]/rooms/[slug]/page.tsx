@@ -126,7 +126,7 @@ export default async function RoomDetailPage({ params }: Props) {
               <ul className="mt-6 grid gap-x-10 gap-y-3 sm:grid-cols-2">
                 {room.amenities.map((a) => (
                   <li key={a} className="flex gap-3 font-body text-sm text-ink/80">
-                    <span className="mt-9px h-px w-5 shrink-0 bg-gold" aria-hidden />
+                    <span className="mt-9px h-px w-5 shrink-0 bg-accent" aria-hidden />
                     {a}
                   </li>
                 ))}
@@ -145,9 +145,9 @@ export default async function RoomDetailPage({ params }: Props) {
 
           {/* Sticky booking sidebar */}
           <aside>
-            <div className="border border-ink/10 bg-warmgrey p-8 lg:sticky lg:top-28">
+            <div className="border border-ink/10 bg-canvasalt p-8 lg:sticky lg:top-28">
               <p className="font-body text-2xs uppercase tracking-25 text-ink/60">{t('from')}</p>
-              <p className="mt-2 font-heading text-5xl font-medium text-forest">
+              <p className="mt-2 font-heading text-5xl font-medium text-primary">
                 £{room.rate}
                 <span className="font-body text-sm font-light text-ink/60"> {t('perNight')}</span>
               </p>
@@ -164,17 +164,17 @@ export default async function RoomDetailPage({ params }: Props) {
                   </div>
                 ))}
               </dl>
-              <BookButton roomHint={room.roomType} className="mt-8 w-full rounded-ctrl bg-forest px-8 py-4 font-body text-2xs uppercase tracking-25 text-parchment transition-colors duration-300 hover:bg-gold hover:text-forest" />
+              <BookButton roomHint={room.roomType} className="mt-8 w-full rounded-ctrl bg-primary px-8 py-4 font-body text-2xs uppercase tracking-25 text-canvas transition-colors duration-300 hover:bg-accentfill hover:text-onaccent" />
               <p className="mt-5 text-center font-body text-xs text-ink/60">
                 {t('orCall')}{' '}
-                <a href={`tel:${hotelConfig.contact.phoneHref}`} className="text-forest underline decoration-gold underline-offset-4">
+                <a href={`tel:${hotelConfig.contact.phoneHref}`} className="text-primary underline decoration-accent underline-offset-4">
                   {hotelConfig.contact.phone}
                 </a>
               </p>
               <ul className="mt-6 space-y-2 border-t border-ink/10 pt-6">
                 {hotelConfig.trustItems.slice(0, 3).map((item, i) => (
                   <li key={i} className="flex items-center gap-3 font-body text-xs text-ink/70">
-                    <span className="h-px w-4 bg-gold" aria-hidden /> {pickLocale(item, locale)}
+                    <span className="h-px w-4 bg-accent" aria-hidden /> {pickLocale(item, locale)}
                   </li>
                 ))}
               </ul>
@@ -184,7 +184,7 @@ export default async function RoomDetailPage({ params }: Props) {
       </section>
 
       {/* Related rooms */}
-      <section className="bg-warmgrey">
+      <section className="bg-canvasalt">
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
           <FadeUp>
             <SectionLabel>{t('alsoWorthLook')}</SectionLabel>

@@ -37,7 +37,7 @@ export default function GalleryLightbox({ images, alt }: { images: unknown[]; al
             key={i}
             type="button"
             onClick={() => setOpenIndex(i)}
-            className={`group relative overflow-hidden bg-warmgrey ${i === 0 ? 'col-span-2 row-span-2 aspect-landscape' : 'aspect-landscape'}`}
+            className={`group relative overflow-hidden bg-canvasalt ${i === 0 ? 'col-span-2 row-span-2 aspect-landscape' : 'aspect-landscape'}`}
             aria-label={t('galleryOpenPhoto', { n: i + 1, total: srcs.length })}
           >
             <Image
@@ -54,7 +54,7 @@ export default function GalleryLightbox({ images, alt }: { images: unknown[]; al
       <AnimatePresence>
         {openIndex !== null && (
           <motion.div
-            className="fixed inset-0 z-80 flex items-center justify-center bg-forest/95 p-4"
+            className="fixed inset-0 z-80 flex items-center justify-center bg-primary/95 p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -64,12 +64,12 @@ export default function GalleryLightbox({ images, alt }: { images: unknown[]; al
             aria-modal="true"
             aria-label={t('galleryTitle')}
           >
-            <button type="button" className="absolute right-6 top-6 font-body text-3xl text-parchment/70 hover:text-parchment" aria-label={t('galleryClose')}>
+            <button type="button" className="absolute right-6 top-6 font-body text-3xl text-canvas/70 hover:text-canvas" aria-label={t('galleryClose')}>
               ×
             </button>
             <button
               type="button"
-              className="absolute left-4 top-1/2 -translate-y-1/2 p-4 font-body text-2xl text-parchment/70 hover:text-parchment md:left-10"
+              className="absolute left-4 top-1/2 -translate-y-1/2 p-4 font-body text-2xl text-canvas/70 hover:text-canvas md:left-10"
               onClick={(e) => { e.stopPropagation(); setOpenIndex((openIndex - 1 + srcs.length) % srcs.length); }}
               aria-label={t('galleryPrevious')}
             >
@@ -80,13 +80,13 @@ export default function GalleryLightbox({ images, alt }: { images: unknown[]; al
             </div>
             <button
               type="button"
-              className="absolute right-4 top-1/2 -translate-y-1/2 p-4 font-body text-2xl text-parchment/70 hover:text-parchment md:right-10"
+              className="absolute right-4 top-1/2 -translate-y-1/2 p-4 font-body text-2xl text-canvas/70 hover:text-canvas md:right-10"
               onClick={(e) => { e.stopPropagation(); setOpenIndex((openIndex + 1) % srcs.length); }}
               aria-label={t('galleryNext')}
             >
               →
             </button>
-            <p className="absolute bottom-6 font-body text-xs uppercase tracking-25 text-parchment/60">
+            <p className="absolute bottom-6 font-body text-xs uppercase tracking-25 text-canvas/60">
               {openIndex + 1} / {srcs.length}
             </p>
           </motion.div>

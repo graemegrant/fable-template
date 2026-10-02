@@ -23,7 +23,7 @@ export default async function JournalCard({
   const locale = (await getLocale()) as Locale;
   if (variant === 'featured') {
     return (
-      <Link href={`/journal/${post.slug}`} className="group grid gap-0 bg-forest md:grid-cols-2">
+      <Link href={`/journal/${post.slug}`} className="group grid gap-0 bg-primary md:grid-cols-2">
         <div className="relative aspect-landscape overflow-hidden rounded-img md:aspect-auto md:min-h-480px">
           <Image
             src={imgSrc(post.heroImage)}
@@ -34,15 +34,15 @@ export default async function JournalCard({
           />
         </div>
         <div className="flex flex-col justify-center p-10 lg:p-16">
-          <SectionLabel variant="parchment">{post.category} — {t('featuredSuffix')}</SectionLabel>
-          <h2 className="mt-5 font-heading text-3xl font-medium leading-tight text-parchment md:text-4xl">
+          <SectionLabel variant="ondark">{post.category} — {t('featuredSuffix')}</SectionLabel>
+          <h2 className="mt-5 font-heading text-3xl font-medium leading-tight text-canvas md:text-4xl">
             {post.title}
           </h2>
-          <p className="mt-5 font-body text-sm font-light leading-relaxed text-parchment/75">{post.excerpt}</p>
-          <p className="mt-8 font-body text-2xs uppercase tracking-25 text-parchment/60">
+          <p className="mt-5 font-body text-sm font-light leading-relaxed text-canvas/75">{post.excerpt}</p>
+          <p className="mt-8 font-body text-2xs uppercase tracking-25 text-canvas/60">
             {post.author} · {formatDate(post.publishedAt, locale)} · {post.readingTime}
           </p>
-          <span className="mt-6 font-body text-2xs uppercase tracking-25 text-gold">{t('readTheStory')}</span>
+          <span className="mt-6 font-body text-2xs uppercase tracking-25 text-accent">{t('readTheStory')}</span>
         </div>
       </Link>
     );
@@ -50,7 +50,7 @@ export default async function JournalCard({
 
   return (
     <Link href={`/journal/${post.slug}`} className="group block">
-      <div className="relative aspect-wide overflow-hidden rounded-img bg-warmgrey">
+      <div className="relative aspect-wide overflow-hidden rounded-img bg-canvasalt">
         <Image
           src={imgSrc(post.heroImage, 1000)}
           alt={post.title}
