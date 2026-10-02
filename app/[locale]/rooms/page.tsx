@@ -72,7 +72,7 @@ export default async function RoomsPage({ params }: { params: Promise<{ locale: 
                 {rooms.map((room) => (
                   <tr key={room.slug} className="font-body text-sm text-ink/85">
                     <th scope="row" className="px-6 py-5 font-heading text-lg font-medium text-ink">
-                      <Link href={`/rooms/${room.slug}`} className="transition-colors hover:text-accent">{room.roomType}</Link>
+                      <Link href={`/rooms/${room.slug}`} className="inline-flex min-h-11 items-center transition-colors hover:text-accent">{room.roomType}</Link>
                     </th>
                     {showSize && <td className="hidden px-6 py-5 sm:table-cell">{room.sqm ? `${room.sqm} ${t('sqmUnit')}` : '—'}</td>}
                     <td className="px-6 py-5">{room.occupancy}</td>
