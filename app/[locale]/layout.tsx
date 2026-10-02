@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next';
-import Script from 'next/script';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
@@ -14,6 +13,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CookieBanner from '@/components/CookieBanner';
 import { BookingProvider } from '@/components/BookingModal';
+import Analytics from '@/components/Analytics';
 import { SiteMobileBookBar } from '@/components/MobileBookBar';
 import '../globals.css';
 
@@ -103,17 +103,8 @@ export default async function LocaleLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(lodgingSchema) }}
         />
-        {ga4Id && (
-          <>
-            <Script src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`} strategy="afterInteractive" />
-            <Script id="ga4" strategy="afterInteractive">
-              {`window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${ga4Id}');`}
-            </Script>
-          </>
-        )}
+        {/* Analytics loads only after cookie consent — see components/Analytics.tsx */}
+        {ga4Id && <Analytics id={ga4Id} />}
         <NextIntlClientProvider messages={messages}>
           <MotionProvider>
             <BookingProvider>
