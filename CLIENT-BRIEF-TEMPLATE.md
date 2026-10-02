@@ -53,6 +53,17 @@ List everything genuinely true — feeds schema.org amenityFeature and on-page d
 3.
 4.
 
+## 6a. Stays, policies & social proof
+
+Only real, checkable facts — each section on the site hides itself if left empty, which is always better than filling it with something untrue:
+- **What every stay includes** (e.g. breakfast, Wi-Fi, parking) → `stayIncludes`:
+- **Stats band figures** (e.g. year founded, rooms) → `stats`:
+- **Facilities** (title + one line each) → `lib/data.ts` `facilities`:
+- **Policies** — cancellation & deposit, children/cots, dogs, accessibility, parking → `lib/data.ts` `policies` ("Good to know" page):
+- **Agreed book-direct perk**, or none → `directBookingPerk`:
+- **Public review summary** — platform, rating, review count, link — or none → `reviewSummary`:
+- **Data controller** (legal entity) for the privacy page:
+
 ## 7. Brand palette
 
 **Option A — client supplies real brand colours:**
@@ -65,7 +76,7 @@ List everything genuinely true — feeds schema.org amenityFeature and on-page d
 - **2-3 reference sites** they like the feel of, and why:
 - **Anything to explicitly avoid** (styles, colours, competitor look-alikes):
 
-*Note: only the 7 colour tokens vary per client — typography (`Cormorant Garamond` + `Jost`) is fixed template-wide and does not change per style direction.*
+*Note: only the 9 colour tokens vary per client (role-based: `primary`, `primarydeep`, `accent`, `accentfill`, `onaccent`, `accentondark`, `canvas`, `canvasalt`, `ink` — each tuned to clear WCAG AA for its own pairing) — typography (`Cormorant Garamond` + `Jost`) is fixed template-wide and does not change per style direction.*
 
 ## 8. Page requirements
 
@@ -80,7 +91,7 @@ Confirm/adjust against the default set:
 ## 9. Booking & PMS
 
 - **PMS/booking/channel manager system name:**
-- **Booking engine embed code/widget script:** (attach separately — not a login)
+- **Booking engine link** (the client's existing booking URL, pasted as-is) **or embed code:** (not a login)
 - **Existing live website?** Y/N — if yes, current domain and who controls the registrar:
 
 ## 10. Access checklist status
@@ -107,4 +118,4 @@ Per the current architecture decision, all clients use the same structural layou
 
 Once this brief is complete, hand it directly alongside the standard prompt:
 
-> Here's the completed client brief for [Hotel Name]. Populate `hotel.config.ts` and `lib/tokens.ts` from sections 1-7, verify with `tsc --noEmit` and `eslint .` before proceeding, then move to Sanity content population for rooms/offers/team per section 8.
+> Here's the completed client brief for [Hotel Name]. Populate `hotel.config.ts`, `lib/tokens.ts` and the `lib/data.ts` lists from sections 1-7 (including 6a), verify with `tsc --noEmit` and `eslint .` before proceeding, then move to Sanity content population for rooms/offers/team per section 8.

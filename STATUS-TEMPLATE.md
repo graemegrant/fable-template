@@ -18,13 +18,13 @@ Last updated: [date] — update whenever something meaningfully changes. This is
 
 ## Not started yet
 
-Per `NEW-CLIENT-CHECKLIST.md` §5's 9-step build sequence:
+Per the 9-step build sequence in `NEW-PROJECT-KICKOFF-PROTOCOL.md`:
 - [ ] Brief/identity populated (`hotel.config.ts`)
 - [ ] Sanity schemas populated (rooms, offers, testimonials, experiences, journal, team)
 - [ ] Brand assets applied (tokens, typography)
 - [ ] Photography uploaded
 - [ ] Booking engine widget configured
-- [ ] GA4 via GTM connected
+- [ ] GA4 connected (`NEXT_PUBLIC_GA4_ID`; fires only after cookie consent)
 - [ ] SEO metadata written
 - [ ] SEO verification pass run
 - [ ] CRO blueprint quality review

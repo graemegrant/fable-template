@@ -16,7 +16,7 @@ Standard process for starting ANY new fable-template client build. Fill in the b
 
 ## Step 0 — HARD GATE: verify this is genuinely an independent repo
 
-**Do this before anything else, every time.** This exact mistake happened once already — client-specific work landing directly in the shared `fable-template` repo instead of its own clone — and it's expensive to untangle after the fact. Have Claude Code run, and show you the actual output of:
+**Do this before anything else, every time.** It's an easy mistake to make — client-specific work landing directly in the shared `fable-template` repo instead of its own clone — and it's expensive to untangle after the fact. Have Claude Code run, and show you the actual output of:
 
 ```
 git remote -v
@@ -46,14 +46,14 @@ Only proceed past this point once that's confirmed.
 
 ## The standard 9-step build sequence
 
-(Source: `NEW-CLIENT-CHECKLIST.md` §5 — this is the canonical sequence, reproduced here so it travels with every project rather than relying on it being remembered.)
+(Source: Codero's internal New Client Checklist, §5 "Build Sequence" — this is the canonical sequence, reproduced here so it travels with every project rather than relying on it being remembered. The repo's own `NEW-CLIENT-CHECKLIST.md` holds the detailed build-time checks behind each step.)
 
 1. **Brief Claude Code** with property name, location, room categories, USPs, avatar, brand colours — from the attached client brief/audit, not invented
 2. **Populate Sanity schemas** — rooms, offers, testimonials, experiences, journal posts, team members (skip/flag if no live Sanity project yet)
 3. **Apply brand assets** — logo, colour tokens, typography into `hotel.config.ts` / `lib/tokens.ts`
 4. **Upload photography**, connect to CMS image fields (flag if no real photography exists — don't silently substitute stock images without saying so)
-5. **Configure booking engine widget** — embed code/script only, never PMS admin access
-6. **Connect GA4 via GTM**, verify events firing
+5. **Configure the booking engine** — the client's existing booking link in `NEXT_PUBLIC_BOOKING_ENGINE_URL` (`lib/bookingEngine.ts` handles SynXis and generic links) or their embed code; never PMS admin access
+6. **Connect GA4** — set `NEXT_PUBLIC_GA4_ID` (the template loads GA4 directly, and only after the visitor chooses "Accept all"; it has no GTM integration), then verify events firing
 7. **SEO metadata** written across all pages
 8. **Run the built-in SEO verification pass** (metadata, schema markup, sitemap, Core Web Vitals)
 9. **Quality review** against the CRO blueprint checklist
@@ -64,7 +64,8 @@ Only proceed past this point once that's confirmed.
 
 - **Colour tokens use universal, role-based names, not colour names or client names.** As of the token-system fix, the real structure is: `primary`/`primarydeep` (dark surfaces), `accent` (text/rules on light), `accentfill` (solid button/badge surfaces), `onaccent` (text on an accentfill surface), `accentondark` (accent on dark backgrounds), `canvas`/`canvasalt` (light backgrounds), `ink` (body text). This already solves the contrast problem that used to recur across builds — each role is independently tunable to clear AA. When setting a new client's colours, pick values per role with its own contrast requirement in mind, not one hue reused everywhere.
 - **Typography is fixed template-wide** (`Cormorant Garamond` + `Jost`) — never varies per client, don't regenerate or substitute it.
-- **Access model stays minimal, per `New_Client_Checklist.docx`:** never request domain registrar login, PMS admin password, old site hosting login, or any financial system access. Embed codes and CMS Editor invites only.
+- **Every site meets the template's site standard** (AGENTS.md §4a): mobile-first (44px tap targets, 16px form fields on phones, no text under 11px), a booking CTA and tap-to-call on every page, real depth of information, analytics only after consent.
+- **Access model stays minimal, per Codero's internal New Client Checklist (§3, "What You Never Need"):** never request domain registrar login, PMS admin password, old site hosting login, or any financial system access. Embed codes and CMS Editor invites only.
 
 ---
 
