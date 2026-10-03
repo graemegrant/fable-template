@@ -1,0 +1,113 @@
+name: SEO
+
+# Automated half of SEO-PROCESS.md. Two jobs:
+#   build-seo — every PR: technical SEO check across every sitemap URL
+#               (scripts/seo-check.mjs) + Lighthouse CI assertions
+#               (lighthouserc.json). Blocks merge like guardrails.yml.
+#   live-seo  — weekly + on demand, only once the repo variable
+#               SEO_LIVE_URL is set (Settings → Secrets and variables →
+#               Actions → Variables, e.g. https://www.example.com): the same
+#               checks against the real domain, where canonical/noindex
+#               issues actually show. A failure opens (or comments on) one
+#               "SEO monitor" issue instead of failing silently.
+# Judgement-level SEO (content, local, competitors) stays with the
+# /codero-seo stages run from Claude Code — see SEO-PROCESS.md.
+
+on:
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 6 * * 1' # Mondays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  build-seo:
+    if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read Node version from .nvmrc
+        id: nvmrc
+        run: echo "version=$(cat .nvmrc)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ steps.nvmrc.outputs.version }}
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Technical SEO check (every sitemap URL)
+        run: |
+          npm start > /tmp/next.log 2>&1 &
+          trap 'kill $! 2>/dev/null' EXIT # free :3000 for Lighthouse CI's own server, pass or fail
+          for i in $(seq 1 60); do curl -sf -o /dev/null http://localhost:3000/robots.txt && break; sleep 1; done
+          node scripts/seo-check.mjs --base http://localhost:3000 --out seo-check.md
+
+      - name: Lighthouse CI (accessibility, best practices, SEO, CLS)
+        if: always()
+        run: npx -y @lhci/cli@0.15.1 autorun
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: seo-reports
+          path: |
+            seo-check.md
+            .lighthouseci/
+          retention-days: 30
+
+  live-seo:
+    if: (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && vars.SEO_LIVE_URL != ''
+    runs-on: ubuntu-latest
+    env:
+      LIVE: ${{ vars.SEO_LIVE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read Node version from .nvmrc
+        id: nvmrc
+        run: echo "version=$(cat .nvmrc)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ steps.nvmrc.outputs.version }}
+
+      - name: Technical SEO check against the live domain
+        run: node scripts/seo-check.mjs --base "$LIVE" --site "$LIVE" --out seo-check.md
+
+      - name: Lighthouse CI against the live domain
+        if: always()
+        run: |
+          L="$(grep -oE "DEFAULT_LOCALE[^=]*= *'[a-z-]+'" lib/locales.ts | grep -oE "'[a-z-]+'" | tr -d "'")"
+          L="${L:-en}"
+          npx -y @lhci/cli@0.15.1 autorun --config=lighthouserc.live.json \
+            --collect.url="$LIVE/$L" --collect.url="$LIVE/$L/rooms" --collect.url="$LIVE/$L/location"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-seo-reports
+          path: |
+            seo-check.md
+            .lighthouseci/
+          retention-days: 90
+
+      - name: Open or update the SEO monitor issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh label create seo-monitor --color B60205 --description "Automated live SEO check failed" --force
+          body="Weekly live SEO check failed for $LIVE — $RUN_URL (reports in the run's artifacts). Triage per SEO-PROCESS.md §7."
+          n="$(gh issue list --label seo-monitor --state open --json number --jq '.[0].number')"
+          if [ -n "$n" ]; then gh issue comment "$n" --body "$body"; else gh issue create --title "SEO monitor: live check failing" --label seo-monitor --body "$body"; fi

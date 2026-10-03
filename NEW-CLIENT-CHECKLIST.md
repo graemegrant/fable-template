@@ -2,7 +2,19 @@
 
 Start-to-launch checklist for a new client build. Works alongside
 `CLIENT-ONBOARDING-TEMPLATE.md` (fill that in as you go),
-`SANITY-SCHEMA.md`, `GIT-WORKFLOW.md`, and `AGENTS.md`.
+`SANITY-SCHEMA.md`, `GIT-WORKFLOW.md`, `SEO-PROCESS.md` and `AGENTS.md`.
+
+## 0. SEO baseline: hard gate, before any design (SEO-PROCESS.md §1)
+- [ ] Client repo exists (§1 below) and `docs/clients/[hotel-slug].md` is started
+- [ ] `/codero-seo baseline <current-site-url>` run (with no existing
+      site, run it against the 2–3 nearest competitors)
+- [ ] `docs/clients/[hotel-slug]/seo/<date>-baseline/SUMMARY.md`
+      committed: scores, must-keep URLs, keyword → page map, local
+      fixes, design/content requirements
+- [ ] Keyword → page map copied into `CLIENT-BRIEF.md` §8
+- [ ] `redirect-map.csv` reviewed and the agreed entries added to `redirects.json`
+- [ ] Local fixes that are on the client (GBP, citations, reviews) sent
+      to them now; they take weeks, so they shouldn't wait for launch
 
 ## 1. Repo setup
 - [ ] Create repo from `fable-template` via "Use this template"
@@ -94,12 +106,17 @@ Start-to-launch checklist for a new client build. Works alongside
       surfaced a template-level fix worth cherry-picking back
 
 ## 8. SEO pass (see SEO-PROCESS.md for the full workflow)
+- [ ] `SEO` workflow green on every PR throughout the build (automatic;
+      a red check means a real regression, so don't merge past it)
 - [ ] Content is in and photography is real before auditing (an audit on
       Lorem/Unsplash placeholder content just reports the placeholders)
-- [ ] Run `/seo audit <staging-url>` — fix every **Critical** and **High**
-- [ ] Re-run `/seo audit <live-url>` once the real domain is connected and
+- [ ] `/codero-seo prelaunch <staging-url>`: fix every **Critical** and **High**
+- [ ] `/codero-seo launch <live-url>` once the real domain is connected and
       `NEXT_PUBLIC_SITE_URL` points at it (canonical / OG / sitemap /
-      JSON-LD host issues only surface on the real domain)
+      JSON-LD host issues only surface on the real domain). It checks
+      every `redirects.json` entry and sets up weekly monitoring
+- [ ] Repo variable `SEO_LIVE_URL` set (Settings → Secrets and variables
+      → Actions → Variables) and the first `SEO` run on it is green
 - [ ] Verify in view-source on 3 page types: `<link rel="canonical">` is
       the live host, `og:image` resolves, JSON-LD has no placeholder NAP
       and `checkinTime` is ISO (`"15:00:00"`, not `"3pm"`)
@@ -123,8 +140,10 @@ Start-to-launch checklist for a new client build. Works alongside
       offers, journal, testimonials, team, photography) they can make
       themselves in Sanity Studio with zero involvement from you, vs.
       what genuinely needs a code change
-- [ ] Set a reminder to re-run `/seo audit` ~4 weeks post-launch, once
-      there is Search Console / CrUX field data to work with
+- [ ] Set a reminder to run `/codero-seo review <live-url>` ~4 weeks
+      post-launch, once there is Search Console / CrUX field data. Its
+      before/after against the stage-0 baseline is the client's results report
+- [ ] SEO log in `docs/clients/[hotel-slug].md` has a row for every stage run
 
 ---
 

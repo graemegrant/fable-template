@@ -1,0 +1,4 @@
+{
+  "_comment": "Legacy-URL redirect map (SEO-PROCESS.md §1, stage 0). One entry per URL on the client's previous site that ranks, has backlinks or gets traffic, mapped to its closest new page — never bulk-redirect everything to the homepage. Served as permanent (308) redirects by next.config.ts and verified by scripts/seo-check.mjs. Empty for a hotel with no previous site.",
+  "redirects": []
+}

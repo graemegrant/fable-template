@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
+import legacy from './redirects.json';
 
 const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
@@ -59,6 +60,12 @@ const nextConfig: NextConfig = {
     // upscale a 1800px source to 3840px on every cache miss — slower to
     // generate and blurrier than just serving the 1920px variant.
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+  },
+  // The previous site's URLs → their new pages (redirects.json, built from
+  // the stage-0 SEO baseline). Permanent, so rankings and backlinks carry
+  // over; runs before the locale middleware.
+  async redirects() {
+    return (legacy.redirects as { source: string; destination: string }[]).map((r) => ({ ...r, permanent: true }));
   },
   async headers() {
     return [

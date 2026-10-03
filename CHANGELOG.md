@@ -7,6 +7,25 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **SEO lifecycle, automated checks, `/codero-seo` skill.**
+  - **Lifecycle:** `SEO-PROCESS.md` §1 now runs from stage 0 to stage 5.
+    Stage 0 is a baseline audit of the client's existing site, and it's a
+    hard gate before any design (kickoff Step 0b, checklist §0, AGENTS.md §5).
+    §7 documents the automated checks; §8 maps every claude-seo skill to a
+    stage and lists which need keys.
+  - **Automated checks:** new `SEO` workflow (`.github/workflows/seo.yml`):
+    - every PR runs `scripts/seo-check.mjs` (dependency-free; checks every
+      sitemap URL) plus Lighthouse CI (`lighthouserc.json`);
+    - weekly, once `SEO_LIVE_URL` is set, it checks the live domain and
+      opens a `seo-monitor` issue on failure.
+  - **Redirects:** new `redirects.json` maps the previous site's URLs to
+    new pages. `next.config.ts` serves them as permanent redirects, and the
+    check script verifies each one.
+  - **Project skill:** `.claude/skills/codero-seo` runs each stage and
+    files reports under `docs/clients/<slug>/seo/`. `.claude/skills/` is
+    now tracked; the rest of `.claude/` stays ignored.
+  - **Pulling this into a client repo:** `seo.yml` adds a required-looking
+    PR check. Fix any High findings it raises before merging.
 - **Contrast and hero CLS (SEO/Lighthouse pass).** Faded text `text-ink/50|60|65`
   raised to `text-ink/70` (≥5.2:1 on canvas/canvasalt) across 18 files; footer
   and 404 `text-canvas/50` → `/70` (was 4.38:1 on primary). `accentfill`
