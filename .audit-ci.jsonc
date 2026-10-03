@@ -33,6 +33,14 @@
     // processing during `next build`), not shipped to the browser or
     // touched by the request path. Fix requires next@16.x (breaking).
     "GHSA-6g55-p6wh-862q", // postcss, high
-    "GHSA-r28c-9q8g-f849" // postcss, high
+    "GHSA-r28c-9q8g-f849", // postcss, high
+
+    // braces — stack-exhaustion DoS from deeply nested *patterns*. Every
+    // path is build/dev tooling glob matching (tailwindcss, eslint,
+    // chokidar, @sanity/cli, fast-glob), whose patterns come from our own
+    // config, never from a request — not in the site's runtime path.
+    // Published 2026-09-18 with no patched version (<= 3.0.3, the latest).
+    // Remove once braces ships a fix and the lockfile picks it up.
+    "GHSA-vfj7-8cjw-p6xm" // braces, high
   ]
 }

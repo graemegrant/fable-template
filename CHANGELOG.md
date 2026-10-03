@@ -7,6 +7,11 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Audit gate: allowlist braces GHSA-vfj7-8cjw-p6xm** (high, no patched
+  version yet). Build/dev-tooling glob matching only — patterns come from
+  our own config, not requests. CI was failing on every repo since the
+  advisory landed. Remove the entry once braces ships a fix.
+
 - **Contrast and hero CLS (SEO/Lighthouse pass).** Faded text `text-ink/50|60|65`
   raised to `text-ink/70` (≥5.2:1 on canvas/canvasalt) across 18 files; footer
   and 404 `text-canvas/50` → `/70` (was 4.38:1 on primary). `accentfill`
