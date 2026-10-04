@@ -31,6 +31,7 @@ export function resolveRoom(raw: RoomI18n, locale: Locale): Room {
     ...raw,
     roomType: pickLocale(raw.roomType, locale) ?? '',
     name: raw.name ? pickLocale(raw.name, locale) : undefined,
+    hook: raw.hook ? pickLocale(raw.hook, locale) : undefined,
     description: pickLocale(raw.description, locale) ?? '',
     imageAlt: pickLocale(raw.imageAlt, locale),
     amenities: pickLocaleArray(raw.amenities, locale),

@@ -119,6 +119,7 @@ export default async function RoomDetailPage({ params }: Props) {
           <div>
             <FadeUp>
               <SectionLabel>{t('theRoom')}</SectionLabel>
+              {room.hook && <p className="mt-6 font-heading text-3xl font-medium leading-snug text-primary">{room.hook}</p>}
               <p className="mt-6 font-body text-lg font-light leading-body text-ink/85">{room.description}</p>
             </FadeUp>
 

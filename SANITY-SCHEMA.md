@@ -32,7 +32,7 @@ to design, not something to assume is already built.
 
 | Schema file | Purpose | Key fields |
 |---|---|---|
-| `room.ts` | Room/suite listings | roomType, name, slug, rate, images, description, amenities, occupancy, roomCount |
+| `room.ts` | Room/suite listings | roomType, name, slug, hook (one line, shown on cards + room page lead), rate, images, description, amenities, occupancy, roomCount |
 | `experience.ts` | Local Experiences (see AGENTS.md §6 — regional exclusivity framing) | name, slug, category, images, description, duration, price |
 | `offer.ts` | Packages/offers | title, slug, images, description, validUntil, priceFrom |
 | `journalPost.ts` | Blog/journal | title, slug, publishedAt, author, coverImage, body (Portable Text) |

@@ -1,7 +1,7 @@
 /* GROQ queries. Every slug is projected to a plain string. */
 
 const roomFields = `{
-  _id, roomType, name, "slug": slug.current, description, heroImage, imageAlt, gallery,
+  _id, roomType, name, "slug": slug.current, hook, description, heroImage, imageAlt, gallery,
   rate, sqm, occupancy, floor, view, amenities, roomCount, featured, active
 }`;
 
