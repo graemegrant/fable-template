@@ -7,6 +7,11 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Audit gate: allowlist braces GHSA-vfj7-8cjw-p6xm** (high, no patched
+  version yet). Build/dev-tooling glob matching only — patterns come from
+  our own config, not requests. CI was failing on every repo since the
+  advisory landed. Remove the entry once braces ships a fix.
+
 - **SEO lifecycle, automated checks, `/codero-seo` skill.**
   - **Lifecycle:** `SEO-PROCESS.md` §1 now runs from stage 0 to stage 5.
     Stage 0 is a baseline audit of the client's existing site, and it's a
