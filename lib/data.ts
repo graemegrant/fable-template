@@ -23,11 +23,11 @@ const u = (id: string, w = 1800) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
 
 export const IMG = {
-  heroHouse: u('photo-1528806290983-2c003d438fb3'),
-  exterior: u('photo-1589489873423-d1745278a8f4'),
-  glen: u('photo-1546706872-9c90b8d0c94f'),
-  forest: u('photo-1441974231531-c6227db76b6e'),
-  loch: u('photo-1516570628389-492e1488089d'),
+  heroHouse: u('photo-1458413111252-87446cbff277'), // verified: Eilean Donan Castle, Kyle of Lochalsh, Scotland (Unsplash license)
+  exterior: u('photo-1648658373464-7b45c5dc78cb'), // verified: Dalquharran Castle, Girvan, Scotland (Unsplash license)
+  glen: u('photo-1720173802187-7cf491331e7d'), // verified: Glen Coe, Ballachulish, Scotland (Unsplash license)
+  forest: u('photo-1730639942397-ebae40e8cd8d'), // verified: pine forest, Scotland, UK (Unsplash license)
+  loch: u('photo-1686693206839-12f49507b92a'), // verified: Fort Augustus, Scottish Highlands (Unsplash license)
   room1: u('photo-1611892440504-42a792e24d32'),
   room2: u('photo-1590490360182-c33d57733427'),
   room3: u('photo-1582719478250-c89cae4dc85b'),
@@ -39,13 +39,13 @@ export const IMG = {
   dining2: u('photo-1559339352-11d035aa65de'),
   food1: u('photo-1467003909585-2f8a72700288'),
   food2: u('photo-1504674900247-0877df9cc836'),
-  whisky: u('photo-1527281400683-1aae777175f8'),
+  whisky: u('photo-1767217667288-8b50f1dc2103'), // verified: Ardbeg Corryvreckan single malt Scotch, Islay, Scotland (Unsplash license)
   spa: u('photo-1544161515-4ab6ce6db874'),
   wedding1: u('photo-1519225421980-715cb0215aed'),
   wedding2: u('photo-1511795409834-ef04bbd61622'),
   garden: u('photo-1612721531230-16c20cf8adce'),
-  fire: u('photo-1542718610-a1d656d1884c'),
-  walk: u('photo-1609674750700-33895b9b7ce1'),
+  fire: u('photo-1648658555476-ca1ab19f07de'), // verified: Dalquharran Castle, Girvan, Scotland (Unsplash license)
+  walk: u('photo-1557652696-0fd8a35b0d62'), // verified: King's House, near Fort William, Scotland (West Highland Way) (Unsplash license)
   fishing: u('photo-1589490047559-a1c13ec25b87'),
   portrait1: u('photo-1560250097-0b93528c311a', 900),
   portrait2: u('photo-1573496359142-b8d87734a5a2', 900),
