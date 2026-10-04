@@ -196,7 +196,8 @@
   "offersPage": {
     "eyebrow": "Offres spéciales",
     "title": "Des raisons, si vous en avez besoin",
-    "subtitle": "Chaque offre ci-dessous est exclusive aux réservations directes — les agences ont droit à nos tarifs affichés et à nos salutations."
+    "subtitle": "Chaque offre ci-dessous est exclusive aux réservations directes — les agences ont droit à nos tarifs affichés et à nos salutations.",
+    "none": "Aucune offre en cours pour le moment. En réservant en direct, vous bénéficiez toujours de notre meilleur tarif."
   },
   "roomsPage": {
     "eyebrowLabel": "Séjour",

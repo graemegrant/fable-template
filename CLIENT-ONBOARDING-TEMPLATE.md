@@ -44,6 +44,32 @@ and fill it in. The template file at repo root stays blank.
 - `ink` (text):
 - Heading font / body font:
 
+**Brand Inspiration & Page Requirements** (fill in with the client before
+any design work; the layout is fixed, so this steers tokens, photography,
+copy voice and which sections lead)
+- Inspiration references: 2–4 hotel sites the client likes, each with
+  *what specifically* they like (photography, tone, a section, the
+  booking flow). "I like it" isn't a reference:
+  1.
+  2.
+  3.
+- Sites or styles they dislike, and why:
+- Tone spectrum: mark one point on each scale, 1 to 5:
+  - Formal 1 · 2 · 3 · 4 · 5 Relaxed
+  - Classic 1 · 2 · 3 · 4 · 5 Contemporary
+  - Understated 1 · 2 · 3 · 4 · 5 Expressive
+  - Exclusive 1 · 2 · 3 · 4 · 5 Welcoming to all
+  - Destination-led 1 · 2 · 3 · 4 · 5 Hotel-led
+- Three words guests should leave with:
+- Things to avoid: claims, words, imagery, competitors not to mention,
+  anything not true of the property (e.g. outdoor space it doesn't have):
+- Pages and sections that must exist (beyond the default set):
+- Pages and sections to drop or play down:
+- Priority order on the homepage, if not rooms-first:
+- Photography: what exists, what's missing, any shoot planned:
+- Must-keep from the current site (cross-check with the stage-0 SEO
+  baseline's must-keep URLs, SEO-PROCESS.md §1):
+
 **Booking engine**
 - Provider (SynXis / FreeToBook / Guestline / SiteMinder / Little Hotelier / other):
 - Deep-link URL:

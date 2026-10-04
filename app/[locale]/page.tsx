@@ -6,6 +6,7 @@ import { pageMetadata } from '@/lib/seo';
 import { pickLocale, resolveRoom, resolveExperience, resolveOffer, resolveTestimonial, resolveJournalPost } from '@/lib/resolveLocale';
 import { isLocale, DEFAULT_LOCALE, type Locale } from '@/lib/locales';
 import { sanityFetch } from '@/lib/sanity';
+import { isOfferCurrent } from '@/lib/offers';
 import {
   FEATURED_ROOMS_QUERY, EXPERIENCES_QUERY, OFFERS_QUERY, TESTIMONIALS_QUERY, JOURNAL_QUERY,
 } from '@/lib/queries';
@@ -27,6 +28,9 @@ import JournalCard from '@/components/JournalCard';
 import GlenMoment from '@/components/GlenMoment';
 import StatsBand from '@/components/StatsBand';
 import { BookButton } from '@/components/BookingModal';
+
+// Re-render hourly so expired offers drop off (lib/offers.ts).
+export const revalidate = 3600;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: rawLocale } = await params;
@@ -55,7 +59,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   ]);
   const rooms = rawRooms.map((r) => resolveRoom(r, locale));
   const experiences = rawExperiences.map((e) => resolveExperience(e, locale));
-  const offers = rawOffers.map((o) => resolveOffer(o, locale));
+  const offers = rawOffers.filter((o) => isOfferCurrent(o)).map((o) => resolveOffer(o, locale));
   const testimonials = rawTestimonials.map((t) => resolveTestimonial(t, locale));
   const journalPosts = rawJournalPosts.map((p) => resolveJournalPost(p, locale));
 
@@ -158,7 +162,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
       <Facilities />
 
-      {/* Offers grid */}
+      {/* Offers grid — hidden when every offer has expired */}
+      {offers.length > 0 && (
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
         <FadeUp className="flex flex-wrap items-end justify-between gap-6">
           <div>
@@ -175,6 +180,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           ))}
         </StaggerGrid>
       </section>
+      )}
 
       {/* Location */}
       <section className="bg-canvasalt">
