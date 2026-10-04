@@ -10,7 +10,8 @@ Standard process for starting ANY new fable-template client build. Fill in the b
 - **Repo location:**
 - **Files attached:** `hotel.config.ts` / `lib/tokens.ts` (pre-written and verified, or to be generated from the client brief — state which)
 - **Sanity project status:** live project exists / not yet — if not, Claude Code should use the `lib/data.ts` fallback dataset, not stall trying to connect to something that doesn't exist
-- **Source material attached:** client brief / audit / both / neither
+- **Source material attached:** client brief (required) + stage-0 SEO baseline (required, see Step 0b). Any other audit (e.g. a sales audit PDF) is extra input, not a substitute for the baseline
+- **Client's current website:** URL, or "none" (the baseline then runs against 2–3 nearest competitors)
 
 ---
 
@@ -27,6 +28,35 @@ git remote -v
 
 Only proceed past this point once that's confirmed.
 
+---
+
+## Step 0b — HARD GATE: stage-0 SEO baseline exists
+
+**No design or build work starts until the client's SEO baseline is done.**
+A rebuild is the moment a hotel is most likely to lose its search
+traffic, through dropped URLs, lost local signals and drifting contact
+details. The baseline is what prevents that, and it's the "before"
+number every later result is measured against (SEO-PROCESS.md §1).
+
+In the client repo, run:
+
+```
+/codero-seo baseline <current-site-url>
+```
+
+This runs the full `/seo audit` plus the local, Lighthouse-on-every-page,
+backlinks, keyword-cluster, SXO and drift baseline checks, and writes
+`docs/clients/<slug>/seo/<date>-baseline/SUMMARY.md`.
+
+The gate passes when all three are true:
+- [ ] `SUMMARY.md` is committed;
+- [ ] its keyword → page map has gone into `CLIENT-BRIEF.md` §8;
+- [ ] `redirect-map.csv` has been reviewed and its agreed entries are in `redirects.json`.
+
+If the baseline can't be run (for example the site is down, or there's
+no URL yet), stop and say so. Don't start the design on the assumption
+that it'll be done later.
+
 **Standing rule on what belongs where, going forward:**
 - **`fable-template` main** = shared infrastructure only: components, the build/CI system, universal token *naming structure*, the shared demo/fallback dataset. Nothing client-specific ever merges here.
 - **A client's own repo** = that client's actual identity, real colour values, real content. Nothing here gets pushed back upstream except via a deliberate, separate "backport this improvement to the template" step — not as a side effect of client work.
@@ -36,7 +66,7 @@ Only proceed past this point once that's confirmed.
 
 ## Opening instruction to Claude Code (paste as-is)
 
-> Starting a new fable-template client build. Use `.nvmrc` for the Node version — don't default to whatever's already installed. Confirm this repo was created via "Use this template" and is independent of upstream before making any changes.
+> Starting a new fable-template client build. Use `.nvmrc` for the Node version — don't default to whatever's already installed. Confirm this repo was created via "Use this template" and is independent of upstream before making any changes. Then confirm the stage-0 SEO baseline exists (`docs/clients/<slug>/seo/*-baseline/SUMMARY.md`); if it doesn't, run `/codero-seo baseline <current-site-url>` before any design or build work.
 >
 > Follow the standard 9-step build sequence below in order. Run `tsc --noEmit` and `eslint .` after every meaningful change — nothing counts as done without both passing clean. Flag anything that doesn't pass rather than working around it silently.
 >
@@ -48,14 +78,14 @@ Only proceed past this point once that's confirmed.
 
 (Source: Codero's internal New Client Checklist, §5 "Build Sequence" — this is the canonical sequence, reproduced here so it travels with every project rather than relying on it being remembered. The repo's own `NEW-CLIENT-CHECKLIST.md` holds the detailed build-time checks behind each step.)
 
-1. **Brief Claude Code** with property name, location, room categories, USPs, avatar, brand colours — from the attached client brief/audit, not invented
+1. **Brief Claude Code** with property name, location, room categories, USPs, avatar, brand colours, and the stage-0 keyword → page map, all from the attached client brief and SEO baseline, not invented
 2. **Populate Sanity schemas** — rooms, offers, testimonials, experiences, journal posts, team members (skip/flag if no live Sanity project yet)
 3. **Apply brand assets** — logo, colour tokens, typography into `hotel.config.ts` / `lib/tokens.ts`
 4. **Upload photography**, connect to CMS image fields (flag if no real photography exists — don't silently substitute stock images without saying so)
 5. **Configure the booking engine** — the client's existing booking link in `NEXT_PUBLIC_BOOKING_ENGINE_URL` (`lib/bookingEngine.ts` handles SynXis and generic links) or their embed code; never PMS admin access
 6. **Connect GA4** — set `NEXT_PUBLIC_GA4_ID` (the template loads GA4 directly, and only after the visitor chooses "Accept all"; it has no GTM integration), then verify events firing
-7. **SEO metadata** written across all pages
-8. **Run the built-in SEO verification pass** (metadata, schema markup, sitemap, Core Web Vitals)
+7. **SEO metadata** written across all pages, targeting the baseline's keyword → page map; the `SEO` workflow checks every PR automatically
+8. **Run `/codero-seo prelaunch <staging-url>`** once real content is in: zero Critical/High before launch, then `/codero-seo launch` on the live domain (SEO-PROCESS.md §1)
 9. **Quality review** against the CRO blueprint checklist
 
 ---

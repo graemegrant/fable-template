@@ -158,6 +158,15 @@ viewport against current hotel-website guidance:
   Never add `FAQPage` schema (retired by Google) or a fabricated
   `aggregateRating`.
 
+- **SEO lifecycle gates (SEO-PROCESS.md §1).** In a client repo, don't
+  start design or build work until the stage-0 baseline exists
+  (`docs/clients/<slug>/seo/*-baseline/SUMMARY.md`). If it's missing, say
+  so and run `/codero-seo baseline <current-site-url>` first. Don't merge
+  past a red `SEO` workflow check. Don't remove or empty
+  `redirects.json` entries without sign-off: they carry the old site's
+  rankings. After changing pages, routes or metadata, run
+  `node scripts/seo-check.mjs` against a local build.
+
 ## 6. Local Experiences
 
 Local Experiences is positioned as regional-exclusivity content — a
@@ -193,6 +202,9 @@ An AI coding agent must **not**, without explicit human sign-off:
 6. The `.github/workflows/guardrails.yml` check is green on the PR —
    this runs 1–3 automatically on every push, so a red check means
    something above wasn't actually satisfied locally
+7. The `SEO` workflow (`.github/workflows/seo.yml`) is green on the PR:
+   zero Critical/High technical SEO findings and the Lighthouse CI
+   assertions pass (SEO-PROCESS.md §7)
 
 ## 9. Multilingual / i18n
 

@@ -88,6 +88,14 @@ Confirm/adjust against the default set:
 - [ ] Team
 - [ ] Additional pages needed (weddings, dining, spa, events, gallery, other):
 
+**SEO baseline (required before this brief is handed to the build; SEO-PROCESS.md §1, stage 0):**
+- **Baseline report:** `docs/clients/[slug]/seo/[date]-baseline/SUMMARY.md`
+- **Keyword → page map** (copy from the baseline: target query, the page that owns it):
+  | Query | Page |
+  |---|---|
+  | | |
+- **Legacy URLs to preserve** (agreed entries go in `redirects.json`): count, plus link to `redirect-map.csv`
+
 ## 9. Booking & PMS
 
 - **PMS/booking/channel manager system name:**
@@ -118,4 +126,4 @@ Per the current architecture decision, all clients use the same structural layou
 
 Once this brief is complete, hand it directly alongside the standard prompt:
 
-> Here's the completed client brief for [Hotel Name]. Populate `hotel.config.ts`, `lib/tokens.ts` and the `lib/data.ts` lists from sections 1-7 (including 6a), verify with `tsc --noEmit` and `eslint .` before proceeding, then move to Sanity content population for rooms/offers/team per section 8.
+> Here's the completed client brief for [Hotel Name], with its stage-0 SEO baseline. Populate `hotel.config.ts`, `lib/tokens.ts` and the `lib/data.ts` lists from sections 1-7 (including 6a), verify with `tsc --noEmit` and `eslint .` before proceeding, then move to Sanity content population for rooms/offers/team per section 8.

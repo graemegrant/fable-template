@@ -9,5 +9,10 @@ next-env.d.ts
 .DS_Store
 install.log
 build.log
-.claude/
+.claude/*
+!.claude/skills/
 scratchpad/
+
+# SEO reports (scripts/seo-check.mjs, Lighthouse CI) — kept as CI artifacts
+.lighthouseci/
+seo-check.md

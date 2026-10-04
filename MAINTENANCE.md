@@ -12,6 +12,8 @@ client repo cloned from `fable-template`.
 | Dependency update PRs (minor/patch grouped, majors individual) | weekly, Monday | Dependabot PRs on the repo |
 | Vulnerability scan (backstop for CVEs disclosed against already-merged deps) | weekly, Monday | `.github/workflows/security-audit.yml` — red run if `npm audit` finds high/critical issues |
 | Sanity content backup | 1st of the month | `.github/workflows/sanity-backup.yml` — artifact on the Actions run, 90-day retention |
+| Technical SEO + Lighthouse on a fresh build | every PR | `.github/workflows/seo.yml` job `build-seo` — reports in the run's artifacts (SEO-PROCESS.md §7) |
+| Technical SEO + Lighthouse on the live domain | weekly, Monday (once repo variable `SEO_LIVE_URL` is set) | `seo.yml` job `live-seo` — a failure opens/updates one `seo-monitor` issue |
 
 **Turn on GitHub notifications for failed workflow runs** on each client
 repo (Watch → Custom → Actions) — that's what actually gets a Dependabot
@@ -57,6 +59,8 @@ tells you it looks right.
 - [ ] Contact form still delivers email (send a real test enquiry)
 - [ ] Site loads over HTTPS with no browser warnings (Vercel manages
       the certificate itself, but worth eyeballing after any DNS change)
+- [ ] `/codero-seo monthly <live-url>`: drift vs the launch baseline, plus
+      any open `seo-monitor` issue; add a row to the client's SEO log
 
 ## Quarterly, per active client site
 
@@ -67,6 +71,8 @@ tells you it looks right.
       silently
 - [ ] Re-run through `NEW-CLIENT-CHECKLIST.md` §5 (guardrails
       verification) — confirms nothing's drifted since launch
+- [ ] Full `/seo audit <live-url>` + `/seo local <live-url>`, filed as a
+      stage report (SEO-PROCESS.md §1)
 - [ ] Verify security headers are actually being served on the *live*
       domain, not just present in `next.config.ts` — a code-level header
       block is a promise, not proof it's reaching the browser. Run
