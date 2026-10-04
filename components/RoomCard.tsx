@@ -34,6 +34,9 @@ export default function RoomCard({ room, headingLevel = 3 }: { room: Room; headi
         {room.name && (
           <p className="mt-1 font-body text-xs uppercase tracking-20 text-ink/70">{room.name}</p>
         )}
+        {room.hook && (
+          <p className="mt-2 font-body text-sm font-light leading-snug text-ink/80">{room.hook}</p>
+        )}
         <p className="mt-2 font-body text-xs uppercase tracking-20 text-ink/70">
           {room.sqm ? `${room.sqm} ${t('sqm')} · ` : ''}{t('sleeps')} {room.occupancy}
         </p>

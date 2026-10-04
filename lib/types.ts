@@ -25,6 +25,9 @@ export interface Room {
    *  name (roomType is), shown as secondary text when present. */
   name?: string;
   slug: string;
+  /** One-line hook: the single reason to pick this room, shown on room
+   *  cards and as the lead line on the room page. Optional. */
+  hook?: string;
   description: string;
   heroImage: Img;
   imageAlt?: string;
@@ -108,9 +111,10 @@ export interface TeamMember {
   displayOrder?: number;
 }
 
-export interface RoomI18n extends Omit<Room, 'roomType' | 'name' | 'description' | 'imageAlt' | 'amenities'> {
+export interface RoomI18n extends Omit<Room, 'roomType' | 'name' | 'hook' | 'description' | 'imageAlt' | 'amenities'> {
   roomType: LocaleField;
   name?: LocaleField;
+  hook?: LocaleField;
   description: LocaleField;
   imageAlt?: LocaleField;
   amenities: LocaleField[];

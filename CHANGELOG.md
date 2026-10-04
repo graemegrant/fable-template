@@ -7,6 +7,12 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Room one-line hook.** New optional `hook` field on `room` (localeString,
+  90-char limit in Studio): the single reason to pick the room. Shown under
+  the name on room cards and as the lead line on the room page. Demo rooms
+  have English hooks drawn from their existing descriptions; other locales
+  fall back (AGENTS.md §9).
+
 - **Expired offers are hidden.** `validUntil` was stored but never used,
   so expired offers stayed live. `lib/offers.ts` `isOfferCurrent()` now filters
   CMS and fallback offers on the home and offers pages (shown through the

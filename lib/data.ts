@@ -75,6 +75,7 @@ export const rooms: RoomI18n[] = [
     // in roomType rather than a shared category — roomCount stays 1.
     roomType: t4('The Schiehallion Suite', 'La Suite Schiehallion', 'Die Schiehallion-Suite', 'La Suite Schiehallion'),
     slug: 'schiehallion-suite',
+    hook: { en: 'The principal suite: an open fire, and a bath that looks down the glen.' },
     roomCount: 1,
     description: t4(
       'The principal suite, occupying the south-west corner of the second floor. A separate sitting room with open fire, a bedroom hung with estate maps, and a bathroom built around a cast-iron bath that looks straight down the glen. On a clear evening you can watch the light leave Schiehallion without lifting your head from the pillow.',
@@ -106,6 +107,7 @@ export const rooms: RoomI18n[] = [
   {
     roomType: t4('The Atholl Suite', 'La Suite Atholl', 'Die Atholl-Suite', 'La Suite Atholl'),
     slug: 'atholl-suite',
+    hook: { en: 'The longest view in the house, down the avenue of limes to the river.' },
     roomCount: 1,
     description: t4(
       'A first-floor suite over the south lawn, with the longest view in the house — down the avenue of limes to the river. Panelled walls, a writing desk that guests tend to photograph, and a dressing room that makes a week-long stay feel sensible.',
@@ -136,6 +138,7 @@ export const rooms: RoomI18n[] = [
   {
     roomType: t4('The Garry', 'La Garry', 'Das Garry-Zimmer', 'La Garry'),
     slug: 'the-garry',
+    hook: { en: 'A bed that faces the window, over the walled garden.' },
     roomCount: 1,
     description: t4(
       'A generous first-floor double overlooking the walled garden. The bed faces the window deliberately — mornings here are the argument for the room. Bathroom in honed marble with both bath and shower.',
@@ -164,6 +167,7 @@ export const rooms: RoomI18n[] = [
   {
     roomType: t4('The Tummel', 'La Tummel', 'Das Tummel-Zimmer', 'La Tummel'),
     slug: 'the-tummel',
+    hook: { en: 'The quietest corridor in the house, with a view of the water.' },
     roomCount: 1,
     description: t4(
       'Second floor, river side. Sloped ceilings, a deep window with a view of the water, and the quietest corridor in the house. Popular with returning guests who book it by name.',
@@ -191,6 +195,7 @@ export const rooms: RoomI18n[] = [
   {
     roomType: t4('The Birnam', 'La Birnam', 'Das Birnam-Zimmer', 'La Birnam'),
     slug: 'the-birnam',
+    hook: { en: 'Its own door to the courtyard: the room for dogs and early starts.' },
     roomCount: 1,
     description: t4(
       'A ground-floor double off the garden corridor, with its own door to the courtyard — the room to take if you travel with a dog or simply prefer to slip out early. Compact, warm, and quietly handsome.',
@@ -218,6 +223,7 @@ export const rooms: RoomI18n[] = [
   {
     roomType: t4('The Faskally', 'La Faskally', 'Das Faskally-Zimmer', 'La Faskally'),
     slug: 'the-faskally',
+    hook: { en: 'The smallest room in the house, and perhaps the best loved.' },
     roomCount: 1,
     description: t4(
       'Tucked under the eaves on the second floor with a porthole view of the woodland. The smallest room in the house and, by some accounts, the best loved — all the comfort, none of the ceremony.',
