@@ -18,7 +18,8 @@ Start-to-launch checklist for a new client build. Works alongside
 
 ## 1. Repo setup
 - [ ] Create repo from `fable-template` via "Use this template"
-- [ ] Add `template-upstream` remote (GIT-WORKFLOW.md §1)
+- [ ] Add `template-upstream` remote and commit `.template-base` (GIT-WORKFLOW.md §1).
+      Without it, later template updates can't be pulled cleanly
 - [ ] Confirm Node version matches `.nvmrc` locally and in Vercel project settings
 - [ ] `npm install`, `npm run build` passes clean on the untouched template
 
