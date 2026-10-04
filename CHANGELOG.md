@@ -7,6 +7,15 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Template → client pulls that actually work.** GIT-WORKFLOW.md §4
+  said `git merge template-upstream/main`, which conflicts on every file
+  because "Use this template" shares no history. New
+  `scripts/template-pull.mjs` replays template commits since the client's
+  `.template-base` file by file (take untouched files and root process docs,
+  3-way merge the rest, skip commits listed in `.template-skip`).
+  Validated on the Park Hotel pull: identical result, 4 genuine content
+  conflicts. **Client repos:** add `.template-base` (see §4 for finding it).
+
 - **Room one-line hook.** New optional `hook` field on `room` (localeString,
   90-char limit in Studio): the single reason to pick the room. Shown under
   the name on room cards and as the lead line on the room page. Demo rooms

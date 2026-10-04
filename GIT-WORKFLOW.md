@@ -25,6 +25,15 @@ git fetch template-upstream
 `origin` = the client's own repo. `template-upstream` = the shared
 template, fetched but never auto-merged.
 
+Then record which template commit the repo started from. "Use this
+template" copies the files but **not the git history**, so this file is
+the only link back. Every later template pull is measured from it:
+
+```bash
+git rev-parse template-upstream/main > .template-base
+git add .template-base && git commit -m "Start from fable-template $(cut -c1-7 .template-base)"
+```
+
 ## 2. Branch naming (same across every repo)
 
 - `main` — production, deploys to the client's live Vercel project
@@ -47,19 +56,50 @@ git cherry-pick <commit-sha>
 Then open a normal PR into `fable-template`'s `main` and add a line to
 `CHANGELOG.md`.
 
+Once it merges, add the resulting template commit SHA to the client
+repo's `.template-skip` (one per line, `# comment` allowed). The client
+already has that change, so the next template pull must not apply it a
+second time.
+
 ## 4. A template update → into an existing client repo (never automatic)
+
+**Don't `git merge template-upstream/main`.** The client repo shares no
+history with the template ("Use this template" starts fresh), so a merge
+conflicts on every file. Use `scripts/template-pull.mjs` (shipped with
+the template). It replays only the template commits made since
+`.template-base`, one file at a time:
+
+- **Take:** files the client never changed, plus root-level `*.md`
+  process docs, which are template-owned, get the template's version.
+- **Merge:** files both sides changed get each commit's diff applied with
+  a 3-way merge; conflicts are left marked.
+- **Skip:** commits listed in `.template-skip` aren't applied.
 
 ```bash
 git fetch template-upstream
-git log main..template-upstream/main --oneline   # review what's coming in
+node scripts/template-pull.mjs                   # dry run: commits, and which files take/merge
 git checkout -b feature/pull-template-update
-git merge template-upstream/main                 # resolve conflicts against client's own copy/branding
-npm run build && npm run lint                    # must pass before merging to main
+node scripts/template-pull.mjs --apply           # also moves .template-base forward
+# resolve any conflicts it lists: keep the client's content and branding,
+# take the template's mechanism
+npm run lint && npx tsc --noEmit && npm run build
+node scripts/seo-check.mjs --base http://localhost:3000   # against `npm start`
+git add -A && git commit -m "Pull fable-template updates up to $(cut -c1-7 .template-base)"
 ```
 
-Check `CHANGELOG.md` in the template repo first so you know what a given
-update actually touches before pulling it into a live, revenue-generating
-client site.
+Then open a PR. The `Guardrails` and `SEO` checks must pass before it
+merges to `main`.
+
+Read the template's `CHANGELOG.md` for the incoming commits first, so you
+know what an update touches before pulling it into a live,
+revenue-generating client site. A commit that's only relevant to the
+template's demo hotel (e.g. demo imagery) can go in `.template-skip` too.
+
+**A repo with no `.template-base`** (created before this existed): the
+template commit it started from is usually in its first commit message
+(`git log --reverse --format=%s | head -1`). Otherwise find the template
+commit whose tree matches the repo's first commit:
+`git log template-upstream/main --format='%H %T' | grep $(git rev-parse $(git rev-list --max-parents=0 HEAD)^{tree})`.
 
 Template-level i18n *plumbing* (routing, `lib/resolveLocale.ts`, the
 generated Sanity locale field types, message-file infrastructure) is a
