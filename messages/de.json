@@ -196,7 +196,8 @@
   "offersPage": {
     "eyebrow": "Sonderangebote",
     "title": "Gründe, falls Sie einen brauchen",
-    "subtitle": "Jedes Angebot unten ist exklusiv für Direktbuchungen — die Agenturen bekommen unsere Standardpreise und unsere Grüße."
+    "subtitle": "Jedes Angebot unten ist exklusiv für Direktbuchungen — die Agenturen bekommen unsere Standardpreise und unsere Grüße.",
+    "none": "Derzeit laufen keine Angebote. Bei einer Direktbuchung erhalten Sie trotzdem unseren besten Preis."
   },
   "roomsPage": {
     "eyebrowLabel": "Aufenthalt",

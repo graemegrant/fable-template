@@ -200,7 +200,8 @@
   "offersPage": {
     "eyebrow": "Special offers",
     "title": "Reasons, if you need one",
-    "subtitle": "Every offer below is exclusive to direct bookings — the agencies get our rack rates and our regards."
+    "subtitle": "Every offer below is exclusive to direct bookings — the agencies get our rack rates and our regards.",
+    "none": "No offers are running just now. Booking direct still gets you our best rate."
   },
   "roomsPage": {
     "eyebrowLabel": "Stay",

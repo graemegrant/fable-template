@@ -7,6 +7,16 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Expired offers are hidden.** `validUntil` was stored but never used,
+  so expired offers stayed live. `lib/offers.ts` `isOfferCurrent()` now filters
+  CMS and fallback offers on the home and offers pages (shown through the
+  last day; `validFrom` does not hide, so offers can be promoted early).
+  Both pages revalidate hourly so expiry applies without a rebuild; the
+  homepage section hides and /offers shows a message when none are current.
+  Studio field descriptions explain this to the hotel.
+- **Onboarding: Brand Inspiration & Page Requirements** section
+  (references, tone spectrum, things to avoid, must-have pages).
+
 - **Audit gate: allowlist braces GHSA-vfj7-8cjw-p6xm** (high, no patched
   version yet). Build/dev-tooling glob matching only — patterns come from
   our own config, not requests. CI was failing on every repo since the

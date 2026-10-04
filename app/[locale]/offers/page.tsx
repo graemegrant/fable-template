@@ -6,11 +6,15 @@ import { OFFERS_QUERY } from '@/lib/queries';
 import { offers as fallbackOffers, IMG } from '@/lib/data';
 import type { OfferI18n } from '@/lib/types';
 import { resolveOffer } from '@/lib/resolveLocale';
+import { isOfferCurrent } from '@/lib/offers';
 import { isLocale, DEFAULT_LOCALE, type Locale } from '@/lib/locales';
 import PageHero from '@/components/PageHero';
 import OfferCard from '@/components/OfferCard';
 import DirectBookingBanner from '@/components/DirectBookingBanner';
 import { FadeUp } from '@/components/Motion';
+
+// Re-render hourly so expired offers drop off (lib/offers.ts).
+export const revalidate = 3600;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: rawLocale } = await params;
@@ -27,7 +31,7 @@ export default async function OffersPage({ params }: { params: Promise<{ locale:
   const { locale: rawLocale } = await params;
   const locale: Locale = isLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
   const rawOffers = await sanityFetch<OfferI18n[]>(OFFERS_QUERY, {}, fallbackOffers);
-  const offers = rawOffers.map((o) => resolveOffer(o, locale));
+  const offers = rawOffers.filter((o) => isOfferCurrent(o)).map((o) => resolveOffer(o, locale));
   const t = await getTranslations('offersPage');
 
   return (
@@ -39,6 +43,9 @@ export default async function OffersPage({ params }: { params: Promise<{ locale:
         image={IMG.fire}
       />
       <section className="mx-auto max-w-7xl space-y-24 px-6 py-20 lg:space-y-32 lg:px-10 lg:py-28">
+        {offers.length === 0 && (
+          <p className="mx-auto max-w-xl text-center font-body text-base font-light leading-body text-ink/80">{t('none')}</p>
+        )}
         {offers.map((offer, i) => (
           <div key={offer.slug} id={offer.slug} className="scroll-mt-28">
             <FadeUp>
