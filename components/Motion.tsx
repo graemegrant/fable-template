@@ -5,17 +5,20 @@
  * Everything unhurried by design.
  *
  * Framer is loaded through LazyMotion + the `domAnimation` feature bundle
- * (about half the runtime of the full `motion` import) and the components
- * here use the lightweight `m` primitives, re-exported as `motion`.
+ * (about half the runtime of the full `motion` import), fetched lazily after
+ * hydration (motionFeatures.ts), and the components here use the
+ * lightweight `m` primitives, re-exported as `motion`.
  * `MotionProvider` wraps the app in app/layout.tsx.
  *
  * Scroll/entrance reveals are suppressed on reduced-motion and on small
- * viewports (AGENTS.md §5 mobile motion budget) — the content renders in
- * its final state with no animation and no opacity:0 in the SSR HTML.
+ * viewports (AGENTS.md §5 mobile motion budget). The SSR HTML does carry
+ * the hidden start state (Framer can't know the viewport on the server),
+ * so every reveal element is marked `data-reveal` and app/globals.css
+ * forces it visible on phones and under reduced motion from the first
+ * paint: no waiting for JS to hydrate, which held mobile LCP back ~2 s.
  */
 import {
   LazyMotion,
-  domAnimation,
   m,
   AnimatePresence,
   useScroll,
@@ -33,8 +36,13 @@ interface MotionProps {
   delay?: number;
 }
 
+// The feature bundle loads after hydration rather than up front (see
+// motionFeatures.ts). Reveals are already visible without it on phones
+// (data-reveal CSS); on desktop they simply start a moment later.
+const loadFeatures = () => import('./motionFeatures').then((mod) => mod.default);
+
 export function MotionProvider({ children }: { children: ReactNode }) {
-  return <LazyMotion features={domAnimation}>{children}</LazyMotion>;
+  return <LazyMotion features={loadFeatures}>{children}</LazyMotion>;
 }
 
 /** True when reveals should be skipped: reduced-motion or a phone-width viewport. */
@@ -68,6 +76,7 @@ export function FadeUp({ children, className, delay = 0 }: MotionProps) {
   return (
     <m.div
       className={className}
+      data-reveal
       initial={{ opacity: still ? 1 : 0, y: still ? 0 : 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
@@ -84,6 +93,7 @@ export function HeroEntrance({ children, className, delay = 0 }: MotionProps) {
   return (
     <m.div
       className={className}
+      data-reveal
       initial={{ opacity: still ? 1 : 0, y: still ? 0 : 32 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: still ? 0 : 1.1, delay: still ? 0 : delay, ease: EASE }}
@@ -141,7 +151,7 @@ export function StaggerGrid({ children, className }: MotionProps) {
 export function StaggerItem({ children, className }: MotionProps) {
   const still = useStill();
   return (
-    <m.div className={className} variants={still ? itemVariantsStill : itemVariants}>
+    <m.div className={className} data-reveal variants={still ? itemVariantsStill : itemVariants}>
       {children}
     </m.div>
   );
@@ -152,6 +162,7 @@ export function PageFade({ children, className }: MotionProps) {
   return (
     <m.div
       className={className}
+      data-reveal
       initial={{ opacity: still ? 1 : 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: still ? 0 : 0.7, ease: EASE }}
@@ -191,12 +202,14 @@ export function ClipReveal({ children, className }: MotionProps) {
     <m.div
       className={className}
       style={{ overflow: 'hidden' }}
+      data-reveal
       initial={{ clipPath: still ? 'inset(0 0 0% 0)' : 'inset(0 0 100% 0)' }}
       whileInView={{ clipPath: 'inset(0 0 0% 0)' }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: still ? 0 : 1.2, ease: EASE }}
     >
       <m.div
+        data-reveal
         initial={{ scale: still ? 1 : 1.08 }}
         whileInView={{ scale: 1 }}
         viewport={{ once: true, margin: '-60px' }}

@@ -8,7 +8,7 @@ import { pickLocale } from '@/lib/resolveLocale';
 import type { Locale } from '@/lib/locales';
 import { HeroEntrance } from './Motion';
 import { BookButton } from './BookingModal';
-import { imgSrc } from '@/lib/sanity';
+import { imgSrc } from '@/lib/image';
 
 /** Full-screen homepage hero with a slow Ken Burns drift and staged text entrance. */
 export default function KenBurnsHero({ image }: { image: unknown }) {

@@ -52,6 +52,18 @@
   }
 }
 
+/* Reveal elements (components/Motion.tsx, `data-reveal`) ship their hidden
+   start state in the server HTML. On phones and under reduced motion they
+   must be visible from the first paint, not after JS hydrates, so the
+   final state is forced here (!important beats Framer's inline style). */
+@media (max-width: 767px), (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+}
+
 input[type='date'] {
   color-scheme: light;
 }

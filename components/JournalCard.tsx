@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { getTranslations, getLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import SectionLabel from './SectionLabel';
-import { imgSrc } from '@/lib/sanity';
+import { imgSrc } from '@/lib/image';
 import { bcp47For, type Locale } from '@/lib/locales';
 import type { JournalPost } from '@/lib/types';
 

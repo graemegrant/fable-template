@@ -61,6 +61,12 @@ const nextConfig: NextConfig = {
     // generate and blurrier than just serving the 1920px variant.
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
   },
+  // Inline the (small, ~9 KB gzipped) Tailwind CSS into the HTML instead of
+  // linking it: the linked stylesheets were render-blocking and cost ~0.7 s
+  // of mobile LCP on Lighthouse's slow-4G profile.
+  experimental: {
+    inlineCss: true,
+  },
   // The previous site's URLs → their new pages (redirects.json, built from
   // the stage-0 SEO baseline). Permanent, so rankings and backlinks carry
   // over; runs before the locale middleware.

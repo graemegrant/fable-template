@@ -1,5 +1,14 @@
-import { createClient } from 'next-sanity';
-import imageUrlBuilder from '@sanity/image-url';
+// Server-side Sanity access. Two rules keep the Sanity client (~176 KB) out
+// of visitors' JavaScript:
+//  - `server-only` fails the build if a client component imports this file
+//    (client code gets image URLs from lib/image.ts, re-exported below);
+//  - createClient comes from @sanity/client, not next-sanity, whose entry
+//    also exports client components (visual editing, live loader) that
+//    Next would otherwise ship to every page.
+import 'server-only';
+import { createClient } from '@sanity/client';
+
+export { imgSrc } from './image';
 
 export const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 export const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
@@ -9,23 +18,6 @@ export const apiVersion = '2024-10-01';
 export const client = projectId
   ? createClient({ projectId, dataset, apiVersion, useCdn: true })
   : null;
-
-const builder = client ? imageUrlBuilder(client) : null;
-
-/** Resolve an image field to a URL. Accepts Sanity image objects or plain strings. */
-export function imgSrc(image: unknown, width = 1800): string {
-  if (!image) return '';
-  if (typeof image === 'string') return image;
-  if (builder) {
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return builder.image(image as any).width(width).auto('format').url();
-    } catch {
-      return '';
-    }
-  }
-  return '';
-}
 
 /** Default ISR window for CMS content. Detail pages are prebuilt from
  *  lib/data.ts and revalidated on this cadence; CMS-only pages render

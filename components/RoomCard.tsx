@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
-import { imgSrc } from '@/lib/sanity';
+import { imgSrc } from '@/lib/image';
 import type { Room } from '@/lib/types';
 
 /* Client component (not async + getTranslations) because RoomsFilter
