@@ -7,6 +7,9 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Audit gate: source-map-js 1.2.2** (GHSA-68fv-2mgg-jv7q, high, fixed
+  upstream). Lockfile entry bumped from 1.2.1; no other lockfile changes.
+
 - **Template → client pulls that actually work.** GIT-WORKFLOW.md §4
   said `git merge template-upstream/main`, which conflicts on every file
   because "Use this template" shares no history. New
