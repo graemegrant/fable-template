@@ -78,6 +78,9 @@ export const viewport: Viewport = {
 
 const ga4Id = process.env.NEXT_PUBLIC_GA4_ID;
 
+/** messages/*.json namespaces used by 'use client' components (see below). */
+const CLIENT_NAMESPACES = ['common', 'nav', 'footer', 'booking', 'cookies', 'home', 'shared', 'contactForm', 'glenMoment'];
+
 export default async function LocaleLayout({
   children,
   params,
@@ -92,7 +95,13 @@ export default async function LocaleLayout({
   // Required by next-intl for static rendering alongside generateStaticParams.
   setRequestLocale(locale);
 
-  const messages = await getMessages();
+  // Only the namespaces client components read go to the browser; every
+  // other string is rendered on the server. Sending the whole catalogue put
+  // ~17 KB of unused copy into every page's HTML. Add a namespace here when
+  // a 'use client' component starts using a new one (a missing one shows up
+  // as a MISSING_MESSAGE console error).
+  const allMessages = await getMessages();
+  const messages = Object.fromEntries(CLIENT_NAMESPACES.filter((ns) => ns in allMessages).map((ns) => [ns, allMessages[ns]]));
   const tCommon = await getTranslations('common');
   const lodgingSchema = hotelSchema(locale);
 

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { PortableText as PT, type PortableTextComponents } from '@portabletext/react';
-import { imgSrc } from '@/lib/sanity';
+import { imgSrc } from '@/lib/image';
 
 /** Styled renderer for Sanity portable text — journal posts and editorial bodies. */
 const components: PortableTextComponents = {

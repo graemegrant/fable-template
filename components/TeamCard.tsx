@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { imgSrc } from '@/lib/sanity';
+import { imgSrc } from '@/lib/image';
 import type { TeamMember } from '@/lib/types';
 
 export default function TeamCard({ member }: { member: TeamMember }) {

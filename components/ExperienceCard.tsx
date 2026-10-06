@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
-import { imgSrc } from '@/lib/sanity';
+import { imgSrc } from '@/lib/image';
 import type { Experience } from '@/lib/types';
 
 /* headingLevel: 3 under a section h2; 2 on the /experiences listing,

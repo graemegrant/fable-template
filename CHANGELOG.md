@@ -7,6 +7,21 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Mobile speed: performance 66–79 → 84–92, LCP 4.1–4.7 s → 3.3–3.9 s**
+  (Lighthouse mobile, lab; observed LCP ~0.5 s). Four changes:
+  - The Sanity client (~176 KB) no longer ships to visitors: client
+    components import image URLs from new `lib/image.ts`; `lib/sanity.ts` is
+    `server-only` and uses `@sanity/client` directly (next-sanity's entry
+    pulled its visual-editing client components into every page).
+    `@sanity/client` moved from devDependencies to dependencies.
+  - Reveal animations no longer hide content until JS hydrates on phones:
+    `data-reveal` + a CSS rule show them at first paint (mobile and
+    reduced motion); desktop animations unchanged.
+  - CSS inlined (`experimental.inlineCss`), removing ~0.7 s render-blocking.
+  - Only client-used translation namespaces sent to the browser; Framer's
+    feature bundle loads lazily. **Client repos:** add any namespace your
+    own client components use to `CLIENT_NAMESPACES` (layout.tsx).
+
 - **Audit gate: source-map-js 1.2.2** (GHSA-68fv-2mgg-jv7q, high, fixed
   upstream). Lockfile entry bumped from 1.2.1; no other lockfile changes.
 

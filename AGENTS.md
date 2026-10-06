@@ -124,6 +124,13 @@ viewport against current hotel-website guidance:
   proof that is genuine — individual testimonials only if real and
   dated, otherwise the rating summary with a link to the source.
 - **Compliance**: analytics only after consent (`components/Analytics.tsx`).
+- **Speed** (Lighthouse mobile performance ≥ 85 on key pages): never import
+  `lib/sanity.ts` from a `'use client'` component (it's `server-only`; use
+  `lib/image.ts` for image URLs); wrap any new reveal animation in the
+  `components/Motion.tsx` primitives so it carries `data-reveal` and shows
+  at first paint on phones; when a client component starts using a new
+  `messages/*.json` namespace, add it to `CLIENT_NAMESPACES` in
+  `app/[locale]/layout.tsx`.
 
 ## 5. CRO constraints (do not remove without sign-off)
 

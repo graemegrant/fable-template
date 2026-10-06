@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import SectionLabel from './SectionLabel';
-import { imgSrc } from '@/lib/sanity';
+import { imgSrc } from '@/lib/image';
 import type { Offer } from '@/lib/types';
 
 /** Two variants: `grid` (card) and `feature` (alternating split layout). */

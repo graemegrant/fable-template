@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { AnimatePresence, motion } from './Motion';
-import { imgSrc } from '@/lib/sanity';
+import { imgSrc } from '@/lib/image';
 
 /** Image grid with a full-screen lightbox: prev/next, ESC and backdrop close. */
 export default function GalleryLightbox({ images, alt }: { images: unknown[]; alt: string }) {

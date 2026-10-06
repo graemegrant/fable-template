@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import SectionLabel from './SectionLabel';
 import { HeroEntrance } from './Motion';
-import { imgSrc } from '@/lib/sanity';
+import { imgSrc } from '@/lib/image';
 
 /** Reusable interior-page hero: eyebrow, title, subtitle over a darkened image. */
 export default function PageHero({
