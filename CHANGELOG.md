@@ -7,6 +7,15 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **SEO checks after every production deploy + codero-ops hook.** New
+  `SEO` workflow job `deploy-seo` (on `deployment_status`, production only,
+  once `SEO_LIVE_URL` is set) runs the live checks and tells codero-ops,
+  which stores the result and posts it to the client's Telegram topic — the
+  first is the launch check. SEO-PROCESS.md §9 defines red/amber/green and
+  fix turnaround; monthly monitoring for Performance Grow now runs from
+  codero-ops. **Client repos:** pull `seo.yml` and set the three new repo
+  settings (NEW-CLIENT-CHECKLIST.md §8).
+
 - **Mobile speed: performance 66–79 → 84–92, LCP 4.1–4.7 s → 3.3–3.9 s**
   (Lighthouse mobile, lab; observed LCP ~0.5 s). Four changes:
   - The Sanity client (~176 KB) no longer ships to visitors: client

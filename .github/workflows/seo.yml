@@ -1,6 +1,6 @@
 name: SEO
 
-# Automated half of SEO-PROCESS.md. Two jobs:
+# Automated half of SEO-PROCESS.md. Three jobs:
 #   build-seo — every PR: technical SEO check across every sitemap URL
 #               (scripts/seo-check.mjs) + Lighthouse CI assertions
 #               (lighthouserc.json). Blocks merge like guardrails.yml.
@@ -10,6 +10,16 @@ name: SEO
 #               checks against the real domain, where canonical/noindex
 #               issues actually show. A failure opens (or comments on) one
 #               "SEO monitor" issue instead of failing silently.
+#   deploy-seo — after every successful Vercel *production* deploy (the
+#               Vercel GitHub integration reports deployments to GitHub),
+#               once SEO_LIVE_URL is set: the live checks, then tells
+#               codero-ops, which stores the result and posts it to the
+#               client's Telegram topic. The first one is the client's
+#               launch check (SEO-PROCESS.md §1 stage 3). Needs repo
+#               variables CODERO_OPS_URL + CODERO_CLIENT_SLUG and secret
+#               CODERO_SEO_TRIGGER_SECRET (NEW-CLIENT-CHECKLIST.md §8).
+# The monthly Performance Grow check runs from codero-ops itself (any site,
+# Codero-built or not) — SEO-PROCESS.md §7 and §9.
 # Judgement-level SEO (content, local, competitors) stays with the
 # /codero-seo stages run from Claude Code — see SEO-PROCESS.md.
 
@@ -19,6 +29,7 @@ on:
   schedule:
     - cron: '0 6 * * 1' # Mondays 06:00 UTC
   workflow_dispatch:
+  deployment_status:
 
 permissions:
   contents: read
@@ -109,5 +120,79 @@ jobs:
         run: |
           gh label create seo-monitor --color B60205 --description "Automated live SEO check failed" --force
           body="Weekly live SEO check failed for $LIVE — $RUN_URL (reports in the run's artifacts). Triage per SEO-PROCESS.md §7."
+          n="$(gh issue list --label seo-monitor --state open --json number --jq '.[0].number')"
+          if [ -n "$n" ]; then gh issue comment "$n" --body "$body"; else gh issue create --title "SEO monitor: live check failing" --label seo-monitor --body "$body"; fi
+
+  deploy-seo:
+    # Vercel names the environment "Production" (or "Production – <project>").
+    if: >-
+      github.event_name == 'deployment_status' &&
+      github.event.deployment_status.state == 'success' &&
+      startsWith(github.event.deployment.environment, 'Production') &&
+      vars.SEO_LIVE_URL != ''
+    runs-on: ubuntu-latest
+    env:
+      LIVE: ${{ vars.SEO_LIVE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read Node version from .nvmrc
+        id: nvmrc
+        run: echo "version=$(cat .nvmrc)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ steps.nvmrc.outputs.version }}
+
+      - name: Let the production alias settle
+        run: sleep 30
+
+      - name: Technical SEO check against the live domain
+        run: node scripts/seo-check.mjs --base "$LIVE" --site "$LIVE" --out seo-check.md
+
+      - name: Lighthouse CI against the live domain
+        if: always()
+        run: |
+          L="$(grep -oE "DEFAULT_LOCALE[^=]*= *'[a-z-]+'" lib/locales.ts | grep -oE "'[a-z-]+'" | tr -d "'")"
+          L="${L:-en}"
+          npx -y @lhci/cli@0.15.1 autorun --config=lighthouserc.live.json \
+            --collect.url="$LIVE/$L" --collect.url="$LIVE/$L/rooms" --collect.url="$LIVE/$L/location"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: deploy-seo-reports
+          path: |
+            seo-check.md
+            .lighthouseci/
+          retention-days: 90
+
+      # Stores the check on the client record (the first is kept as the
+      # launch baseline) and posts to the client's Telegram topic. Never
+      # fails the job: a codero-ops outage mustn't look like an SEO problem.
+      - name: Tell codero-ops
+        if: always()
+        continue-on-error: true
+        env:
+          OPS_URL: ${{ vars.CODERO_OPS_URL }}
+          SLUG: ${{ vars.CODERO_CLIENT_SLUG }}
+          SECRET: ${{ secrets.CODERO_SEO_TRIGGER_SECRET }}
+        run: |
+          if [ -z "$OPS_URL" ] || [ -z "$SLUG" ] || [ -z "$SECRET" ]; then
+            echo "::warning::CODERO_OPS_URL, CODERO_CLIENT_SLUG or CODERO_SEO_TRIGGER_SECRET not set — codero-ops not notified (NEW-CLIENT-CHECKLIST.md §8)."
+            exit 0
+          fi
+          curl -fsS -X POST "${OPS_URL%/}/api/seo/run" \
+            -H "authorization: Bearer $SECRET" -H 'content-type: application/json' \
+            -d "{\"clientSlug\":\"$SLUG\",\"trigger\":\"deploy\"}"
+
+      - name: Open or update the SEO monitor issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh label create seo-monitor --color B60205 --description "Automated live SEO check failed" --force
+          body="Post-deploy SEO check failed for $LIVE (deploy ${GITHUB_SHA::7}) — $RUN_URL (reports in the run's artifacts). Triage per SEO-PROCESS.md §7."
           n="$(gh issue list --label seo-monitor --state open --json number --jq '.[0].number')"
           if [ -n "$n" ]; then gh issue comment "$n" --body "$body"; else gh issue create --title "SEO monitor: live check failing" --label seo-monitor --body "$body"; fi
