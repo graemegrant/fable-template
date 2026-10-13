@@ -71,7 +71,7 @@ jobs:
         if: always()
         run: npx -y @lhci/cli@0.15.1 autorun
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: seo-reports
@@ -107,7 +107,7 @@ jobs:
           npx -y @lhci/cli@0.15.1 autorun --config=lighthouserc.live.json \
             --collect.url="$LIVE/$L" --collect.url="$LIVE/$L/rooms" --collect.url="$LIVE/$L/location"
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: live-seo-reports
