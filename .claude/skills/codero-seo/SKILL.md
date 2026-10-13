@@ -91,6 +91,10 @@ to it.
 3. `/seo drift baseline <live-url>`: the new site's baseline.
 4. Set the repo variable `SEO_LIVE_URL` so the weekly `SEO` workflow
    monitors the site, then trigger it once with `gh workflow run SEO`.
+   Check the A3 hook is set (variables `CODERO_SEO_RUN_URL`,
+   `CODERO_CLIENT_SLUG`, secret `CODERO_SEO_TRIGGER_SECRET`) and the
+   client is ticked *Built on fable-template* in Codero's Studio: the next
+   production deploy becomes the launch baseline, posted to Telegram.
 5. Check that the sitemap is submitted to Google Search Console and Bing
    Webmaster Tools, and that the GBP website link is the canonical host.
    These are human tasks: list them, don't claim them.
@@ -108,9 +112,13 @@ result.
 
 ### `monthly <live-url>`
 
-1. `/seo drift compare <live-url>`
-2. Read the latest `SEO` workflow run and any open `seo-monitor` issue.
-3. `/seo local <live-url>` every third month.
+The automated monthly check runs from codero-automations (A3) on the 2nd (any site);
+this stage is the human read of it.
+1. Read the client's latest A3 SEO health post in Telegram (grade,
+   new and resolved issues). Anything red or amber follows SEO-PROCESS.md §9.
+2. `/seo drift compare <live-url>`
+3. Read the latest `SEO` workflow run and any open `seo-monitor` issue.
+4. `/seo local <live-url>` every third month.
 
 Append the results to the SEO log.
 

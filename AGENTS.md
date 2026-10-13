@@ -174,6 +174,12 @@ viewport against current hotel-website guidance:
   rankings. After changing pages, routes or metadata, run
   `node scripts/seo-check.mjs` against a local build.
 
+- **Two crawlers, keep in sync.** `scripts/seo-check.mjs` here and
+  `lib/seo/crawl.ts` in codero-automations (the A3 SEO health check that
+  grades every deploy and month, SEO-PROCESS.md §9) are the same checks in
+  two languages. A rule change in one must be copied to the other in the
+  same week — say so in the PR if you change a rule here.
+
 ## 6. Local Experiences
 
 Local Experiences is positioned as regional-exclusivity content — a

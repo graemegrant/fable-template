@@ -118,6 +118,19 @@ Start-to-launch checklist for a new client build. Works alongside
       every `redirects.json` entry and sets up weekly monitoring
 - [ ] Repo variable `SEO_LIVE_URL` set (Settings → Secrets and variables
       → Actions → Variables) and the first `SEO` run on it is green
+- [ ] Alongside `SEO_LIVE_URL`, the A3 hook to codero-automations (job
+      `deploy-seo`, SEO-PROCESS.md §7). Repo **variables**
+      `CODERO_SEO_RUN_URL` (the full URL of codero-automations'
+      `/api/seo/run`, e.g. `https://<codero-automations host>/api/seo/run`)
+      and `CODERO_CLIENT_SLUG` (the client's slug in Codero's Studio); repo
+      **secret** `CODERO_SEO_TRIGGER_SECRET` (same value as
+      `SEO_TRIGGER_SECRET` in codero-automations on Vercel)
+- [ ] Codero's Studio → client → *SEO health (A3)*: live domain set,
+      *Built on fable-template* ticked, key page added (e.g. `/en/rooms`)
+- [ ] The first production deploy after this becomes the client's **launch
+      baseline**, always posted to its Telegram topic: check it's green
+      (SEO-PROCESS.md §9). If the client is on Performance Grow, the
+      monthly check takes over from here
 - [ ] Verify in view-source on 3 page types: `<link rel="canonical">` is
       the live host, `og:image` resolves, JSON-LD has no placeholder NAP
       and `checkinTime` is ISO (`"15:00:00"`, not `"3pm"`)

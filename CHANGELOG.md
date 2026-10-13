@@ -7,6 +7,18 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **SEO wired to codero-automations A3.** New `SEO` workflow job
+  `deploy-seo` (on `deployment_status`, `Production` only) POSTs to
+  codero-automations `/api/seo/run`, which crawls, runs PageSpeed, grades
+  the site and posts to the client's Telegram topic — the first deploy is
+  stored as the launch baseline. A failed weekly `live-seo` run now pings
+  the same hook (the `seo-monitor` issue is unchanged). Skips with one log
+  line until configured; a failed POST is a warning, never a red deploy.
+  SEO-PROCESS.md §9 mirrors A3's red/amber/green grading and fix
+  turnaround. **Client repos:** pull `seo.yml`, set variables
+  `CODERO_SEO_RUN_URL` + `CODERO_CLIENT_SLUG` and secret
+  `CODERO_SEO_TRIGGER_SECRET` (NEW-CLIENT-CHECKLIST.md §8).
+
 - **Mobile speed: performance 66–79 → 84–92, LCP 4.1–4.7 s → 3.3–3.9 s**
   (Lighthouse mobile, lab; observed LCP ~0.5 s). Four changes:
   - The Sanity client (~176 KB) no longer ships to visitors: client
