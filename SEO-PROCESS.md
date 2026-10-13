@@ -27,9 +27,9 @@ without anyone asking.
 | 0 | **Baseline** | **Before any design or build work.** No exceptions. | `/codero-seo baseline <current-site>` | `SUMMARY.md` written, keyword → page map in the client brief, `redirects.json` agreed |
 | 1 | Build | Every PR | Automatic: `SEO` workflow (§7) | Green check: zero Critical/High technical findings, Lighthouse assertions pass |
 | 2 | Prelaunch | Real content and photography in, on staging | `/codero-seo prelaunch <staging-url>` | Zero Critical/High from `/seo audit` |
-| 3 | Launch | Real domain live, `NEXT_PUBLIC_SITE_URL` set | `/codero-seo launch <live-url>`, then automatic on every production deploy (`SEO` workflow job `deploy-seo`) | Live check clean, every legacy redirect passes, `SEO_LIVE_URL` + codero-ops hook set, launch check green in Telegram |
+| 3 | Launch | Real domain live, `NEXT_PUBLIC_SITE_URL` set | `/codero-seo launch <live-url>`, then automatic on every production deploy (`SEO` workflow job `deploy-seo` → codero-automations A3) | Live check clean, every legacy redirect passes; repo variables `SEO_LIVE_URL`, `CODERO_SEO_RUN_URL`, `CODERO_CLIENT_SLUG` and secret `CODERO_SEO_TRIGGER_SECRET` set; client ticked *SEO health (A3) → Built on fable-template* in Codero's Studio; the next production deploy's launch baseline is green in Telegram (§9) |
 | 4 | Review | About 4 weeks after launch | `/codero-seo review <live-url>` | Before/after against the stage-0 baseline delivered to the client |
-| 5 | Monitor | Weekly (GitHub), monthly (codero-ops, automatic for Performance Grow), quarterly (human) | `SEO` workflow + codero-ops SEO health check + `/codero-seo monthly <live-url>` | No open `seo-monitor` issue older than a week; monthly grade green or every red/amber inside its turnaround (§9) |
+| 5 | Monitor | Weekly (GitHub), monthly (codero-automations A3, automatic for Performance Grow), quarterly (human) | `SEO` workflow + A3 SEO health check + `/codero-seo monthly <live-url>` | No open `seo-monitor` issue older than a week; monthly grade green or every red/amber inside its turnaround (§9) |
 
 **Why stage 0 is a hard gate.** Replacing a hotel's site is the moment it
 is most likely to lose search traffic. That happens when old URLs vanish,
@@ -162,16 +162,19 @@ Two layers run with no one asking:
 |---|---|---|---|
 | `scripts/seo-check.mjs` on a fresh build | Every PR (`SEO` workflow, job `build-seo`) | Every sitemap URL: status, `lang`, title/description, canonical, hreflang, OG, one `<h1>`, image `alt`, JSON-LD validity + required fields, FAQPage, duplicates within a locale, broken internal links, robots/sitemap/llms.txt, legacy redirects | `.github/workflows/seo.yml` |
 | Lighthouse CI | Every PR | Accessibility ≥ 95, best practices ≥ 90, SEO ≥ 90, CLS ≤ 0.1, zero contrast/alt/title/description failures. Performance and LCP warn only, since CI hardware is noisy | `lighthouserc.json` |
-| Both, against the real domain | Mondays 06:00 UTC + on demand, once repo variable `SEO_LIVE_URL` is set | Live-only problems: `noindex` on the real host, wrong canonical host, redirects broken by a DNS/host change. A failure opens or updates one `seo-monitor` issue | `seo.yml` job `live-seo`, `lighthouserc.live.json` |
-| Both, after each production deploy | Every successful Vercel production deploy, once `SEO_LIVE_URL` is set | A deploy that broke something live. Also calls codero-ops, which stores the result on the client record (the **first** one is kept as the launch baseline) and posts it to the client's Telegram topic; later deploys only post if not green | `seo.yml` job `deploy-seo` |
-| codero-ops SEO health check | 05:00 UTC on the 2nd of every month, for every Performance Grow client (Codero build or not) + `/seo <client>` on demand | Crawl (same checks as `seo-check.mjs`, minus `redirects.json`) + Google PageSpeed (mobile Lighthouse + real-visitor Core Web Vitals), graded red/amber/green (§9). Posted to the client's Telegram topic; feeds the monthly report's **SEO health** section | `codero-ops` repo, `lib/seo/` |
+| Both, against the real domain | Mondays 06:00 UTC + on demand, once repo variable `SEO_LIVE_URL` is set | Live-only problems: `noindex` on the real host, wrong canonical host, redirects broken by a DNS/host change. A failure opens or updates one `seo-monitor` issue, and pings the A3 hook so the client's Telegram topic hears about it too | `seo.yml` job `live-seo`, `lighthouserc.live.json` |
+| A3 check after each production deploy | Every successful Vercel production deploy (`deployment_status`, environment `Production`) | A deploy that broke something live. One POST to codero-automations `/api/seo/run`, which crawls, runs PageSpeed and grades the site (§9) on its side. The **first** call is stored as the client's launch baseline and always posted to Telegram; later deploys post only if not green or the grade changed. Skips with one log line until the hook is configured; a failed POST is a warning, never a red deploy | `seo.yml` job `deploy-seo` |
+| A3 SEO health check | 05:00 UTC on the 2nd of every month, for every Performance Grow client (Codero build or not) + `/seo <client>` on demand | Crawl (same checks as `seo-check.mjs`, minus `redirects.json`) + Google PageSpeed (mobile Lighthouse + real-visitor Core Web Vitals), graded red/amber/green (§9). Posted to the client's Telegram topic; feeds the monthly report's **SEO health** section | `codero-automations` repo, `lib/seo/` |
 
 Run the check by hand any time:
 `node scripts/seo-check.mjs --base http://localhost:3000` against a
 local `npm run build && npm start`, or `--base https://<domain>` against
 live. It exits non-zero on any Critical/High finding.
 
-The GitHub checks only exist in Codero-built repos. The codero-ops check
+Pass/fail for everything A3 posts (deploy, weekly-failure ping, monthly)
+is defined in §9.
+
+The GitHub checks only exist in Codero-built repos. The A3 check
 needs nothing in the site's repo, which is how a Performance Grow client
 whose site someone else built gets the same monthly monitoring: set their
 live domain on the client record and leave *Built on fable-template* off.
@@ -218,21 +221,25 @@ sources were and weren't available.
 
 ---
 
-## 9. Pass / fail and who fixes what
+## 9. Pass / fail (A3 grading)
 
-The same definition everywhere: the codero-ops Telegram summary, the
-monthly report's SEO health section, and this file. The thresholds live in
-`codero-ops/lib/seo/policy.ts` — change them there and here together.
+The same definition everywhere: the codero-automations A3 Telegram
+summary (deploy, weekly-failure ping and monthly checks), the monthly
+report's SEO health section, and this file. It mirrors codero-automations
+`lib/seo/policy.ts` (thresholds, who fixes what) and `lib/seo/grade.ts`
+(how a check becomes a grade). Change them there and here together.
 
 | Grade | Means | Any of |
 |---|---|---|
 | 🔴 Red | Losing, or about to lose, search visibility | A Critical crawl finding (homepage down, robots.txt blocks everything, `noindex` on a live page, no sitemap on a Codero build); Lighthouse SEO < 80; real-visitor Core Web Vitals "poor" |
-| 🟠 Amber | Needs fixing, not urgent | Any High finding (missing title / description / `<h1>`, canonical on the wrong host, JSON-LD that doesn't parse, broken internal link, no Hotel schema on a Codero build…); Lighthouse SEO < 90, accessibility < 90, best practices < 80, mobile performance < 50; Core Web Vitals "needs improvement" (with no real-visitor data yet: lab LCP > 4 s or CLS > 0.1) |
+| 🟠 Amber | Needs fixing, not urgent | Any High finding (missing title / description / `<h1>`, canonical on the wrong host, JSON-LD that doesn't parse, broken internal link, Hotel schema missing a required field on a Codero build…); Lighthouse SEO < 90, accessibility < 90, best practices < 80, mobile performance < 50; Core Web Vitals "needs improvement" (with no real-visitor data yet: lab LCP > 4 s or CLS > 0.1) |
 | 🟢 Green | Nothing to do | Everything else. Medium/Low findings are backlog and never change the grade |
 
 Mobile performance is lab-only and noisy, so on its own it never makes a
 site red. A part of the check that couldn't run (PageSpeed quota, a
 timeout) is listed as "partial check", not counted as a failure.
+
+**Who fixes what:**
 
 | | Codero build | Someone else's site (Performance Grow on an existing site) |
 |---|---|---|
@@ -242,4 +249,9 @@ timeout) is listed as "partial check", not counted as a failure.
 
 Template-level fixes still follow §2: fix in the client repo, cherry-pick
 back to `fable-template`.
+
+**Two crawlers, one rule set.** `scripts/seo-check.mjs` here and
+`lib/seo/crawl.ts` in codero-automations are the same checks in two
+languages. A rule change in one must be copied to the other in the same
+week.
 

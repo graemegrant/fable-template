@@ -9,17 +9,21 @@ name: SEO
 #               Actions → Variables, e.g. https://www.example.com): the same
 #               checks against the real domain, where canonical/noindex
 #               issues actually show. A failure opens (or comments on) one
-#               "SEO monitor" issue instead of failing silently.
+#               "SEO monitor" issue instead of failing silently, and pings
+#               the Codero SEO hook (below) so it reaches Telegram too.
 #   deploy-seo — after every successful Vercel *production* deploy (the
-#               Vercel GitHub integration reports deployments to GitHub),
-#               once SEO_LIVE_URL is set: the live checks, then tells
-#               codero-ops, which stores the result and posts it to the
-#               client's Telegram topic. The first one is the client's
-#               launch check (SEO-PROCESS.md §1 stage 3). Needs repo
-#               variables CODERO_OPS_URL + CODERO_CLIENT_SLUG and secret
-#               CODERO_SEO_TRIGGER_SECRET (NEW-CLIENT-CHECKLIST.md §8).
-# The monthly Performance Grow check runs from codero-ops itself (any site,
-# Codero-built or not) — SEO-PROCESS.md §7 and §9.
+#               Vercel GitHub integration reports deployments to GitHub):
+#               one POST to codero-automations' /api/seo/run, which crawls
+#               the live site, runs PageSpeed, grades it (SEO-PROCESS.md §9)
+#               and posts to the client's Telegram topic. The first one is
+#               the client's launch baseline (§1 stage 3).
+# The Codero SEO hook needs repo variables CODERO_SEO_RUN_URL +
+# CODERO_CLIENT_SLUG and secret CODERO_SEO_TRIGGER_SECRET
+# (NEW-CLIENT-CHECKLIST.md §8). Unset — as in the template itself — it logs
+# one line and skips. It never fails a job: a Codero outage mustn't turn a
+# client's deploy red.
+# The monthly Performance Grow check runs from codero-automations itself
+# (any site, Codero-built or not) — SEO-PROCESS.md §7 and §9.
 # Judgement-level SEO (content, local, competitors) stays with the
 # /codero-seo stages run from Claude Code — see SEO-PROCESS.md.
 
@@ -123,76 +127,60 @@ jobs:
           n="$(gh issue list --label seo-monitor --state open --json number --jq '.[0].number')"
           if [ -n "$n" ]; then gh issue comment "$n" --body "$body"; else gh issue create --title "SEO monitor: live check failing" --label seo-monitor --body "$body"; fi
 
-  deploy-seo:
-    # Vercel names the environment "Production" (or "Production – <project>").
-    if: >-
-      github.event_name == 'deployment_status' &&
-      github.event.deployment_status.state == 'success' &&
-      startsWith(github.event.deployment.environment, 'Production') &&
-      vars.SEO_LIVE_URL != ''
-    runs-on: ubuntu-latest
-    env:
-      LIVE: ${{ vars.SEO_LIVE_URL }}
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Read Node version from .nvmrc
-        id: nvmrc
-        run: echo "version=$(cat .nvmrc)" >> "$GITHUB_OUTPUT"
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ steps.nvmrc.outputs.version }}
-
-      - name: Let the production alias settle
-        run: sleep 30
-
-      - name: Technical SEO check against the live domain
-        run: node scripts/seo-check.mjs --base "$LIVE" --site "$LIVE" --out seo-check.md
-
-      - name: Lighthouse CI against the live domain
-        if: always()
-        run: |
-          L="$(grep -oE "DEFAULT_LOCALE[^=]*= *'[a-z-]+'" lib/locales.ts | grep -oE "'[a-z-]+'" | tr -d "'")"
-          L="${L:-en}"
-          npx -y @lhci/cli@0.15.1 autorun --config=lighthouserc.live.json \
-            --collect.url="$LIVE/$L" --collect.url="$LIVE/$L/rooms" --collect.url="$LIVE/$L/location"
-
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: deploy-seo-reports
-          path: |
-            seo-check.md
-            .lighthouseci/
-          retention-days: 90
-
-      # Stores the check on the client record (the first is kept as the
-      # launch baseline) and posts to the client's Telegram topic. Never
-      # fails the job: a codero-ops outage mustn't look like an SEO problem.
-      - name: Tell codero-ops
-        if: always()
-        continue-on-error: true
+      # Same POST as deploy-seo (keep the two in sync): gets the failure into
+      # the client's Telegram topic via codero-automations, alongside the issue.
+      - name: Ping the Codero SEO hook
+        if: failure()
         env:
-          OPS_URL: ${{ vars.CODERO_OPS_URL }}
+          HOOK_URL: ${{ vars.CODERO_SEO_RUN_URL }}
           SLUG: ${{ vars.CODERO_CLIENT_SLUG }}
           SECRET: ${{ secrets.CODERO_SEO_TRIGGER_SECRET }}
         run: |
-          if [ -z "$OPS_URL" ] || [ -z "$SLUG" ] || [ -z "$SECRET" ]; then
-            echo "::warning::CODERO_OPS_URL, CODERO_CLIENT_SLUG or CODERO_SEO_TRIGGER_SECRET not set — codero-ops not notified (NEW-CLIENT-CHECKLIST.md §8)."
+          if [ -z "$HOOK_URL" ] || [ -z "$SLUG" ] || [ -z "$SECRET" ]; then
+            echo "Codero SEO hook not configured, skipping"
             exit 0
           fi
-          curl -fsS -X POST "${OPS_URL%/}/api/seo/run" \
-            -H "authorization: Bearer $SECRET" -H 'content-type: application/json' \
-            -d "{\"clientSlug\":\"$SLUG\",\"trigger\":\"deploy\"}"
+          rm -f "$RUNNER_TEMP/codero-seo.json"
+          code="$(curl -sS -o "$RUNNER_TEMP/codero-seo.json" -w '%{http_code}' --max-time 20 --retry 1 --retry-connrefused \
+            -X POST "$HOOK_URL" -H "Authorization: Bearer $SECRET" -H 'Content-Type: application/json' \
+            -d "{\"clientSlug\":\"$SLUG\",\"trigger\":\"deploy\"}")" || true
+          echo "Codero SEO hook: HTTP ${code:-000}"
+          case "$code" in
+            2??) ;;
+            *) echo "::warning::Codero SEO hook failed (HTTP ${code:-000}): $(head -c 300 "$RUNNER_TEMP/codero-seo.json" 2>/dev/null)" ;;
+          esac
 
-      - name: Open or update the SEO monitor issue
-        if: failure()
+  deploy-seo:
+    # Vercel's GitHub integration reports a production deploy with the
+    # environment "Production"; previews are "Preview" and never match.
+    if: >-
+      github.event_name == 'deployment_status' &&
+      github.event.deployment_status.state == 'success' &&
+      github.event.deployment.environment == 'Production'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions: {}
+    steps:
+      # Returns 202 at once; the crawl + PageSpeed run on Codero's side. The
+      # first call for a client is stored as its launch baseline and always
+      # posted to Telegram; later ones post only if not green or the grade
+      # changed. Same POST as live-seo's last step (keep the two in sync).
+      - name: Ping the Codero SEO hook
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          HOOK_URL: ${{ vars.CODERO_SEO_RUN_URL }}
+          SLUG: ${{ vars.CODERO_CLIENT_SLUG }}
+          SECRET: ${{ secrets.CODERO_SEO_TRIGGER_SECRET }}
         run: |
-          gh label create seo-monitor --color B60205 --description "Automated live SEO check failed" --force
-          body="Post-deploy SEO check failed for $LIVE (deploy ${GITHUB_SHA::7}) — $RUN_URL (reports in the run's artifacts). Triage per SEO-PROCESS.md §7."
-          n="$(gh issue list --label seo-monitor --state open --json number --jq '.[0].number')"
-          if [ -n "$n" ]; then gh issue comment "$n" --body "$body"; else gh issue create --title "SEO monitor: live check failing" --label seo-monitor --body "$body"; fi
+          if [ -z "$HOOK_URL" ] || [ -z "$SLUG" ] || [ -z "$SECRET" ]; then
+            echo "Codero SEO hook not configured, skipping"
+            exit 0
+          fi
+          rm -f "$RUNNER_TEMP/codero-seo.json"
+          code="$(curl -sS -o "$RUNNER_TEMP/codero-seo.json" -w '%{http_code}' --max-time 20 --retry 1 --retry-connrefused \
+            -X POST "$HOOK_URL" -H "Authorization: Bearer $SECRET" -H 'Content-Type: application/json' \
+            -d "{\"clientSlug\":\"$SLUG\",\"trigger\":\"deploy\"}")" || true
+          echo "Codero SEO hook: HTTP ${code:-000}"
+          case "$code" in
+            2??) ;;
+            *) echo "::warning::Codero SEO hook failed (HTTP ${code:-000}): $(head -c 300 "$RUNNER_TEMP/codero-seo.json" 2>/dev/null)" ;;
+          esac
