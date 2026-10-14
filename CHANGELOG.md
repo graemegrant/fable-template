@@ -7,6 +7,13 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Audit gate: sharp 0.35.5** (GHSA-wq5f-xc86-pv6w, high — librsvg
+  CVE-2026-96889, fixed upstream). `npm update sharp`: only `sharp` and its
+  `@img/*` platform packages change in the lockfile (all platforms kept);
+  `next`'s range already allows it, `package.json` unchanged. This was
+  failing `build-check` on every PR since 6 Oct. **Client repos:** same
+  bump at the next template pull.
+
 - **SEO wired to codero-automations A3.** New `SEO` workflow job
   `deploy-seo` (on `deployment_status`, `Production` only) POSTs to
   codero-automations `/api/seo/run`, which crawls, runs PageSpeed, grades
