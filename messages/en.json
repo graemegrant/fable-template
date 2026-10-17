@@ -351,7 +351,7 @@
     "keepBody": "We keep enquiries only as long as we need them to deal with your request, and newsletter details until you unsubscribe.",
     "cookiesTitle": "Cookies",
     "cookiesBodyEssential": "This website uses an essential cookie to remember your cookie choice. We do not use analytics or advertising cookies.",
-    "cookiesBodyAnalytics": "This website uses an essential cookie to remember your cookie choice. If you choose “Accept all”, we also use Google Analytics cookies to understand how visitors use the site; they are never set before you choose. We do not use advertising cookies. You can change your choice at any time by clearing this site’s stored data in your browser.",
+    "cookiesBodyAnalytics": "This website uses an essential cookie to remember your cookie choice. If you choose “Accept all”, we also use {tools} cookies to understand how visitors use the site; they are never set before you choose. We do not use advertising cookies. You can change your choice at any time by clearing this site’s stored data in your browser.",
     "rightsTitle": "Your rights",
     "rightsBody": "Under UK data protection law you can ask to see, correct or delete the personal information we hold about you, or object to how we use it. Contact us using the details above. You also have the right to complain to the Information Commissioner’s Office (ico.org.uk)."
   }

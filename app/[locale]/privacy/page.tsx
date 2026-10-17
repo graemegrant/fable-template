@@ -10,7 +10,7 @@ import { FadeUp } from '@/components/Motion';
  * Privacy & cookies notice — a starting draft every client must review
  * before launch (NEW-CLIENT-CHECKLIST.md): it needs the client's legal
  * entity as data controller. It only describes what the site does: the
- * cookies section follows whether NEXT_PUBLIC_GA4_ID is set (analytics
+ * cookies section follows whether NEXT_PUBLIC_GA4_ID / NEXT_PUBLIC_CLARITY_ID are set (analytics
  * only ever loads after consent — see components/Analytics.tsx).
  * Update `LAST_UPDATED` whenever the content changes.
  */
@@ -30,7 +30,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function PrivacyPage({ params }: { params: Promise<{ locale: string }> }) {
   await params;
   const t = await getTranslations('privacy');
-  const analytics = Boolean(process.env.NEXT_PUBLIC_GA4_ID);
+  const ga4 = Boolean(process.env.NEXT_PUBLIC_GA4_ID);
+  const clarity = Boolean(process.env.NEXT_PUBLIC_CLARITY_ID);
+  const analytics = ga4 || clarity;
+  const tools = [ga4 && 'Google Analytics', clarity && 'Microsoft Clarity'].filter(Boolean).join(' and ');
   const values = {
     name: hotelConfig.name,
     address: hotelConfig.location.address,
@@ -43,7 +46,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
     [t('collectTitle'), t('collectBody')],
     [t('useTitle'), t('useBody')],
     [t('keepTitle'), t('keepBody')],
-    [t('cookiesTitle'), analytics ? t('cookiesBodyAnalytics') : t('cookiesBodyEssential')],
+    [t('cookiesTitle'), analytics ? t('cookiesBodyAnalytics', { tools }) : t('cookiesBodyEssential')],
     [t('rightsTitle'), t('rightsBody')],
   ];
   return (

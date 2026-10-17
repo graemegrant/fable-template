@@ -84,6 +84,7 @@ that it'll be done later.
 4. **Upload photography**, connect to CMS image fields (flag if no real photography exists — don't silently substitute stock images without saying so)
 5. **Configure the booking engine** — the client's existing booking link in `NEXT_PUBLIC_BOOKING_ENGINE_URL` (`lib/bookingEngine.ts` handles SynXis and generic links) or their embed code; never PMS admin access
 6. **Connect GA4** — set `NEXT_PUBLIC_GA4_ID` (the template loads GA4 directly, and only after the visitor chooses "Accept all"; it has no GTM integration), then verify events firing
+   - **Connect Microsoft Clarity** (heatmaps and session recordings for CRO) — create a project at clarity.microsoft.com for the live domain, turn on **cookie consent required** in its settings, and set `NEXT_PUBLIC_CLARITY_ID`. It loads only after "Accept all", like GA4. After launch, accept cookies on the live site and confirm a session appears in Clarity. The SEO checks flag a site without it (Low)
 7. **SEO metadata** written across all pages, targeting the baseline's keyword → page map; the `SEO` workflow checks every PR automatically
 8. **Run `/codero-seo prelaunch <staging-url>`** once real content is in: zero Critical/High before launch, then `/codero-seo launch` on the live domain (SEO-PROCESS.md §1)
 9. **Quality review** against the CRO blueprint checklist

@@ -66,6 +66,9 @@ export async function generateMetadata({
     twitter: {
       card: 'summary_large_image',
     },
+    // Marker for the SEO checks (scripts/seo-check.mjs and codero-ops):
+    // Clarity itself only loads after consent, so crawlers can't see it.
+    ...(clarityId ? { other: { 'codero-clarity': 'on' } } : {}),
     verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
       ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
       : undefined,
@@ -77,6 +80,7 @@ export const viewport: Viewport = {
 };
 
 const ga4Id = process.env.NEXT_PUBLIC_GA4_ID;
+const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
 
 /** messages/*.json namespaces used by 'use client' components (see below). */
 const CLIENT_NAMESPACES = ['common', 'nav', 'footer', 'booking', 'cookies', 'home', 'shared', 'contactForm', 'glenMoment'];
@@ -113,7 +117,7 @@ export default async function LocaleLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(lodgingSchema) }}
         />
         {/* Analytics loads only after cookie consent — see components/Analytics.tsx */}
-        {ga4Id && <Analytics id={ga4Id} />}
+        {(ga4Id || clarityId) && <Analytics ga4Id={ga4Id} clarityId={clarityId} />}
         <NextIntlClientProvider messages={messages}>
           <MotionProvider>
             <BookingProvider>
