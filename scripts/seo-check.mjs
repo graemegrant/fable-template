@@ -80,6 +80,9 @@ const titles = new Map();
 const descs = new Map();
 const internal = new Set();
 const rows = [];
+// Clarity only loads after consent, so crawlers look for the site-wide
+// marker layout.tsx renders when NEXT_PUBLIC_CLARITY_ID is set.
+let clarityMarker = false;
 
 for (const path of paths) {
   const res = await get(BASE + path);
@@ -124,6 +127,7 @@ for (const path of paths) {
   if (hreflangs.length && !hreflangs.includes('x-default')) add('Low', path, 'hreflang set without x-default');
   for (const k of ['title', 'description', 'image', 'url']) if (!metaContent(head, 'property', `og:${k}`)) add('Medium', path, `no og:${k}`);
   if (!metaContent(head, 'name', 'twitter:card')) add('Low', path, 'no twitter:card');
+  if (metaContent(head, 'name', 'codero-clarity')) clarityMarker = true;
   if (h1 !== 1) add('High', path, `${h1} <h1> elements (want exactly 1)`);
   if (noAlt) add('Medium', path, `${noAlt}/${imgs.length} <img> without an alt attribute`);
   const types = [];
@@ -149,6 +153,9 @@ for (const path of paths) {
   }
   rows.push({ path, title: title.length, desc: (desc ?? '').length, ld: types.join(',') });
 }
+
+// Same rule as codero-ops lib/seo/crawl.ts — keep the two in sync.
+if (rows.length && !clarityMarker) add('Low', 'site', 'Microsoft Clarity not set up (NEXT_PUBLIC_CLARITY_ID) — needed for CRO heatmaps');
 
 // ——— OG image + internal links
 const ogRes = await get(`${BASE}${paths.find((p) => p !== '/') ?? ''}/opengraph-image`);

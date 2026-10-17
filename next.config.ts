@@ -28,15 +28,17 @@ const securityHeaders = [
  * 'unsafe-eval' is dev-only (Next's HMR needs it); production never gets it.
  * Sanity project ID is per-client (hotel.config.ts), so connect-src/img-src
  * use wildcard subdomains rather than hardcoding one client's host.
+ * Microsoft Clarity needs *.clarity.ms and c.bing.com (Microsoft's CSP
+ * guidance) for its script, data and images.
  */
 const isDev = process.env.NODE_ENV !== 'production';
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval' " : ''}https://www.googletagmanager.com`,
+  `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval' " : ''}https://www.googletagmanager.com https://*.clarity.ms https://c.bing.com`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: https://images.unsplash.com https://cdn.sanity.io",
+  "img-src 'self' data: https://images.unsplash.com https://cdn.sanity.io https://*.clarity.ms https://c.bing.com",
   "font-src 'self' data:",
-  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.api.sanity.io https://*.apicdn.sanity.io",
+  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.api.sanity.io https://*.apicdn.sanity.io https://*.clarity.ms https://c.bing.com",
   "frame-src https://www.google.com",
   "frame-ancestors 'self'",
   "base-uri 'self'",

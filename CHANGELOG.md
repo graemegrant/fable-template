@@ -7,6 +7,19 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Microsoft Clarity (CRO heatmaps and recordings).** Set
+  `NEXT_PUBLIC_CLARITY_ID` and `components/Analytics.tsx` loads Clarity
+  behind the same "Accept all" gate as GA4, then sends Clarity's Consent API
+  v2 signal (analytics granted, ads denied), which Microsoft has required
+  for UK/EEA visits since 31 Oct 2025. Withdrawing consent erases Clarity's
+  cookies. CSP gains `*.clarity.ms` and `c.bing.com` (script, connect, img).
+  `/privacy` names whichever of Google Analytics and Microsoft Clarity are
+  on. The layout renders `<meta name="codero-clarity" content="on">` when
+  configured, and `scripts/seo-check.mjs` reports a **Low** finding when no
+  page has it — mirrored in codero-automations `lib/seo/crawl.ts` (two
+  crawlers, same rule). New kickoff step 6 sub-item. **Client repos:**
+  pull, then create a Clarity project and set the env var on Vercel.
+
 - **Audit gate: sharp 0.35.5** (GHSA-wq5f-xc86-pv6w, high — librsvg
   CVE-2026-96889, fixed upstream). `npm update sharp`: only `sharp` and its
   `@img/*` platform packages change in the lockfile (all platforms kept);
