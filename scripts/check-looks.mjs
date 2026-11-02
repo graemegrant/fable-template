@@ -35,7 +35,18 @@ try {
     execSync(`npx tsc --noEmit -p ${tmp}`, { stdio: 'inherit' });
     if (build && !(skipDefault && look === defaultLook)) {
       console.log(`\n=== ${look}: build`);
-      execSync('npx next build', { stdio: 'inherit', env: { ...process.env, LOOK: look } });
+      // Up to three tries: next/font's Google Fonts download fails now and
+      // then ("Cannot read properties of null"), and a retry clears it.
+      for (let attempt = 1; ; attempt++) {
+        try {
+          execSync('npx next build', { stdio: 'inherit', env: { ...process.env, LOOK: look } });
+          break;
+        } catch (err) {
+          if (attempt === 3) throw err;
+          console.log(`
+=== ${look}: build failed, retrying (${attempt + 1} of 3)`);
+        }
+      }
       // Prove the build really used this look: the layout stamps the name
       // from @look/meta on <body>, so a broken @look switch shows up here.
       const home = readFileSync('.next/server/app/en.html', 'utf8');
