@@ -1,11 +1,7 @@
 import type { Metadata } from 'next';
 import { getLocale } from 'next-intl/server';
-import { Link } from '@/i18n/navigation';
-import { hotelConfig } from '@/hotel.config';
-import { pickLocale } from '@/lib/resolveLocale';
 import type { Locale } from '@/lib/locales';
-import SectionLabel from '@look/components/SectionLabel';
-import { PageFade } from '@look/components/Motion';
+import NotFoundView from '@look/views/NotFoundView';
 
 // Next injects `noindex` for not-found automatically — don't also set the
 // `robots` key here or the page emits two <meta name="robots"> tags.
@@ -15,35 +11,5 @@ export const metadata: Metadata = {
 
 export default async function NotFound() {
   const locale = (await getLocale()) as Locale;
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-primary px-6">
-      <PageFade className="max-w-xl text-center">
-        <SectionLabel variant="ondark">Page not found</SectionLabel>
-        <h1 className="mt-6 font-heading text-6xl font-medium text-canvas">
-          You’ve wandered off the path.
-        </h1>
-        <p className="mt-6 font-body text-base font-light leading-relaxed text-canvas/75">
-          It happens on four hundred acres. The page you’re after isn’t here — but the house is
-          just over the rise, and the fire is lit.
-        </p>
-        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <Link
-            href="/"
-            className="rounded-ctrl bg-accentfill px-8 py-4 font-body text-2xs uppercase tracking-25 text-onaccent transition-colors duration-300 hover:bg-canvas hover:text-primary"
-          >
-            Back to the house
-          </Link>
-          <Link
-            href="/contact"
-            className="rounded-ctrl border border-canvas/60 px-8 py-4 font-body text-2xs uppercase tracking-25 text-canvas transition-colors duration-300 hover:bg-canvas hover:text-primary"
-          >
-            Ask for directions
-          </Link>
-        </div>
-        <p className="mt-10 font-body text-xs text-canvas/70">
-          {hotelConfig.name} · {pickLocale(hotelConfig.location.regionLabel, locale)}
-        </p>
-      </PageFade>
-    </div>
-  );
+  return <NotFoundView locale={locale} />;
 }

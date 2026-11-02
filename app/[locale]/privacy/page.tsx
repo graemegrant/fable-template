@@ -1,20 +1,8 @@
-import { getTranslations } from 'next-intl/server';
 import { hotelConfig } from '@/hotel.config';
 import { pageMetadata } from '@/lib/seo';
-import { IMG } from '@/lib/data';
 import { isLocale, DEFAULT_LOCALE, type Locale } from '@/lib/locales';
-import PageHero from '@look/components/PageHero';
-import { FadeUp } from '@look/components/Motion';
-
-/*
- * Privacy & cookies notice — a starting draft every client must review
- * before launch (NEW-CLIENT-CHECKLIST.md): it needs the client's legal
- * entity as data controller. It only describes what the site does: the
- * cookies section follows whether NEXT_PUBLIC_GA4_ID / NEXT_PUBLIC_CLARITY_ID are set (analytics
- * only ever loads after consent — see components/Analytics.tsx).
- * Update `LAST_UPDATED` whenever the content changes.
- */
-const LAST_UPDATED = '2 October 2026';
+import PrivacyView from '@look/views/PrivacyView';
+import { loadPrivacy } from '@/lib/pages/privacy';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: rawLocale } = await params;
@@ -28,43 +16,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 export default async function PrivacyPage({ params }: { params: Promise<{ locale: string }> }) {
-  await params;
-  const t = await getTranslations('privacy');
-  const ga4 = Boolean(process.env.NEXT_PUBLIC_GA4_ID);
-  const clarity = Boolean(process.env.NEXT_PUBLIC_CLARITY_ID);
-  const analytics = ga4 || clarity;
-  const tools = [ga4 && 'Google Analytics', clarity && 'Microsoft Clarity'].filter(Boolean).join(' and ');
-  const values = {
-    name: hotelConfig.name,
-    address: hotelConfig.location.address,
-    email: hotelConfig.contact.email,
-    phone: hotelConfig.contact.phone,
-    date: LAST_UPDATED,
-  };
-  const sections: Array<[title: string, body: string]> = [
-    [t('whoTitle'), t('whoBody', values)],
-    [t('collectTitle'), t('collectBody')],
-    [t('useTitle'), t('useBody')],
-    [t('keepTitle'), t('keepBody')],
-    [t('cookiesTitle'), analytics ? t('cookiesBodyAnalytics', { tools }) : t('cookiesBodyEssential')],
-    [t('rightsTitle'), t('rightsBody')],
-  ];
-  return (
-    <>
-      <PageHero eyebrow={t('eyebrow')} title={t('title')} subtitle={t('subtitle')} image={IMG.dining1} />
-      <section className="mx-auto max-w-3xl px-6 py-20 lg:py-28">
-        <FadeUp>
-          <p className="font-body text-xs uppercase tracking-20 text-ink/70">{t('updated', values)}</p>
-          <div className="mt-10 space-y-12">
-            {sections.map(([title, body]) => (
-              <div key={title}>
-                <h2 className="font-heading text-3xl font-medium text-ink">{title}</h2>
-                <p className="mt-4 font-body text-base font-light leading-body text-ink/80">{body}</p>
-              </div>
-            ))}
-          </div>
-        </FadeUp>
-      </section>
-    </>
-  );
+  const { locale: rawLocale } = await params;
+  const locale: Locale = isLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
+  const data = await loadPrivacy();
+  return <PrivacyView locale={locale} {...data} />;
 }

@@ -7,6 +7,17 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Looks, phase 1b: page layouts move into the look.** Every page is now
+  three parts: a shared data loader in `lib/pages/<page>.ts` (Sanity
+  queries, locale resolution, data built from translations; it exports a
+  `<Page>Data` type), the look's view in `themes/<look>/views/<Page>View.tsx`
+  (all visible markup) and a thin route in `app/` (metadata, static params,
+  revalidate and the JSON-LD scripts, which stay shared SEO). A new look
+  implements the same views against the same `<Page>Data` types. No visible
+  change: on all 29 English pages, the rendered markup and JSON-LD are
+  identical to before, and the CSS is byte-identical. **Client repos:** pull,
+  then move any client-only page markup into the matching view.
+
 - **Looks, phase 1a: Heritage moves into `themes/heritage/`.** New `look`
   setting in `hotel.config.ts` (AGENTS.md §3a); `@look/...` imports resolve
   to `themes/<look>/` (tsconfig.json for the editor, next.config.ts aliases
