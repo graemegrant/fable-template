@@ -2,28 +2,28 @@
 
 import { useContactForm } from '@/lib/ui/useContactForm';
 
-/** Heritage contact form. Behaviour is shared in lib/ui/useContactForm.ts. */
+/** Coastal contact form: soft rounded fields on a sand card. Behaviour is
+ *  shared in lib/ui/useContactForm.ts. */
 export default function ContactForm() {
   const { t, subjects, status, form, set, submit } = useContactForm();
 
   const field =
-    'w-full rounded-ctrl border border-ink/20 bg-transparent px-4 py-3.5 font-body text-base text-ink placeholder:text-ink/40 focus:border-accent focus:outline-none sm:text-sm';
-  const label = 'block font-body text-2xs uppercase tracking-25 text-ink/70';
+    'w-full rounded-img border border-ink/15 bg-canvas px-5 py-3.5 font-body text-base text-ink placeholder:text-ink/50 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accentondark sm:text-sm';
+  const label = 'block px-1 font-body text-sm font-semibold text-primary';
 
   if (status === 'sent') {
     return (
-      <div className="rounded-card border border-accent/50 bg-canvasalt p-10 text-center">
-        <p className="font-heading text-2xl font-medium text-primary">{t('thankYou')}</p>
-        <p className="mt-3 font-body text-sm leading-relaxed text-ink/75">
-          {t('confirmationBody')}
-        </p>
+      <div className="rounded-card bg-accentondark/35 p-10 text-center">
+        <span aria-hidden className="mx-auto flex size-14 items-center justify-center rounded-full bg-canvas text-2xl text-accent">✓</span>
+        <p className="mt-5 font-heading text-3xl font-semibold text-primary">{t('thankYou')}</p>
+        <p className="mt-3 font-body text-base leading-relaxed text-ink/80">{t('confirmationBody')}</p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={submit} className="space-y-6">
-      <div className="grid gap-6 sm:grid-cols-2">
+    <form onSubmit={submit} className="space-y-5">
+      <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="cf-name" className={label}>{t('nameLabel')}</label>
           <input id="cf-name" required value={form.name} onChange={set('name')} className={`mt-2 ${field}`} placeholder={t('namePlaceholder')} />
@@ -33,9 +33,11 @@ export default function ContactForm() {
           <input id="cf-email" type="email" required value={form.email} onChange={set('email')} className={`mt-2 ${field}`} placeholder={t('emailPlaceholder')} />
         </div>
       </div>
-      <div className="grid gap-6 sm:grid-cols-2">
+      <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label htmlFor="cf-phone" className={label}>{t('phoneLabel')} <span className="normal-case tracking-normal">{t('optionalLabel')}</span></label>
+          <label htmlFor="cf-phone" className={label}>
+            {t('phoneLabel')} <span className="font-normal text-ink/75">{t('optionalLabel')}</span>
+          </label>
           <input id="cf-phone" value={form.phone} onChange={set('phone')} className={`mt-2 ${field}`} placeholder={t('phonePlaceholder')} />
         </div>
         <div>
@@ -52,15 +54,11 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === 'sending'}
-        className="rounded-ctrl bg-primary px-10 py-4 font-body text-2xs uppercase tracking-25 text-canvas transition-colors duration-300 hover:bg-accentfill hover:text-onaccent disabled:opacity-60"
+        className="min-h-12 rounded-ctrl bg-accentfill px-9 py-3.5 font-body text-base font-semibold text-onaccent transition-transform duration-300 hover:-translate-y-0.5 disabled:opacity-60"
       >
         {status === 'sending' ? t('sending') : t('sendEnquiry')}
       </button>
-      {status === 'error' && (
-        <p className="font-body text-sm text-ink/70">
-          {t('errorMessage')}
-        </p>
-      )}
+      {status === 'error' && <p className="font-body text-sm text-ink/80">{t('errorMessage')}</p>}
     </form>
   );
 }

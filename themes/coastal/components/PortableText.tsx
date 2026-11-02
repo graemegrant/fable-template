@@ -2,20 +2,15 @@ import Image from 'next/image';
 import { PortableText as PT, type PortableTextComponents } from '@portabletext/react';
 import { imgSrc } from '@/lib/image';
 
-/** Styled renderer for Sanity portable text — journal posts and editorial bodies. */
+/** Coastal renderer for Sanity portable text: journal posts and editorial
+ *  bodies. Pull quotes sit on a sea-glass card; photos are rounded. */
 const components: PortableTextComponents = {
   block: {
-    normal: ({ children }) => (
-      <p className="mb-6 font-body text-base font-light leading-body text-ink/85">{children}</p>
-    ),
-    h2: ({ children }) => (
-      <h2 className="mb-5 mt-12 font-heading text-3xl font-medium text-ink">{children}</h2>
-    ),
-    h3: ({ children }) => (
-      <h3 className="mb-4 mt-10 font-heading text-2xl font-medium text-ink">{children}</h3>
-    ),
+    normal: ({ children }) => <p className="mb-6 font-body text-lg leading-body text-ink/85">{children}</p>,
+    h2: ({ children }) => <h2 className="mb-5 mt-12 font-heading text-3xl font-semibold text-primary">{children}</h2>,
+    h3: ({ children }) => <h3 className="mb-4 mt-10 font-heading text-2xl font-semibold text-primary">{children}</h3>,
     blockquote: ({ children }) => (
-      <blockquote className="my-10 border-l-2 border-accent pl-8 font-heading text-2xl font-medium italic leading-relaxed text-primary">
+      <blockquote className="my-10 rounded-card bg-accentondark/35 px-8 py-7 font-heading text-2xl italic leading-relaxed text-primary">
         {children}
       </blockquote>
     ),
@@ -24,7 +19,7 @@ const components: PortableTextComponents = {
     link: ({ children, value }) => (
       <a
         href={value?.href}
-        className="text-primary underline decoration-accent underline-offset-4 transition-colors hover:text-accent"
+        className="font-medium text-accent underline decoration-accentondark decoration-2 underline-offset-4 transition-colors hover:text-primary"
         rel="noopener noreferrer"
       >
         {children}
@@ -34,14 +29,10 @@ const components: PortableTextComponents = {
   types: {
     image: ({ value }) => (
       <figure className="my-10">
-        <div className="relative aspect-wide">
+        <div className="relative aspect-wide overflow-hidden rounded-card">
           <Image src={imgSrc(value)} alt={value?.caption || ''} fill sizes="(min-width: 768px) 720px, 100vw" className="object-cover" />
         </div>
-        {value?.caption && (
-          <figcaption className="mt-3 font-body text-xs uppercase tracking-20 text-ink/70">
-            {value.caption}
-          </figcaption>
-        )}
+        {value?.caption && <figcaption className="mt-3 px-2 font-body text-sm italic text-ink/75">{value.caption}</figcaption>}
       </figure>
     ),
   },

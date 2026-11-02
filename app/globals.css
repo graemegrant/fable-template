@@ -27,6 +27,18 @@
   }
 }
 
+/* iOS Safari gives date inputs a native minimum width that ignores
+   `w-full`, so they overflow narrow layouts. Dropping the native appearance
+   lets them size like any field (tapping still opens the date picker);
+   min-height stops an empty one collapsing, and the value stays left-aligned. */
 input[type='date'] {
   color-scheme: light;
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  min-width: 0;
+  min-height: 3rem;
+}
+input[type='date']::-webkit-date-and-time-value {
+  text-align: left;
 }

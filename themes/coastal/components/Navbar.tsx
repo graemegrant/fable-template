@@ -27,7 +27,7 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
       <div
-        className={`mx-auto flex max-w-7xl items-center gap-4 rounded-card px-5 py-2.5 transition-all duration-500 lg:px-7 ${
+        className={`mx-auto flex max-w-7xl items-center gap-4 rounded-ctrl py-2.5 pl-6 pr-2.5 transition-all duration-500 lg:pl-7 ${
           light ? 'bg-primarydeep/20 backdrop-blur-sm' : 'shadow-sand bg-canvas/90 backdrop-blur-md'
         }`}
       >
@@ -120,7 +120,7 @@ export default function Navbar() {
         {/* 48×48 hit area (WCAG 2.5.8). */}
         <button
           type="button"
-          className={`-mr-2 ml-auto flex size-12 items-center justify-center rounded-ctrl lg:hidden ${text}`}
+          className={`ml-auto flex size-12 items-center justify-center rounded-ctrl lg:hidden ${text}`}
           onClick={() => setMobileOpen((v) => !v)}
           aria-expanded={mobileOpen}
           aria-label={t('toggleMenu')}

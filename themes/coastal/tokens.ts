@@ -26,5 +26,7 @@ export const palette = {
 export const radii = {
   ctrl: '999px', // buttons, inputs: pills
   card: '28px', // cards, tiles
-  img: '24px', // image frames
+  // Things nested inside a card (photos, tiles, fields). Concentric with the
+  // card: its 28px less the 12px inner padding (p-3) the cards use.
+  img: '16px',
 } as const;
