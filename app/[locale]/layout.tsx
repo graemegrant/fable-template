@@ -16,6 +16,7 @@ import { BookingProvider } from '@look/components/BookingModal';
 import Analytics from '@/components/Analytics';
 import { SiteMobileBookBar } from '@look/components/MobileBookBar';
 import '../globals.css';
+import '@look/styles.css';
 
 export function generateStaticParams() {
   return LOCALE_IDS.map((locale) => ({ locale }));
