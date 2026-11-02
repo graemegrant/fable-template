@@ -4,7 +4,8 @@ import { Link } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
 import type { Locale } from '@/lib/locales';
 import { IMG } from '@/lib/data';
-import KenBurnsHero from '@look/components/KenBurnsHero';
+// Heritage-only pieces, imported directly rather than through @look.
+import KenBurnsHero from '../components/KenBurnsHero';
 import TrustStrip from '@look/components/TrustStrip';
 import SectionLabel from '@look/components/SectionLabel';
 import RoomCard from '@look/components/RoomCard';
@@ -16,7 +17,7 @@ import Facilities from '@look/components/Facilities';
 import ReviewsBand from '@look/components/ReviewsBand';
 import { FadeUp, StaggerGrid, StaggerItem } from '@look/components/Motion';
 import JournalCard from '@look/components/JournalCard';
-import GlenMoment from '@look/components/GlenMoment';
+import GlenMoment from '../components/GlenMoment';
 import StatsBand from '@look/components/StatsBand';
 import { BookButton } from '@look/components/BookingModal';
 import type { HomeData } from '@/lib/pages/home';
