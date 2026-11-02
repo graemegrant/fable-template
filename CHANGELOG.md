@@ -7,6 +7,15 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Coastal look, phase 2b: every page.** Coastal's own rooms, room
+  detail, dining, experiences, experience detail, offers, weddings, about,
+  location, contact, journal, journal post, gift vouchers, policies,
+  privacy and 404 pages, plus its contact form, FAQ, gallery, article text,
+  rooms filter and team cards. Same content, CTAs and JSON-LD as Heritage.
+  Coastal's views import Coastal's own components directly. **All looks:**
+  an unknown address inside a language (e.g. `/en/nope`) now gets the
+  look's styled 404 with a 404 status, not the bare root fallback.
+
 - **Coastal look, phase 2a: site frame and home page.** New `coastal`
   look in `themes/coastal/` (build with `LOOK=coastal`): deep-sea, sand and
   gold palette, Fraunces and DM Sans, rounded shapes, wave dividers. Its own

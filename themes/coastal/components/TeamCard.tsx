@@ -2,23 +2,16 @@ import Image from 'next/image';
 import { imgSrc } from '@/lib/image';
 import type { TeamMember } from '@/lib/types';
 
+/** A team member: round portrait, name, role chip and a short bio. */
 export default function TeamCard({ member }: { member: TeamMember }) {
   return (
-    <article>
-      <div className="relative aspect-tall overflow-hidden rounded-img bg-canvasalt">
-        <Image
-          src={imgSrc(member.headshot, 800)}
-          alt={member.name}
-          fill
-          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-          className="object-cover"
-        />
+    <article className="shadow-sand h-full rounded-card bg-canvas p-6 text-center">
+      <div className="relative mx-auto size-40 overflow-hidden rounded-full bg-canvasalt ring-4 ring-accentondark/50">
+        <Image src={imgSrc(member.headshot, 600)} alt={member.name} fill sizes="160px" className="object-cover" />
       </div>
-      <div className="pt-5">
-        <h3 className="font-heading text-xl font-medium text-ink">{member.name}</h3>
-        <p className="mt-1 font-body text-2xs uppercase tracking-25 text-accent">{member.role}</p>
-        <p className="mt-3 font-body text-sm font-light leading-relaxed text-ink/70">{member.bio}</p>
-      </div>
+      <h3 className="mt-5 font-heading text-2xl font-semibold text-primary">{member.name}</h3>
+      <p className="mt-2 inline-flex rounded-ctrl bg-canvasalt px-3 py-1 font-body text-sm font-medium text-accent">{member.role}</p>
+      <p className="mt-4 font-body text-sm leading-relaxed text-ink/80">{member.bio}</p>
     </article>
   );
 }

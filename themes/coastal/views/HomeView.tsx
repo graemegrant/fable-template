@@ -4,21 +4,20 @@ import { Link } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
 import type { Locale } from '@/lib/locales';
 import { IMG } from '@/lib/data';
-// Coastal-only, so imported directly rather than through @look.
 import CoastalHero from '../components/CoastalHero';
-import TrustStrip from '@look/components/TrustStrip';
-import SectionLabel from '@look/components/SectionLabel';
-import RoomCard from '@look/components/RoomCard';
-import ExperienceCard from '@look/components/ExperienceCard';
-import OfferCard from '@look/components/OfferCard';
-import TestimonialSlider from '@look/components/TestimonialSlider';
-import DirectBookingBanner from '@look/components/DirectBookingBanner';
-import Facilities from '@look/components/Facilities';
-import ReviewsBand from '@look/components/ReviewsBand';
-import { FadeUp, StaggerGrid, StaggerItem } from '@look/components/Motion';
-import JournalCard from '@look/components/JournalCard';
-import StatsBand from '@look/components/StatsBand';
-import { BookButton } from '@look/components/BookingModal';
+import TrustStrip from '../components/TrustStrip';
+import SectionLabel from '../components/SectionLabel';
+import RoomCard from '../components/RoomCard';
+import ExperienceCard from '../components/ExperienceCard';
+import OfferCard from '../components/OfferCard';
+import TestimonialSlider from '../components/TestimonialSlider';
+import DirectBookingBanner from '../components/DirectBookingBanner';
+import Facilities from '../components/Facilities';
+import ReviewsBand from '../components/ReviewsBand';
+import { FadeUp, StaggerGrid, StaggerItem } from '../components/Motion';
+import JournalCard from '../components/JournalCard';
+import StatsBand from '../components/StatsBand';
+import { BookButton } from '../components/BookingModal';
 import type { HomeData } from '@/lib/pages/home';
 
 const pillButton =
