@@ -16,3 +16,6 @@ scratchpad/
 # SEO reports (scripts/seo-check.mjs, Lighthouse CI) — kept as CI artifacts
 .lighthouseci/
 seo-check.md
+
+# Temporary per-look tsconfig written by scripts/check-looks.mjs
+tsconfig.look.json

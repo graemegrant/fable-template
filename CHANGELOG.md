@@ -7,6 +7,19 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Looks: switching and checking.** `LOOK=<look>` overrides
+  `hotel.config.ts` for a build (`themes/active.ts`, read by next.config.ts
+  and lib/tokens.ts), for CI and demo deployments. New `npm run check:looks`
+  type-checks every look against the shared routes and builds it; the new
+  `looks-check` CI job runs it, and fails if a build comes out in a
+  different look from the one asked for (each look's `meta.ts` name is
+  stamped on `<body data-look>`). `@look/...` imports are rewritten in the
+  webpack config, as a plain alias lost to the tsconfig paths and always
+  built Heritage. Look-only components are imported relatively from their
+  own views. Each look's background, texture and animations move to
+  `themes/<look>/styles.css` (Heritage's from `app/globals.css`, which
+  keeps only shared rules). No visible change.
+
 - **Looks, phase 1b: page layouts move into the look.** Every page is now
   three parts: a shared data loader in `lib/pages/<page>.ts` (Sanity
   queries, locale resolution, data built from translations; it exports a

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "check:looks": "node scripts/check-looks.mjs"
   },
   "dependencies": {
     "@portabletext/react": "^3.2.1",

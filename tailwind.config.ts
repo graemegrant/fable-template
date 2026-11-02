@@ -8,7 +8,7 @@ import { palette, radii } from './lib/tokens';
  * look's tokens file, not here.
  *
  * Heritage palette (2026 refresh): peat, stone, aged brass. Depth comes from
- * gradient merges (see globals.css) rather than flat fills.
+ * gradient merges (see themes/heritage/styles.css) rather than flat fills.
  */
 const config: Config = {
   content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './themes/**/*.{ts,tsx}'],

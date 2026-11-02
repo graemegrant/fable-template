@@ -8,6 +8,7 @@ import { hotelSchema } from '@/lib/schema';
 import { pickLocale } from '@/lib/resolveLocale';
 import { LOCALE_IDS, DEFAULT_LOCALE, isLocale, bcp47For, type Locale } from '@/lib/locales';
 import { fontHeading, fontBody } from '@look/fonts';
+import { lookName } from '@look/meta';
 import { MotionProvider } from '@look/components/Motion';
 import Navbar from '@look/components/Navbar';
 import Footer from '@look/components/Footer';
@@ -16,6 +17,7 @@ import { BookingProvider } from '@look/components/BookingModal';
 import Analytics from '@/components/Analytics';
 import { SiteMobileBookBar } from '@look/components/MobileBookBar';
 import '../globals.css';
+import '@look/styles.css';
 
 export function generateStaticParams() {
   return LOCALE_IDS.map((locale) => ({ locale }));
@@ -92,7 +94,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={bcp47For(locale)} className={`${fontHeading.variable} ${fontBody.variable}`}>
-      <body>
+      <body data-look={lookName}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(lodgingSchema) }}
