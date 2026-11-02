@@ -44,6 +44,15 @@ shape matches. Only create a new component when no existing one fits —
 and if you do, make it generic enough to be reused by the next client
 repo, not hardcoded to one hotel's copy.
 
+**Looks exception (approved by Graeme, Nov 2026):** visible, presentational
+components may differ per look (see §3a): each look in `themes/<look>/`
+has its own Navbar, Footer, heroes, buttons, cards and page layouts. Shared
+logic must not be duplicated per look: data fetching, SEO and JSON-LD,
+booking and CRO behaviour, consent, analytics, i18n and forms live once,
+outside `themes/`, and every look uses them. Within a look, the reuse rule
+above still applies.
+
+
 ## 3. Brand tokens — no inline hex, no arbitrary Tailwind values
 
 All colour comes from the semantic tokens defined in `lib/tokens.ts` (and
@@ -79,10 +88,36 @@ A fill button that hovers to `bg-canvas` must also set
 
 **Re-skinning for a new client means editing the nine token values in
 `lib/tokens.ts` — never adding a one-off hex value in a component.**
+
+**Per look (approved by Graeme, Nov 2026):** each look has its own token
+set and its own heading and body fonts (`themes/<look>/tokens.ts`, loaded
+via `next/font`). A client is re-skinned by choosing a look and then
+editing that look's token values, never by adding one-off values in a
+component. The no-inline-hex and no-arbitrary-value rules apply to every
+look.
+
 This is enforced at build level (see `eslint.config.mjs` — no inline hex
 in `className`/`style`, no arbitrary Tailwind values like `bg-[#123456]`
 or `w-[37px]`). If the design genuinely needs a value outside the token
 set, add it to `tailwind.config.ts` as a named token, don't inline it.
+
+## 3a. Looks (Heritage, Coastal, Urban)
+
+The template ships three looks with fully distinct identities: Heritage
+(formal, established), Coastal (light, relaxed) and Urban (editorial,
+design-led). A client site picks one with `look` in `hotel.config.ts`, and
+only that look's code is built and shipped.
+
+- Each look lives in `themes/<look>/` and implements the same component
+  interface (same props), so any page can render with any look.
+- Every look must keep the fundamentals in §4a and §5: a booking CTA and
+  tap-to-call on every page on mobile, "from" prices, the booking modal,
+  JSON-LD and SEO metadata, WCAG AA contrast and 44px tap targets. CI
+  builds and checks all three looks; a look that drops one fails.
+- A fix to shared logic is made once, outside `themes/`. A visual change
+  to one look must not change another.
+- New looks need Graeme's sign-off, like a stack change (§1).
+
 
 ## 4. Client identity: `hotel.config.ts` is the singleton
 
