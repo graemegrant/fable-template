@@ -7,6 +7,16 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Audit gate: November 2026 advisories.** `npm update next undici vite
+  dompurify zod` (lockfile only; `package.json` unchanged): next 15.5.28
+  clears GHSA-2464-fhr4-w9xw and GHSA-p3m5-59mp-jv5r, and the undici,
+  vite and dompurify advisories clear with them. One new high is
+  allowlisted with its reasoning in `.audit-ci.jsonc`: zod
+  (GHSA-mrhx-c7xc-m3w5), reached only through `sanity typegen`; clearing it
+  needs sanity@6.x. The braces entry is removed, since a fixed version has
+  shipped. This was failing `build-check` on every PR. **Client repos:**
+  same update at the next template pull.
+
 - **Microsoft Clarity (CRO heatmaps and recordings).** Set
   `NEXT_PUBLIC_CLARITY_ID` and `components/Analytics.tsx` loads Clarity
   behind the same "Accept all" gate as GA4, then sends Clarity's Consent API
