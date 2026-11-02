@@ -1,25 +1,21 @@
 import type { Config } from 'tailwindcss';
-import { palette } from './lib/tokens';
+import { palette, radii } from './lib/tokens';
 
 /**
- * Colour tokens — the single place to re-skin for a new client.
- * Names are semantic so component classes never change between clients.
- * The nine hex values live in `lib/tokens.ts` so server-side image
- * generation can share them; edit them there, not here.
+ * Colour and radius tokens come from the chosen look (lib/tokens.ts reads
+ * themes/<look>/tokens.ts, AGENTS.md §3a). Names are semantic, so
+ * component classes never change between clients; edit the values in the
+ * look's tokens file, not here.
  *
- * Craigmore heritage palette (2026 refresh): peat, stone, aged brass.
- * Depth comes from gradient merges (see globals.css) rather than flat fills.
+ * Heritage palette (2026 refresh): peat, stone, aged brass. Depth comes from
+ * gradient merges (see globals.css) rather than flat fills.
  */
 const config: Config = {
-  content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}'],
+  content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './themes/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: { ...palette },
-      borderRadius: {
-        ctrl: '10px',   // buttons, inputs — contour-bias: approachable controls
-        card: '18px',   // cards, tiles
-        img: '14px',    // image frames
-      },
+      borderRadius: { ...radii },
       fontFamily: {
         heading: ['var(--font-heading)', 'serif'],
         body: ['var(--font-body)', 'sans-serif'],

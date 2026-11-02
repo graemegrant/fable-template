@@ -8,12 +8,12 @@ import { team as fallbackTeam, pressMentions, IMG } from '@/lib/data';
 import type { TeamMemberI18n } from '@/lib/types';
 import { pickLocale, resolveTeamMember } from '@/lib/resolveLocale';
 import { isLocale, DEFAULT_LOCALE, type Locale } from '@/lib/locales';
-import PageHero from '@/components/PageHero';
-import TeamCard from '@/components/TeamCard';
-import Facilities from '@/components/Facilities';
-import ReviewsBand from '@/components/ReviewsBand';
-import SectionLabel from '@/components/SectionLabel';
-import { FadeUp, StaggerGrid, StaggerItem } from '@/components/Motion';
+import PageHero from '@look/components/PageHero';
+import TeamCard from '@look/components/TeamCard';
+import Facilities from '@look/components/Facilities';
+import ReviewsBand from '@look/components/ReviewsBand';
+import SectionLabel from '@look/components/SectionLabel';
+import { FadeUp, StaggerGrid, StaggerItem } from '@look/components/Motion';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: rawLocale } = await params;

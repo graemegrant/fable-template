@@ -11,13 +11,13 @@ import { rooms as fallbackRooms } from '@/lib/data';
 import type { RoomI18n } from '@/lib/types';
 import { pickLocale, resolveRoom } from '@/lib/resolveLocale';
 import { isLocale, DEFAULT_LOCALE, LOCALE_IDS, bcp47For, type Locale } from '@/lib/locales';
-import PageHero from '@/components/PageHero';
-import GalleryLightbox from '@/components/GalleryLightbox';
-import RoomCard from '@/components/RoomCard';
-import SectionLabel from '@/components/SectionLabel';
-import { FadeUp, StaggerGrid, StaggerItem } from '@/components/Motion';
-import { BookButton } from '@/components/BookingModal';
-import MobileBookBar from '@/components/MobileBookBar';
+import PageHero from '@look/components/PageHero';
+import GalleryLightbox from '@look/components/GalleryLightbox';
+import RoomCard from '@look/components/RoomCard';
+import SectionLabel from '@look/components/SectionLabel';
+import { FadeUp, StaggerGrid, StaggerItem } from '@look/components/Motion';
+import { BookButton } from '@look/components/BookingModal';
+import MobileBookBar from '@look/components/MobileBookBar';
 
 /* Prebuild the rooms we ship statically; CMS-only slugs render on demand
    and then cache for the same window. */

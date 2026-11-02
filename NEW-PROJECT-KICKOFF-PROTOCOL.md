@@ -8,7 +8,7 @@ Standard process for starting ANY new fable-template client build. Fill in the b
 
 - **Client/project name:**
 - **Repo location:**
-- **Files attached:** `hotel.config.ts` / `lib/tokens.ts` (pre-written and verified, or to be generated from the client brief — state which)
+- **Files attached:** `hotel.config.ts` (including `look`) / `themes/<look>/tokens.ts` (pre-written and verified, or to be generated from the client brief — state which)
 - **Sanity project status:** live project exists / not yet — if not, Claude Code should use the `lib/data.ts` fallback dataset, not stall trying to connect to something that doesn't exist
 - **Source material attached:** client brief (required) + stage-0 SEO baseline (required, see Step 0b). Any other audit (e.g. a sales audit PDF) is extra input, not a substitute for the baseline
 - **Client's current website:** URL, or "none" (the baseline then runs against 2–3 nearest competitors)
@@ -80,7 +80,7 @@ that it'll be done later.
 
 1. **Brief Claude Code** with property name, location, room categories, USPs, avatar, brand colours, and the stage-0 keyword → page map, all from the attached client brief and SEO baseline, not invented
 2. **Populate Sanity schemas** — rooms, offers, testimonials, experiences, journal posts, team members (skip/flag if no live Sanity project yet)
-3. **Apply brand assets** — logo, colour tokens, typography into `hotel.config.ts` / `lib/tokens.ts`
+3. **Apply brand assets** — logo, colour tokens into `hotel.config.ts` / `themes/<look>/tokens.ts`
 4. **Upload photography**, connect to CMS image fields (flag if no real photography exists — don't silently substitute stock images without saying so)
 5. **Configure the booking engine** — the client's existing booking link in `NEXT_PUBLIC_BOOKING_ENGINE_URL` (`lib/bookingEngine.ts` handles SynXis and generic links) or their embed code; never PMS admin access
 6. **Connect GA4** — set `NEXT_PUBLIC_GA4_ID` (the template loads GA4 directly, and only after the visitor chooses "Accept all"; it has no GTM integration), then verify events firing
@@ -94,7 +94,7 @@ that it'll be done later.
 ## Standing rules that apply to every project, not just this one
 
 - **Colour tokens use universal, role-based names, not colour names or client names.** As of the token-system fix, the real structure is: `primary`/`primarydeep` (dark surfaces), `accent` (text/rules on light), `accentfill` (solid button/badge surfaces), `onaccent` (text on an accentfill surface), `accentondark` (accent on dark backgrounds), `canvas`/`canvasalt` (light backgrounds), `ink` (body text). This already solves the contrast problem that used to recur across builds — each role is independently tunable to clear AA. When setting a new client's colours, pick values per role with its own contrast requirement in mind, not one hue reused everywhere.
-- **Typography is fixed template-wide** (`Cormorant Garamond` + `Jost`) — never varies per client, don't regenerate or substitute it.
+- **Typography belongs to the look** (`themes/<look>/fonts.ts`; Heritage is `Cormorant Garamond` + `Jost`): it never varies per client within a look, so don't regenerate or substitute it.
 - **Every site meets the template's site standard** (AGENTS.md §4a): mobile-first (44px tap targets, 16px form fields on phones, no text under 11px), a booking CTA and tap-to-call on every page, real depth of information, analytics only after consent.
 - **Access model stays minimal, per Codero's internal New Client Checklist (§3, "What You Never Need"):** never request domain registrar login, PMS admin password, old site hosting login, or any financial system access. Embed codes and CMS Editor invites only.
 

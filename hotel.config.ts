@@ -1,8 +1,8 @@
 /**
  * hotel.config.ts — single source of truth for client identity.
- * Cloning for a new hotel: edit this file, swap the Tailwind colour
- * tokens (lib/tokens.ts), point env vars at the new Sanity project +
- * booking engine. Every field below must carry the client's real value
+ * Cloning for a new hotel: edit this file (including `look`), tune the
+ * chosen look's tokens (themes/<look>/tokens.ts), point env vars at the
+ * new Sanity project + booking engine. Every field below must carry the client's real value
  * before launch — see NEW-CLIENT-CHECKLIST.md §2.
  *
  * Translatable fields use the LocaleField shape ({ en: '...' }) — see
@@ -13,8 +13,13 @@
  */
 import type { LocaleField } from './lib/locales';
 import type { BookingEngineProvider } from './lib/bookingEngine';
+import type { Look } from './themes/looks';
 
 export const hotelConfig = {
+  /** The site's look (AGENTS.md §3a): its colours, fonts, components and
+   *  layouts come from `themes/<look>/`. Choose at kickoff; only that look
+   *  is built. */
+  look: 'heritage' as Look,
   name: 'Craigmore House',
   tagline: {
     en: 'Highland solitude, done properly.',

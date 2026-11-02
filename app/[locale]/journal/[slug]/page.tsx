@@ -12,10 +12,10 @@ import { journalPosts as fallbackPosts, rooms as fallbackRooms } from '@/lib/dat
 import type { JournalPostI18n, RoomI18n } from '@/lib/types';
 import { resolveJournalPost, resolveRoom } from '@/lib/resolveLocale';
 import { isLocale, DEFAULT_LOCALE, LOCALE_IDS, bcp47For, type Locale } from '@/lib/locales';
-import PageHero from '@/components/PageHero';
-import PortableText from '@/components/PortableText';
-import SectionLabel from '@/components/SectionLabel';
-import { FadeUp } from '@/components/Motion';
+import PageHero from '@look/components/PageHero';
+import PortableText from '@look/components/PortableText';
+import SectionLabel from '@look/components/SectionLabel';
+import { FadeUp } from '@look/components/Motion';
 
 export const revalidate = 600;
 export function generateStaticParams() {

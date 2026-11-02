@@ -7,10 +7,10 @@ import { experiences as fallbackExperiences, IMG } from '@/lib/data';
 import type { ExperienceI18n } from '@/lib/types';
 import { pickLocale, resolveExperience } from '@/lib/resolveLocale';
 import { isLocale, DEFAULT_LOCALE, type Locale } from '@/lib/locales';
-import PageHero from '@/components/PageHero';
-import ExperienceCard from '@/components/ExperienceCard';
-import DirectBookingBanner from '@/components/DirectBookingBanner';
-import { FadeUp, StaggerGrid, StaggerItem } from '@/components/Motion';
+import PageHero from '@look/components/PageHero';
+import ExperienceCard from '@look/components/ExperienceCard';
+import DirectBookingBanner from '@look/components/DirectBookingBanner';
+import { FadeUp, StaggerGrid, StaggerItem } from '@look/components/Motion';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: rawLocale } = await params;

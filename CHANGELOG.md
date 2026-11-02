@@ -7,6 +7,17 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Looks, phase 1a: Heritage moves into `themes/heritage/`.** New `look`
+  setting in `hotel.config.ts` (AGENTS.md §3a); `@look/...` imports resolve
+  to `themes/<look>/` (tsconfig.json for the editor, next.config.ts aliases
+  for the build), so a site ships only its own look. Heritage's
+  presentational components, tokens (palette and radii) and fonts now live
+  there; `lib/tokens.ts` re-exports the chosen look's tokens for Tailwind and
+  the image routes. `components/Analytics.tsx` stays shared. No visible
+  change: built CSS is byte-identical and page HTML differs only in build
+  IDs. **Client repos:** pull, then update any `@/components/...` imports in
+  client-only files to `@look/components/...`.
+
 - **Journal matrix for blog production.** `journalPost` gains `section`
   (story / what's on / neighbourhood), `events[]` with Event JSON-LD,
   `expiresAt` (drops off the index, page stays live), a booking `cta`,

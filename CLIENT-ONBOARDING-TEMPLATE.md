@@ -32,7 +32,7 @@ and fill it in. The template file at repo root stays blank.
 - Public review summary (platform, rating, count, link) — or none:
 - Agreed book-direct perk — or none:
 
-**Brand tokens** (→ `lib/tokens.ts`; each pairing must clear 4.5:1)
+**Brand tokens** (→ `themes/<look>/tokens.ts`; each pairing must clear 4.5:1)
 - `primary` (primary dark):
 - `primarydeep` (deepest dark):
 - `accent` (accent text/rules on light bg):

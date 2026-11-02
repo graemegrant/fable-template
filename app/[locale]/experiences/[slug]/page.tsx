@@ -10,10 +10,10 @@ import { experiences as fallbackExperiences } from '@/lib/data';
 import type { ExperienceI18n } from '@/lib/types';
 import { resolveExperience } from '@/lib/resolveLocale';
 import { isLocale, DEFAULT_LOCALE, LOCALE_IDS, type Locale } from '@/lib/locales';
-import PageHero from '@/components/PageHero';
-import ExperienceCard from '@/components/ExperienceCard';
-import SectionLabel from '@/components/SectionLabel';
-import { FadeUp, StaggerGrid, StaggerItem } from '@/components/Motion';
+import PageHero from '@look/components/PageHero';
+import ExperienceCard from '@look/components/ExperienceCard';
+import SectionLabel from '@look/components/SectionLabel';
+import { FadeUp, StaggerGrid, StaggerItem } from '@look/components/Motion';
 import { Link } from '@/i18n/navigation';
 
 export const revalidate = 600;
