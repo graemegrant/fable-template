@@ -1,23 +1,16 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { getTranslations } from 'next-intl/server';
-import { Link } from '@/i18n/navigation';
-import Image from 'next/image';
-import { hotelConfig } from '@/hotel.config';
-import { sanityFetch, imgSrc } from '@/lib/sanity';
+import { sanityFetch } from '@/lib/sanity';
 import { pageMetadata } from '@/lib/seo';
-import { breadcrumbList } from '@/lib/schema';
-import { JOURNAL_BY_SLUG_QUERY, FEATURED_ROOMS_QUERY } from '@/lib/queries';
-import { journalPosts as fallbackPosts, rooms as fallbackRooms } from '@/lib/data';
-import type { JournalPostI18n, RoomI18n } from '@/lib/types';
-import { resolveJournalPost, resolveRoom } from '@/lib/resolveLocale';
-import { isLocale, DEFAULT_LOCALE, LOCALE_IDS, bcp47For, type Locale } from '@/lib/locales';
-import PageHero from '@look/components/PageHero';
-import PortableText from '@look/components/PortableText';
-import SectionLabel from '@look/components/SectionLabel';
-import { FadeUp } from '@look/components/Motion';
+import { JOURNAL_BY_SLUG_QUERY } from '@/lib/queries';
+import { journalPosts as fallbackPosts } from '@/lib/data';
+import type { JournalPostI18n } from '@/lib/types';
+import { resolveJournalPost } from '@/lib/resolveLocale';
+import { isLocale, DEFAULT_LOCALE, LOCALE_IDS, type Locale } from '@/lib/locales';
+import JournalPostView from '@look/views/JournalPostView';
+import { loadJournalPost } from '@/lib/pages/journalPost';
 
 export const revalidate = 600;
+
 export function generateStaticParams() {
   return LOCALE_IDS.flatMap((locale) => fallbackPosts.map((p) => ({ locale, slug: p.slug })));
 }
@@ -46,140 +39,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 }
 
-function formatDate(d: string | undefined, locale: Locale) {
-  if (!d) return '';
-  return new Date(d).toLocaleDateString(bcp47For(locale), { day: 'numeric', month: 'long', year: 'numeric' });
-}
-
 export default async function JournalPostPage({ params }: Props) {
   const { locale: rawLocale, slug } = await params;
   const locale: Locale = isLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
-  const rawPost = await sanityFetch<JournalPostI18n | null>(
-    JOURNAL_BY_SLUG_QUERY,
-    { slug },
-    fallbackPosts.find((p) => p.slug === slug) ?? null,
-  );
-  if (!rawPost) notFound();
-  const post = resolveJournalPost(rawPost, locale);
-
-  const rawFeaturedRooms = await sanityFetch<RoomI18n[]>(
-    FEATURED_ROOMS_QUERY, {}, fallbackRooms.filter((r) => r.featured).slice(0, 3),
-  );
-  const featuredRoom = rawFeaturedRooms[0] ? resolveRoom(rawFeaturedRooms[0], locale) : undefined;
-
-  const blogSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    headline: post.title,
-    description: post.excerpt,
-    image: [imgSrc(post.heroImage, 1200)],
-    datePublished: post.publishedAt,
-    dateModified: post.publishedAt,
-    inLanguage: bcp47For(locale),
-    author: { '@type': 'Person', name: post.author, url: `${hotelConfig.siteUrl}/${locale}/about` },
-    publisher: {
-      '@type': 'Organization',
-      name: hotelConfig.name,
-      url: hotelConfig.siteUrl,
-      logo: { '@type': 'ImageObject', url: `${hotelConfig.siteUrl}/icon` },
-    },
-    url: `${hotelConfig.siteUrl}/${locale}/journal/${post.slug}`,
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `${hotelConfig.siteUrl}/${locale}/journal/${post.slug}`,
-    },
-  };
-
-  // What's on posts: one schema.org Event per listed event.
-  const eventSchemas = (post.events ?? []).map((e) => ({
-    '@context': 'https://schema.org',
-    '@type': 'Event',
-    name: e.name,
-    startDate: e.startDate,
-    ...(e.endDate ? { endDate: e.endDate } : {}),
-    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-    eventStatus: 'https://schema.org/EventScheduled',
-    ...(e.venue ? { location: { '@type': 'Place', name: e.venue } } : {}),
-    ...(e.url ? { url: e.url } : {}),
-  }));
-
-  const ctaHref = post.cta?.url || undefined;
-  const ctaExternal = Boolean(ctaHref && /^https?:\/\//.test(ctaHref));
-
-  const breadcrumbs = breadcrumbList([
-    ['Home', '/'],
-    ['Journal', '/journal'],
-    [post.title, `/journal/${post.slug}`],
-  ], locale);
-  const t = await getTranslations('journalDetail');
-  const tSections = await getTranslations('journalSections');
-
+  const data = await loadJournalPost(locale, slug);
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
-      {eventSchemas.map((schema, i) => (
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data.blogSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data.breadcrumbs) }} />
+      {data.eventSchemas.map((schema, i) => (
         <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       ))}
-      <PageHero eyebrow={post.category || tSections(post.section ?? 'story')} title={post.title} subtitle={`${post.author} · ${formatDate(post.publishedAt, locale)} · ${post.readingTime ?? ''}`} image={post.heroImage} imageAlt={post.imageAlt} />
-
-      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
-        <div className="grid gap-16 lg:grid-cols-1fr-340">
-          <FadeUp>
-            <article className="max-w-3xl">
-              <p className="mb-10 border-l-2 border-accent pl-6 font-heading text-2xl font-medium italic leading-relaxed text-primary">
-                {post.excerpt}
-              </p>
-              <PortableText value={post.body} />
-              {ctaHref && post.cta?.label && (
-                <p className="mt-10">
-                  {ctaExternal ? (
-                    <a href={ctaHref} className="inline-flex min-h-11 items-center rounded-card bg-primary px-6 font-body text-2xs uppercase tracking-25 text-canvas transition-colors hover:bg-accent">
-                      {post.cta.label}
-                    </a>
-                  ) : (
-                    <Link href={ctaHref} className="inline-flex min-h-11 items-center rounded-card bg-primary px-6 font-body text-2xs uppercase tracking-25 text-canvas transition-colors hover:bg-accent">
-                      {post.cta.label}
-                    </Link>
-                  )}
-                </p>
-              )}
-            </article>
-            <div className="mt-14 border-t border-ink/10 pt-8">
-              <Link href="/journal" className="inline-flex min-h-11 items-center font-body text-2xs uppercase tracking-25 text-accent transition-colors hover:text-primary">
-                {t('backToJournal')}
-              </Link>
-            </div>
-          </FadeUp>
-
-          {/* Featured room sidebar */}
-          {featuredRoom && (
-            <aside>
-              <div className="rounded-card border border-ink/10 bg-canvasalt p-8 lg:sticky lg:top-28">
-                <SectionLabel>{t('stayWithUs')}</SectionLabel>
-                <Link href={`/rooms/${featuredRoom.slug}`} className="group mt-5 block">
-                  <div className="relative aspect-landscape overflow-hidden rounded-img">
-                    <Image
-                      src={imgSrc(featuredRoom.heroImage, 800)}
-                      alt={featuredRoom.roomType}
-                      fill
-                      sizes="340px"
-                      className="object-cover transition-transform duration-1200 ease-out-expo group-hover:scale-104"
-                    />
-                  </div>
-                  <h3 className="mt-5 font-heading text-2xl font-medium text-ink">{featuredRoom.roomType}</h3>
-                  <p className="mt-2 font-body text-sm text-ink/70">
-                    {t('from')} <span className="font-heading text-lg text-primary">£{featuredRoom.rate}</span> {t('perNight')}
-                  </p>
-                  <span className="mt-4 inline-block font-body text-2xs uppercase tracking-20 text-accent transition-colors group-hover:text-primary">
-                    {t('viewTheRoom')}
-                  </span>
-                </Link>
-              </div>
-            </aside>
-          )}
-        </div>
-      </section>
+      <JournalPostView locale={locale} {...data} />
     </>
   );
 }

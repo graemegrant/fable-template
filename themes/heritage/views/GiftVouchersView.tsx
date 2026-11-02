@@ -1,0 +1,66 @@
+import Image from 'next/image';
+import { getTranslations } from 'next-intl/server';
+import { Link } from '@/i18n/navigation';
+import { hotelConfig } from '@/hotel.config';
+import { voucherTypes, IMG } from '@/lib/data';
+import { pickLocale } from '@/lib/resolveLocale';
+import type { Locale } from '@/lib/locales';
+import PageHero from '@look/components/PageHero';
+import SectionLabel from '@look/components/SectionLabel';
+import { FadeUp, StaggerGrid, StaggerItem } from '@look/components/Motion';
+
+/** GiftVouchers page, Heritage look. Data comes from lib/pages/giftVouchers.ts. */
+export default async function GiftVouchersView({ locale }: { locale: Locale }) {
+  const t = await getTranslations('giftVouchers');
+  return (
+    <>
+      <PageHero
+        eyebrow={t('eyebrow')}
+        title={t('title')}
+        subtitle={t('subtitle')}
+        image={IMG.loch}
+      />
+
+      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
+        <FadeUp>
+          <p className="max-w-2xl font-body text-base font-light leading-body text-ink/80">
+            {t('intro')}
+          </p>
+        </FadeUp>
+
+        <StaggerGrid className="mt-16 grid gap-10 lg:grid-cols-3">
+          {voucherTypes.map((v, i) => (
+            <StaggerItem key={i}>
+              <article className="flex h-full flex-col overflow-hidden rounded-card border border-ink/10">
+                <div className="relative aspect-landscape overflow-hidden bg-canvasalt">
+                  <Image src={v.image} alt={pickLocale(v.name, locale) ?? ''} fill sizes="(min-width: 1024px) 33vw, 100vw" className="object-cover" />
+                </div>
+                <div className="flex grow flex-col p-8">
+                  <SectionLabel>{v.price}</SectionLabel>
+                  <h2 className="mt-3 font-heading text-2xl font-medium text-ink">{pickLocale(v.name, locale)}</h2>
+                  <p className="mt-4 grow font-body text-sm font-light leading-relaxed text-ink/75">{pickLocale(v.description, locale)}</p>
+                  <Link
+                    href="/contact"
+                    className="mt-8 block rounded-ctrl bg-primary px-8 py-4 text-center font-body text-2xs uppercase tracking-25 text-canvas transition-colors duration-300 hover:bg-accentfill hover:text-onaccent"
+                  >
+                    {t('purchaseThis')}
+                  </Link>
+                </div>
+              </article>
+            </StaggerItem>
+          ))}
+        </StaggerGrid>
+
+        <FadeUp className="mt-16 border-t border-ink/10 pt-10 text-center">
+          <p className="font-body text-sm text-ink/70">
+            {t('phonePrefix')}{' '}
+            <a href={`tel:${hotelConfig.contact.phoneHref}`} className="text-primary underline decoration-accent underline-offset-4">
+              {hotelConfig.contact.phone}
+            </a>{' '}
+            {t('phoneSuffix')}
+          </p>
+        </FadeUp>
+      </section>
+    </>
+  );
+}

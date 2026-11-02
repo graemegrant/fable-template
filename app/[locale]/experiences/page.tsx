@@ -1,16 +1,9 @@
-import { getTranslations } from 'next-intl/server';
 import { hotelConfig } from '@/hotel.config';
 import { pageMetadata } from '@/lib/seo';
-import { sanityFetch } from '@/lib/sanity';
-import { EXPERIENCES_QUERY } from '@/lib/queries';
-import { experiences as fallbackExperiences, IMG } from '@/lib/data';
-import type { ExperienceI18n } from '@/lib/types';
-import { pickLocale, resolveExperience } from '@/lib/resolveLocale';
+import { pickLocale } from '@/lib/resolveLocale';
 import { isLocale, DEFAULT_LOCALE, type Locale } from '@/lib/locales';
-import PageHero from '@look/components/PageHero';
-import ExperienceCard from '@look/components/ExperienceCard';
-import DirectBookingBanner from '@look/components/DirectBookingBanner';
-import { FadeUp, StaggerGrid, StaggerItem } from '@look/components/Motion';
+import ExperiencesView from '@look/views/ExperiencesView';
+import { loadExperiences } from '@/lib/pages/experiences';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: rawLocale } = await params;
@@ -26,31 +19,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function ExperiencesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: rawLocale } = await params;
   const locale: Locale = isLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
-  const rawExperiences = await sanityFetch<ExperienceI18n[]>(EXPERIENCES_QUERY, {}, fallbackExperiences);
-  const experiences = rawExperiences.map((e) => resolveExperience(e, locale));
-  const t = await getTranslations('experiencesPage');
-
-  return (
-    <>
-      <PageHero
-        eyebrow={`${t('eyebrowLabel')} · ${hotelConfig.location.locality}`}
-        title={t('title')}
-        subtitle={t('subtitle')}
-        image={IMG.walk}
-      />
-      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
-        <FadeUp>
-          <p className="max-w-2xl font-body text-base font-light leading-body text-ink/80">
-            {t('intro')}
-          </p>
-        </FadeUp>
-        <StaggerGrid className="mt-14 grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
-          {experiences.map((exp) => (
-            <StaggerItem key={exp.slug}><ExperienceCard experience={exp} headingLevel={2} /></StaggerItem>
-          ))}
-        </StaggerGrid>
-      </section>
-      <DirectBookingBanner />
-    </>
-  );
+  const data = await loadExperiences(locale);
+  return <ExperiencesView locale={locale} {...data} />;
 }

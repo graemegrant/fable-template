@@ -1,0 +1,234 @@
+import Image from 'next/image';
+import { getTranslations } from 'next-intl/server';
+import { Link } from '@/i18n/navigation';
+import { hotelConfig } from '@/hotel.config';
+import type { Locale } from '@/lib/locales';
+import { IMG } from '@/lib/data';
+import KenBurnsHero from '@look/components/KenBurnsHero';
+import TrustStrip from '@look/components/TrustStrip';
+import SectionLabel from '@look/components/SectionLabel';
+import RoomCard from '@look/components/RoomCard';
+import ExperienceCard from '@look/components/ExperienceCard';
+import OfferCard from '@look/components/OfferCard';
+import TestimonialSlider from '@look/components/TestimonialSlider';
+import DirectBookingBanner from '@look/components/DirectBookingBanner';
+import Facilities from '@look/components/Facilities';
+import ReviewsBand from '@look/components/ReviewsBand';
+import { FadeUp, StaggerGrid, StaggerItem } from '@look/components/Motion';
+import JournalCard from '@look/components/JournalCard';
+import GlenMoment from '@look/components/GlenMoment';
+import StatsBand from '@look/components/StatsBand';
+import { BookButton } from '@look/components/BookingModal';
+import type { HomeData } from '@/lib/pages/home';
+
+/** Home page, Heritage look. Data comes from lib/pages/home.ts. */
+export default async function HomeView({ rooms, experiences, offers, testimonials, journalPosts }: { locale: Locale } & HomeData) {
+  const t = await getTranslations('home');
+  return (
+    <>
+      <KenBurnsHero image={IMG.heroHouse} />
+      <TrustStrip variant="dark" />
+
+      {/* Introduction */}
+      <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-24">
+          <FadeUp>
+            <SectionLabel>{t('houseLabel')}</SectionLabel>
+            <h2 className="mt-5 font-heading text-4xl font-medium leading-tight text-ink md:text-5xl">
+              {t('houseHeading')}
+            </h2>
+            <p className="mt-6 font-body text-base font-light leading-body text-ink/80">
+              {t('houseIntro')}
+            </p>
+            <Link
+              href="/about"
+              className="mt-9 inline-block rounded-ctrl border border-primary px-8 py-4 font-body text-2xs uppercase tracking-25 text-primary transition-colors duration-300 hover:bg-primary hover:text-canvas"
+            >
+              {t('ourStory')}
+            </Link>
+          </FadeUp>
+          <FadeUp delay={0.15}>
+            <div className="relative aspect-portrait overflow-hidden rounded-img">
+              <Image src={IMG.exterior} alt={t('exteriorAlt')} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+            </div>
+          </FadeUp>
+        </div>
+        <div className="mt-20">
+          <StatsBand />
+        </div>
+      </section>
+
+      {/* The Glen — the one authored scroll moment */}
+      <GlenMoment />
+
+      {/* Rooms teaser */}
+      <section className="bg-canvasalt">
+        <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+          <FadeUp className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <SectionLabel>{t('roomsLabel')}</SectionLabel>
+              <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">{t('roomsHeading')}</h2>
+            </div>
+            <Link href="/rooms" className="inline-flex min-h-11 items-center font-body text-2xs uppercase tracking-25 text-accent transition-colors hover:text-primary">
+              {t('allRooms')}
+            </Link>
+          </FadeUp>
+          <StaggerGrid className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+            {rooms.map((room) => (
+              <StaggerItem key={room.slug}><RoomCard room={room} /></StaggerItem>
+            ))}
+          </StaggerGrid>
+        </div>
+      </section>
+
+      {/* Experiences trio */}
+      <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+        <FadeUp className="flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <SectionLabel>{t('experiencesLabel')}</SectionLabel>
+            <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">{t('experiencesHeading')}</h2>
+          </div>
+          <Link href="/experiences" className="inline-flex min-h-11 items-center font-body text-2xs uppercase tracking-25 text-accent transition-colors hover:text-primary">
+            {t('allExperiences')}
+          </Link>
+        </FadeUp>
+        <StaggerGrid className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+          {experiences.slice(0, 3).map((exp) => (
+            <StaggerItem key={exp.slug}><ExperienceCard experience={exp} /></StaggerItem>
+          ))}
+        </StaggerGrid>
+      </section>
+
+      {/* Dining pull-quote */}
+      <section className="relative bg-primary">
+        <Image src={IMG.dining1} alt="" fill sizes="100vw" className="object-cover opacity-25" />
+        <div className="relative mx-auto max-w-4xl px-6 py-28 text-center lg:py-40">
+          <FadeUp>
+            <SectionLabel variant="ondark">{t('diningLabel')}</SectionLabel>
+            <blockquote className="mt-8 font-heading text-3xl font-medium italic leading-snug text-canvas md:text-5xl">
+              “{t('diningQuote')}”
+            </blockquote>
+            <p className="mt-8 font-body text-2xs uppercase tracking-25 text-canvas/60">
+              {t('diningQuoteAttribution')}
+            </p>
+            <Link
+              href="/dining"
+              className="mt-10 inline-block rounded-ctrl border border-canvas/60 px-8 py-4 font-body text-2xs uppercase tracking-25 text-canvas transition-colors duration-300 hover:bg-canvas hover:text-primary"
+            >
+              {t('diningCta')}
+            </Link>
+          </FadeUp>
+        </div>
+      </section>
+
+      <Facilities />
+
+      {/* Offers grid — hidden when every offer has expired */}
+      {offers.length > 0 && (
+      <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+        <FadeUp className="flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <SectionLabel>{t('offersLabel')}</SectionLabel>
+            <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">{t('offersHeading')}</h2>
+          </div>
+          <Link href="/offers" className="inline-flex min-h-11 items-center font-body text-2xs uppercase tracking-25 text-accent transition-colors hover:text-primary">
+            {t('allOffers')}
+          </Link>
+        </FadeUp>
+        <StaggerGrid className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+          {offers.slice(0, 3).map((offer) => (
+            <StaggerItem key={offer.slug}><OfferCard offer={offer} /></StaggerItem>
+          ))}
+        </StaggerGrid>
+      </section>
+      )}
+
+      {/* Location */}
+      <section className="bg-canvasalt">
+        <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-24">
+            <FadeUp>
+              <div className="relative aspect-landscape overflow-hidden rounded-img">
+                <Image src={IMG.glen} alt={t('glenAlt')} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+              </div>
+            </FadeUp>
+            <FadeUp delay={0.15}>
+              <SectionLabel>{t('locationLabel')}</SectionLabel>
+              <h2 className="mt-5 font-heading text-4xl font-medium leading-tight text-ink md:text-5xl">
+                {t('locationHeading')}
+              </h2>
+              <p className="mt-6 font-body text-base font-light leading-body text-ink/80">
+                {t('locationIntro')}
+              </p>
+              <Link
+                href="/location"
+                className="mt-9 inline-block rounded-ctrl border border-primary px-8 py-4 font-body text-2xs uppercase tracking-25 text-primary transition-colors duration-300 hover:bg-primary hover:text-canvas"
+              >
+                {t('locationCta')}
+              </Link>
+            </FadeUp>
+          </div>
+        </div>
+      </section>
+
+      {/* Journal teaser */}
+      <section className="bg-canvasalt">
+        <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+          <FadeUp className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <SectionLabel>{t('journalLabel')}</SectionLabel>
+              <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">{t('journalHeading')}</h2>
+            </div>
+            <Link href="/journal" className="inline-flex min-h-11 items-center font-body text-2xs uppercase tracking-25 text-accent transition-colors hover:text-primary">
+              {t('allStories')}
+            </Link>
+          </FadeUp>
+          <StaggerGrid className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+            {journalPosts.filter((p) => p.featured).slice(0, 3).map((post) => (
+              <StaggerItem key={post.slug}><JournalCard post={post} /></StaggerItem>
+            ))}
+          </StaggerGrid>
+        </div>
+      </section>
+
+      {/* Testimonials — directly above final CTA for maximum conversion impact */}
+      {testimonials.length > 0 ? (
+        <section className="border-t border-canvas/10 bg-primary">
+          <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+            <FadeUp>
+              <TestimonialSlider testimonials={testimonials} />
+            </FadeUp>
+          </div>
+        </section>
+      ) : (
+        <ReviewsBand />
+      )}
+
+      {/* Final CTA — a photo under a dark overlay sets it apart from the dark
+          testimonials/reviews band directly above it (same treatment as the
+          dining band). Use an image that fits the headline. */}
+      <section className="relative overflow-hidden bg-primary">
+        <Image src={IMG.glen} alt="" fill sizes="100vw" className="object-cover opacity-25" />
+        <div className="relative mx-auto max-w-4xl px-6 py-24 text-center lg:py-32">
+          <FadeUp>
+            <SectionLabel variant="ondark">{t('finalLabel')}</SectionLabel>
+            <h2 className="mt-6 font-heading text-4xl font-medium leading-tight text-canvas md:text-6xl">
+              {t('finalHeadingLine1')}<br />{t('finalHeadingLine2')}
+            </h2>
+            <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <BookButton className="w-64 rounded-ctrl bg-accentfill px-8 py-4 font-body text-2xs uppercase tracking-25 text-onaccent transition-colors duration-300 hover:bg-canvas hover:text-primary sm:w-auto" />
+              <a
+                href={`tel:${hotelConfig.contact.phoneHref}`}
+                className="w-64 rounded-ctrl border border-canvas/60 px-8 py-4 font-body text-2xs uppercase tracking-25 text-canvas transition-colors duration-300 hover:bg-canvas hover:text-primary sm:w-auto"
+              >
+                {hotelConfig.contact.phone}
+              </a>
+            </div>
+          </FadeUp>
+        </div>
+      </section>
+
+      <DirectBookingBanner />
+    </>
+  );
+}
