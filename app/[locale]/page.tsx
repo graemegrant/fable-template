@@ -13,21 +13,21 @@ import {
 import * as fallback from '@/lib/data';
 import { IMG } from '@/lib/data';
 import type { RoomI18n, ExperienceI18n, OfferI18n, TestimonialI18n, JournalPostI18n } from '@/lib/types';
-import KenBurnsHero from '@/components/KenBurnsHero';
-import TrustStrip from '@/components/TrustStrip';
-import SectionLabel from '@/components/SectionLabel';
-import RoomCard from '@/components/RoomCard';
-import ExperienceCard from '@/components/ExperienceCard';
-import OfferCard from '@/components/OfferCard';
-import TestimonialSlider from '@/components/TestimonialSlider';
-import DirectBookingBanner from '@/components/DirectBookingBanner';
-import Facilities from '@/components/Facilities';
-import ReviewsBand from '@/components/ReviewsBand';
-import { FadeUp, StaggerGrid, StaggerItem } from '@/components/Motion';
-import JournalCard from '@/components/JournalCard';
-import GlenMoment from '@/components/GlenMoment';
-import StatsBand from '@/components/StatsBand';
-import { BookButton } from '@/components/BookingModal';
+import KenBurnsHero from '@look/components/KenBurnsHero';
+import TrustStrip from '@look/components/TrustStrip';
+import SectionLabel from '@look/components/SectionLabel';
+import RoomCard from '@look/components/RoomCard';
+import ExperienceCard from '@look/components/ExperienceCard';
+import OfferCard from '@look/components/OfferCard';
+import TestimonialSlider from '@look/components/TestimonialSlider';
+import DirectBookingBanner from '@look/components/DirectBookingBanner';
+import Facilities from '@look/components/Facilities';
+import ReviewsBand from '@look/components/ReviewsBand';
+import { FadeUp, StaggerGrid, StaggerItem } from '@look/components/Motion';
+import JournalCard from '@look/components/JournalCard';
+import GlenMoment from '@look/components/GlenMoment';
+import StatsBand from '@look/components/StatsBand';
+import { BookButton } from '@look/components/BookingModal';
 
 // Re-render hourly so expired offers drop off (lib/offers.ts).
 export const revalidate = 3600;

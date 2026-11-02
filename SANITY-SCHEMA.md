@@ -23,7 +23,7 @@ to design, not something to assume is already built.
 1. Confirm `lib/locales.ts` — the client's locale set drives the fields
    generated below, so set this before the Sanity project is populated
 2. Fully rewrite `hotel.config.ts` (client identity — see §4 of AGENTS.md)
-3. Re-skin `lib/tokens.ts` (nine brand tokens)
+3. Re-skin the look's `themes/<look>/tokens.ts` (nine brand tokens)
 4. Set up the client's Sanity project, point env vars at it
 5. Populate the six collections below with real content
 6. Only then move to page-level copy/layout changes
@@ -77,7 +77,7 @@ category (e.g. `roomType` "Garden Suite", `name` "The Rose Room") — leave
 it blank otherwise, including in the named-room case, where the proper
 name already lives in `roomType`. `roomCount` never drives availability
 or the booking flow; that stays the booking engine's job.
-`components/RoomsFilter.tsx` derives its filter tabs from the distinct
+`themes/heritage/components/RoomsFilter.tsx` derives its filter tabs from the distinct
 `roomType` values present and hides the filter bar entirely when every
 room has a unique type (no grouping value in a 1:1 tabs-to-items list) —
 so Craigmore's own named-room set renders as an unfiltered grid.

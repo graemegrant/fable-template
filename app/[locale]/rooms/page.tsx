@@ -7,12 +7,12 @@ import { rooms as fallbackRooms, IMG } from '@/lib/data';
 import type { RoomI18n } from '@/lib/types';
 import { resolveRoom } from '@/lib/resolveLocale';
 import { isLocale, DEFAULT_LOCALE, type Locale } from '@/lib/locales';
-import PageHero from '@/components/PageHero';
-import RoomsFilter from '@/components/RoomsFilter';
-import TrustStrip from '@/components/TrustStrip';
-import DirectBookingBanner from '@/components/DirectBookingBanner';
-import { FadeUp } from '@/components/Motion';
-import SectionLabel from '@/components/SectionLabel';
+import PageHero from '@look/components/PageHero';
+import RoomsFilter from '@look/components/RoomsFilter';
+import TrustStrip from '@look/components/TrustStrip';
+import DirectBookingBanner from '@look/components/DirectBookingBanner';
+import { FadeUp } from '@look/components/Motion';
+import SectionLabel from '@look/components/SectionLabel';
 import { Link } from '@/i18n/navigation';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {

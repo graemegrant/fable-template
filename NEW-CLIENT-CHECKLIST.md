@@ -32,7 +32,7 @@ Start-to-launch checklist for a new client build. Works alongside
       rich results.
 - [ ] `seo.descriptor` / `seo.locationLabel` set for this client (drive the
       homepage `<title>` and hero eyebrow)
-- [ ] Re-skin the nine tokens in `lib/tokens.ts` (not `tailwind.config.ts` —
+- [ ] Set `look` in `hotel.config.ts`, then re-skin the nine tokens in `themes/<look>/tokens.ts` (not `tailwind.config.ts` or `lib/tokens.ts` —
       it now reads from there, and so does OG-image generation)
 - [ ] `stats` (stats band), `stayIncludes` (room pages) and
       `reviewSummary` (real platform figures, or null) set from real,

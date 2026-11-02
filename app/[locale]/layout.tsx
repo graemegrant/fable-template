@@ -2,39 +2,20 @@ import type { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
-import { Cormorant_Garamond, Jost } from 'next/font/google';
 import { hotelConfig } from '@/hotel.config';
 import { palette } from '@/lib/tokens';
 import { hotelSchema } from '@/lib/schema';
 import { pickLocale } from '@/lib/resolveLocale';
 import { LOCALE_IDS, DEFAULT_LOCALE, isLocale, bcp47For, type Locale } from '@/lib/locales';
-import { MotionProvider } from '@/components/Motion';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import CookieBanner from '@/components/CookieBanner';
-import { BookingProvider } from '@/components/BookingModal';
+import { fontHeading, fontBody } from '@look/fonts';
+import { MotionProvider } from '@look/components/Motion';
+import Navbar from '@look/components/Navbar';
+import Footer from '@look/components/Footer';
+import CookieBanner from '@look/components/CookieBanner';
+import { BookingProvider } from '@look/components/BookingModal';
 import Analytics from '@/components/Analytics';
-import { SiteMobileBookBar } from '@/components/MobileBookBar';
+import { SiteMobileBookBar } from '@look/components/MobileBookBar';
 import '../globals.css';
-
-/* Self-hosted via next/font — no render-blocking request to Google's CDN,
-   no font-swap layout shift beyond the built-in fallback metrics. The
-   Tailwind font-heading / font-body utilities read these CSS variables. */
-const fontHeading = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  style: ['normal', 'italic'],
-  variable: '--font-heading',
-  display: 'swap',
-  fallback: ['Georgia', 'Times New Roman', 'serif'],
-});
-const fontBody = Jost({
-  subsets: ['latin'],
-  weight: ['300', '400', '500'],
-  variable: '--font-body',
-  display: 'swap',
-  fallback: ['Century Gothic', 'Verdana', 'sans-serif'],
-});
 
 export function generateStaticParams() {
   return LOCALE_IDS.map((locale) => ({ locale }));

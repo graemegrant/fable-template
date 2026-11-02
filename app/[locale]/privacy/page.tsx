@@ -3,8 +3,8 @@ import { hotelConfig } from '@/hotel.config';
 import { pageMetadata } from '@/lib/seo';
 import { IMG } from '@/lib/data';
 import { isLocale, DEFAULT_LOCALE, type Locale } from '@/lib/locales';
-import PageHero from '@/components/PageHero';
-import { FadeUp } from '@/components/Motion';
+import PageHero from '@look/components/PageHero';
+import { FadeUp } from '@look/components/Motion';
 
 /*
  * Privacy & cookies notice — a starting draft every client must review

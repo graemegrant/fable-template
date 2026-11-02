@@ -7,9 +7,9 @@ import { journalPosts as fallbackPosts, IMG } from '@/lib/data';
 import type { JournalPostI18n } from '@/lib/types';
 import { resolveJournalPost } from '@/lib/resolveLocale';
 import { isLocale, DEFAULT_LOCALE, type Locale } from '@/lib/locales';
-import PageHero from '@/components/PageHero';
-import JournalCard from '@/components/JournalCard';
-import { FadeUp, StaggerGrid, StaggerItem } from '@/components/Motion';
+import PageHero from '@look/components/PageHero';
+import JournalCard from '@look/components/JournalCard';
+import { FadeUp, StaggerGrid, StaggerItem } from '@look/components/Motion';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: rawLocale } = await params;

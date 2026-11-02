@@ -65,7 +65,7 @@ GIT-WORKFLOW.md §3):
   back into `fable-template` on a `fix/*` branch with a `CHANGELOG.md`
   line. Every future client inherits it.
 - **Client-specific** (real NAP, coordinates, copy, brand tokens) → stays
-  in the client repo's `hotel.config.ts` / `lib/tokens.ts` / page copy.
+  in the client repo's `hotel.config.ts` / `themes/<look>/tokens.ts` / page copy.
   Never cherry-picked.
 
 Keep the two in separate commits so the cherry-pick is clean.

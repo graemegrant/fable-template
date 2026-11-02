@@ -4,11 +4,11 @@ import { pageMetadata } from '@/lib/seo';
 import { faqs, IMG } from '@/lib/data';
 import { pickLocale } from '@/lib/resolveLocale';
 import { isLocale, DEFAULT_LOCALE, type Locale } from '@/lib/locales';
-import PageHero from '@/components/PageHero';
-import ContactForm from '@/components/ContactForm';
-import FaqAccordion from '@/components/FaqAccordion';
-import SectionLabel from '@/components/SectionLabel';
-import { FadeUp } from '@/components/Motion';
+import PageHero from '@look/components/PageHero';
+import ContactForm from '@look/components/ContactForm';
+import FaqAccordion from '@look/components/FaqAccordion';
+import SectionLabel from '@look/components/SectionLabel';
+import { FadeUp } from '@look/components/Motion';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: rawLocale } = await params;

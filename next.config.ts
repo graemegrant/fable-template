@@ -1,6 +1,8 @@
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
+import path from 'node:path';
 import legacy from './redirects.json';
+import { hotelConfig } from './hotel.config';
 
 const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
@@ -45,7 +47,20 @@ const contentSecurityPolicy = [
   "form-action 'self'",
 ].join('; ');
 
+/** `@look/...` resolves to the chosen look's folder (AGENTS.md §3a), so a
+ *  site builds and ships only its own look. tsconfig.json maps `@look/*` to
+ *  Heritage for the editor and type checks; these aliases make the build
+ *  follow `look` in hotel.config.ts. */
+const lookDir = path.join(process.cwd(), 'themes', hotelConfig.look);
+
 const nextConfig: NextConfig = {
+  webpack(config) {
+    config.resolve.alias = { ...config.resolve.alias, '@look': lookDir };
+    return config;
+  },
+  turbopack: {
+    resolveAlias: { '@look': `./themes/${hotelConfig.look}` },
+  },
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com' },

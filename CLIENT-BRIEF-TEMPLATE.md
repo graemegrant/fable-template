@@ -1,6 +1,6 @@
 # Client Brief — [Hotel Name]
 
-Complete this per client before starting a build. Fields map directly to the real `hotel.config.ts` / `lib/tokens.ts` structure — filling this in accurately means Claude Code can populate both files without guesswork or back-and-forth. Store completed briefs as `CLIENT-BRIEF.md` in each client's repo root for future reference.
+Complete this per client before starting a build. Fields map directly to the real `hotel.config.ts` / `themes/<look>/tokens.ts` structure — filling this in accurately means Claude Code can populate both files without guesswork or back-and-forth. Store completed briefs as `CLIENT-BRIEF.md` in each client's repo root for future reference.
 
 ---
 
@@ -76,7 +76,7 @@ Only real, checkable facts — each section on the site hides itself if left emp
 - **2-3 reference sites** they like the feel of, and why:
 - **Anything to explicitly avoid** (styles, colours, competitor look-alikes):
 
-*Note: only the 9 colour tokens vary per client (role-based: `primary`, `primarydeep`, `accent`, `accentfill`, `onaccent`, `accentondark`, `canvas`, `canvasalt`, `ink` — each tuned to clear WCAG AA for its own pairing) — typography (`Cormorant Garamond` + `Jost`) is fixed template-wide and does not change per style direction.*
+*Note: the style direction picks the site's **look** (`look` in `hotel.config.ts`, AGENTS.md §3a). Each look has its own fonts, components and layouts; per client, only that look's colour tokens are tuned (role-based: `primary`, `primarydeep`, `accent`, `accentfill`, `onaccent`, `accentondark`, `canvas`, `canvasalt`, `ink`, each tuned to clear WCAG AA for its own pairing). Coastal and Urban are being added; until they ship, every build uses Heritage.*
 
 ## 8. Page requirements
 
@@ -126,4 +126,4 @@ Per the current architecture decision, all clients use the same structural layou
 
 Once this brief is complete, hand it directly alongside the standard prompt:
 
-> Here's the completed client brief for [Hotel Name], with its stage-0 SEO baseline. Populate `hotel.config.ts`, `lib/tokens.ts` and the `lib/data.ts` lists from sections 1-7 (including 6a), verify with `tsc --noEmit` and `eslint .` before proceeding, then move to Sanity content population for rooms/offers/team per section 8.
+> Here's the completed client brief for [Hotel Name], with its stage-0 SEO baseline. Populate `hotel.config.ts` (including `look`), the look's `themes/<look>/tokens.ts` and the `lib/data.ts` lists from sections 1-7 (including 6a), verify with `tsc --noEmit` and `eslint .` before proceeding, then move to Sanity content population for rooms/offers/team per section 8.

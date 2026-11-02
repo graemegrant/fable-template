@@ -8,10 +8,10 @@ import type { OfferI18n } from '@/lib/types';
 import { resolveOffer } from '@/lib/resolveLocale';
 import { isOfferCurrent } from '@/lib/offers';
 import { isLocale, DEFAULT_LOCALE, type Locale } from '@/lib/locales';
-import PageHero from '@/components/PageHero';
-import OfferCard from '@/components/OfferCard';
-import DirectBookingBanner from '@/components/DirectBookingBanner';
-import { FadeUp } from '@/components/Motion';
+import PageHero from '@look/components/PageHero';
+import OfferCard from '@look/components/OfferCard';
+import DirectBookingBanner from '@look/components/DirectBookingBanner';
+import { FadeUp } from '@look/components/Motion';
 
 // Re-render hourly so expired offers drop off (lib/offers.ts).
 export const revalidate = 3600;

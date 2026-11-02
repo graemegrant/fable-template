@@ -4,8 +4,8 @@ import { Link } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
 import { pickLocale } from '@/lib/resolveLocale';
 import type { Locale } from '@/lib/locales';
-import SectionLabel from '@/components/SectionLabel';
-import { PageFade } from '@/components/Motion';
+import SectionLabel from '@look/components/SectionLabel';
+import { PageFade } from '@look/components/Motion';
 
 // Next injects `noindex` for not-found automatically — don't also set the
 // `robots` key here or the page emits two <meta name="robots"> tags.

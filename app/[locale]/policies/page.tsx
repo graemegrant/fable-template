@@ -4,8 +4,8 @@ import { pageMetadata } from '@/lib/seo';
 import { IMG, policies } from '@/lib/data';
 import { pickLocale } from '@/lib/resolveLocale';
 import { isLocale, DEFAULT_LOCALE, type Locale } from '@/lib/locales';
-import PageHero from '@/components/PageHero';
-import { FadeUp, StaggerGrid, StaggerItem } from '@/components/Motion';
+import PageHero from '@look/components/PageHero';
+import { FadeUp, StaggerGrid, StaggerItem } from '@look/components/Motion';
 
 /*
  * "Good to know" — hotel information and policies in plain language: the
