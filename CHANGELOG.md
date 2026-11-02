@@ -14,7 +14,9 @@ into a revenue-generating site.
   rooms filter and team cards. Same content, CTAs and JSON-LD as Heritage.
   Coastal's views import Coastal's own components directly. **All looks:**
   an unknown address inside a language (e.g. `/en/nope`) now gets the
-  look's styled 404 with a 404 status, not the bare root fallback.
+  look's styled 404 with a 404 status, not the bare root fallback. Date
+  boxes in the booking sheet no longer overflow narrow screens in iPhone
+  Safari (shared rule in `app/globals.css`).
 
 - **Coastal look, phase 2a: site frame and home page.** New `coastal`
   look in `themes/coastal/` (build with `LOOK=coastal`): deep-sea, sand and
