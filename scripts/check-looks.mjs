@@ -7,7 +7,8 @@
  * already builds the look set in hotel.config.ts.
  *
  * The default tsconfig.json maps `@look/*` to Heritage; for each look this
- * writes a temporary tsconfig pointing `@look/*` at that look instead.
+ * writes a temporary tsconfig pointing `@look/*` at that look instead. Each
+ * build is then checked for the look's name on <body data-look>.
  */
 import { execSync } from 'node:child_process';
 import { readFileSync, writeFileSync, rmSync } from 'node:fs';
@@ -35,6 +36,11 @@ try {
     if (build && !(skipDefault && look === defaultLook)) {
       console.log(`\n=== ${look}: build`);
       execSync('npx next build', { stdio: 'inherit', env: { ...process.env, LOOK: look } });
+      // Prove the build really used this look: the layout stamps the name
+      // from @look/meta on <body>, so a broken @look switch shows up here.
+      const home = readFileSync('.next/server/app/en.html', 'utf8');
+      const built = home.match(/data-look="([a-z]+)"/)?.[1];
+      if (built !== look) throw new Error(`LOOK=${look} built the "${built}" look instead.`);
     }
   }
 } finally {

@@ -49,15 +49,23 @@ const contentSecurityPolicy = [
 
 /** `@look/...` resolves to the chosen look's folder (AGENTS.md §3a), so a
  *  site builds and ships only its own look. tsconfig.json maps `@look/*` to
- *  Heritage for the editor and type checks; these aliases make the build
- *  follow the active look (hotel.config.ts `look`, or the LOOK env var). */
+ *  Heritage for the editor and type checks; the webpack and turbopack
+ *  settings below make the build follow the active look (hotel.config.ts
+ *  `look`, or the LOOK env var). */
 const lookDir = path.join(process.cwd(), 'themes', activeLook);
 
 const nextConfig: NextConfig = {
   // Inlined so server and browser code agree on the look being built.
   env: { LOOK: activeLook },
-  webpack(config) {
-    config.resolve.alias = { ...config.resolve.alias, '@look': lookDir };
+  webpack(config, { webpack }) {
+    // Rewritten before resolution, not via resolve.alias: Next applies the
+    // tsconfig.json paths (`@look/*` → Heritage) ahead of webpack aliases,
+    // so an alias alone always built Heritage.
+    config.plugins.push(
+      new webpack.NormalModuleReplacementPlugin(/^@look\//, (resource: { request: string }) => {
+        resource.request = path.join(lookDir, resource.request.slice('@look/'.length));
+      }),
+    );
     return config;
   },
   turbopack: {
