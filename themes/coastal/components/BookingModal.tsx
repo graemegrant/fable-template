@@ -24,7 +24,7 @@ function BookingSheet({ onClose, roomHint }: { onClose: () => void; roomHint?: s
   const form = useBookingForm(onClose);
 
   const field =
-    'w-full rounded-ctrl border border-ink/15 bg-canvas px-5 py-3.5 font-body text-base text-ink focus:border-accent focus:outline-none focus:ring-2 focus:ring-accentondark sm:text-sm';
+    'w-full min-w-0 rounded-ctrl border border-ink/15 bg-canvas px-5 py-3.5 font-body text-base text-ink focus:border-accent focus:outline-none focus:ring-2 focus:ring-accentondark sm:text-sm';
   const label = 'block px-1 font-body text-xs font-semibold text-ink/70';
 
   return (
@@ -71,7 +71,7 @@ function BookingSheet({ onClose, roomHint }: { onClose: () => void; roomHint?: s
         </div>
 
         <form onSubmit={form.submit} className="mt-7 space-y-4">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid gap-3 sm:grid-cols-2">
             <div>
               <label htmlFor="arrival" className={label}>{t('arrival')}</label>
               <input id="arrival" type="date" required value={form.arrival} min={form.minArrival}

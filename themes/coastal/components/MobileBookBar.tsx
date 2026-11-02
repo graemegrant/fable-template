@@ -26,27 +26,27 @@ export default function MobileBookBar({ rate, roomName }: { rate?: number; roomN
           The text sits 28px in, clear of the pill's curved end. */}
       <div className="shadow-sand flex items-stretch justify-between gap-3 rounded-ctrl bg-primary p-1.5 pl-7">
         {roomName && rate !== undefined ? (
-          <div className="flex min-w-0 flex-col justify-center py-1.5">
-            <p className="truncate font-body text-xs text-canvas/75">{roomName}</p>
+          <div className="flex min-w-0 flex-col justify-center">
+            <p className="truncate font-body text-xs leading-tight text-canvas/75">{roomName}</p>
             <p className="font-heading text-xl font-semibold leading-none text-canvas">
               £{rate}
               <span className="font-body text-xs font-normal text-canvas/75"> {t('perNight')}</span>
             </p>
           </div>
         ) : (
-          <div className="flex min-w-0 flex-col justify-center">
-            <p className="truncate pt-1.5 font-body text-xs text-canvas/75">{tBooking('directBooking')}</p>
-            <a
-              href={`tel:${hotelConfig.contact.phoneHref}`}
-              className="inline-flex min-h-11 items-center whitespace-nowrap font-body text-sm font-semibold leading-none text-canvas sm:text-base"
-            >
-              {hotelConfig.contact.phone}
-            </a>
-          </div>
+          // Label and number are one tap-to-call link: the 44px tap target
+          // without stacking a 44px row under the label.
+          <a
+            href={`tel:${hotelConfig.contact.phoneHref}`}
+            className="flex min-h-11 min-w-0 flex-col justify-center whitespace-nowrap font-body text-canvas"
+          >
+            <span className="truncate text-xs leading-tight text-canvas/75">{tBooking('directBooking')}</span>
+            <span className="text-sm font-semibold leading-tight sm:text-base">{hotelConfig.contact.phone}</span>
+          </a>
         )}
         <BookButton
           roomHint={roomName}
-          className="min-h-12 shrink-0 self-stretch rounded-ctrl bg-accentfill px-5 font-body text-sm font-semibold text-onaccent"
+          className="min-h-11 shrink-0 self-stretch rounded-ctrl bg-accentfill px-5 font-body text-sm font-semibold text-onaccent"
         />
       </div>
     </div>
