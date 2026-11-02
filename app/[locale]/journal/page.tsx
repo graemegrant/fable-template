@@ -30,6 +30,14 @@ export default async function JournalPage({ params }: { params: Promise<{ locale
   const featured = posts.find((p) => p.featured) ?? posts[0];
   const rest = posts.filter((p) => p.slug !== featured?.slug);
   const t = await getTranslations('journalPage');
+  const tSections = await getTranslations('journalSections');
+  // Three-part journal (stories / what's on / neighbourhood) once posts use
+  // more than one section; a single flat grid otherwise.
+  const sectionOrder = ['story', 'event', 'neighbourhood'] as const;
+  const groups = sectionOrder
+    .map((section) => ({ section, posts: rest.filter((p) => (p.section ?? 'story') === section) }))
+    .filter((g) => g.posts.length > 0);
+  const grouped = new Set(posts.map((p) => p.section ?? 'story')).size > 1;
 
   return (
     <>
@@ -45,11 +53,24 @@ export default async function JournalPage({ params }: { params: Promise<{ locale
             <JournalCard post={featured} variant="featured" />
           </FadeUp>
         )}
-        <StaggerGrid className="mt-20 grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
-          {rest.map((post) => (
-            <StaggerItem key={post.slug}><JournalCard post={post} /></StaggerItem>
-          ))}
-        </StaggerGrid>
+        {grouped ? (
+          groups.map((g) => (
+            <div key={g.section} id={g.section} className="mt-20 scroll-mt-28">
+              <h2 className="font-heading text-3xl font-medium text-ink">{tSections(g.section)}</h2>
+              <StaggerGrid className="mt-10 grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+                {g.posts.map((post) => (
+                  <StaggerItem key={post.slug}><JournalCard post={post} /></StaggerItem>
+                ))}
+              </StaggerGrid>
+            </div>
+          ))
+        ) : (
+          <StaggerGrid className="mt-20 grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+            {rest.map((post) => (
+              <StaggerItem key={post.slug}><JournalCard post={post} /></StaggerItem>
+            ))}
+          </StaggerGrid>
+        )}
       </section>
     </>
   );

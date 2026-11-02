@@ -35,9 +35,18 @@ to design, not something to assume is already built.
 | `room.ts` | Room/suite listings | roomType, name, slug, hook (one line, shown on cards + room page lead), rate, images, description, amenities, occupancy, roomCount |
 | `experience.ts` | Local Experiences (see AGENTS.md §6 — regional exclusivity framing) | name, slug, category, images, description, duration, price |
 | `offer.ts` | Packages/offers | title, slug, images, description, validUntil, priceFrom |
-| `journalPost.ts` | Blog/journal | title, slug, publishedAt, author, coverImage, body (Portable Text) |
+| `journalPost.ts` | Blog/journal (three-part: story / what's on / neighbourhood) | title, slug, section, publishedAt, author, heroImage (required to publish), body (Portable Text), events, expiresAt, cta, seoTitle, seoDescription |
 | `testimonial.ts` | Guest reviews | quote, author, location, rating, roomStayed |
 | `teamMember.ts` | About/team page | name, role, photo, bio |
+
+**Journal matrix.** `journalPost.section` is `story`, `event` (what's on)
+or `neighbourhood`; missing means `story`. The journal index groups posts
+by section once more than one is in use. `event` posts carry `events[]`
+(each rendered as schema.org `Event` JSON-LD) and usually `expiresAt` —
+the post drops off the index after that date but its page stays live.
+`cta` renders a booking button under the post. codero-ops blog production
+pushes approved posts as `drafts.codero-<id>` documents; someone adds the
+hero image and publishes.
 
 All six are registered in `sanity/schemas/index.ts` — if you add a new
 schema file, it must be imported and added to the `schemaTypes` array

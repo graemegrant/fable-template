@@ -178,6 +178,11 @@
     "perNight": "/ Nacht",
     "viewTheRoom": "Zimmer ansehen —"
   },
+  "journalSections": {
+    "story": "Geschichten",
+    "event": "Veranstaltungen",
+    "neighbourhood": "In der Nachbarschaft"
+  },
   "location": {
     "eyebrowLabel": "So finden Sie uns",
     "title": "Ende der Straße, Anfang des Tals",

@@ -178,6 +178,11 @@
     "perNight": "/ noche",
     "viewTheRoom": "Ver la habitación —"
   },
+  "journalSections": {
+    "story": "Historias",
+    "event": "Agenda",
+    "neighbourhood": "En el barrio"
+  },
   "location": {
     "eyebrowLabel": "Cómo llegar",
     "title": "Fin del camino, comienzo del valle",

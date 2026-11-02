@@ -16,8 +16,8 @@ const offerFields = `{
 }`;
 
 const journalFields = `{
-  _id, title, "slug": slug.current, category, author, publishedAt,
-  readingTime, excerpt, heroImage, imageAlt, featured
+  _id, title, "slug": slug.current, category, section, author, publishedAt,
+  readingTime, excerpt, heroImage, imageAlt, featured, expiresAt
 }`;
 
 export const ROOMS_QUERY = `*[_type == "room" && active != false] | order(rate desc) ${roomFields}`;
@@ -29,10 +29,13 @@ export const EXPERIENCE_BY_SLUG_QUERY = `*[_type == "experience" && slug.current
 
 export const OFFERS_QUERY = `*[_type == "offer"] | order(_createdAt desc) ${offerFields}`;
 
-export const JOURNAL_QUERY = `*[_type == "journalPost"] | order(publishedAt desc) ${journalFields}`;
+/** Time-bound posts (expiresAt) drop off the index the day after; their
+ * pages stay live via JOURNAL_BY_SLUG_QUERY. */
+export const JOURNAL_QUERY = `*[_type == "journalPost" && (!defined(expiresAt) || dateTime(expiresAt + "T23:59:59Z") > now())] | order(publishedAt desc) ${journalFields}`;
 export const JOURNAL_BY_SLUG_QUERY = `*[_type == "journalPost" && slug.current == $slug][0] {
-  _id, title, "slug": slug.current, category, author, publishedAt,
-  readingTime, excerpt, body, heroImage, imageAlt, featured
+  _id, title, "slug": slug.current, category, section, author, publishedAt,
+  readingTime, excerpt, body, heroImage, imageAlt, featured,
+  events[]{name, startDate, endDate, venue, url}, expiresAt, cta, seoTitle, seoDescription
 }`;
 
 export const TESTIMONIALS_QUERY = `*[_type == "testimonial" && featured == true] | order(date desc) {

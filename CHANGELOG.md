@@ -7,6 +7,13 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Journal matrix for blog production.** `journalPost` gains `section`
+  (story / what's on / neighbourhood), `events[]` with Event JSON-LD,
+  `expiresAt` (drops off the index, page stays live), a booking `cta`,
+  and `seoTitle` / `seoDescription` overrides; `heroImage` is now required
+  to publish. The journal index groups by section when more than one is
+  used. codero-ops pushes approved posts here as Studio drafts.
+
 - **Audit gate: November 2026 advisories.** `npm update next undici vite
   dompurify zod` (lockfile only; `package.json` unchanged): next 15.5.28
   clears GHSA-2464-fhr4-w9xw and GHSA-p3m5-59mp-jv5r, and the undici,

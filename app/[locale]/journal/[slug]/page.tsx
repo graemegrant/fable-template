@@ -36,8 +36,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = resolveJournalPost(rawPost, locale);
   return pageMetadata({
     locale,
-    title: post.title,
-    description: post.excerpt,
+    title: post.seoTitle || post.title,
+    description: post.seoDescription || post.excerpt,
     path: `/journal/${post.slug}`,
     image: `/journal/${post.slug}/opengraph-image`,
     type: 'article',
@@ -90,18 +90,38 @@ export default async function JournalPostPage({ params }: Props) {
     },
   };
 
+  // What's on posts: one schema.org Event per listed event.
+  const eventSchemas = (post.events ?? []).map((e) => ({
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: e.name,
+    startDate: e.startDate,
+    ...(e.endDate ? { endDate: e.endDate } : {}),
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    eventStatus: 'https://schema.org/EventScheduled',
+    ...(e.venue ? { location: { '@type': 'Place', name: e.venue } } : {}),
+    ...(e.url ? { url: e.url } : {}),
+  }));
+
+  const ctaHref = post.cta?.url || undefined;
+  const ctaExternal = Boolean(ctaHref && /^https?:\/\//.test(ctaHref));
+
   const breadcrumbs = breadcrumbList([
     ['Home', '/'],
     ['Journal', '/journal'],
     [post.title, `/journal/${post.slug}`],
   ], locale);
   const t = await getTranslations('journalDetail');
+  const tSections = await getTranslations('journalSections');
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
-      <PageHero eyebrow={post.category} title={post.title} subtitle={`${post.author} · ${formatDate(post.publishedAt, locale)} · ${post.readingTime ?? ''}`} image={post.heroImage} imageAlt={post.imageAlt} />
+      {eventSchemas.map((schema, i) => (
+        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      ))}
+      <PageHero eyebrow={post.category || tSections(post.section ?? 'story')} title={post.title} subtitle={`${post.author} · ${formatDate(post.publishedAt, locale)} · ${post.readingTime ?? ''}`} image={post.heroImage} imageAlt={post.imageAlt} />
 
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
         <div className="grid gap-16 lg:grid-cols-1fr-340">
@@ -111,6 +131,19 @@ export default async function JournalPostPage({ params }: Props) {
                 {post.excerpt}
               </p>
               <PortableText value={post.body} />
+              {ctaHref && post.cta?.label && (
+                <p className="mt-10">
+                  {ctaExternal ? (
+                    <a href={ctaHref} className="inline-flex min-h-11 items-center rounded-card bg-primary px-6 font-body text-2xs uppercase tracking-25 text-canvas transition-colors hover:bg-accent">
+                      {post.cta.label}
+                    </a>
+                  ) : (
+                    <Link href={ctaHref} className="inline-flex min-h-11 items-center rounded-card bg-primary px-6 font-body text-2xs uppercase tracking-25 text-canvas transition-colors hover:bg-accent">
+                      {post.cta.label}
+                    </Link>
+                  )}
+                </p>
+              )}
             </article>
             <div className="mt-14 border-t border-ink/10 pt-8">
               <Link href="/journal" className="inline-flex min-h-11 items-center font-body text-2xs uppercase tracking-25 text-accent transition-colors hover:text-primary">

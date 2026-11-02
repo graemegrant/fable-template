@@ -182,6 +182,11 @@
     "perNight": "/ night",
     "viewTheRoom": "View the room —"
   },
+  "journalSections": {
+    "story": "Stories",
+    "event": "What's on",
+    "neighbourhood": "In our neighbourhood"
+  },
   "location": {
     "eyebrowLabel": "Finding us",
     "title": "End of the road, start of the glen",

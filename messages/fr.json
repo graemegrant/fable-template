@@ -178,6 +178,11 @@
     "perNight": "/ nuit",
     "viewTheRoom": "Voir la chambre —"
   },
+  "journalSections": {
+    "story": "Histoires",
+    "event": "Agenda",
+    "neighbourhood": "Dans le quartier"
+  },
   "location": {
     "eyebrowLabel": "Nous trouver",
     "title": "Fin de la route, début du glen",
