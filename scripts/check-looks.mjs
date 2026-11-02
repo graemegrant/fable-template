@@ -43,8 +43,7 @@ try {
           break;
         } catch (err) {
           if (attempt === 3) throw err;
-          console.log(`
-=== ${look}: build failed, retrying (${attempt + 1} of 3)`);
+          console.log(`\n=== ${look}: build failed, retrying (${attempt + 1} of 3)`);
         }
       }
       // Prove the build really used this look: the layout stamps the name
