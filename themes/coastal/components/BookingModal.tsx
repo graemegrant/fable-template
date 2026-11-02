@@ -47,7 +47,7 @@ function BookingSheet({ onClose, roomHint }: { onClose: () => void; roomHint?: s
         transition={{ duration: 0.5, ease: EASE }}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="mx-auto mb-5 h-1.5 w-12 rounded-full bg-ink/15 sm:hidden" aria-hidden />
+        <div className="mx-auto mb-8 h-1.5 w-12 rounded-full bg-ink/15 sm:hidden" aria-hidden />
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="inline-flex rounded-ctrl bg-accentondark/50 px-3 py-1 font-body text-xs font-semibold text-primary">
