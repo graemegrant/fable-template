@@ -11,10 +11,9 @@
  * hides its content.
  */
 import { useTranslations } from 'next-intl';
-import { usePathname } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
-import { BookButton, useBooking } from './BookingModal';
-import { useCookieConsent } from '@/lib/useCookieConsent';
+import { BookButton } from './BookingModal';
+import { useMobileBookBar, useShowSiteBookBar } from '@/lib/ui/mobileBookBar';
 
 export default function MobileBookBar({
   rate,
@@ -25,10 +24,9 @@ export default function MobileBookBar({
 }) {
   const t = useTranslations('shared');
   const tBooking = useTranslations('booking');
-  const consentDecided = useCookieConsent();
-  const { isOpen } = useBooking();
+  const { hidden, consentDecided } = useMobileBookBar();
 
-  if (isOpen) return null;
+  if (hidden) return null;
 
   return (
     <div
@@ -67,7 +65,5 @@ export default function MobileBookBar({
 /** Layout-level bar for every page except room details, which render
  *  their own with the room's rate. */
 export function SiteMobileBookBar() {
-  const pathname = usePathname();
-  if (/^\/rooms\/[^/]+/.test(pathname)) return null;
-  return <MobileBookBar />;
+  return useShowSiteBookBar() ? <MobileBookBar /> : null;
 }

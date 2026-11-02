@@ -9,15 +9,8 @@ import { useRef, useState } from 'react';
 import { useInView, useReducedMotion, motion, useMotionValue, animate } from 'framer-motion';
 import { useEffect } from 'react';
 import { useLocale } from 'next-intl';
-import { hotelConfig } from '@/hotel.config';
-import { pickLocale } from '@/lib/resolveLocale';
+import { hotelStats, type Stat } from '@/lib/ui/stats';
 import type { Locale } from '@/lib/locales';
-
-interface Stat {
-  value: number;
-  render: (n: number) => string;
-  label: string;
-}
 
 function StatItem({ stat }: { stat: Stat }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -49,19 +42,11 @@ function StatItem({ stat }: { stat: Stat }) {
   );
 }
 
-/** Figures come from hotelConfig.stats, so a client build can never
- *  inherit another hotel’s numbers. Renders nothing when empty. */
+/** Figures come from hotelConfig.stats via lib/ui/stats.ts. Renders
+ *  nothing when empty. */
 export default function StatsBand() {
   const locale = useLocale() as Locale;
-  // `metric` swaps in a metric value/unit for non-English locales (e.g.
-  // 19 mi → 31 km) rather than leaving a mistranslated unit.
-  const isMetric = locale !== 'en';
-  const stats: Stat[] = hotelConfig.stats.map((s) => {
-    const m = isMetric && s.metric ? s.metric : null;
-    const prefix = s.prefix ?? '';
-    const suffix = m ? m.suffix : (s.suffix ?? '');
-    return { value: m ? m.value : s.value, render: (n) => `${prefix}${n}${suffix}`, label: pickLocale(s.label, locale) ?? '' };
-  });
+  const stats = hotelStats(locale);
   if (!stats.length) return null;
   return (
     <motion.div

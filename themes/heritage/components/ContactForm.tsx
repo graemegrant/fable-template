@@ -1,50 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useContactForm } from '@/lib/ui/useContactForm';
 
+/** Heritage contact form. Behaviour is shared in lib/ui/useContactForm.ts. */
 export default function ContactForm() {
-  const t = useTranslations('contactForm');
-  const SUBJECTS = [
-    t('subjectGeneral'), t('subjectRoomBooking'), t('subjectDiningReservation'),
-    t('subjectWeddingsEvents'), t('subjectGiftVouchers'), t('subjectPress'),
-  ];
-  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
-  const [form, setForm] = useState({ name: '', email: '', phone: '', subject: SUBJECTS[0], message: '' });
-
-  // Links can preselect a subject, e.g. /contact?subject=events from the
-  // weddings page. Read on mount (not useSearchParams) so the contact
-  // page stays statically rendered.
-  const SUBJECT_KEYS: Record<string, string> = {
-    rooms: t('subjectRoomBooking'),
-    dining: t('subjectDiningReservation'),
-    events: t('subjectWeddingsEvents'),
-    vouchers: t('subjectGiftVouchers'),
-  };
-  useEffect(() => {
-    const preset = SUBJECT_KEYS[new URLSearchParams(window.location.search).get('subject') ?? ''];
-    if (preset) setForm((f) => ({ ...f, subject: preset }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- run once on mount
-  }, []);
-
-  const set = (key: keyof typeof form) => (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
-  ) => setForm((f) => ({ ...f, [key]: e.target.value }));
-
-  async function submit(e: React.FormEvent) {
-    e.preventDefault();
-    setStatus('sending');
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
-      setStatus(res.ok ? 'sent' : 'error');
-    } catch {
-      setStatus('error');
-    }
-  }
+  const { t, subjects, status, form, set, submit } = useContactForm();
 
   const field =
     'w-full rounded-ctrl border border-ink/20 bg-transparent px-4 py-3.5 font-body text-base text-ink placeholder:text-ink/40 focus:border-accent focus:outline-none sm:text-sm';
@@ -81,7 +41,7 @@ export default function ContactForm() {
         <div>
           <label htmlFor="cf-subject" className={label}>{t('subjectLabel')}</label>
           <select id="cf-subject" value={form.subject} onChange={set('subject')} className={`mt-2 ${field}`}>
-            {SUBJECTS.map((s) => <option key={s}>{s}</option>)}
+            {subjects.map((s) => <option key={s}>{s}</option>)}
           </select>
         </div>
       </div>

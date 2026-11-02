@@ -41,6 +41,11 @@ try {
       const home = readFileSync('.next/server/app/en.html', 'utf8');
       const built = home.match(/data-look="([a-z]+)"/)?.[1];
       if (built !== look) throw new Error(`LOOK=${look} built the "${built}" look instead.`);
+      // And that its CSS carries this look's tokens (a stale build cache can
+      // hand one look's Tailwind output to another).
+      const hex = readFileSync(`themes/${look}/tokens.ts`, 'utf8').match(/primary: '#([0-9A-Fa-f]{6})'/)[1];
+      const rgb = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16)).join(' ');
+      if (!home.includes(`rgb(${rgb}`)) throw new Error(`LOOK=${look}: the CSS is missing its primary colour #${hex}.`);
     }
   }
 } finally {

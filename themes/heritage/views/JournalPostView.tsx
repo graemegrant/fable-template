@@ -2,17 +2,13 @@ import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import Image from 'next/image';
 import { imgSrc } from '@/lib/sanity';
-import { bcp47For, type Locale } from '@/lib/locales';
+import type { Locale } from '@/lib/locales';
 import PageHero from '@look/components/PageHero';
 import PortableText from '@look/components/PortableText';
 import SectionLabel from '@look/components/SectionLabel';
 import { FadeUp } from '@look/components/Motion';
 import type { JournalPostData } from '@/lib/pages/journalPost';
-
-function formatDate(d: string | undefined, locale: Locale) {
-  if (!d) return '';
-  return new Date(d).toLocaleDateString(bcp47For(locale), { day: 'numeric', month: 'long', year: 'numeric' });
-}
+import { formatDate } from '@/lib/ui/format';
 
 /** JournalPost page, Heritage look. Data comes from lib/pages/journalPost.ts. */
 export default async function JournalPostView({ locale, post, featuredRoom, ctaHref, ctaExternal }: { locale: Locale } & JournalPostData) {

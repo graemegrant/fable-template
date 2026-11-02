@@ -1,54 +1,17 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { CONSENT_KEY, CONSENT_EVENT } from '@/lib/useCookieConsent';
+import { useCookieBanner } from '@/lib/ui/useCookieBanner';
 
 /**
- * Cookie consent banner. Sits in front of everything else fixed to the
- * bottom (z-90, above MobileBookBar's z-80) so the visitor can always see
- * and tap both choices. While visible it publishes its real height as
- * `--cookiebar-h`, which the `bottom-cookiebar` spacing token reads, so the
- * booking bar sits exactly above it however many lines the message wraps
- * to — a fixed 4.25rem estimate let the bar cover the buttons on narrow
- * phones.
+ * Heritage cookie consent banner. Sits in front of everything else fixed to
+ * the bottom (z-90, above MobileBookBar's z-80) so the visitor can always see
+ * and tap both choices. Behaviour, including publishing its height for the
+ * booking bar, is shared in lib/ui/useCookieBanner.ts.
  */
 export default function CookieBanner() {
   const t = useTranslations('cookies');
-  const [visible, setVisible] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    try {
-      if (!window.localStorage.getItem(CONSENT_KEY)) setVisible(true);
-    } catch {
-      /* storage unavailable */
-    }
-  }, []);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!visible || !el) return;
-    const root = document.documentElement;
-    const publish = () => root.style.setProperty('--cookiebar-h', `${el.offsetHeight}px`);
-    publish();
-    const observer = new ResizeObserver(publish);
-    observer.observe(el);
-    return () => {
-      observer.disconnect();
-      root.style.removeProperty('--cookiebar-h');
-    };
-  }, [visible]);
-
-  function choose(level: 'essential' | 'all') {
-    try {
-      window.localStorage.setItem(CONSENT_KEY, level);
-    } catch {
-      /* storage unavailable */
-    }
-    window.dispatchEvent(new Event(CONSENT_EVENT));
-    setVisible(false);
-  }
+  const { visible, ref, choose } = useCookieBanner();
 
   if (!visible) return null;
 

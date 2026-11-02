@@ -3,13 +3,9 @@ import { getTranslations, getLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import SectionLabel from './SectionLabel';
 import { imgSrc } from '@/lib/image';
-import { bcp47For, type Locale } from '@/lib/locales';
+import type { Locale } from '@/lib/locales';
 import type { JournalPost } from '@/lib/types';
-
-function formatDate(d: string | undefined, locale: Locale) {
-  if (!d) return '';
-  return new Date(d).toLocaleDateString(bcp47For(locale), { day: 'numeric', month: 'long', year: 'numeric' });
-}
+import { formatDate } from '@/lib/ui/format';
 
 /** Two variants: `featured` (full-width split hero) and `standard` (grid card). */
 export default async function JournalCard({

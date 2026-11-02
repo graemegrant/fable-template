@@ -1,46 +1,15 @@
 'use client';
 
-import { useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
 import { pickLocale } from '@/lib/resolveLocale';
 import type { Locale } from '@/lib/locales';
-
-const exploreLinks = [
-  { labelKey: 'roomsAndSuites', href: '/rooms' },
-  { labelKey: 'dining', href: '/dining' },
-  { labelKey: 'experiences', href: '/experiences' },
-  { labelKey: 'weddings', href: '/weddings' },
-  { labelKey: 'specialOffers', href: '/offers' },
-  { labelKey: 'giftVouchers', href: '/gift-vouchers' },
-] as const;
-
-const visitLinks = [
-  { labelKey: 'ourStory', href: '/about' },
-  { labelKey: 'journal', href: '/journal' },
-  { labelKey: 'locationAndDirections', href: '/location' },
-  { labelKey: 'contact', href: '/contact' },
-] as const;
+import { exploreLinks, visitLinks, useNewsletterForm } from '@/lib/ui/footer';
 
 function NewsletterForm() {
   const t = useTranslations('footer');
-  const [email, setEmail] = useState('');
-  const [done, setDone] = useState(false);
-
-  async function submit(e: React.FormEvent) {
-    e.preventDefault();
-    try {
-      await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'newsletter', email, subject: 'Newsletter signup' }),
-      });
-    } catch {
-      /* non-blocking */
-    }
-    setDone(true);
-  }
+  const { email, setEmail, done, submit } = useNewsletterForm();
 
   if (done) {
     return <p className="font-body text-sm text-canvas/80">{t('subscribed')}</p>;

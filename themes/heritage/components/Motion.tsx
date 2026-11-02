@@ -4,11 +4,10 @@
  * Shared motion system. One easing curve, no springs, no parallax.
  * Everything unhurried by design.
  *
- * Framer is loaded through LazyMotion + the `domAnimation` feature bundle
- * (about half the runtime of the full `motion` import), fetched lazily after
- * hydration (motionFeatures.ts), and the components here use the
+ * Heritage timings and reveal styles. The machinery (LazyMotion with the
+ * feature bundle fetched after hydration, and the phone/reduced-motion
+ * rule) is shared in lib/ui/motion.tsx; components here use the
  * lightweight `m` primitives, re-exported as `motion`.
- * `MotionProvider` wraps the app in app/layout.tsx.
  *
  * Scroll/entrance reveals are suppressed on reduced-motion and on small
  * viewports (AGENTS.md §5 mobile motion budget). The SSR HTML does carry
@@ -18,7 +17,6 @@
  * paint: no waiting for JS to hydrate, which held mobile LCP back ~2 s.
  */
 import {
-  LazyMotion,
   m,
   AnimatePresence,
   useScroll,
@@ -26,7 +24,10 @@ import {
   useReducedMotion,
   type Variants,
 } from 'framer-motion';
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useRef, type ReactNode } from 'react';
+import { MotionProvider, useStill } from '@/lib/ui/motion';
+
+export { MotionProvider };
 
 export const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -36,28 +37,7 @@ interface MotionProps {
   delay?: number;
 }
 
-// The feature bundle loads after hydration rather than up front (see
-// motionFeatures.ts). Reveals are already visible without it on phones
-// (data-reveal CSS); on desktop they simply start a moment later.
-const loadFeatures = () => import('./motionFeatures').then((mod) => mod.default);
 
-export function MotionProvider({ children }: { children: ReactNode }) {
-  return <LazyMotion features={loadFeatures}>{children}</LazyMotion>;
-}
-
-/** True when reveals should be skipped: reduced-motion or a phone-width viewport. */
-function useStill(): boolean {
-  const reduce = useReducedMotion();
-  const [narrow, setNarrow] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia('(max-width: 767px)');
-    const sync = () => setNarrow(mq.matches);
-    sync();
-    mq.addEventListener('change', sync);
-    return () => mq.removeEventListener('change', sync);
-  }, []);
-  return Boolean(reduce) || narrow;
-}
 
 /*
  * still-aware animations below never toggle `animate`/`whileInView` between

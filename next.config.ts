@@ -66,6 +66,12 @@ const nextConfig: NextConfig = {
         resource.request = path.join(lookDir, resource.request.slice('@look/'.length));
       }),
     );
+    // Keep each look's build cache apart: Tailwind's colours and radii come
+    // from the look, which webpack's cache can't see, so a cache built for
+    // one look would otherwise hand its CSS to the next.
+    if (config.cache && typeof config.cache === 'object') {
+      config.cache.version = `${config.cache.version ?? ''}|look:${activeLook}`;
+    }
     return config;
   },
   turbopack: {
