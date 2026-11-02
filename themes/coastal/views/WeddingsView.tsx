@@ -1,0 +1,108 @@
+import Image from 'next/image';
+import { getTranslations } from 'next-intl/server';
+import { Link } from '@/i18n/navigation';
+import { hotelConfig } from '@/hotel.config';
+import { IMG } from '@/lib/data';
+import { pickLocale } from '@/lib/resolveLocale';
+import type { Locale } from '@/lib/locales';
+import PageHero from '@look/components/PageHero';
+import SectionLabel from '@look/components/SectionLabel';
+import { FadeUp, StaggerGrid, StaggerItem } from '@look/components/Motion';
+import type { WeddingsData } from '@/lib/pages/weddings';
+
+/** Weddings page, Heritage look. Data comes from lib/pages/weddings.ts. */
+export default async function WeddingsView({ locale, venues }: { locale: Locale } & WeddingsData) {
+  const t = await getTranslations('weddings');
+  return (
+    <>
+      <PageHero
+        eyebrow={`${t('eyebrowLabel')} · ${pickLocale(hotelConfig.location.regionLabel, locale)}`}
+        title={t('title')}
+        subtitle={t('subtitle')}
+        image={IMG.wedding1}
+        tall
+      />
+
+      <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-24">
+          <FadeUp>
+            <SectionLabel>{t('howItWorksLabel')}</SectionLabel>
+            <h2 className="mt-5 font-heading text-4xl font-medium leading-tight text-ink md:text-5xl">
+              {t('exclusiveUseHeading')}
+            </h2>
+            <p className="mt-6 font-body text-base font-light leading-body text-ink/80">
+              {t('exclusiveUseP1')}
+            </p>
+            <p className="mt-5 font-body text-base font-light leading-body text-ink/80">
+              {t('exclusiveUseP2')}
+            </p>
+          </FadeUp>
+          <FadeUp delay={0.15}>
+            <div className="relative aspect-portrait overflow-hidden rounded-img">
+              <Image src={IMG.wedding2} alt={t('weddingTableAlt')} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+            </div>
+          </FadeUp>
+        </div>
+      </section>
+
+      <section className="bg-canvasalt">
+        <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+          <FadeUp>
+            <SectionLabel>{t('settingsLabel')}</SectionLabel>
+            <h2 className="mt-5 font-heading text-4xl font-medium text-ink md:text-5xl">{t('settingsHeading')}</h2>
+          </FadeUp>
+          <StaggerGrid className="mt-14 grid gap-8 lg:grid-cols-3">
+            {venues.map((v) => (
+              <StaggerItem key={v.name} className="h-full">
+                <article className="group flex h-full flex-col overflow-hidden rounded-card border border-ink/10 bg-canvas transition-shadow duration-300 hover:shadow-lg">
+                  <div className="relative aspect-landscape overflow-hidden">
+                    <Image
+                      src={v.image}
+                      alt={v.name}
+                      fill
+                      sizes="(min-width: 1024px) 33vw, 100vw"
+                      className="object-cover transition-transform duration-1200 ease-out-expo group-hover:scale-104"
+                    />
+                  </div>
+                  <div className="flex grow flex-col p-8">
+                    <h3 className="font-heading text-2xl font-medium text-ink">{v.name}</h3>
+                    <p className="mt-1 font-body text-2xs uppercase tracking-25 text-accent">{v.capacity}</p>
+                    <p className="mt-4 grow font-body text-sm font-light leading-relaxed text-ink/75">{v.detail}</p>
+                    {/* Outline (secondary) style — the section's primary CTA is the
+                        enquiry band below (AGENTS.md §5, one primary per section). */}
+                    <Link
+                      href="/contact?subject=events#enquiry"
+                      className="mt-8 block rounded-ctrl border border-primary px-5 py-3.5 text-center font-body text-2xs uppercase tracking-18 text-primary transition-colors duration-300 hover:bg-primary hover:text-canvas sm:px-6 sm:tracking-25"
+                    >
+                      {t('enquireVenue')}
+                    </Link>
+                  </div>
+                </article>
+              </StaggerItem>
+            ))}
+          </StaggerGrid>
+        </div>
+      </section>
+
+      <section className="bg-primary">
+        <div className="mx-auto max-w-4xl px-6 py-24 text-center lg:py-32">
+          <FadeUp>
+            <SectionLabel variant="ondark">{t('beginLabel')}</SectionLabel>
+            <h2 className="mt-6 font-heading text-4xl font-medium leading-tight text-canvas md:text-6xl">
+              {t('beginHeadingLine1')}<br />{t('beginHeadingLine2')}
+            </h2>
+            <p className="mx-auto mt-6 max-w-xl font-body text-base font-light leading-relaxed text-canvas/75">
+              {t('beginBody')}
+            </p>
+            <Link
+              href="/contact?subject=events#enquiry"
+              className="mt-10 inline-block rounded-ctrl bg-accentfill px-10 py-4 font-body text-2xs uppercase tracking-25 text-onaccent transition-colors duration-300 hover:bg-canvas hover:text-primary"
+            >
+              {t('enquireDate')}
+            </Link>
+          </FadeUp>
+        </div>
+      </section>
+    </>
+  );
+}

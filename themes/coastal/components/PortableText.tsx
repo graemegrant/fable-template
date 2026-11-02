@@ -1,0 +1,54 @@
+import Image from 'next/image';
+import { PortableText as PT, type PortableTextComponents } from '@portabletext/react';
+import { imgSrc } from '@/lib/image';
+
+/** Styled renderer for Sanity portable text — journal posts and editorial bodies. */
+const components: PortableTextComponents = {
+  block: {
+    normal: ({ children }) => (
+      <p className="mb-6 font-body text-base font-light leading-body text-ink/85">{children}</p>
+    ),
+    h2: ({ children }) => (
+      <h2 className="mb-5 mt-12 font-heading text-3xl font-medium text-ink">{children}</h2>
+    ),
+    h3: ({ children }) => (
+      <h3 className="mb-4 mt-10 font-heading text-2xl font-medium text-ink">{children}</h3>
+    ),
+    blockquote: ({ children }) => (
+      <blockquote className="my-10 border-l-2 border-accent pl-8 font-heading text-2xl font-medium italic leading-relaxed text-primary">
+        {children}
+      </blockquote>
+    ),
+  },
+  marks: {
+    link: ({ children, value }) => (
+      <a
+        href={value?.href}
+        className="text-primary underline decoration-accent underline-offset-4 transition-colors hover:text-accent"
+        rel="noopener noreferrer"
+      >
+        {children}
+      </a>
+    ),
+  },
+  types: {
+    image: ({ value }) => (
+      <figure className="my-10">
+        <div className="relative aspect-wide">
+          <Image src={imgSrc(value)} alt={value?.caption || ''} fill sizes="(min-width: 768px) 720px, 100vw" className="object-cover" />
+        </div>
+        {value?.caption && (
+          <figcaption className="mt-3 font-body text-xs uppercase tracking-20 text-ink/70">
+            {value.caption}
+          </figcaption>
+        )}
+      </figure>
+    ),
+  },
+};
+
+export default function PortableText({ value }: { value: unknown }) {
+  if (!value) return null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return <PT value={value as any} components={components} />;
+}

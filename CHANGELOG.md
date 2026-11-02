@@ -7,6 +7,20 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Coastal look, phase 2a: site frame and home page.** New `coastal`
+  look in `themes/coastal/` (build with `LOOK=coastal`): deep-sea, sand and
+  gold palette, Fraunces and DM Sans, rounded shapes, wave dividers. Its own
+  navbar, booking sheet, cookie banner, mobile book bar, footer, page hero,
+  cards (rooms, experiences, offers, journal), trust strip, stats, facilities,
+  reviews, testimonials and home page. Same content, CTAs, SEO and JSON-LD as
+  Heritage; every colour pairing passes WCAG AA. Its other pages still use
+  Heritage's layouts with Coastal parts, and follow in the next PR. Shared
+  behaviour moves to `lib/ui/` (navigation, booking, cookie banner, contact
+  form, lightbox, mobile book bar, rooms filter, stats, footer links and
+  newsletter, date format), so a look only writes markup. The webpack cache
+  is now kept per look. Heritage: no visible change (all 29 English pages
+  identical).
+
 - **Looks: switching and checking.** `LOOK=<look>` overrides
   `hotel.config.ts` for a build (`themes/active.ts`, read by next.config.ts
   and lib/tokens.ts), for CI and demo deployments. New `npm run check:looks`

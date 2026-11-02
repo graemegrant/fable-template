@@ -1,31 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { AnimatePresence, motion } from './Motion';
 import { imgSrc } from '@/lib/image';
+import { useLightbox } from '@/lib/ui/useLightbox';
 
 /** Image grid with a full-screen lightbox: prev/next, ESC and backdrop close. */
 export default function GalleryLightbox({ images, alt }: { images: unknown[]; alt: string }) {
   const t = useTranslations('shared');
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
   const srcs = images.map((i) => imgSrc(i)).filter(Boolean);
-
-  useEffect(() => {
-    if (openIndex === null) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpenIndex(null);
-      if (e.key === 'ArrowRight') setOpenIndex((i) => (i === null ? null : (i + 1) % srcs.length));
-      if (e.key === 'ArrowLeft') setOpenIndex((i) => (i === null ? null : (i - 1 + srcs.length) % srcs.length));
-    };
-    window.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      window.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
-    };
-  }, [openIndex, srcs.length]);
+  const { openIndex, open: setOpenIndex, next, prev } = useLightbox(srcs.length);
 
   if (!srcs.length) return null;
 
@@ -70,7 +55,7 @@ export default function GalleryLightbox({ images, alt }: { images: unknown[]; al
             <button
               type="button"
               className="absolute left-4 top-1/2 -translate-y-1/2 p-4 font-body text-2xl text-canvas/70 hover:text-canvas md:left-10"
-              onClick={(e) => { e.stopPropagation(); setOpenIndex((openIndex - 1 + srcs.length) % srcs.length); }}
+              onClick={(e) => { e.stopPropagation(); prev(); }}
               aria-label={t('galleryPrevious')}
             >
               ←
@@ -81,7 +66,7 @@ export default function GalleryLightbox({ images, alt }: { images: unknown[]; al
             <button
               type="button"
               className="absolute right-4 top-1/2 -translate-y-1/2 p-4 font-body text-2xl text-canvas/70 hover:text-canvas md:right-10"
-              onClick={(e) => { e.stopPropagation(); setOpenIndex((openIndex + 1) % srcs.length); }}
+              onClick={(e) => { e.stopPropagation(); next(); }}
               aria-label={t('galleryNext')}
             >
               →

@@ -5,23 +5,13 @@ import { useTranslations } from 'next-intl';
 import { StaggerGrid, StaggerItem } from './Motion';
 import RoomCard from './RoomCard';
 import type { Room } from '@/lib/types';
+import { roomFilter } from '@/lib/ui/rooms';
 
 export default function RoomsFilter({ rooms }: { rooms: Room[] }) {
   const t = useTranslations('shared');
-  /* roomType is free text (SANITY-SCHEMA.md), not a fixed enum, so the tab
-     list has to come from whatever categories are actually present in this
-     client's data rather than a hardcoded Classic/Deluxe/Suite list —
-     otherwise the filter shows tabs that don't match the client's real
-     categories at all. Order preserved by first appearance for stability. */
-  const distinctTypes = Array.from(new Set(rooms.map((r) => r.roomType)));
-  const types = ['All', ...distinctTypes];
   const [active, setActive] = useState<string>('All');
-  const filtered = active === 'All' ? rooms : rooms.filter((r) => r.roomType === active);
-  /* A filter with one tab per room (every roomType unique — the
-     named-room edge case, e.g. Craigmore's own 6 individually-named
-     rooms) groups nothing and adds no value, so skip rendering it
-     entirely rather than show a tab per room. */
-  const showFilter = distinctTypes.length < rooms.length;
+  // Tabs and filtering are shared (lib/ui/rooms.ts).
+  const { types, showFilter, filtered } = roomFilter(rooms, active);
 
   return (
     <div>

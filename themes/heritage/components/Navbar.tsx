@@ -1,67 +1,19 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useTranslations, useLocale } from 'next-intl';
-import { Link, usePathname } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
-import { LOCALES, type Locale } from '@/lib/locales';
+import { LOCALES } from '@/lib/locales';
+import { NAV } from '@/lib/ui/navigation';
+import { useNavbar } from '@/lib/ui/useNavbar';
 import { BookButton } from './BookingModal';
-
-type NavChild = { labelKey: string; href: string };
-type NavItem = { labelKey: string; href?: string; children?: NavChild[] };
-
-const NAV: NavItem[] = [
-  {
-    labelKey: 'stay',
-    children: [
-      { labelKey: 'roomsAndSuites', href: '/rooms' },
-      { labelKey: 'specialOffers', href: '/offers' },
-    ],
-  },
-  { labelKey: 'dining', href: '/dining' },
-  { labelKey: 'experiences', href: '/experiences' },
-  { labelKey: 'weddings', href: '/weddings' },
-  { labelKey: 'giftVouchers', href: '/gift-vouchers' },
-  {
-    labelKey: 'discover',
-    children: [
-      { labelKey: 'journal', href: '/journal' },
-      { labelKey: 'ourStory', href: '/about' },
-      { labelKey: 'location', href: '/location' },
-      { labelKey: 'contact', href: '/contact' },
-    ],
-  },
-];
 
 export default function Navbar() {
   const t = useTranslations('nav');
   const tCommon = useTranslations('common');
-  const locale = useLocale() as Locale;
-  const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [openAccordion, setOpenAccordion] = useState<string | null>(null);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  useEffect(() => {
-    setMobileOpen(false);
-    setOpenAccordion(null);
-  }, [pathname]);
-
-  useEffect(() => {
-    document.body.style.overflow = mobileOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [mobileOpen]);
+  const { locale, pathname, scrolled, mobileOpen, setMobileOpen, openAccordion, toggleAccordion, isActive } = useNavbar();
 
   const solid = scrolled || mobileOpen;
-  const isActive = (item: NavItem) =>
-    item.href === pathname || item.children?.some((c) => pathname.startsWith(c.href));
 
   return (
     <header
@@ -211,7 +163,7 @@ export default function Navbar() {
                 <button
                   type="button"
                   className="flex w-full items-center justify-between py-4 font-body text-xs uppercase tracking-25 text-canvas"
-                  onClick={() => setOpenAccordion(openAccordion === item.labelKey ? null : item.labelKey)}
+                  onClick={() => toggleAccordion(item.labelKey)}
                   aria-expanded={openAccordion === item.labelKey}
                 >
                   {t(item.labelKey)}

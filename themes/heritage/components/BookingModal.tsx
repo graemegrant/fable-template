@@ -1,108 +1,28 @@
 'use client';
 
 /**
- * Booking system: context provider, modal, and a reusable BookButton.
- * Hands off to the configured booking engine via lib/bookingEngine.ts
- * (which owns each engine's parameter names); falls back to /contact
- * when no engine is configured.
+ * Heritage booking modal. The behaviour (context, BookButton, form state,
+ * hand-off to the booking engine) is shared in lib/ui/booking.tsx; this
+ * file is the design. BookButton and useBooking are re-exported so
+ * components import booking from one place.
  */
-import {
-  createContext, useCallback, useContext, useEffect, useState, type ReactNode,
-} from 'react';
-import { useTranslations, useLocale } from 'next-intl';
-import { Link, useRouter } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
 import { pickLocale } from '@/lib/resolveLocale';
-import { bcp47For, type Locale } from '@/lib/locales';
-import { buildBookingUrl, resolveProvider } from '@/lib/bookingEngine';
+import {
+  BookingContext, BookButton, useBooking, useBookingForm, useBookingProviderState,
+} from '@/lib/ui/booking';
 import { ModalEntrance, AnimatePresence, motion } from './Motion';
+import type { ReactNode } from 'react';
 
-const BookingContext = createContext<{
-  open: (roomHint?: string) => void;
-  close: () => void;
-  isOpen: boolean;
-}>({
-  open: () => {},
-  close: () => {},
-  isOpen: false,
-});
-
-export function useBooking() {
-  return useContext(BookingContext);
-}
-
-export function BookButton({
-  className,
-  children,
-  roomHint,
-}: {
-  className?: string;
-  children?: ReactNode;
-  roomHint?: string;
-}) {
-  const { open } = useBooking();
-  const t = useTranslations('common');
-  return (
-    <button type="button" onClick={() => open(roomHint)} className={className}>
-      {children ?? t('checkAvailability')}
-    </button>
-  );
-}
-
-// Dates are built in the guest's local time. toISOString() would give the
-// UTC date, which is a day out late in the evening during BST.
-function isoDate(d: Date) {
-  return [d.getFullYear(), String(d.getMonth() + 1).padStart(2, '0'), String(d.getDate()).padStart(2, '0')].join('-');
-}
-
-function todayPlus(days: number) {
-  const d = new Date();
-  d.setDate(d.getDate() + days);
-  return isoDate(d);
-}
-
-function addDays(date: string, days: number) {
-  const [y, m, d] = date.split('-').map(Number);
-  return isoDate(new Date(y, m - 1, d + days));
-}
+export { BookButton, useBooking };
 
 function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHint?: string }) {
-  const router = useRouter();
   const t = useTranslations('booking');
   const tCommon = useTranslations('common');
-  const locale = useLocale() as Locale;
-  const [arrival, setArrival] = useState(todayPlus(7));
-  const [departure, setDeparture] = useState(todayPlus(9));
-  const [guests, setGuests] = useState(2);
-  const [roomCount, setRoomCount] = useState(1);
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
-    window.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      window.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
-    };
-  }, [onClose]);
-
-  function submit(e: React.FormEvent) {
-    e.preventDefault();
-    const url = hotelConfig.bookingEngineUrl;
-    if (!url) {
-      onClose();
-      router.push('/contact');
-      return;
-    }
-    window.location.href = buildBookingUrl(url, resolveProvider(url, hotelConfig.bookingEngine.provider), {
-      arrival,
-      departure,
-      adults: guests,
-      rooms: roomCount,
-      language: bcp47For(locale),
-      currency: hotelConfig.bookingEngine.currency,
-    });
-  }
+  const form = useBookingForm(onClose);
+  const { locale } = form;
 
   const field =
     'w-full rounded-ctrl border border-ink/20 bg-canvas px-4 py-3.5 font-body text-base text-ink focus:border-accent focus:outline-none sm:text-sm';
@@ -142,38 +62,34 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
             </button>
           </div>
 
-          <form onSubmit={submit} className="mt-8 space-y-5">
+          <form onSubmit={form.submit} className="mt-8 space-y-5">
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label htmlFor="arrival" className={label}>{t('arrival')}</label>
-                <input id="arrival" type="date" required value={arrival} min={todayPlus(0)}
-                  onChange={(e) => {
-                    const next = e.target.value;
-                    setArrival(next);
-                    if (next >= departure) setDeparture(addDays(next, 2));
-                  }} className={`mt-2 ${field}`} />
+                <input id="arrival" type="date" required value={form.arrival} min={form.minArrival}
+                  onChange={(e) => form.setArrival(e.target.value)} className={`mt-2 ${field}`} />
               </div>
               <div>
                 <label htmlFor="departure" className={label}>{t('departure')}</label>
-                <input id="departure" type="date" required value={departure} min={addDays(arrival, 1)}
-                  onChange={(e) => setDeparture(e.target.value)} className={`mt-2 ${field}`} />
+                <input id="departure" type="date" required value={form.departure} min={form.minDeparture}
+                  onChange={(e) => form.setDeparture(e.target.value)} className={`mt-2 ${field}`} />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label htmlFor="guests" className={label}>{t('guests')}</label>
-                <select id="guests" value={guests} onChange={(e) => setGuests(Number(e.target.value))}
+                <select id="guests" value={form.guests} onChange={(e) => form.setGuests(Number(e.target.value))}
                   className={`mt-2 ${field}`}>
-                  {[1, 2, 3, 4, 5, 6].map((n) => (
+                  {form.guestOptions.map((n) => (
                     <option key={n} value={n}>{t('guestCount', { count: n })}</option>
                   ))}
                 </select>
               </div>
               <div>
                 <label htmlFor="rooms" className={label}>{t('rooms')}</label>
-                <select id="rooms" value={roomCount} onChange={(e) => setRoomCount(Number(e.target.value))}
+                <select id="rooms" value={form.roomCount} onChange={(e) => form.setRoomCount(Number(e.target.value))}
                   className={`mt-2 ${field}`}>
-                  {[1, 2, 3].map((n) => (
+                  {form.roomOptions.map((n) => (
                     <option key={n} value={n}>{t('roomCount', { count: n })}</option>
                   ))}
                 </select>
@@ -214,14 +130,11 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
 }
 
 export function BookingProvider({ children }: { children: ReactNode }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [roomHint, setRoomHint] = useState<string | undefined>();
-  const open = useCallback((hint?: string) => { setRoomHint(hint); setIsOpen(true); }, []);
-  const close = useCallback(() => setIsOpen(false), []);
+  const state = useBookingProviderState();
   return (
-    <BookingContext.Provider value={{ open, close, isOpen }}>
+    <BookingContext.Provider value={state.value}>
       {children}
-      <AnimatePresence>{isOpen && <BookingModalInner onClose={close} roomHint={roomHint} />}</AnimatePresence>
+      <AnimatePresence>{state.isOpen && <BookingModalInner onClose={state.close} roomHint={state.roomHint} />}</AnimatePresence>
     </BookingContext.Provider>
   );
 }
