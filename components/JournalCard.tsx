@@ -20,6 +20,7 @@ export default async function JournalCard({
   variant?: 'standard' | 'featured';
 }) {
   const t = await getTranslations('shared');
+  const tSections = await getTranslations('journalSections');
   const locale = (await getLocale()) as Locale;
   if (variant === 'featured') {
     return (
@@ -34,7 +35,7 @@ export default async function JournalCard({
           />
         </div>
         <div className="flex flex-col justify-center p-10 lg:p-16">
-          <SectionLabel variant="ondark">{post.category} — {t('featuredSuffix')}</SectionLabel>
+          <SectionLabel variant="ondark">{post.category || tSections(post.section ?? 'story')} — {t('featuredSuffix')}</SectionLabel>
           <h2 className="mt-5 font-heading text-3xl font-medium leading-tight text-canvas md:text-4xl">
             {post.title}
           </h2>
@@ -60,7 +61,7 @@ export default async function JournalCard({
         />
       </div>
       <div className="pt-6">
-        <SectionLabel>{post.category}</SectionLabel>
+        <SectionLabel>{post.category || tSections(post.section ?? 'story')}</SectionLabel>
         <h3 className="mt-3 font-heading text-2xl font-medium leading-snug text-ink">{post.title}</h3>
         <p className="mt-3 font-body text-sm font-light leading-relaxed text-ink/70">{post.excerpt}</p>
         <p className="mt-4 font-body text-2xs uppercase tracking-20 text-ink/70">

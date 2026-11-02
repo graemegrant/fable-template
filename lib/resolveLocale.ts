@@ -69,6 +69,7 @@ export function resolveJournalPost(raw: JournalPostI18n, locale: Locale): Journa
     excerpt: pickLocale(raw.excerpt, locale) ?? '',
     body: pickLocale(raw.body, locale),
     imageAlt: pickLocale(raw.imageAlt, locale),
+    cta: raw.cta ? { label: pickLocale(raw.cta.label, locale), url: raw.cta.url } : undefined,
   };
 }
 

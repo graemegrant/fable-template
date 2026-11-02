@@ -7,6 +7,13 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Journal matrix for blog production.** `journalPost` gains `section`
+  (story / what's on / neighbourhood), `events[]` with Event JSON-LD,
+  `expiresAt` (drops off the index, page stays live), a booking `cta`,
+  and `seoTitle` / `seoDescription` overrides; `heroImage` is now required
+  to publish. The journal index groups by section when more than one is
+  used. codero-ops pushes approved posts here as Studio drafts.
+
 - **Microsoft Clarity (CRO heatmaps and recordings).** Set
   `NEXT_PUBLIC_CLARITY_ID` and `components/Analytics.tsx` loads Clarity
   behind the same "Accept all" gate as GA4, then sends Clarity's Consent API

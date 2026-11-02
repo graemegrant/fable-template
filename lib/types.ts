@@ -88,6 +88,23 @@ export interface JournalPost {
   heroImage: Img;
   imageAlt?: string;
   featured?: boolean;
+  /** Journal matrix section; missing = story. */
+  section?: JournalSection;
+  events?: JournalEvent[];
+  expiresAt?: string;
+  cta?: { label?: string; url?: string };
+  seoTitle?: string;
+  seoDescription?: string;
+}
+
+export type JournalSection = 'story' | 'event' | 'neighbourhood';
+
+export interface JournalEvent {
+  name: string;
+  startDate: string;
+  endDate?: string;
+  venue?: string;
+  url?: string;
 }
 
 export interface Testimonial {
@@ -137,8 +154,9 @@ export interface OfferI18n extends Omit<Offer, 'title' | 'subtitle' | 'descripti
   inclusions?: LocaleField[];
 }
 
-export interface JournalPostI18n extends Omit<JournalPost, 'title' | 'readingTime' | 'excerpt' | 'body' | 'imageAlt'> {
+export interface JournalPostI18n extends Omit<JournalPost, 'title' | 'readingTime' | 'excerpt' | 'body' | 'imageAlt' | 'cta'> {
   title: LocaleField;
+  cta?: { label?: LocaleField; url?: string };
   readingTime?: LocaleField;
   excerpt: LocaleField;
   body?: LocaleField<unknown[]>;
