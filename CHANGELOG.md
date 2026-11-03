@@ -7,6 +7,14 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Heritage booking dates fit on phones; demo switches.** Heritage's
+  booking panel stacks arrival and departure below the `sm` breakpoint (as
+  Coastal and Urban do), so the date boxes are no longer squeezed. New
+  deployment settings: `NOINDEX=1` keeps search engines out (for the
+  template's own demo and client staging sites), and
+  `NEXT_PUBLIC_DEMO_NOTICE` sets the footer's demo line. Both are off
+  unless set, so client sites are unaffected.
+
 - **Urban demo hotel.** `demos/urban/` is The Ardlow, a fictional
   sixteen-room townhouse hotel in Glasgow's Merchant City, with its own
   settings, rooms, copy and free Unsplash photos, in English. Build with
