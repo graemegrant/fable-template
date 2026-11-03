@@ -1,0 +1,114 @@
+{
+  "footer": {
+    "seasonalLetterBody": "What’s on in the city, what the kitchen is cooking, and first word on offers. Four letters a year.",
+    "subscribed": "Thank you, you’re on the list. Letters arrive with the seasons, never more often."
+  },
+  "home": {
+    "houseLabel": "The hotel",
+    "houseHeading": "Sixteen rooms. One lane. The whole city on the doorstep.",
+    "houseIntro": "The Ardlow was built in 1872 as a cloth merchant’s warehouse on a cobbled lane in the Merchant City. Today it is a sixteen-room townhouse hotel with a restaurant, a bar that takes its whisky seriously, and the best of Glasgow within a ten-minute walk.",
+    "exteriorAlt": "Ardlow Lane at dusk",
+    "allRooms": "All sixteen rooms →",
+    "experiencesLabel": "Out in the city",
+    "experiencesHeading": "Glasgow, properly",
+    "diningLabel": "The restaurant",
+    "diningQuote": "Good Scottish produce, cooked simply, served late. That’s the whole idea.",
+    "diningQuoteAttribution": "Rory Lennox, Head Chef",
+    "diningCta": "Eat and drink",
+    "locationHeading": "Five minutes from the station. In the middle of everything.",
+    "locationIntro": "Glasgow Central is a five-minute walk, with direct trains from London, Edinburgh and across Scotland. Merchant City’s bars and restaurants are on the doorstep; the river, the galleries and the West End are a short walk or subway ride away.",
+    "locationCta": "Directions & the area",
+    "glenAlt": "The Clyde and the Finnieston Crane",
+    "journalHeading": "Notes from the city",
+    "finalHeadingLine1": "The city never sleeps.",
+    "finalHeadingLine2": "You will."
+  },
+  "about": {
+    "title": "A warehouse with rooms",
+    "subtitle": "Built in 1872. A hotel since 2020. Open all hours ever since.",
+    "historyLabel": "The history",
+    "historyHeading": "From cloth merchants to cocktail hour",
+    "historyP1": "The Ardlow was built in 1872 as a warehouse for a cloth merchant on what was then one of the busiest lanes in the city. Bales of cotton came in at the front and went out at the back, and the merchant lived on the top floor with a view of his ships on the Clyde.",
+    "historyP2": "The building spent the twentieth century as offices, a print works and, briefly, a nightclub. The present owners bought it in 2017 and spent three years restoring the beams, the brick and the tall windows before opening sixteen rooms in 2020.",
+    "historyP3": "The goods hoist still hangs above the door on Ardlow Lane. These days it carries nothing heavier than the Christmas lights.",
+    "ethosLabel": "The idea",
+    "ethosQuote": "A great city hotel should feel like a friend’s flat in the best part of town, with a better bar.",
+    "ethosAttribution": "The owners, 2020",
+    "peopleHeading": "Who runs the place",
+    "sustainabilityHeading": "Doing our bit",
+    "sustainabilityP1": "We buy from Scottish farms, fisheries and breweries wherever we can, run on renewable electricity, and send our food waste to be composted rather than landfilled.",
+    "sustainabilityP2": "No single-use plastics in the rooms, refillable toiletries, and a building we restored rather than replaced. We publish what we have done each year, not just what we plan to do.",
+    "gardenAlt": "Kelvingrove Art Gallery and Museum"
+  },
+  "contact": {
+    "title": "Talk to us",
+    "subtitle": "A real person answers, day or night. Usually Jamie."
+  },
+  "dining": {
+    "title": "Eat late. Drink well.",
+    "subtitle": "A restaurant open until 10pm, a bar open until 1am, and a kitchen that takes Scottish produce seriously.",
+    "philosophyHeading": "Scottish produce, cooked simply, served late.",
+    "philosophyBody": "The menu is short and changes with the seasons: beef from Ayrshire farms, fish landed at Peterhead and Scrabster, and vegetables from growers around the city. Breakfast runs late at weekends, and the bar keeps serving food until 11pm.",
+    "tastingDishAlt": "A dish from the dinner menu",
+    "menusIntro": "Sample menus. The kitchen changes them with the seasons.",
+    "privateDiningRoomAlt": "The private dining room",
+    "privateDiningLabel": "Private dining",
+    "libraryTableHeading": "The Back Room",
+    "libraryTableBody": "A private room behind the bar for up to fourteen, with its own playlist and a door that closes. For birthdays, work dinners and nights that need a bit of privacy. The kitchen will build a menu around you; the bar will look after the rest.",
+    "chefBioSuffix": " The dinner menu, short and seasonal, has made the restaurant a favourite with locals as well as guests.",
+    "chefQuote": "Good ingredients don’t need much help. Mostly they need you to stay out of the way."
+  },
+  "experiencesPage": {
+    "title": "Glasgow, properly",
+    "subtitle": "The best of the city, arranged by people who live here. We book it, you enjoy it.",
+    "intro": "Galleries, gigs, murals, whisky and a loch less than an hour away. Tell us what you are into and we will plan the day, book the tickets and point you in the right direction."
+  },
+  "experienceDetail": {
+    "moreFromEstate": "More in the city"
+  },
+  "giftVouchers": {
+    "title": "Give someone the city",
+    "subtitle": "Posted in a proper envelope, or emailed within the hour.",
+    "intro": "All vouchers are valid for eighteen months, can be spent on anything we offer, and can be passed on to someone else. Order by phone, email or the enquiry form, and we will arrange payment and delivery the same day."
+  },
+  "journalPage": {
+    "title": "Notes from the city",
+    "subtitle": "Where to eat, what to see and what’s on, written by the people who run the hotel."
+  },
+  "location": {
+    "title": "In the middle of everything",
+    "subtitleSuffix": "· five minutes from Glasgow Central, ten from almost everything else.",
+    "fourWaysIn": "Four ways to reach us",
+    "mapHeading": "On a cobbled lane in Merchant City",
+    "postcodeSuffix": "· then look for the goods hoist above the door.",
+    "beyondEstateLabel": "Around the city",
+    "worthLeavingFireFor": "Worth leaving the bar for"
+  },
+  "roomsPage": {
+    "subtitle": "Sixteen rooms, from compact snugs to a top-floor loft, all with a very good bed.",
+    "intro": "Every room comes with breakfast, fast Wi-Fi and a bed you will not want to leave. The Loft and The Merchant add space and views; The Snug adds the particular pleasure of a great room for less."
+  },
+  "weddings": {
+    "title": "One wedding. The whole building.",
+    "subtitle": "We host a handful of city weddings a year, only ever one at a time.",
+    "exclusiveUseP1": "When you marry at The Ardlow, the building is yours: all sixteen rooms, the restaurant, the bar and the back room. Your guests stay where the party is. Morven and the team look after everything, from the registrar to the late-night food.",
+    "exclusiveUseP2": "Exclusive use from £12,000, including all rooms. Licensed for ceremonies in the restaurant and the back room.",
+    "weddingTableAlt": "A wedding table set for dinner",
+    "settingsHeading": "Three places to say it",
+    "southLawnName": "The Restaurant",
+    "southLawnCapacity": "Up to 70 guests",
+    "southLawnDetail": "The main room, cleared for a ceremony and reset for dinner while your guests have a drink at the bar.",
+    "diningRoomName": "The Bar",
+    "diningRoomCapacity": "Up to 100 standing",
+    "diningRoomDetail": "Drinks, speeches and dancing until late, with a whisky list your guests will still be talking about.",
+    "libraryName": "The Back Room",
+    "libraryCapacity": "Up to 20 guests",
+    "libraryDetail": "For small weddings and elopements: a ceremony behind closed doors, then dinner for everyone who matters.",
+    "beginHeadingLine1": "Come and see the place.",
+    "beginHeadingLine2": "Stay for a drink.",
+    "beginBody": "Wedding viewings run most weekdays and finish with a drink at the bar. Dates for the next two years open each January."
+  },
+  "shared": {
+    "bookDirectBody": "The best rate, the best room in your category, and late check-out when you book direct."
+  }
+}
