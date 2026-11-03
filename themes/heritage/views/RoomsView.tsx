@@ -2,12 +2,12 @@ import { getTranslations } from 'next-intl/server';
 import { hotelConfig } from '@/hotel.config';
 import { IMG } from '@/lib/data';
 import type { Locale } from '@/lib/locales';
-import PageHero from '@look/components/PageHero';
-import RoomsFilter from '@look/components/RoomsFilter';
-import TrustStrip from '@look/components/TrustStrip';
-import DirectBookingBanner from '@look/components/DirectBookingBanner';
-import { FadeUp } from '@look/components/Motion';
-import SectionLabel from '@look/components/SectionLabel';
+import PageHero from '../components/PageHero';
+import RoomsFilter from '../components/RoomsFilter';
+import TrustStrip from '../components/TrustStrip';
+import DirectBookingBanner from '../components/DirectBookingBanner';
+import { FadeUp } from '../components/Motion';
+import SectionLabel from '../components/SectionLabel';
 import { Link } from '@/i18n/navigation';
 import type { RoomsData } from '@/lib/pages/rooms';
 

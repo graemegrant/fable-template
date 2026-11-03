@@ -10,8 +10,9 @@
 import { activeLook } from '../themes/active';
 import * as heritage from '../themes/heritage/tokens';
 import * as coastal from '../themes/coastal/tokens';
+import * as urban from '../themes/urban/tokens';
 
-const looks = { heritage, coastal } as const;
+const looks = { heritage, coastal, urban } as const;
 
 export const { palette, radii } = looks[activeLook];
 

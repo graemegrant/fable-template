@@ -20,3 +20,6 @@ export const fontBody = Jost({
   display: 'swap',
   fallback: ['Century Gothic', 'Verdana', 'sans-serif'],
 });
+
+/** Every font variable this look sets, for the <html> element. */
+export const fontVariables = [fontHeading.variable, fontBody.variable].join(' ');

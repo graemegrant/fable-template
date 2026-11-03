@@ -19,3 +19,6 @@ export const fontBody = DM_Sans({
   display: 'swap',
   fallback: ['Helvetica Neue', 'Arial', 'sans-serif'],
 });
+
+/** Every font variable this look sets, for the <html> element. */
+export const fontVariables = [fontHeading.variable, fontBody.variable].join(' ');

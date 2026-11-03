@@ -3,10 +3,10 @@ import { Link } from '@/i18n/navigation';
 import Image from 'next/image';
 import { imgSrc } from '@/lib/sanity';
 import type { Locale } from '@/lib/locales';
-import PageHero from '@look/components/PageHero';
-import PortableText from '@look/components/PortableText';
-import SectionLabel from '@look/components/SectionLabel';
-import { FadeUp } from '@look/components/Motion';
+import PageHero from '../components/PageHero';
+import PortableText from '../components/PortableText';
+import SectionLabel from '../components/SectionLabel';
+import { FadeUp } from '../components/Motion';
 import type { JournalPostData } from '@/lib/pages/journalPost';
 import { formatDate } from '@/lib/ui/format';
 

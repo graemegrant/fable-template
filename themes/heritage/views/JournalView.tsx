@@ -1,9 +1,9 @@
 import { getTranslations } from 'next-intl/server';
 import { IMG } from '@/lib/data';
 import type { Locale } from '@/lib/locales';
-import PageHero from '@look/components/PageHero';
-import JournalCard from '@look/components/JournalCard';
-import { FadeUp, StaggerGrid, StaggerItem } from '@look/components/Motion';
+import PageHero from '../components/PageHero';
+import JournalCard from '../components/JournalCard';
+import { FadeUp, StaggerGrid, StaggerItem } from '../components/Motion';
 import type { JournalData } from '@/lib/pages/journal';
 
 /** Journal page, Heritage look. Data comes from lib/pages/journal.ts. */

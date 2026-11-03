@@ -1,8 +1,8 @@
 import { getTranslations } from 'next-intl/server';
 import { IMG } from '@/lib/data';
 import type { Locale } from '@/lib/locales';
-import PageHero from '@look/components/PageHero';
-import { FadeUp } from '@look/components/Motion';
+import PageHero from '../components/PageHero';
+import { FadeUp } from '../components/Motion';
 import type { PrivacyData } from '@/lib/pages/privacy';
 
 /** Privacy page, Heritage look. Data comes from lib/pages/privacy.ts. */

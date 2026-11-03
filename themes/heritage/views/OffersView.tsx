@@ -1,10 +1,10 @@
 import { getTranslations } from 'next-intl/server';
 import { IMG } from '@/lib/data';
 import type { Locale } from '@/lib/locales';
-import PageHero from '@look/components/PageHero';
-import OfferCard from '@look/components/OfferCard';
-import DirectBookingBanner from '@look/components/DirectBookingBanner';
-import { FadeUp } from '@look/components/Motion';
+import PageHero from '../components/PageHero';
+import OfferCard from '../components/OfferCard';
+import DirectBookingBanner from '../components/DirectBookingBanner';
+import { FadeUp } from '../components/Motion';
 import type { OffersData } from '@/lib/pages/offers';
 
 /** Offers page, Heritage look. Data comes from lib/pages/offers.ts. */

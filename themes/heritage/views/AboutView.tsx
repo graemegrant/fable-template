@@ -3,12 +3,12 @@ import { getTranslations } from 'next-intl/server';
 import { pressMentions, IMG } from '@/lib/data';
 import { pickLocale } from '@/lib/resolveLocale';
 import type { Locale } from '@/lib/locales';
-import PageHero from '@look/components/PageHero';
-import TeamCard from '@look/components/TeamCard';
-import Facilities from '@look/components/Facilities';
-import ReviewsBand from '@look/components/ReviewsBand';
-import SectionLabel from '@look/components/SectionLabel';
-import { FadeUp, StaggerGrid, StaggerItem } from '@look/components/Motion';
+import PageHero from '../components/PageHero';
+import TeamCard from '../components/TeamCard';
+import Facilities from '../components/Facilities';
+import ReviewsBand from '../components/ReviewsBand';
+import SectionLabel from '../components/SectionLabel';
+import { FadeUp, StaggerGrid, StaggerItem } from '../components/Motion';
 import type { AboutData } from '@/lib/pages/about';
 
 /** About page, Heritage look. Data comes from lib/pages/about.ts. */

@@ -5,9 +5,9 @@ import { hotelConfig } from '@/hotel.config';
 import { voucherTypes, IMG } from '@/lib/data';
 import { pickLocale } from '@/lib/resolveLocale';
 import type { Locale } from '@/lib/locales';
-import PageHero from '@look/components/PageHero';
-import SectionLabel from '@look/components/SectionLabel';
-import { FadeUp, StaggerGrid, StaggerItem } from '@look/components/Motion';
+import PageHero from '../components/PageHero';
+import SectionLabel from '../components/SectionLabel';
+import { FadeUp, StaggerGrid, StaggerItem } from '../components/Motion';
 
 /** GiftVouchers page, Heritage look. Data comes from lib/pages/giftVouchers.ts. */
 export default async function GiftVouchersView({ locale }: { locale: Locale }) {
