@@ -3,9 +3,9 @@ import { hotelConfig } from '@/hotel.config';
 import { directions, attractions, IMG } from '@/lib/data';
 import { pickLocale } from '@/lib/resolveLocale';
 import type { Locale } from '@/lib/locales';
-import PageHero from '@look/components/PageHero';
-import SectionLabel from '@look/components/SectionLabel';
-import { FadeUp, StaggerGrid, StaggerItem } from '@look/components/Motion';
+import PageHero from '../components/PageHero';
+import SectionLabel from '../components/SectionLabel';
+import { FadeUp, StaggerGrid, StaggerItem } from '../components/Motion';
 import type { LocationData } from '@/lib/pages/location';
 
 /** Location page, Heritage look. Data comes from lib/pages/location.ts. */

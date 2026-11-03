@@ -2,8 +2,8 @@ import { Link } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
 import { pickLocale } from '@/lib/resolveLocale';
 import type { Locale } from '@/lib/locales';
-import SectionLabel from '@look/components/SectionLabel';
-import { PageFade } from '@look/components/Motion';
+import SectionLabel from '../components/SectionLabel';
+import { PageFade } from '../components/Motion';
 
 /** 404 page, Heritage look. */
 export default function NotFoundView({ locale }: { locale: Locale }) {

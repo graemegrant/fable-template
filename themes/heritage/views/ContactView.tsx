@@ -3,11 +3,11 @@ import { hotelConfig } from '@/hotel.config';
 import { IMG } from '@/lib/data';
 import { pickLocale } from '@/lib/resolveLocale';
 import type { Locale } from '@/lib/locales';
-import PageHero from '@look/components/PageHero';
-import ContactForm from '@look/components/ContactForm';
-import FaqAccordion from '@look/components/FaqAccordion';
-import SectionLabel from '@look/components/SectionLabel';
-import { FadeUp } from '@look/components/Motion';
+import PageHero from '../components/PageHero';
+import ContactForm from '../components/ContactForm';
+import FaqAccordion from '../components/FaqAccordion';
+import SectionLabel from '../components/SectionLabel';
+import { FadeUp } from '../components/Motion';
 import type { ContactData } from '@/lib/pages/contact';
 
 /** Contact page, Heritage look. Data comes from lib/pages/contact.ts. */

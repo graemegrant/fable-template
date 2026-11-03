@@ -3,8 +3,8 @@ import { hotelConfig } from '@/hotel.config';
 import { IMG, policies } from '@/lib/data';
 import { pickLocale } from '@/lib/resolveLocale';
 import type { Locale } from '@/lib/locales';
-import PageHero from '@look/components/PageHero';
-import { FadeUp, StaggerGrid, StaggerItem } from '@look/components/Motion';
+import PageHero from '../components/PageHero';
+import { FadeUp, StaggerGrid, StaggerItem } from '../components/Motion';
 
 /** Policies page, Heritage look. Data comes from lib/pages/policies.ts. */
 export default async function PoliciesView({ locale }: { locale: Locale }) {

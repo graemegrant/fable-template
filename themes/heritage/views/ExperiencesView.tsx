@@ -2,10 +2,10 @@ import { getTranslations } from 'next-intl/server';
 import { hotelConfig } from '@/hotel.config';
 import { IMG } from '@/lib/data';
 import type { Locale } from '@/lib/locales';
-import PageHero from '@look/components/PageHero';
-import ExperienceCard from '@look/components/ExperienceCard';
-import DirectBookingBanner from '@look/components/DirectBookingBanner';
-import { FadeUp, StaggerGrid, StaggerItem } from '@look/components/Motion';
+import PageHero from '../components/PageHero';
+import ExperienceCard from '../components/ExperienceCard';
+import DirectBookingBanner from '../components/DirectBookingBanner';
+import { FadeUp, StaggerGrid, StaggerItem } from '../components/Motion';
 import type { ExperiencesData } from '@/lib/pages/experiences';
 
 /** Experiences page, Heritage look. Data comes from lib/pages/experiences.ts. */

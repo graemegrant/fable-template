@@ -7,7 +7,7 @@ import { palette } from '@/lib/tokens';
 import { hotelSchema } from '@/lib/schema';
 import { pickLocale } from '@/lib/resolveLocale';
 import { LOCALE_IDS, DEFAULT_LOCALE, isLocale, bcp47For, type Locale } from '@/lib/locales';
-import { fontHeading, fontBody } from '@look/fonts';
+import { fontVariables } from '@look/fonts';
 import { lookName } from '@look/meta';
 import { MotionProvider } from '@look/components/Motion';
 import Navbar from '@look/components/Navbar';
@@ -94,7 +94,7 @@ export default async function LocaleLayout({
   const lodgingSchema = hotelSchema(locale);
 
   return (
-    <html lang={bcp47For(locale)} className={`${fontHeading.variable} ${fontBody.variable}`}>
+    <html lang={bcp47For(locale)} className={fontVariables}>
       <body data-look={lookName}>
         <script
           type="application/ld+json"

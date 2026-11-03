@@ -4,9 +4,9 @@ import { Link } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
 import { IMG } from '@/lib/data';
 import type { Locale } from '@/lib/locales';
-import PageHero from '@look/components/PageHero';
-import SectionLabel from '@look/components/SectionLabel';
-import { FadeUp, StaggerGrid, StaggerItem } from '@look/components/Motion';
+import PageHero from '../components/PageHero';
+import SectionLabel from '../components/SectionLabel';
+import { FadeUp, StaggerGrid, StaggerItem } from '../components/Motion';
 import type { DiningData } from '@/lib/pages/dining';
 
 /** Dining page, Heritage look. Data comes from lib/pages/dining.ts. */

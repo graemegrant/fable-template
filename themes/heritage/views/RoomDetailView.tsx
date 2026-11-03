@@ -3,13 +3,13 @@ import { getTranslations } from 'next-intl/server';
 import { hotelConfig } from '@/hotel.config';
 import { pickLocale } from '@/lib/resolveLocale';
 import type { Locale } from '@/lib/locales';
-import PageHero from '@look/components/PageHero';
-import GalleryLightbox from '@look/components/GalleryLightbox';
-import RoomCard from '@look/components/RoomCard';
-import SectionLabel from '@look/components/SectionLabel';
-import { FadeUp, StaggerGrid, StaggerItem } from '@look/components/Motion';
-import { BookButton } from '@look/components/BookingModal';
-import MobileBookBar from '@look/components/MobileBookBar';
+import PageHero from '../components/PageHero';
+import GalleryLightbox from '../components/GalleryLightbox';
+import RoomCard from '../components/RoomCard';
+import SectionLabel from '../components/SectionLabel';
+import { FadeUp, StaggerGrid, StaggerItem } from '../components/Motion';
+import { BookButton } from '../components/BookingModal';
+import MobileBookBar from '../components/MobileBookBar';
 import type { RoomDetailData } from '@/lib/pages/roomDetail';
 
 /** RoomDetail page, Heritage look. Data comes from lib/pages/roomDetail.ts. */

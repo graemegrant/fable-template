@@ -7,6 +7,18 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Urban look, phase 3a: site frame and home page.** New `urban` look in
+  `themes/urban/` (build with `LOOK=urban`): ink-black pages, paper type, a
+  signal-orange accent, square corners; Archivo (condensed display cuts),
+  Schibsted Grotesk and JetBrains Mono. Its own navbar, booking panel,
+  cookie banner, mobile book bar, footer, page hero, cards, ticker, stats,
+  facilities, reviews, testimonials and home page. Every colour pairing
+  passes WCAG AA. Its other pages still use Coastal's layouts with Urban
+  parts, and follow in the next PR. Each look's `fonts.ts` now exports
+  `fontVariables` (Urban sets a third, `--font-mono`, used by `font-mono`),
+  and each look's views import their own components directly. Heritage: no
+  visible change (all 29 English pages identical).
+
 - **Coastal demo hotel, and demo builds.** `demos/coastal/` is Polvarra
   Cove, a fictional fourteen-room hotel near St Agnes, Cornwall, with its own
   settings, rooms, copy and free Unsplash photos, in English. `DEMO=coastal`

@@ -1,0 +1,62 @@
+/* Urban look: ink-black page, paper type, condensed display cuts, a mono
+   ticker and an editorial grid. Imported by app/[locale]/layout.tsx after
+   globals.css. Not in @layer blocks: those need @tailwind directives in the
+   same file. */
+
+body {
+  @apply bg-primary text-canvas;
+}
+::selection {
+  @apply bg-accentfill text-onaccent;
+}
+/* The shared date-input rule assumes a light page; Urban's fields sit on
+   black, so the native picker should be dark too. */
+input[type='date'] {
+  color-scheme: dark;
+}
+
+/* Archivo's width axis: condensed for display headlines, expanded for the
+   occasional wide label. */
+.font-condensed {
+  font-stretch: 72%;
+}
+.font-expanded {
+  font-stretch: 118%;
+}
+
+/* Outlined display type: only the fill goes transparent, so the stroke
+   still takes the text colour from a token class (e.g. text-accentondark). */
+.text-outline {
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1.5px currentColor;
+}
+
+/* A faint 8-column editorial grid behind a section. */
+.bg-grid {
+  background-image: linear-gradient(to right, rgba(242, 239, 234, 0.05) 1px, transparent 1px);
+  background-size: calc(100% / 8) 100%;
+}
+
+/* Ticker: the content is rendered twice and slides by half its width,
+   so the loop is seamless. Off under reduced motion. */
+@keyframes urban-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: urban-marquee 40s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
+
+/* Native dropdown menus follow the dark page too. */
+select {
+  color-scheme: dark;
+}
