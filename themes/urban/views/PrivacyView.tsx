@@ -5,20 +5,23 @@ import PageHero from '../components/PageHero';
 import { FadeUp } from '../components/Motion';
 import type { PrivacyData } from '@/lib/pages/privacy';
 
-/** Privacy page, Coastal look. Data comes from lib/pages/privacy.ts. */
+/** Privacy page, Urban look. Data comes from lib/pages/privacy.ts. */
 export default async function PrivacyView({ values, sections }: { locale: Locale } & PrivacyData) {
   const t = await getTranslations('privacy');
   return (
     <>
       <PageHero eyebrow={t('eyebrow')} title={t('title')} subtitle={t('subtitle')} image={IMG.dining1} />
-      <section className="mx-auto max-w-3xl px-6 py-16 lg:py-24">
-        <FadeUp>
-          <p className="inline-flex rounded-ctrl bg-canvasalt px-4 py-2 font-body text-sm text-ink/80">{t('updated', values)}</p>
-          <div className="mt-10 space-y-4">
-            {sections.map(([title, body]) => (
-              <div key={title} className="shadow-sand rounded-card bg-canvas p-7">
-                <h2 className="font-heading text-2xl font-semibold text-primary md:text-3xl">{title}</h2>
-                <p className="mt-3 font-body text-base leading-body text-ink/85">{body}</p>
+      <section className="mx-auto max-w-screen-2xl px-5 py-16 lg:px-8 lg:py-24">
+        <FadeUp className="grid gap-10 lg:grid-cols-12">
+          <p className="font-mono text-xs uppercase tracking-18 text-canvas/70 lg:col-span-3">{t('updated', values)}</p>
+          <div className="border-t border-canvas/15 lg:col-span-8">
+            {sections.map(([title, body], i) => (
+              <div key={title} className="grid gap-4 border-b border-canvas/15 py-8 sm:grid-cols-12">
+                <span className="font-mono text-xs text-accentondark sm:col-span-1">{String(i + 1).padStart(2, '0')}</span>
+                <div className="sm:col-span-11">
+                  <h2 className="font-heading text-xl font-bold uppercase leading-tight text-canvas">{title}</h2>
+                  <p className="mt-3 font-body text-base leading-body text-canvas/85">{body}</p>
+                </div>
               </div>
             ))}
           </div>

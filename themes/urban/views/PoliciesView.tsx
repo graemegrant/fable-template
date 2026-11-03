@@ -6,28 +6,31 @@ import type { Locale } from '@/lib/locales';
 import PageHero from '../components/PageHero';
 import { FadeUp, StaggerGrid, StaggerItem } from '../components/Motion';
 
-/** Policies page, Coastal look. Data comes from lib/pages/policies.ts. */
+/** Policies page, Urban look. Data comes from lib/pages/policies.ts. */
 export default async function PoliciesView({ locale }: { locale: Locale }) {
   const t = await getTranslations('policies');
   return (
     <>
       <PageHero eyebrow={t('eyebrow')} title={t('title')} subtitle={t('subtitle')} image={IMG.room2} />
 
-      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-24">
-        <FadeUp className="rounded-card bg-accentondark/35 p-6 sm:px-8">
-          <p className="max-w-3xl font-body text-lg leading-body text-ink/85">
+      <section className="mx-auto max-w-screen-2xl px-5 py-16 lg:px-8 lg:py-24">
+        <FadeUp>
+          <p className="max-w-3xl border-l-2 border-accentondark pl-6 font-body text-xl leading-snug text-canvas">
             {t('intro')}{' '}
-            <a href={`tel:${hotelConfig.contact.phoneHref}`} className="font-semibold text-primary underline decoration-accent underline-offset-4">
+            <a href={`tel:${hotelConfig.contact.phoneHref}`} className="font-mono underline decoration-accentondark underline-offset-4">
               {hotelConfig.contact.phone}
             </a>
           </p>
         </FadeUp>
-        <StaggerGrid className="mt-10 grid gap-5 md:grid-cols-2">
-          {policies.map((p) => (
+        <StaggerGrid className="mt-14 grid border-t border-canvas/15 md:grid-cols-2">
+          {policies.map((p, i) => (
             <StaggerItem key={p.title.en} className="h-full">
-              <article className="shadow-sand h-full rounded-card bg-canvas p-7">
-                <h2 className="font-heading text-2xl font-semibold text-primary">{pickLocale(p.title, locale)}</h2>
-                <p className="mt-3 font-body text-base leading-relaxed text-ink/80">{pickLocale(p.body, locale)}</p>
+              <article className={`flex h-full gap-5 border-b border-canvas/15 py-8 md:pr-8 ${i % 2 === 1 ? 'md:border-l md:pl-8' : ''}`}>
+                <span className="font-mono text-xs text-accentondark">{String(i + 1).padStart(2, '0')}</span>
+                <div>
+                  <h2 className="font-heading text-xl font-bold uppercase leading-tight text-canvas">{pickLocale(p.title, locale)}</h2>
+                  <p className="mt-3 font-body text-base leading-relaxed text-canvas/80">{pickLocale(p.body, locale)}</p>
+                </div>
               </article>
             </StaggerItem>
           ))}
