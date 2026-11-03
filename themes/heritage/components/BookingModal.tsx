@@ -25,7 +25,7 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
   const { locale } = form;
 
   const field =
-    'w-full rounded-ctrl border border-ink/20 bg-canvas px-4 py-3.5 font-body text-base text-ink focus:border-accent focus:outline-none sm:text-sm';
+    'w-full min-w-0 rounded-ctrl border border-ink/20 bg-canvas px-4 py-3.5 font-body text-base text-ink focus:border-accent focus:outline-none sm:text-sm';
   const label = 'block font-body text-2xs uppercase tracking-25 text-ink/70';
 
   return (
@@ -63,7 +63,7 @@ function BookingModalInner({ onClose, roomHint }: { onClose: () => void; roomHin
           </div>
 
           <form onSubmit={form.submit} className="mt-8 space-y-5">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <label htmlFor="arrival" className={label}>{t('arrival')}</label>
                 <input id="arrival" type="date" required value={form.arrival} min={form.minArrival}

@@ -36,6 +36,10 @@ variables (Production):
 
 No Sanity variables: a demo runs from its own `data.ts`.
 
+The template's own deployment (Craigmore House, the Heritage demo) has no
+demo folder; it sets `NOINDEX=1` and `NEXT_PUBLIC_DEMO_NOTICE` (the footer
+line) instead. Client staging sites can use `NOINDEX=1` the same way.
+
 ## Rules
 
 - Every demo is fictional and says so (`demoNotice`) and stays out of

@@ -24,11 +24,13 @@ export const hotelConfig = {
    *  English is always included. One language hides the switcher. */
   languages: ['en', 'fr', 'de', 'es'] as Locale[],
   /** Keep search engines out of the whole site (robots.txt and a noindex
-   *  meta tag). For demos and staging only: never on a live hotel site. */
-  noindex: false,
+   *  meta tag). For demos and staging only: never on a live hotel site.
+   *  Off unless the deployment sets NOINDEX=1. */
+  noindex: process.env.NOINDEX === '1',
   /** A line in the footer marking the site as a demo, e.g. for a
-   *  fictional hotel. null on a real hotel's site. */
-  demoNotice: null as LocaleField | null,
+   *  fictional hotel. null on a real hotel's site. Set per deployment with
+   *  NEXT_PUBLIC_DEMO_NOTICE (public, as the footer renders in the browser). */
+  demoNotice: (process.env.NEXT_PUBLIC_DEMO_NOTICE ? { en: process.env.NEXT_PUBLIC_DEMO_NOTICE } : null) as LocaleField | null,
   name: 'Craigmore House',
   tagline: {
     en: 'Highland solitude, done properly.',
