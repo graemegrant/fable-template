@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
+import fs from 'node:fs';
 import path from 'node:path';
 import legacy from './redirects.json';
 import { activeLook } from './themes/active';
@@ -54,9 +55,28 @@ const contentSecurityPolicy = [
  *  `look`, or the LOOK env var). */
 const lookDir = path.join(process.cwd(), 'themes', activeLook);
 
+/** A demo deployment (DEMO env var, see demos/README.md) swaps in a
+ *  fictional hotel's settings and content from demos/<name>/ in place of
+ *  hotel.config.ts and lib/data.ts. Unset, the template builds as normal. */
+const demo = process.env.DEMO || '';
+const demoDir = demo ? path.join(process.cwd(), 'demos', demo) : '';
+if (demo) {
+  if (!fs.existsSync(demoDir)) throw new Error(`Unknown DEMO "${demo}": there is no demos/${demo}/ folder.`);
+  const demoLook = fs.readFileSync(path.join(demoDir, 'hotel.config.ts'), 'utf8').match(/look: '([a-z]+)'/)?.[1];
+  if (demoLook !== activeLook) throw new Error(`DEMO=${demo} is a ${demoLook} demo: build it with LOOK=${demoLook}.`);
+}
+const demoSwaps = new Map(
+  demo
+    ? [
+        ['hotel.config.ts', 'hotel.config.ts'],
+        [path.join('lib', 'data.ts'), 'data.ts'],
+      ].map(([from, to]) => [path.join(process.cwd(), from), path.join(demoDir, to)])
+    : [],
+);
+
 const nextConfig: NextConfig = {
   // Inlined so server and browser code agree on the look being built.
-  env: { LOOK: activeLook },
+  env: { LOOK: activeLook, DEMO: demo },
   webpack(config, { webpack }) {
     // Rewritten before resolution, not via resolve.alias: Next applies the
     // tsconfig.json paths (`@look/*` → Heritage) ahead of webpack aliases,
@@ -66,11 +86,22 @@ const nextConfig: NextConfig = {
         resource.request = path.join(lookDir, resource.request.slice('@look/'.length));
       }),
     );
-    // Keep each look's build cache apart: Tailwind's colours and radii come
-    // from the look, which webpack's cache can't see, so a cache built for
-    // one look would otherwise hand its CSS to the next.
+    // Demo builds: swap the template's content files for the demo's, by
+    // resolved path, so every import style (@/, relative) is covered.
+    if (demoSwaps.size) {
+      config.plugins.push(
+        new webpack.NormalModuleReplacementPlugin(/(hotel\.config|data)\.ts$/, (resource: { createData?: { resource?: string } }) => {
+          const from = resource.createData?.resource;
+          const to = from && demoSwaps.get(path.normalize(from));
+          if (to && resource.createData) resource.createData.resource = to;
+        }),
+      );
+    }
+    // Keep each look's (and demo's) build cache apart: Tailwind's colours
+    // and radii come from the look, which webpack's cache can't see, so a
+    // cache built for one look would otherwise hand its CSS to the next.
     if (config.cache && typeof config.cache === 'object') {
-      config.cache.version = `${config.cache.version ?? ''}|look:${activeLook}`;
+      config.cache.version = `${config.cache.version ?? ''}|look:${activeLook}|demo:${demo}`;
     }
     return config;
   },

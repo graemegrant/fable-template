@@ -11,7 +11,7 @@
  * else here (address parts, contact info, coordinates, ISO times) stays
  * a flat, unlocalized value.
  */
-import type { LocaleField } from './lib/locales';
+import type { Locale, LocaleField } from './lib/locales';
 import type { BookingEngineProvider } from './lib/bookingEngine';
 import type { Look } from './themes/looks';
 
@@ -20,6 +20,15 @@ export const hotelConfig = {
    *  layouts come from `themes/<look>/`. Choose at kickoff; only that look
    *  is built. */
   look: 'heritage' as Look,
+  /** Languages the site is published in (lib/locales.ts ALL_LOCALES ids).
+   *  English is always included. One language hides the switcher. */
+  languages: ['en', 'fr', 'de', 'es'] as Locale[],
+  /** Keep search engines out of the whole site (robots.txt and a noindex
+   *  meta tag). For demos and staging only: never on a live hotel site. */
+  noindex: false,
+  /** A line in the footer marking the site as a demo, e.g. for a
+   *  fictional hotel. null on a real hotel's site. */
+  demoNotice: null as LocaleField | null,
   name: 'Craigmore House',
   tagline: {
     en: 'Highland solitude, done properly.',

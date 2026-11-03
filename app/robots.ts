@@ -16,6 +16,8 @@ const AI_CRAWLERS = [
 ];
 
 export default function robots(): MetadataRoute.Robots {
+  // Demos and staging (hotel.config.ts `noindex`): keep every crawler out.
+  if (hotelConfig.noindex) return { rules: [{ userAgent: '*', disallow: '/' }] };
   const disallow = ['/studio', '/api'];
   return {
     rules: [
