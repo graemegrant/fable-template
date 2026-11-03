@@ -36,7 +36,7 @@ it and remove it, don't extend it.
 
 ## 2. Component reuse rule
 
-Before writing a new component, check `/components` for an existing one
+Before writing a new component, check `themes/<look>/components` (and shared behaviour in `lib/ui/`) for an existing one
 that already does the job (`PageHero`, `SectionLabel`, `Motion.tsx`
 primitives, `RoomCard`, `OfferCard`, `ExperienceCard`, `TestimonialSlider`,
 etc.). New pages should compose existing components wherever the content
@@ -55,7 +55,7 @@ above still applies.
 
 ## 3. Brand tokens — no inline hex, no arbitrary Tailwind values
 
-All colour comes from the semantic tokens defined in `lib/tokens.ts` (and
+All colour comes from the semantic tokens defined in the look's `themes/<look>/tokens.ts` (and
 exposed to Tailwind by `tailwind.config.ts`):
 
 | Token | Hex | Use |
@@ -87,7 +87,7 @@ A fill button that hovers to `bg-canvas` must also set
 `hover:text-primary`, since `onaccent` may be a light colour.
 
 **Re-skinning for a new client means editing the nine token values in
-`lib/tokens.ts` — never adding a one-off hex value in a component.**
+the look's `themes/<look>/tokens.ts` — never adding a one-off hex value in a component.**
 
 **Per look (approved by Graeme, Nov 2026):** each look has its own token
 set and its own heading and body fonts (`themes/<look>/tokens.ts`, loaded
@@ -162,7 +162,7 @@ viewport against current hotel-website guidance:
 - **Speed** (Lighthouse mobile performance ≥ 85 on key pages): never import
   `lib/sanity.ts` from a `'use client'` component (it's `server-only`; use
   `lib/image.ts` for image URLs); wrap any new reveal animation in the
-  `components/Motion.tsx` primitives so it carries `data-reveal` and shows
+  `themes/<look>/components/Motion.tsx` primitives so it carries `data-reveal` and shows
   at first paint on phones; when a client component starts using a new
   `messages/*.json` namespace, add it to `CLIENT_NAMESPACES` in
   `app/[locale]/layout.tsx`.
