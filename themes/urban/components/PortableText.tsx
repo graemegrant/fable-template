@@ -2,15 +2,18 @@ import Image from 'next/image';
 import { PortableText as PT, type PortableTextComponents } from '@portabletext/react';
 import { imgSrc } from '@/lib/image';
 
-/** Coastal renderer for Sanity portable text: journal posts and editorial
- *  bodies. Pull quotes sit on a sea-glass card; photos are rounded. */
+/** Urban renderer for Sanity portable text: journal posts and editorial
+ *  bodies. Condensed uppercase subheads, pull quotes ruled in the accent,
+ *  square photos with mono captions. */
 const components: PortableTextComponents = {
   block: {
-    normal: ({ children }) => <p className="mb-6 font-body text-lg leading-body text-ink/85">{children}</p>,
-    h2: ({ children }) => <h2 className="mb-5 mt-12 font-heading text-3xl font-semibold text-primary">{children}</h2>,
-    h3: ({ children }) => <h3 className="mb-4 mt-10 font-heading text-2xl font-semibold text-primary">{children}</h3>,
+    normal: ({ children }) => <p className="mb-6 font-body text-lg leading-body text-canvas/85">{children}</p>,
+    h2: ({ children }) => (
+      <h2 className="font-condensed mb-5 mt-14 font-heading text-4xl font-extrabold uppercase leading-none text-canvas">{children}</h2>
+    ),
+    h3: ({ children }) => <h3 className="mb-4 mt-10 font-heading text-xl font-bold uppercase text-canvas">{children}</h3>,
     blockquote: ({ children }) => (
-      <blockquote className="my-10 rounded-card bg-accentondark/35 px-8 py-7 font-heading text-2xl italic leading-relaxed text-primary">
+      <blockquote className="my-12 border-l-2 border-accentondark pl-6 font-heading text-3xl font-semibold leading-tight text-canvas">
         {children}
       </blockquote>
     ),
@@ -19,7 +22,7 @@ const components: PortableTextComponents = {
     link: ({ children, value }) => (
       <a
         href={value?.href}
-        className="font-medium text-accent underline decoration-accentondark decoration-2 underline-offset-4 transition-colors hover:text-primary"
+        className="text-canvas underline decoration-accentondark decoration-2 underline-offset-4 transition-colors hover:text-accentondark"
         rel="noopener noreferrer"
       >
         {children}
@@ -28,11 +31,11 @@ const components: PortableTextComponents = {
   },
   types: {
     image: ({ value }) => (
-      <figure className="my-10">
-        <div className="relative aspect-wide overflow-hidden rounded-card">
+      <figure className="my-12">
+        <div className="relative aspect-wide">
           <Image src={imgSrc(value)} alt={value?.caption || ''} fill sizes="(min-width: 768px) 720px, 100vw" className="object-cover" />
         </div>
-        {value?.caption && <figcaption className="mt-3 px-2 font-body text-sm italic text-ink/75">{value.caption}</figcaption>}
+        {value?.caption && <figcaption className="mt-3 font-mono text-xs uppercase tracking-18 text-canvas/70">{value.caption}</figcaption>}
       </figure>
     ),
   },

@@ -7,6 +7,13 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Urban look, phase 3b: every page.** Urban's own rooms (with a
+  spec-sheet comparison), room detail, dining (menus on a paper band),
+  experiences, experience detail, offers, weddings, about, location,
+  contact, journal, journal post, gift vouchers, policies, privacy and 404
+  pages, plus its contact form, FAQ, gallery, article text, rooms filter
+  and team cards. Same content, CTAs and JSON-LD as the other looks.
+
 - **Urban look, phase 3a: site frame and home page.** New `urban` look in
   `themes/urban/` (build with `LOOK=urban`): ink-black pages, paper type, a
   signal-orange accent, square corners; Archivo (condensed display cuts),

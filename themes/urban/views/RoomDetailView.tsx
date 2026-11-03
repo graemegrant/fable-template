@@ -12,8 +12,8 @@ import { BookButton } from '../components/BookingModal';
 import MobileBookBar from '../components/MobileBookBar';
 import type { RoomDetailData } from '@/lib/pages/roomDetail';
 
-/** RoomDetail page, Coastal look. Data comes from lib/pages/roomDetail.ts.
- *  The booking card is deep sea so it stands apart from the sand page. */
+/** RoomDetail page, Urban look. Data comes from lib/pages/roomDetail.ts.
+ *  The booking column is a sticky spec sheet in a hairline frame. */
 export default async function RoomDetailView({ locale, room, related }: { locale: Locale } & RoomDetailData) {
   const t = await getTranslations('roomDetail');
   const stayLines = [
@@ -23,115 +23,125 @@ export default async function RoomDetailView({ locale, room, related }: { locale
       checkOut: pickLocale(hotelConfig.checkOut, locale) ?? '',
     }),
   ];
+  const specs = [
+    [t('size'), room.sqm ? `${room.sqm} ${t('sqmUnit')}` : ''],
+    [t('sleeps'), `${room.occupancy}`],
+    [t('floor'), room.floor],
+    [t('outlook'), room.view],
+  ].filter(([, v]) => v);
   return (
     <>
       {/* roomType is the title, so the eyebrow doesn't repeat it; the subtitle
           adds the room's own name (rare) and its view. */}
       <PageHero
-        eyebrow={`${t('stayLabel')} · ${hotelConfig.location.locality}`}
+        eyebrow={`${t('stayLabel')} / ${hotelConfig.location.locality}`}
         title={room.roomType}
-        subtitle={[room.name, room.view].filter(Boolean).join(' · ')}
+        subtitle={[room.name, room.view].filter(Boolean).join(' / ')}
         image={room.heroImage}
         imageAlt={room.imageAlt}
       />
 
-      <section className="mx-auto max-w-7xl px-6 pb-32 pt-14 lg:px-10 lg:pb-28 lg:pt-20">
-        <div className="grid gap-14 lg:grid-cols-1fr-360">
-          <div>
+      <section className="mx-auto max-w-screen-2xl px-5 pb-32 pt-16 lg:px-8 lg:pb-24 lg:pt-20">
+        <div className="grid gap-14 lg:grid-cols-12">
+          <div className="lg:col-span-7">
             <FadeUp>
-              <SectionLabel>{t('theRoom')}</SectionLabel>
-              {room.hook && <p className="mt-5 font-heading text-3xl font-semibold leading-snug text-primary md:text-4xl">{room.hook}</p>}
-              <p className="mt-5 font-body text-lg leading-body text-ink/85">{room.description}</p>
+              <SectionLabel index="01">{t('theRoom')}</SectionLabel>
+              {room.hook && <p className="mt-6 font-heading text-3xl font-semibold leading-tight text-canvas md:text-4xl">{room.hook}</p>}
+              <p className="mt-6 font-body text-lg leading-body text-canvas/85">{room.description}</p>
             </FadeUp>
 
-            <FadeUp className="mt-14">
-              <SectionLabel>{t('inTheRoom')}</SectionLabel>
-              <ul className="mt-5 flex flex-wrap gap-2">
-                {room.amenities.map((a) => (
-                  <li key={a} className="rounded-ctrl bg-canvasalt px-4 py-2 font-body text-sm text-ink/85">{a}</li>
+            <FadeUp className="mt-16">
+              <SectionLabel index="02">{t('inTheRoom')}</SectionLabel>
+              <ol className="mt-6 grid border-t border-canvas/15 sm:grid-cols-2">
+                {room.amenities.map((a, i) => (
+                  <li key={a} className={`flex gap-4 border-b border-canvas/15 py-3 font-body text-sm text-canvas/90 ${i % 2 === 1 ? 'sm:border-l sm:pl-5' : 'sm:pr-5'}`}>
+                    <span className="font-mono text-xs text-accentondark">{String(i + 1).padStart(2, '0')}</span>
+                    {a}
+                  </li>
                 ))}
-              </ul>
+              </ol>
             </FadeUp>
 
-            <FadeUp className="mt-14 rounded-card bg-accentondark/35 p-7 sm:p-9">
-              <SectionLabel>{t('everyStay')}</SectionLabel>
-              <ul className="mt-5 grid gap-x-8 gap-y-3 sm:grid-cols-2">
+            <FadeUp className="mt-16 bg-canvas p-6 text-ink sm:p-8">
+              <SectionLabel index="03" variant="onpaper">
+                {t('everyStay')}
+              </SectionLabel>
+              <ul className="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2">
                 {stayLines.map((line) => (
-                  <li key={line} className="flex items-start gap-3 font-body text-sm text-ink/85">
-                    <span aria-hidden className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-canvas text-xs text-accent">✓</span>
+                  <li key={line} className="flex gap-3 font-body text-sm">
+                    <span aria-hidden className="font-mono text-accent">+</span>
                     {line}
                   </li>
                 ))}
               </ul>
-              <Link href="/policies" className="mt-5 inline-flex min-h-11 items-center font-body text-sm font-semibold text-accent transition-colors hover:text-primary">
-                {t('goodToKnowLink')} →
+              <Link
+                href="/policies"
+                className="mt-6 inline-flex min-h-11 items-center gap-2 font-mono text-xs uppercase tracking-18 text-accent hover:text-ink"
+              >
+                {t('goodToKnowLink')} <span aria-hidden>→</span>
               </Link>
             </FadeUp>
 
             {room.gallery && room.gallery.length > 0 && (
-              <FadeUp className="mt-14">
-                <SectionLabel>{t('gallery')}</SectionLabel>
-                <div className="mt-5">
+              <FadeUp className="mt-16">
+                <SectionLabel index="04">{t('gallery')}</SectionLabel>
+                <div className="mt-6">
                   <GalleryLightbox images={room.gallery} alt={room.roomType} />
                 </div>
               </FadeUp>
             )}
           </div>
 
-          {/* Sticky booking card */}
-          <aside>
-            <div className="shadow-sand rounded-card bg-primarydeep p-7 text-canvas lg:sticky lg:top-28">
-              <p className="font-body text-sm text-canvas/80">{t('from')}</p>
-              <p className="mt-1 font-heading text-5xl font-semibold">
-                £{room.rate}
-                <span className="font-body text-base font-normal text-canvas/80"> {t('perNight')}</span>
-              </p>
-              <dl className="mt-6 grid grid-cols-2 gap-2">
-                {[
-                  [t('size'), room.sqm ? `${room.sqm} ${t('sqmUnit')}` : ''],
-                  [t('sleeps'), `${room.occupancy}`],
-                  [t('floor'), room.floor],
-                  [t('outlook'), room.view],
-                ]
-                  .filter(([, v]) => v)
-                  .map(([k, v]) => (
-                    <div key={k} className="rounded-img bg-canvas/10 px-4 py-3">
-                      <dt className="font-body text-xs text-accentondark">{k}</dt>
-                      <dd className="mt-0.5 font-body text-sm text-canvas">{v}</dd>
-                    </div>
-                  ))}
+          {/* Sticky booking column */}
+          <aside className="lg:col-span-4 lg:col-start-9">
+            <div className="border border-canvas/20 lg:sticky lg:top-24">
+              <div className="border-b border-canvas/15 p-6">
+                <p className="font-mono text-xs uppercase tracking-18 text-canvas/70">{t('from')}</p>
+                <p className="font-condensed mt-2 font-heading text-6xl font-extrabold leading-none text-canvas">
+                  £{room.rate}
+                  <span className="ml-2 font-mono text-sm font-normal text-canvas/70">{t('perNight')}</span>
+                </p>
+              </div>
+              <dl>
+                {specs.map(([k, v]) => (
+                  <div key={k} className="flex justify-between gap-6 border-b border-canvas/15 px-6 py-3">
+                    <dt className="font-mono text-xs uppercase tracking-18 text-canvas/70">{k}</dt>
+                    <dd className="text-right font-body text-sm text-canvas">{v}</dd>
+                  </div>
+                ))}
               </dl>
               <BookButton
                 roomHint={room.roomType}
-                className="mt-6 min-h-12 w-full rounded-ctrl bg-accentfill px-8 py-3.5 font-body text-base font-semibold text-onaccent transition-transform duration-300 hover:-translate-y-0.5"
+                className="flex min-h-14 w-full items-center justify-between bg-accentfill px-6 font-mono text-sm uppercase tracking-18 text-onaccent transition-colors hover:bg-canvas"
               />
-              <p className="mt-4 text-center font-body text-sm text-canvas/80">
-                {t('orCall')}{' '}
-                <a href={`tel:${hotelConfig.contact.phoneHref}`} className="font-semibold text-canvas underline decoration-accentondark underline-offset-4">
-                  {hotelConfig.contact.phone}
-                </a>
-              </p>
-              <ul className="mt-6 space-y-2 border-t border-canvas/15 pt-5">
-                {hotelConfig.trustItems.slice(0, 3).map((item, i) => (
-                  <li key={i} className="flex items-center gap-2.5 font-body text-sm text-canvas/85">
-                    <span aria-hidden className="text-xs text-accentondark">✓</span> {pickLocale(item, locale)}
-                  </li>
-                ))}
-              </ul>
+              <div className="p-6">
+                <p className="font-body text-sm text-canvas/80">
+                  {t('orCall')}{' '}
+                  <a href={`tel:${hotelConfig.contact.phoneHref}`} className="font-mono text-canvas underline decoration-accentondark underline-offset-4">
+                    {hotelConfig.contact.phone}
+                  </a>
+                </p>
+                <ul className="mt-5 space-y-2">
+                  {hotelConfig.trustItems.slice(0, 3).map((item, i) => (
+                    <li key={i} className="flex gap-3 font-mono text-xs uppercase tracking-18 text-canvas/80">
+                      <span className="text-accentondark">+</span> {pickLocale(item, locale)}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </aside>
         </div>
       </section>
 
       {/* Related rooms */}
-      <div aria-hidden className="wave text-canvasalt" />
-      <section className="bg-canvasalt">
-        <div className="mx-auto max-w-7xl px-6 pb-16 pt-8 lg:px-10 lg:pb-20">
-          <FadeUp>
+      <section className="border-t border-canvas/10">
+        <div className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-24">
+          <FadeUp className="border-b border-canvas/15 pb-8">
             <SectionLabel>{t('alsoWorthLook')}</SectionLabel>
-            <h2 className="mt-4 font-heading text-4xl font-semibold leading-heading text-primary md:text-5xl">{t('otherRooms')}</h2>
+            <h2 className="font-condensed mt-5 font-heading text-5xl font-extrabold uppercase leading-none text-canvas md:text-7xl">{t('otherRooms')}</h2>
           </FadeUp>
-          <StaggerGrid className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <StaggerGrid className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((r) => (
               <StaggerItem key={r.slug} className="h-full">
                 <RoomCard room={r} />
@@ -140,9 +150,8 @@ export default async function RoomDetailView({ locale, room, related }: { locale
           </StaggerGrid>
         </div>
       </section>
-      <div aria-hidden className="wave wave-flip text-canvasalt" />
 
-      {/* Phone booking bar; the sidebar card does this job on desktop */}
+      {/* Phone booking bar; the booking column does this job on desktop */}
       <MobileBookBar rate={room.rate} roomName={room.roomType} />
     </>
   );

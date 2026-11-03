@@ -11,97 +11,96 @@ import SectionLabel from '../components/SectionLabel';
 import { FadeUp, StaggerGrid, StaggerItem } from '../components/Motion';
 import type { AboutData } from '@/lib/pages/about';
 
-/** About page, Coastal look. Data comes from lib/pages/about.ts. */
+/** About page, Urban look. Data comes from lib/pages/about.ts. */
 export default async function AboutView({ locale, team }: { locale: Locale } & AboutData) {
   const t = await getTranslations('about');
   return (
     <>
       <PageHero eyebrow={t('eyebrow')} title={t('title')} subtitle={t('subtitle')} image={IMG.exterior} />
 
-      {/* History: a big soft heading, the story beside it */}
-      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
-        <div className="grid gap-10 lg:grid-cols-2 lg:gap-20">
-          <FadeUp>
-            <SectionLabel>{t('historyLabel')}</SectionLabel>
-            <h2 className="mt-5 font-heading text-4xl font-semibold leading-heading text-primary md:text-6xl">{t('historyHeading')}</h2>
-          </FadeUp>
-          <FadeUp delay={0.1}>
-            <div className="space-y-5 font-body text-lg leading-body text-ink/80 lg:pt-12">
-              <p>{t('historyP1')}</p>
-              <p>{t('historyP2')}</p>
-              <p>{t('historyP3')}</p>
-            </div>
-          </FadeUp>
-        </div>
+      {/* 01 History: headline left, the story in two columns */}
+      <section className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-28">
+        <FadeUp>
+          <SectionLabel index="01">{t('historyLabel')}</SectionLabel>
+          <h2 className="font-condensed mt-5 max-w-5xl font-heading text-5xl font-extrabold uppercase leading-none text-canvas md:text-8xl">
+            {t('historyHeading')}
+          </h2>
+        </FadeUp>
+        <FadeUp delay={0.1} className="mt-12 grid gap-8 border-t border-canvas/15 pt-10 font-body text-lg leading-body text-canvas/85 md:grid-cols-3">
+          <p>{t('historyP1')}</p>
+          <p>{t('historyP2')}</p>
+          <p className="text-canvas">{t('historyP3')}</p>
+        </FadeUp>
       </section>
 
-      {/* Ethos on a sea-glass panel */}
-      <section className="px-3 sm:px-5">
-        <FadeUp className="mx-auto max-w-7xl rounded-card bg-accentondark/35 px-6 py-16 text-center lg:py-24">
-          <SectionLabel>{t('ethosLabel')}</SectionLabel>
-          <span aria-hidden className="mt-4 block font-heading text-8xl leading-none text-accent">“</span>
-          <blockquote className="mx-auto max-w-3xl font-heading text-3xl italic leading-snug text-primary md:text-4xl">{t('ethosQuote')}</blockquote>
-          <p className="mt-7 font-body text-sm font-medium text-ink/80">{t('ethosAttribution')}</p>
+      {/* 02 Ethos, on paper */}
+      <section className="bg-canvas text-ink">
+        <FadeUp className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-28">
+          <SectionLabel index="02" variant="onpaper">
+            {t('ethosLabel')}
+          </SectionLabel>
+          <blockquote className="mt-8 max-w-5xl font-heading text-4xl font-semibold leading-tight md:text-6xl">
+            <span aria-hidden className="text-accent">“</span>
+            {t('ethosQuote')}
+            <span aria-hidden className="text-accent">”</span>
+          </blockquote>
+          <p className="mt-8 font-mono text-xs uppercase tracking-18 text-ink/70">{t('ethosAttribution')}</p>
         </FadeUp>
       </section>
 
       <Facilities />
       <ReviewsBand />
 
-      {/* Team */}
+      {/* 03 Team */}
       {team.length > 0 && (
-        <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
-          <FadeUp className="text-center">
-            <SectionLabel>{t('peopleLabel')}</SectionLabel>
-            <h2 className="mt-4 font-heading text-4xl font-semibold leading-heading text-primary md:text-5xl">{t('peopleHeading')}</h2>
-          </FadeUp>
-          <StaggerGrid className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {team.map((member) => (
-              <StaggerItem key={member.name} className="h-full">
-                <TeamCard member={member} />
-              </StaggerItem>
-            ))}
-          </StaggerGrid>
+        <section className="border-t border-canvas/10">
+          <div className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-28">
+            <FadeUp className="border-b border-canvas/15 pb-8">
+              <SectionLabel index="03">{t('peopleLabel')}</SectionLabel>
+              <h2 className="font-condensed mt-5 font-heading text-5xl font-extrabold uppercase leading-none text-canvas md:text-7xl">{t('peopleHeading')}</h2>
+            </FadeUp>
+            <StaggerGrid className="mt-10 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+              {team.map((member) => (
+                <StaggerItem key={member.name} className="h-full">
+                  <TeamCard member={member} />
+                </StaggerItem>
+              ))}
+            </StaggerGrid>
+          </div>
         </section>
       )}
 
-      {/* Sustainability on sand, between two waves */}
-      <div aria-hidden className="wave text-canvasalt" />
-      <section className="bg-canvasalt">
-        <div className="mx-auto max-w-7xl px-6 pb-14 pt-8 lg:px-10 lg:pb-16">
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-            <FadeUp>
-              <div className="shadow-sand relative aspect-landscape -rotate-2 overflow-hidden rounded-card">
-                <Image src={IMG.garden} alt={t('gardenAlt')} fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" />
-              </div>
-            </FadeUp>
-            <FadeUp delay={0.15}>
-              <SectionLabel>{t('sustainabilityLabel')}</SectionLabel>
-              <h2 className="mt-4 font-heading text-4xl font-semibold leading-heading text-primary md:text-5xl">{t('sustainabilityHeading')}</h2>
-              <div className="mt-6 space-y-5 font-body text-lg leading-body text-ink/80">
-                <p>{t('sustainabilityP1')}</p>
-                <p>{t('sustainabilityP2')}</p>
-              </div>
-            </FadeUp>
+      {/* 04 Sustainability */}
+      <section className="border-y border-canvas/10">
+        <div className="mx-auto grid max-w-screen-2xl lg:grid-cols-12">
+          <div className="relative min-h-480px lg:col-span-6">
+            <Image src={IMG.garden} alt={t('gardenAlt')} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
           </div>
+          <FadeUp className="px-5 py-16 lg:col-span-6 lg:px-12 lg:py-24">
+            <SectionLabel index="04">{t('sustainabilityLabel')}</SectionLabel>
+            <h2 className="font-condensed mt-5 font-heading text-5xl font-extrabold uppercase leading-none text-canvas md:text-6xl">
+              {t('sustainabilityHeading')}
+            </h2>
+            <div className="mt-6 space-y-5 font-body text-base leading-body text-canvas/85">
+              <p>{t('sustainabilityP1')}</p>
+              <p>{t('sustainabilityP2')}</p>
+            </div>
+          </FadeUp>
         </div>
       </section>
-      <div aria-hidden className="wave wave-flip text-canvasalt" />
 
-      {/* Press */}
+      {/* In print */}
       {pressMentions.length > 0 && (
-        <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
-          <FadeUp className="text-center">
+        <section className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-28">
+          <FadeUp>
             <SectionLabel>{t('inPrintLabel')}</SectionLabel>
           </FadeUp>
-          <StaggerGrid className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {pressMentions.map((press) => (
+          <StaggerGrid className="mt-8 grid border-t border-canvas/15 sm:grid-cols-2 lg:grid-cols-4">
+            {pressMentions.map((press, i) => (
               <StaggerItem key={press.outlet} className="h-full">
-                <figure className="shadow-sand flex h-full flex-col justify-between rounded-card bg-canvas p-7 text-center">
-                  <blockquote className="font-heading text-xl italic leading-snug text-primary">“{pickLocale(press.quote, locale)}”</blockquote>
-                  <figcaption className="mt-5 inline-flex self-center rounded-ctrl bg-canvasalt px-3.5 py-1.5 font-body text-sm font-semibold text-accent">
-                    {press.outlet}
-                  </figcaption>
+                <figure className={`flex h-full flex-col justify-between gap-6 border-b border-canvas/15 py-8 sm:pr-6 ${i > 0 ? 'lg:border-l lg:pl-6' : ''}`}>
+                  <blockquote className="font-heading text-xl font-semibold leading-snug text-canvas">“{pickLocale(press.quote, locale)}”</blockquote>
+                  <figcaption className="font-mono text-xs uppercase tracking-18 text-accentondark">{press.outlet}</figcaption>
                 </figure>
               </StaggerItem>
             ))}

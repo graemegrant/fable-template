@@ -9,62 +9,67 @@ import SectionLabel from '../components/SectionLabel';
 import { FadeUp, StaggerGrid, StaggerItem } from '../components/Motion';
 import type { DiningData } from '@/lib/pages/dining';
 
-/** Dining page, Coastal look. Data comes from lib/pages/dining.ts. */
+const blockButton =
+  'inline-flex min-h-14 items-center justify-between gap-6 px-6 font-mono text-sm uppercase tracking-18 transition-colors';
+
+/** Dining page, Urban look. Data comes from lib/pages/dining.ts. The menus
+ *  are set on paper like a printed carte. */
 export default async function DiningView({ chef, resolvedMenus }: { locale: Locale } & DiningData) {
   const t = await getTranslations('dining');
   return (
     <>
       <PageHero
-        eyebrow={`${t('diningRoomLabel')} · ${hotelConfig.location.locality}`}
+        eyebrow={`${t('diningRoomLabel')} / ${hotelConfig.location.locality}`}
         title={t('title')}
         subtitle={t('subtitle')}
         image={IMG.dining1}
         tall
       />
 
-      {/* Philosophy: words beside a rounded photo with a second dish tucked over it */}
-      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
-        <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
-          <FadeUp>
-            <SectionLabel>{t('philosophyLabel')}</SectionLabel>
-            <h2 className="mt-5 font-heading text-4xl font-semibold leading-heading text-primary md:text-5xl">{t('philosophyHeading')}</h2>
-            <p className="mt-6 font-body text-lg leading-body text-ink/80">{t('philosophyBody')}</p>
+      {/* 01 Philosophy */}
+      <section className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-28">
+        <div className="grid gap-12 lg:grid-cols-12">
+          <FadeUp className="lg:col-span-6">
+            <SectionLabel index="01">{t('philosophyLabel')}</SectionLabel>
+            <h2 className="font-condensed mt-5 font-heading text-5xl font-extrabold uppercase leading-none text-canvas md:text-7xl">
+              {t('philosophyHeading')}
+            </h2>
+            <p className="mt-8 font-body text-lg leading-body text-canvas/85">{t('philosophyBody')}</p>
           </FadeUp>
-          <FadeUp delay={0.15}>
-            <div className="relative pb-14 pl-10 sm:pl-16">
-              <div className="relative aspect-portrait overflow-hidden rounded-card">
-                <Image src={IMG.food1} alt={t('tastingDishAlt')} fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" />
+          <FadeUp delay={0.15} className="lg:col-span-5 lg:col-start-8">
+            <figure>
+              <div className="relative aspect-portrait overflow-hidden bg-canvas/5">
+                <Image src={IMG.food1} alt={t('tastingDishAlt')} fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover" />
               </div>
-              <div className="shadow-sand absolute bottom-0 left-0 w-2/5 -rotate-3 rounded-card bg-canvas p-2">
-                <div className="relative aspect-square overflow-hidden rounded-img">
-                  <Image src={IMG.food2} alt="" fill sizes="(min-width: 1024px) 18vw, 40vw" className="object-cover" />
-                </div>
-              </div>
-            </div>
+              <figcaption className="mt-3 font-mono text-xs uppercase tracking-18 text-canvas/70">Fig. 01 / {t('tastingDishAlt')}</figcaption>
+            </figure>
           </FadeUp>
         </div>
       </section>
 
-      {/* Menus on sand, between two waves */}
-      <div aria-hidden className="wave text-canvasalt" />
-      <section className="bg-canvasalt">
-        <div className="mx-auto max-w-7xl px-6 pb-14 pt-8 lg:px-10 lg:pb-16">
-          <FadeUp className="mx-auto max-w-2xl text-center">
-            <SectionLabel>{t('menusLabel')}</SectionLabel>
-            <h2 className="mt-4 font-heading text-4xl font-semibold leading-heading text-primary md:text-5xl">{t('menusHeading')}</h2>
-            <p className="mt-4 font-body text-base leading-relaxed text-ink/80">{t('menusIntro')}</p>
+      {/* 02 Menus, printed on paper */}
+      <section className="bg-canvas text-ink">
+        <div className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-28">
+          <FadeUp className="grid gap-6 border-b border-ink pb-8 lg:grid-cols-12">
+            <div className="lg:col-span-7">
+              <SectionLabel index="02" variant="onpaper">
+                {t('menusLabel')}
+              </SectionLabel>
+              <h2 className="font-condensed mt-5 font-heading text-5xl font-extrabold uppercase leading-none md:text-7xl">{t('menusHeading')}</h2>
+            </div>
+            <p className="font-body text-base leading-relaxed text-ink/80 lg:col-span-4 lg:col-start-9 lg:self-end">{t('menusIntro')}</p>
           </FadeUp>
-          <StaggerGrid className="mt-12 grid gap-5 lg:grid-cols-3">
-            {resolvedMenus.map((menu) => (
+          <StaggerGrid className="grid lg:grid-cols-3">
+            {resolvedMenus.map((menu, i) => (
               <StaggerItem key={menu.name} className="h-full">
-                <article className="shadow-sand h-full rounded-card bg-canvas p-7 sm:p-8">
-                  <h3 className="font-heading text-2xl font-semibold text-primary">{menu.name}</h3>
-                  <p className="mt-2 inline-flex rounded-ctrl bg-accentondark/35 px-3 py-1 font-body text-sm font-medium text-accent">{menu.note}</p>
-                  <ul className="mt-6 space-y-4">
+                <article className={`h-full border-b border-ink/20 py-10 lg:border-b-0 ${i > 0 ? 'lg:border-l lg:pl-8' : ''} ${i < 2 ? 'lg:pr-8' : ''}`}>
+                  <h3 className="font-condensed font-heading text-3xl font-extrabold uppercase leading-none">{menu.name}</h3>
+                  <p className="mt-3 font-mono text-xs uppercase tracking-18 text-accent">{menu.note}</p>
+                  <ul className="mt-8 space-y-6">
                     {menu.items.map((item) => (
-                      <li key={item.dish} className="rounded-img bg-canvasalt px-5 py-4">
-                        <p className="font-heading text-lg font-semibold text-primary">{item.dish}</p>
-                        <p className="mt-1 font-body text-sm text-ink/80">{item.detail}</p>
+                      <li key={item.dish}>
+                        <p className="font-heading text-lg font-bold leading-tight">{item.dish}</p>
+                        <p className="mt-1 font-body text-sm text-ink/75">{item.detail}</p>
                       </li>
                     ))}
                   </ul>
@@ -74,48 +79,50 @@ export default async function DiningView({ chef, resolvedMenus }: { locale: Loca
           </StaggerGrid>
         </div>
       </section>
-      <div aria-hidden className="wave wave-flip text-canvasalt" />
 
-      {/* Private dining: photo with the words on a card laid over it */}
-      <section className="px-3 py-16 sm:px-5 lg:py-24">
-        <div className="relative mx-auto max-w-7xl">
-          <div className="relative aspect-landscape overflow-hidden rounded-card md:aspect-video">
-            <Image src={IMG.dining2} alt={t('privateDiningRoomAlt')} fill sizes="100vw" className="object-cover" />
+      {/* 03 Private dining */}
+      <section className="border-b border-canvas/10">
+        <div className="mx-auto grid max-w-screen-2xl lg:grid-cols-12">
+          <div className="relative min-h-480px lg:col-span-7">
+            <Image src={IMG.dining2} alt={t('privateDiningRoomAlt')} fill sizes="(min-width: 1024px) 58vw, 100vw" className="object-cover" />
           </div>
-          <FadeUp className="shadow-sand relative mx-3 -mt-20 rounded-card bg-canvas p-7 sm:mx-8 sm:p-10 md:absolute md:bottom-8 md:right-8 md:mx-0 md:mt-0 md:max-w-md">
-            <SectionLabel>{t('privateDiningLabel')}</SectionLabel>
-            <h2 className="mt-4 font-heading text-3xl font-semibold leading-heading text-primary md:text-4xl">{t('libraryTableHeading')}</h2>
-            <p className="mt-4 font-body text-base leading-body text-ink/80">{t('libraryTableBody')}</p>
-            <Link
-              href="/contact"
-              className="mt-7 inline-flex min-h-12 items-center rounded-ctrl bg-primary px-7 py-3 font-body text-sm font-semibold text-canvas transition-transform duration-300 hover:-translate-y-0.5"
-            >
-              {t('enquirePrivateDining')}
+          <FadeUp className="px-5 py-16 lg:col-span-5 lg:px-10 lg:py-24">
+            <SectionLabel index="03">{t('privateDiningLabel')}</SectionLabel>
+            <h2 className="font-condensed mt-5 font-heading text-5xl font-extrabold uppercase leading-none text-canvas md:text-6xl">
+              {t('libraryTableHeading')}
+            </h2>
+            <p className="mt-6 font-body text-base leading-body text-canvas/85">{t('libraryTableBody')}</p>
+            <Link href="/contact" className={`mt-8 bg-accentfill text-onaccent hover:bg-canvas ${blockButton}`}>
+              {t('enquirePrivateDining')} <span aria-hidden>→</span>
             </Link>
           </FadeUp>
         </div>
       </section>
 
-      {/* Chef: a deep-sea panel with a round portrait */}
+      {/* 04 The chef */}
       {chef && (
-        <section className="px-3 pb-10 sm:px-5">
-          <FadeUp className="mx-auto max-w-7xl rounded-card bg-primarydeep px-7 py-14 sm:px-12 lg:px-16 lg:py-20">
-            <div className="grid items-center gap-10 lg:grid-cols-360-1fr lg:gap-16">
-              <div className="relative mx-auto aspect-square w-56 overflow-hidden rounded-full ring-8 ring-canvas/10 sm:w-72 lg:w-full">
-                <Image src={String(chef.headshot)} alt={chef.name} fill sizes="(min-width: 1024px) 360px, 288px" className="object-cover" />
+        <section className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-28">
+          <div className="grid items-end gap-12 lg:grid-cols-12">
+            <FadeUp className="lg:col-span-4">
+              <div className="relative aspect-tall overflow-hidden bg-canvas/5">
+                <Image src={String(chef.headshot)} alt={chef.name} fill sizes="(min-width: 1024px) 33vw, 100vw" className="object-cover grayscale" />
               </div>
-              <div>
-                <SectionLabel>{t('chefLabel')}</SectionLabel>
-                <h2 className="mt-4 font-heading text-4xl font-semibold text-canvas md:text-5xl">{chef.name}</h2>
-                <p className="mt-2 font-body text-base font-medium text-accentondark">{chef.role}</p>
-                <p className="mt-5 max-w-2xl font-body text-base leading-body text-canvas/85">
-                  {chef.bio}
-                  {t('chefBioSuffix')}
-                </p>
-                <p className="mt-7 font-heading text-2xl italic text-canvas">“{t('chefQuote')}”</p>
-              </div>
-            </div>
-          </FadeUp>
+            </FadeUp>
+            <FadeUp delay={0.15} className="lg:col-span-7 lg:col-start-6">
+              <SectionLabel index="04">{t('chefLabel')}</SectionLabel>
+              <p className="mt-8 font-heading text-3xl font-semibold leading-tight text-canvas md:text-5xl">
+                <span aria-hidden className="text-accentondark">“</span>
+                {t('chefQuote')}
+                <span aria-hidden className="text-accentondark">”</span>
+              </p>
+              <h2 className="font-condensed mt-10 font-heading text-4xl font-extrabold uppercase leading-none text-canvas">{chef.name}</h2>
+              <p className="mt-2 font-mono text-xs uppercase tracking-18 text-accentondark">{chef.role}</p>
+              <p className="mt-6 max-w-2xl font-body text-base leading-body text-canvas/85">
+                {chef.bio}
+                {t('chefBioSuffix')}
+              </p>
+            </FadeUp>
+          </div>
         </section>
       )}
     </>

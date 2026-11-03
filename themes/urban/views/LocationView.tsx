@@ -3,39 +3,39 @@ import { hotelConfig } from '@/hotel.config';
 import { directions, attractions, IMG } from '@/lib/data';
 import { pickLocale } from '@/lib/resolveLocale';
 import type { Locale } from '@/lib/locales';
+import { formatCoordinates } from '@/lib/ui/geo';
 import PageHero from '../components/PageHero';
 import SectionLabel from '../components/SectionLabel';
 import { FadeUp, StaggerGrid, StaggerItem } from '../components/Motion';
 import type { LocationData } from '@/lib/pages/location';
 
-/** Location page, Coastal look. Data comes from lib/pages/location.ts. */
+/** Location page, Urban look. Data comes from lib/pages/location.ts. */
 export default async function LocationView({ locale, mapSrc, directionsUrl }: { locale: Locale } & LocationData) {
   const t = await getTranslations('location');
+  const { lat, lng } = hotelConfig.location;
   return (
     <>
       <PageHero
-        eyebrow={`${t('eyebrowLabel')} · ${hotelConfig.location.locality}`}
+        eyebrow={`${t('eyebrowLabel')} / ${hotelConfig.location.locality}`}
         title={t('title')}
         subtitle={`${hotelConfig.location.address} ${t('subtitleSuffix')}`}
         image={IMG.glen}
       />
 
-      {/* Ways in, as numbered cards */}
-      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
-        <FadeUp>
-          <SectionLabel>{t('gettingHereLabel')}</SectionLabel>
-          <h2 className="mt-4 font-heading text-4xl font-semibold leading-heading text-primary md:text-5xl">{t('fourWaysIn')}</h2>
+      {/* 01 Ways in, as a numbered index */}
+      <section className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-28">
+        <FadeUp className="border-b border-canvas/15 pb-8">
+          <SectionLabel index="01">{t('gettingHereLabel')}</SectionLabel>
+          <h2 className="font-condensed mt-5 font-heading text-5xl font-extrabold uppercase leading-none text-canvas md:text-7xl">{t('fourWaysIn')}</h2>
         </FadeUp>
-        <StaggerGrid className="mt-10 grid gap-5 sm:grid-cols-2">
+        <StaggerGrid className="grid md:grid-cols-2">
           {directions.map((d, i) => (
             <StaggerItem key={i} className="h-full">
-              <article className="shadow-sand flex h-full gap-5 rounded-card bg-canvas p-7">
-                <span aria-hidden className="flex size-12 shrink-0 items-center justify-center rounded-full bg-accentfill font-heading text-xl font-semibold text-onaccent">
-                  {i + 1}
-                </span>
+              <article className={`flex h-full gap-6 border-b border-canvas/15 py-8 md:pr-8 ${i % 2 === 1 ? 'md:border-l md:pl-8' : ''}`}>
+                <span className="font-condensed font-heading text-5xl font-extrabold leading-none text-accentondark">{String(i + 1).padStart(2, '0')}</span>
                 <div>
-                  <h3 className="font-heading text-2xl font-semibold text-primary">{pickLocale(d.mode, locale)}</h3>
-                  <p className="mt-2 font-body text-base leading-copy text-ink/80">{pickLocale(d.detail, locale)}</p>
+                  <h3 className="font-heading text-xl font-bold uppercase text-canvas">{pickLocale(d.mode, locale)}</h3>
+                  <p className="mt-2 font-body text-base leading-copy text-canvas/80">{pickLocale(d.detail, locale)}</p>
                 </div>
               </article>
             </StaggerItem>
@@ -43,56 +43,58 @@ export default async function LocationView({ locale, mapSrc, directionsUrl }: { 
         </StaggerGrid>
       </section>
 
-      {/* Map in a rounded frame on sand */}
-      <div aria-hidden className="wave text-canvasalt" />
-      <section className="bg-canvasalt">
-        <div className="mx-auto max-w-7xl px-6 pb-14 pt-8 lg:px-10 lg:pb-16">
+      {/* 02 The map, framed like a plate */}
+      <section className="border-y border-canvas/10">
+        <div className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-24">
           <FadeUp>
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
-                <SectionLabel>{t('mapLabel')}</SectionLabel>
-                <h2 className="mt-4 font-heading text-4xl font-semibold leading-heading text-primary md:text-5xl">{t('mapHeading')}</h2>
+                <SectionLabel index="02">{t('mapLabel')}</SectionLabel>
+                <h2 className="font-condensed mt-5 font-heading text-5xl font-extrabold uppercase leading-none text-canvas md:text-7xl">{t('mapHeading')}</h2>
               </div>
               <a
                 href={directionsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-12 items-center rounded-ctrl bg-primary px-7 py-3 font-body text-sm font-semibold text-canvas transition-transform duration-300 hover:-translate-y-0.5"
+                className="inline-flex min-h-14 items-center gap-6 bg-accentfill px-6 font-mono text-sm uppercase tracking-18 text-onaccent transition-colors hover:bg-canvas"
               >
-                {t('getDirections')}
+                {t('getDirections')} <span aria-hidden>↗</span>
               </a>
             </div>
-            <div className="shadow-sand mt-8 aspect-video w-full overflow-hidden rounded-card bg-canvas p-2">
+            <div className="mt-10 aspect-video w-full border border-canvas/20 bg-canvas/5">
               <iframe
                 src={mapSrc}
                 title={`${t('mapTitlePrefix')} ${hotelConfig.name}`}
-                className="size-full rounded-img"
+                className="size-full grayscale"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
-            <p className="mt-4 px-2 font-body text-sm text-ink/80">
-              {t('postcodePrefix')} <span className="rounded-ctrl bg-canvas px-2 py-0.5 font-semibold text-primary">{hotelConfig.location.postalCode}</span>{' '}
-              {t('postcodeSuffix')}
+            <p className="mt-4 flex flex-wrap justify-between gap-2 font-mono text-xs uppercase tracking-18 text-canvas/70">
+              <span>
+                {t('postcodePrefix')} <span className="text-canvas">{hotelConfig.location.postalCode}</span> {t('postcodeSuffix')}
+              </span>
+              <span>{formatCoordinates(lat, lng)}</span>
             </p>
           </FadeUp>
         </div>
       </section>
-      <div aria-hidden className="wave wave-flip text-canvasalt" />
 
-      {/* Nearby, as tiles with a distance chip */}
-      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
-        <FadeUp>
-          <SectionLabel>{t('beyondEstateLabel')}</SectionLabel>
-          <h2 className="mt-4 font-heading text-4xl font-semibold leading-heading text-primary md:text-5xl">{t('worthLeavingFireFor')}</h2>
+      {/* 03 Nearby, as a listings column */}
+      <section className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-28">
+        <FadeUp className="border-b border-canvas/15 pb-8">
+          <SectionLabel index="03">{t('beyondEstateLabel')}</SectionLabel>
+          <h2 className="font-condensed mt-5 font-heading text-5xl font-extrabold uppercase leading-none text-canvas md:text-7xl">
+            {t('worthLeavingFireFor')}
+          </h2>
         </FadeUp>
-        <StaggerGrid className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {attractions.map((a) => (
+        <StaggerGrid className="grid sm:grid-cols-2 lg:grid-cols-3">
+          {attractions.map((a, i) => (
             <StaggerItem key={a.name} className="h-full">
-              <article className="h-full rounded-card bg-canvasalt p-6 sm:p-7">
-                <span className="inline-flex rounded-ctrl bg-canvas px-3 py-1 font-body text-sm font-semibold text-accent">{a.distance}</span>
-                <h3 className="mt-4 font-heading text-xl font-semibold text-primary">{a.name}</h3>
-                <p className="mt-2 font-body text-sm leading-relaxed text-ink/80">{pickLocale(a.description, locale)}</p>
+              <article className={`h-full border-b border-canvas/15 py-8 sm:pr-6 ${i % 3 !== 0 ? 'lg:border-l lg:pl-6' : ''}`}>
+                <p className="font-mono text-xs uppercase tracking-18 text-accentondark">{a.distance}</p>
+                <h3 className="mt-3 font-heading text-xl font-bold uppercase leading-tight text-canvas">{a.name}</h3>
+                <p className="mt-2 font-body text-sm leading-relaxed text-canvas/80">{pickLocale(a.description, locale)}</p>
               </article>
             </StaggerItem>
           ))}

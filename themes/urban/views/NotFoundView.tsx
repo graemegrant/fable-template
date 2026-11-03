@@ -5,36 +5,35 @@ import type { Locale } from '@/lib/locales';
 import SectionLabel from '../components/SectionLabel';
 import { PageFade } from '../components/Motion';
 
-/** 404 page, Coastal look: a deep-sea card with a wave along its foot. */
+/** 404 page, Urban look: the error set like a front page. */
 export default function NotFoundView({ locale }: { locale: Locale }) {
+  const blockButton =
+    'inline-flex min-h-14 items-center justify-between gap-6 px-6 font-mono text-sm uppercase tracking-18 transition-colors';
   return (
-    <div className="flex min-h-screen items-center justify-center px-3 pb-6 pt-28 sm:px-5">
-      <PageFade className="relative w-full max-w-3xl overflow-hidden rounded-card bg-primarydeep px-6 pb-24 pt-16 text-center sm:px-12">
-        <SectionLabel>Page not found</SectionLabel>
-        <h1 className="mt-6 font-heading text-5xl font-semibold leading-display text-canvas md:text-6xl">
-          The tide has taken this page.
+    <div className="bg-grid flex min-h-screen items-end px-5 pb-16 pt-28 lg:px-8">
+      <PageFade className="mx-auto w-full max-w-screen-2xl">
+        <SectionLabel index="404">Page not found</SectionLabel>
+        <h1 className="font-condensed mt-6 font-heading text-7xl font-extrabold uppercase leading-none text-canvas md:text-9xl">
+          Wrong turn.
+          <br />
+          <span className="text-outline text-accentondark">Right city.</span>
         </h1>
-        <p className="mx-auto mt-6 max-w-lg font-body text-lg leading-relaxed text-canvas/85">
-          The page you were after has drifted off. The hotel is right where you left it, and the kettle is on.
-        </p>
-        <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Link
-            href="/"
-            className="inline-flex min-h-12 items-center rounded-ctrl bg-accentfill px-8 py-3.5 font-body text-base font-semibold text-onaccent transition-transform duration-300 hover:-translate-y-0.5"
-          >
-            Back to the hotel
-          </Link>
-          <Link
-            href="/contact"
-            className="inline-flex min-h-12 items-center rounded-ctrl border border-canvas/50 px-8 py-3.5 font-body text-base font-medium text-canvas transition-colors duration-300 hover:bg-canvas hover:text-primary"
-          >
-            Ask for directions
-          </Link>
+        <div className="mt-10 grid gap-8 border-t border-canvas/15 pt-8 lg:grid-cols-12">
+          <p className="font-body text-lg leading-relaxed text-canvas/85 lg:col-span-6">
+            The page you were after isn’t here. The rest of {hotelConfig.name} is exactly where you left it.
+          </p>
+          <div className="flex flex-col gap-px sm:flex-row lg:col-span-5 lg:col-start-8">
+            <Link href="/" className={`bg-accentfill text-onaccent hover:bg-canvas ${blockButton}`}>
+              Back to the home page <span aria-hidden>→</span>
+            </Link>
+            <Link href="/contact" className={`border border-canvas/40 text-canvas hover:bg-canvas hover:text-ink ${blockButton}`}>
+              Ask us
+            </Link>
+          </div>
         </div>
-        <p className="mt-10 font-body text-sm text-canvas/80">
-          {hotelConfig.name} · {pickLocale(hotelConfig.location.regionLabel, locale)}
+        <p className="mt-10 font-mono text-xs uppercase tracking-18 text-canvas/70">
+          {hotelConfig.name} / {pickLocale(hotelConfig.location.regionLabel, locale)}
         </p>
-        <div aria-hidden className="wave absolute inset-x-0 bottom-0 text-accentondark/25" />
       </PageFade>
     </div>
   );

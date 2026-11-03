@@ -7,8 +7,8 @@ import RoomCard from './RoomCard';
 import type { Room } from '@/lib/types';
 import { roomFilter } from '@/lib/ui/rooms';
 
-/** Room-type tabs as a pill switch, then the room cards. Tabs and
- *  filtering are shared (lib/ui/rooms.ts). */
+/** Room-type tabs as a mono index with counts, then the room cards. Tabs
+ *  and filtering are shared (lib/ui/rooms.ts). */
 export default function RoomsFilter({ rooms }: { rooms: Room[] }) {
   const t = useTranslations('shared');
   const [active, setActive] = useState<string>('All');
@@ -17,8 +17,8 @@ export default function RoomsFilter({ rooms }: { rooms: Room[] }) {
   return (
     <div>
       {showFilter && (
-        <div className="-mx-6 overflow-x-auto px-6 sm:mx-0 sm:px-0">
-          <div className="inline-flex gap-1 rounded-ctrl bg-canvasalt p-1.5" role="tablist" aria-label={t('filterRoomsAriaLabel')}>
+        <div className="-mx-5 overflow-x-auto px-5 lg:mx-0 lg:px-0">
+          <div className="inline-flex border border-canvas/15" role="tablist" aria-label={t('filterRoomsAriaLabel')}>
             {types.map((ty) => (
               <button
                 key={ty}
@@ -26,13 +26,13 @@ export default function RoomsFilter({ rooms }: { rooms: Room[] }) {
                 role="tab"
                 aria-selected={active === ty}
                 onClick={() => setActive(ty)}
-                className={`inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-ctrl px-5 font-body text-sm font-medium transition-colors duration-300 ${
-                  active === ty ? 'bg-primary text-canvas' : 'text-ink/80 hover:text-primary'
+                className={`inline-flex min-h-12 items-center gap-3 whitespace-nowrap border-r border-canvas/15 px-5 font-mono text-xs uppercase tracking-18 transition-colors last:border-r-0 ${
+                  active === ty ? 'bg-canvas text-ink' : 'text-canvas/80 hover:text-canvas'
                 }`}
               >
                 {ty === 'All' ? t('allRoomTypes') : ty}
-                <span className={`rounded-full px-2 py-0.5 text-xs ${active === ty ? 'bg-canvas/15' : 'bg-canvas'}`}>
-                  {ty === 'All' ? rooms.length : rooms.filter((r) => r.roomType === ty).length}
+                <span className={active === ty ? 'text-accent' : 'text-accentondark'}>
+                  {String(ty === 'All' ? rooms.length : rooms.filter((r) => r.roomType === ty).length).padStart(2, '0')}
                 </span>
               </button>
             ))}
@@ -40,14 +40,14 @@ export default function RoomsFilter({ rooms }: { rooms: Room[] }) {
         </div>
       )}
 
-      <StaggerGrid key={active} className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <StaggerGrid key={active} className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((room) => (
           <StaggerItem key={room.slug} className="h-full">
             <RoomCard room={room} headingLevel={2} />
           </StaggerItem>
         ))}
       </StaggerGrid>
-      {filtered.length === 0 && <p className="mt-10 font-body text-base text-ink/80">{t('noRoomsOfType')}</p>}
+      {filtered.length === 0 && <p className="mt-10 font-body text-base text-canvas/80">{t('noRoomsOfType')}</p>}
     </div>
   );
 }
