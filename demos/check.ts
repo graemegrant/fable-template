@@ -7,6 +7,8 @@ import type * as TemplateData from '../lib/data';
 import type { HotelConfig } from '../hotel.config';
 import * as coastalData from './coastal/data';
 import { hotelConfig as coastalConfig } from './coastal/hotel.config';
+import * as urbanData from './urban/data';
+import { hotelConfig as urbanConfig } from './urban/hotel.config';
 
-export const demoData: Record<string, typeof TemplateData> = { coastal: coastalData };
-export const demoConfigs: Record<string, HotelConfig> = { coastal: coastalConfig };
+export const demoData: Record<string, typeof TemplateData> = { coastal: coastalData, urban: urbanData };
+export const demoConfigs: Record<string, HotelConfig> = { coastal: coastalConfig, urban: urbanConfig };

@@ -7,6 +7,12 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Urban demo hotel.** `demos/urban/` is The Ardlow, a fictional
+  sixteen-room townhouse hotel in Glasgow's Merchant City, with its own
+  settings, rooms, copy and free Unsplash photos, in English. Build with
+  `LOOK=urban DEMO=urban`; `check:looks` builds and checks it alongside the
+  Coastal demo.
+
 - **Urban look, phase 3b: every page.** Urban's own rooms (with a
   spec-sheet comparison), room detail, dining (menus on a paper band),
   experiences, experience detail, offers, weddings, about, location,
