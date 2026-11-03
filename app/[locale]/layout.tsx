@@ -52,6 +52,7 @@ export async function generateMetadata({
     // Marker for the SEO checks (scripts/seo-check.mjs and codero-ops):
     // Clarity itself only loads after consent, so crawlers can't see it.
     ...(clarityId ? { other: { 'codero-clarity': 'on' } } : {}),
+    ...(hotelConfig.noindex ? { robots: { index: false, follow: false } } : {}),
     verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
       ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
       : undefined,

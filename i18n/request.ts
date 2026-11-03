@@ -31,7 +31,13 @@ export default getRequestConfig(async ({ requestLocale }) => {
   const requested = await requestLocale;
   const locale = hasLocale(routing.locales, requested) ? requested : routing.defaultLocale;
 
-  const defaultMessages = (await import(`../messages/${DEFAULT_LOCALE}.json`)).default;
+  let defaultMessages = (await import(`../messages/${DEFAULT_LOCALE}.json`)).default;
+  // A demo build (DEMO, see demos/README.md) lays its hotel's own copy over
+  // the template's; keys it doesn't override keep the template's wording.
+  const demo = process.env.DEMO;
+  if (demo) {
+    defaultMessages = deepMergeMessages(defaultMessages, (await import(`../demos/${demo}/messages/${DEFAULT_LOCALE}.json`)).default);
+  }
   const messages =
     locale === DEFAULT_LOCALE
       ? defaultMessages

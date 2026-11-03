@@ -139,6 +139,10 @@ export default function Footer() {
           </p>
         </div>
       </div>
+      {/* Demos only (hotel.config.ts `demoNotice`). */}
+      {hotelConfig.demoNotice && (
+        <p className="border-t border-canvas/10 px-6 py-4 text-center font-body text-xs text-canvas/70">{pickLocale(hotelConfig.demoNotice, locale)}</p>
+      )}
     </footer>
   );
 }

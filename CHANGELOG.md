@@ -7,6 +7,17 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Coastal demo hotel, and demo builds.** `demos/coastal/` is Polvarra
+  Cove, a fictional fourteen-room hotel near St Agnes, Cornwall, with its own
+  settings, rooms, copy and free Unsplash photos, in English. `DEMO=coastal`
+  (with `LOOK=coastal`) swaps it in for `hotel.config.ts`, `lib/data.ts` and
+  the hotel-specific English copy at build time; see `demos/README.md`.
+  `demos/check.ts` and `check:looks` keep demos in step with the template.
+  **New settings for every site** in `hotel.config.ts`: `languages` (publish
+  fewer than the four shipped languages; one hides the switcher), `noindex`
+  (keeps search engines out, for demos and staging) and `demoNotice` (a
+  footer line). Defaults leave existing sites unchanged.
+
 - **Coastal look, phase 2b: every page.** Coastal's own rooms, room
   detail, dining, experiences, experience detail, offers, weddings, about,
   location, contact, journal, journal post, gift vouchers, policies,

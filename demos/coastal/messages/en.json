@@ -1,0 +1,114 @@
+{
+  "footer": {
+    "seasonalLetterBody": "What the sea is doing, what the kitchen is cooking, and first word on offers. Four letters a year.",
+    "subscribed": "Thank you, you’re on the list. Letters arrive with the seasons, never more often."
+  },
+  "home": {
+    "houseLabel": "The hotel",
+    "houseHeading": "Fourteen rooms. One cove. The sea in every window.",
+    "houseIntro": "Polvarra Cove was built in 1898 for a mine captain who wanted to see the harbour from his bed. Today it is a fourteen-room hotel above a sandy cove, with the coast path at the garden gate, a kitchen that buys from the boats, and a terrace made for watching the sun go down.",
+    "exteriorAlt": "Polvarra Cove from the beach",
+    "allRooms": "All fourteen rooms →",
+    "experiencesLabel": "Beyond the garden gate",
+    "experiencesHeading": "Days by the sea",
+    "diningLabel": "The dining room",
+    "diningQuote": "If it swam past the cove this morning, it might be on the menu tonight.",
+    "diningQuoteAttribution": "Jory Pascoe, Head Chef",
+    "diningCta": "Dining at Polvarra",
+    "locationHeading": "Five hours from London. A world away from everything.",
+    "locationIntro": "Off the A30 at Chiverton Cross, through St Agnes and down Cove Lane until the road runs out of land. Trains to Truro from London Paddington; we collect from the station. The last mile is hedgerows, a glimpse of the sea, and the growing feeling that you have chosen well.",
+    "locationCta": "Directions & the area",
+    "glenAlt": "The cove below the hotel",
+    "journalHeading": "Notes from the cove",
+    "finalHeadingLine1": "The sea will still be here.",
+    "finalHeadingLine2": "Your dates may not."
+  },
+  "about": {
+    "title": "A captain’s house by the sea",
+    "subtitle": "Built in 1898. A hotel since 2021. Sandy floors ever since.",
+    "historyLabel": "The history",
+    "historyHeading": "From mine captain to cream teas",
+    "historyP1": "Polvarra was built in 1898 for the captain of the tin mine on the cliff, a man who insisted every room should face the sea. When the mine closed, the house became a family home, then a guest house, then, for a while, nobody’s house at all.",
+    "historyP2": "The present owners found it in 2018 with a leaking roof and an extraordinary view. They spent three years putting the roof, the windows and the kitchen right before opening fourteen rooms in 2021. The idea has not changed since: a relaxed hotel by the sea, food from the boats and the shore, and a team who remember how you take your tea.",
+    "historyP3": "The captain’s telescope still sits in the bay window of his old room. It still points at the harbour.",
+    "ethosLabel": "The idea",
+    "ethosQuote": "A good seaside hotel should feel like the best holiday house you ever stayed in, with someone else doing the cooking.",
+    "ethosAttribution": "The owners, 2021",
+    "peopleHeading": "Who looks after you",
+    "sustainabilityHeading": "Looking after the coast",
+    "sustainabilityP1": "We buy fish from day boats that fish by hand line, take our vegetables from farms within twenty miles, and grow herbs and salad in the walled garden behind the house. The hotel runs on renewable electricity, and the sauna burns wood from local tree surgeons.",
+    "sustainabilityP2": "There are no single-use plastics in the rooms, two EV chargers by the garden, and a beach clean every month that guests are welcome to join. We publish what we have done each year, not just what we plan to do.",
+    "gardenAlt": "The headland beside the hotel"
+  },
+  "contact": {
+    "title": "Talk to us",
+    "subtitle": "A real person answers. Usually Kerensa. Always within one working day."
+  },
+  "dining": {
+    "title": "Cooking from the boats and the shore",
+    "subtitle": "One dining room, a terrace over the cove, and a menu written each morning after the boats come in.",
+    "philosophyHeading": "If it was caught this morning, it might be dinner tonight.",
+    "philosophyBody": "The menu is written each day, after Jory has been down to the harbour and seen what the boats have brought in. Mackerel by hand line, crab from the pots off the point, oysters from the Helford, and vegetables from the farms above the village. The wine list leans towards the coast; the portions lean generous.",
+    "tastingDishAlt": "Oysters from the Helford",
+    "menusIntro": "Sample menus. The kitchen rewrites them every day, and the sea has the final say.",
+    "privateDiningRoomAlt": "The terrace at sunset",
+    "privateDiningLabel": "Private dining",
+    "libraryTableHeading": "The Terrace Table",
+    "libraryTableBody": "Twelve seats at one long table on the terrace, with the cove below and the sun going down behind the headland. For birthdays, anniversaries and long lunches that turn into dinner. The kitchen will build a menu around the occasion. Bookable for lunch or dinner, by guests and visitors alike.",
+    "chefBioSuffix": " The tasting menu, five courses that change with the catch, has become the reason a lot of guests time their stay around dinner.",
+    "chefQuote": "I don’t write the menu. The tide does."
+  },
+  "experiencesPage": {
+    "title": "Days by the sea",
+    "subtitle": "Everything below starts at the garden gate and is arranged by us. Bring a swimsuit; we have the rest.",
+    "intro": "The sea is on the doorstep and it would be rude not to use it. Learn to surf in the cove, walk the clifftops, fish for your lunch or swim and sauna as the sun goes down. Book ahead, or decide at breakfast. Both work."
+  },
+  "experienceDetail": {
+    "moreFromEstate": "More from the cove"
+  },
+  "giftVouchers": {
+    "title": "Give someone the sea",
+    "subtitle": "Posted in a proper envelope, or emailed within the hour.",
+    "intro": "All vouchers are valid for eighteen months, can be spent on anything we offer, and can be passed on to someone else. Order by phone, email or the enquiry form, and we will arrange payment and delivery the same day."
+  },
+  "journalPage": {
+    "title": "Notes from the cove",
+    "subtitle": "The sea, the kitchen, the coast path and the house, written by the people who know them best."
+  },
+  "location": {
+    "title": "Where the lane meets the sea",
+    "subtitleSuffix": "· five hours from London, three minutes from the beach.",
+    "fourWaysIn": "Four ways to reach us",
+    "mapHeading": "On the cliff above the cove",
+    "postcodeSuffix": "· then follow the signs for the cove, not your satnav.",
+    "beyondEstateLabel": "Beyond the cove",
+    "worthLeavingFireFor": "Worth leaving the beach for"
+  },
+  "roomsPage": {
+    "subtitle": "Fourteen rooms, no two alike, every one with a view of the sea.",
+    "intro": "Every room comes with breakfast, beach towels, and a view of the sea from the bed. Suites add space and balconies; the smaller rooms add the particular pleasure of having chosen well for less."
+  },
+  "weddings": {
+    "title": "One wedding. The whole hotel.",
+    "subtitle": "We host a handful of weddings a year, only ever one at a time, and never two the same.",
+    "exclusiveUseP1": "When you marry at Polvarra, the hotel is yours: all fourteen rooms, the terrace, the dining room and the cove below. Your guests wake up to the sound of the sea. Tamsin and the team look after everything, from the celebrant to the band, with a planning visit each season and advice whenever you need it.",
+    "exclusiveUseP2": "Exclusive-use weekends from £16,000, including all rooms. Licensed for ceremonies on the terrace and indoors.",
+    "weddingTableAlt": "A wedding table set for dinner",
+    "settingsHeading": "Three places to say it",
+    "southLawnName": "The Cove",
+    "southLawnCapacity": "Up to 80 guests",
+    "southLawnDetail": "A ceremony on the sand at low tide, with the cliffs on either side and the sea as your backdrop. We set a dry plan for the lounge, just in case.",
+    "diningRoomName": "The Terrace",
+    "diningRoomCapacity": "Up to 70 seated",
+    "diningRoomDetail": "Long tables above the cove, dinner as the sun goes down, and a kitchen cooking the best wedding food your guests will have eaten.",
+    "libraryName": "The Lounge",
+    "libraryCapacity": "Up to 24 guests",
+    "libraryDetail": "For small weddings and elopements: a ceremony by the fire with the sea outside the window, then dinner for everyone you love most.",
+    "beginHeadingLine1": "Come and see the cove.",
+    "beginHeadingLine2": "The rest follows.",
+    "beginBody": "Wedding viewings run most weekdays and include lunch on the terrace. Dates for the next two years open each January."
+  },
+  "shared": {
+    "bookDirectBody": "The best rate, the best room in your category, and a cream tea waiting when you arrive."
+  }
+}
