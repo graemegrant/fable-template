@@ -7,6 +7,16 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Fonts bundled with the template.** Every look's fonts are now variable
+  woff2 files in `themes/<look>/fonts/` (latin; SIL Open Font License,
+  with each family's `*-OFL.txt` beside it), loaded with `next/font/local`
+  instead of downloaded from Google at build time. Builds no longer fail
+  when Google Fonts is slow (the intermittent `next/font` "Cannot read
+  properties of null" error). Same font files and weights as before; no
+  visible change (Heritage identical on all 29 English pages, Urban's
+  condensed headings unchanged). To change a look's fonts, swap the files
+  and update its `fonts.ts`.
+
 - **Heritage booking dates fit on phones; demo switches.** Heritage's
   booking panel stacks arrival and departure below the `sm` breakpoint (as
   Coastal and Urban do), so the date boxes are no longer squeezed. New
