@@ -60,6 +60,19 @@ export function hotelSchema(locale: Locale = DEFAULT_LOCALE) {
         closes: reception.closes,
       },
     ],
+    // The agreed book-direct perk, as plain text an AI assistant can quote
+    // ("book direct and get…"). Only when the hotel has agreed one.
+    ...(hotelConfig.directBookingPerk
+      ? {
+          makesOffer: {
+            '@type': 'Offer',
+            name: 'Book direct',
+            description: pickLocale(hotelConfig.directBookingPerk, locale),
+            url: hotelConfig.bookingEngineUrl || `${hotelConfig.siteUrl}/${locale}`,
+            availableAtOrFrom: { '@id': HOTEL_ID },
+          },
+        }
+      : {}),
     amenityFeature: hotelConfig.amenities.map((name) => ({
       '@type': 'LocationFeatureSpecification',
       name: pickLocale(name, locale),

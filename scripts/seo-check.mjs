@@ -5,8 +5,10 @@
  * build or deploy can break: status, <html lang>, title/description,
  * canonical, hreflang, Open Graph, one <h1>, image alt, JSON-LD validity and
  * required fields, duplicate titles/descriptions, broken internal links,
- * robots.txt / sitemap / llms.txt, accidental noindex, and that every
- * legacy URL in redirects.json permanently redirects to its new page.
+ * robots.txt / sitemap / llms.txt, AI crawlers blocked by name in
+ * robots.txt, links to PDFs (content AI can't read well), accidental
+ * noindex, and that every legacy URL in redirects.json permanently
+ * redirects to its new page.
  *
  * It does not judge content quality — that's `/seo audit` (SEO-PROCESS.md).
  *
@@ -64,6 +66,45 @@ else {
   if (/User-agent:\s*\*\s*[\r\n]+(?:(?:Allow|Crawl-delay):[^\n]*[\r\n]+)*Disallow:\s*\/\s*$/im.test(robots))
     add('Critical', 'robots.txt', 'disallows everything for User-agent: *');
 }
+// ——— AI crawlers (same rules as codero-automations lib/seo/aiAccess.ts).
+// Cloudflare's "Block AI bots" blocks by IP before robots.txt is read, so
+// it can't be seen from here: check it by hand at launch
+// (NEW-CLIENT-CHECKLIST.md).
+const AI_SEARCH_AGENTS = ['OAI-SearchBot', 'ChatGPT-User', 'PerplexityBot', 'Perplexity-User', 'Claude-SearchBot', 'Claude-User'];
+const AI_TRAINING_AGENTS = ['GPTBot', 'ClaudeBot', 'Google-Extended', 'Applebot-Extended', 'CCBot'];
+function robotsGroups(txt) {
+  const groups = [];
+  let cur = null;
+  let lastWasAgent = false;
+  for (const raw of txt.split(/\r?\n/)) {
+    const m = raw.replace(/#.*/, '').trim().match(/^([A-Za-z-]+)\s*:\s*(.*)$/);
+    if (!m) continue;
+    const key = m[1].toLowerCase();
+    const value = m[2].trim();
+    if (key === 'user-agent') {
+      if (!cur || !lastWasAgent) groups.push((cur = { agents: [], rules: [] }));
+      cur.agents.push(value.toLowerCase());
+      lastWasAgent = true;
+    } else {
+      if ((key === 'allow' || key === 'disallow') && cur) cur.rules.push({ allow: key === 'allow', path: value });
+      lastWasAgent = false;
+    }
+  }
+  return groups;
+}
+if (robotsRes.ok) {
+  const groups = robotsGroups(robots);
+  // Only agents blocked by name: a block on * is already Critical above.
+  const blocked = (agent) => {
+    const g = groups.find((x) => x.agents.includes(agent.toLowerCase()));
+    return Boolean(g && g.rules.some((r) => !r.allow && r.path === '/') && !g.rules.some((r) => r.allow && r.path === '/'));
+  };
+  const search = AI_SEARCH_AGENTS.filter(blocked);
+  const training = AI_TRAINING_AGENTS.filter(blocked);
+  if (search.length) add('High', 'robots.txt', `blocks AI assistants' search crawlers (${search.join(', ')}), so ChatGPT, Perplexity or Claude can't read the site to recommend it`);
+  if (training.length) add('Medium', 'robots.txt', `blocks AI training crawlers (${training.join(', ')}), so AI tools learn less about the hotel`);
+}
+
 const smRes = await get(`${BASE}/sitemap.xml`);
 const sitemap = smRes.ok ? await smRes.text() : '';
 if (!smRes.ok) add('Critical', 'sitemap.xml', `returned ${smRes.status}`);
@@ -130,6 +171,9 @@ for (const path of paths) {
   if (metaContent(head, 'name', 'codero-clarity')) clarityMarker = true;
   if (h1 !== 1) add('High', path, `${h1} <h1> elements (want exactly 1)`);
   if (noAlt) add('Medium', path, `${noAlt}/${imgs.length} <img> without an alt attribute`);
+  const pdfs = [...new Set([...html.matchAll(/<a\b[^>]*\shref=["']([^"']+\.pdf)(?:[?#][^"']*)?["']/gi)].map((m) => m[1].split('/').pop() || m[1]))];
+  if (pdfs.length)
+    add('Medium', path, `links to ${pdfs.length === 1 ? 'a PDF' : `${pdfs.length} PDFs`} (${pdfs.slice(0, 3).join(', ')}): put menus, prices and policies on the page as text, which AI tools and search can read`);
   const types = [];
   for (const j of ld.flatMap((x) => (Array.isArray(x) ? x : x['@graph'] ?? [x]))) {
     const t = j['@type'];

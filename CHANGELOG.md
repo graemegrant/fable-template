@@ -7,6 +7,15 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **Ready for AI booking.** `seo-check.mjs` flags AI crawlers blocked by
+  name in `robots.txt` (search crawlers such as OAI-SearchBot and
+  PerplexityBot are High, training crawlers Medium) and pages linking to
+  PDFs (Medium), matching codero-automations' A3 crawl. `robots.ts` also
+  welcomes Claude-SearchBot, Claude-User and Perplexity-User. When
+  `directBookingPerk` is set, the Hotel JSON-LD carries it as a
+  `makesOffer` "Book direct" Offer. NEW-CLIENT-CHECKLIST adds the
+  Cloudflare AI-bot check at launch and the text-not-PDF rule.
+
 - **Fonts bundled with the template.** Every look's fonts are now variable
   woff2 files in `themes/<look>/fonts/` (latin; SIL Open Font License,
   with each family's `*-OFL.txt` beside it), loaded with `next/font/local`

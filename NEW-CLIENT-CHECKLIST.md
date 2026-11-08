@@ -37,7 +37,12 @@ Start-to-launch checklist for a new client build. Works alongside
 - [ ] `stats` (stats band), `stayIncludes` (room pages) and
       `reviewSummary` (real platform figures, or null) set from real,
       checkable facts — the demo hotel's must not ship
-- [ ] `directBookingPerk` set only if the hotel has agreed one (else null)
+- [ ] `directBookingPerk` set only if the hotel has agreed one (else null).
+      It shows on the site as text and goes into the Hotel structured data
+      as a "Book direct" offer, so AI assistants can pass it on
+- [ ] Rooms, prices, policies and menus are on the pages as text, never
+      only in an image or a PDF (AI tools and search read those poorly;
+      `seo-check.mjs` flags PDF links)
 - [ ] `lib/data.ts` `facilities` and `policies` rewritten from what the
       hotel offers and its real policies (cancellation, children, dogs,
       accessibility); `testimonials` / `team` / press only if genuine
@@ -136,6 +141,13 @@ Start-to-launch checklist for a new client build. Works alongside
       and `checkinTime` is ISO (`"15:00:00"`, not `"3pm"`)
 - [ ] `/sitemap.xml`, `/robots.txt`, `/llms.txt`, `/opengraph-image` all
       return 200 on the live host
+- [ ] **AI crawlers can reach the site.** `robots.txt` welcomes them by
+      name (checked by `seo-check.mjs`), but Cloudflare can block them
+      before they ever read it: in the domain's Cloudflare dashboard,
+      Security → Bots, make sure **Block AI bots** is off and AI Crawl
+      Control isn't blocking OAI-SearchBot, ChatGPT-User, PerplexityBot or
+      Claude-SearchBot. Same check for any other CDN or firewall in front
+      of the site
 - [ ] Verify `hreflang` alternates + `x-default` in view-source on all
       configured locales, not just the default (AGENTS.md §9)
 - [ ] Non-production hosts serve `X-Robots-Tag: noindex` (the
