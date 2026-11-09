@@ -11,9 +11,36 @@ updates:
       # ones — manageable for a solo operator across many client repos.
       minor-and-patch:
         update-types: ["minor", "patch"]
-    # Major version bumps (Next.js/React especially) fall outside the
-    # group above, so they still arrive as individual PRs — review
-    # those by hand rather than batch-merging.
+    # Major version bumps fall outside the group above, so they still
+    # arrive as individual PRs — review those by hand rather than
+    # batch-merging.
+    #
+    # Except the core stack: a major Next.js, React, Sanity or TypeScript
+    # version changes the stack (AGENTS.md §1, needs Graeme's sign-off)
+    # and needs code changes, so it's done as one planned upgrade, not as
+    # Dependabot PRs that can't pass on their own. @types/node follows the
+    # Node version in .nvmrc, not the newest Node.
+    ignore:
+      - dependency-name: "next"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "eslint-config-next"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/react*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "sanity"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@sanity/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "next-sanity"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "github-actions"
     directory: "/"
