@@ -31,6 +31,12 @@ export const hotelConfig = {
    *  fictional hotel. null on a real hotel's site. Set per deployment with
    *  NEXT_PUBLIC_DEMO_NOTICE (public, as the footer renders in the browser). */
   demoNotice: (process.env.NEXT_PUBLIC_DEMO_NOTICE ? { en: process.env.NEXT_PUBLIC_DEMO_NOTICE } : null) as LocaleField | null,
+  /** "Website by Codero" link in the footer's small print, to
+   *  codero.co.uk (opens in a new tab, so guests stay on the hotel's site).
+   *  On for every Codero build; false only if the hotel has asked not to
+   *  carry it (and switch off "Credit expected" on its client record in
+   *  codero-automations, which checks for it weekly). */
+  coderoCredit: true,
   name: 'Craigmore House',
   tagline: {
     en: 'Highland solitude, done properly.',

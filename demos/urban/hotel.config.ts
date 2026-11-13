@@ -16,6 +16,7 @@ export const hotelConfig: HotelConfig = {
   demoNotice: {
     en: 'A Codero demo. The Ardlow is a fictional hotel, made to show the Urban look.',
   },
+  coderoCredit: true,
   name: 'The Ardlow',
   tagline: { en: 'Sixteen rooms in the middle of everything.' },
   description: {

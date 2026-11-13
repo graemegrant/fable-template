@@ -7,6 +7,13 @@ into a revenue-generating site.
 
 ## Unreleased
 
+- **"Website by Codero" footer credit.** Every look's footer small print
+  links to codero.co.uk ("Website by Codero", in each site language, opens
+  in a new tab), driven by `coderoCredit` in `hotel.config.ts` (default
+  `true`; set `false` only if the hotel has asked not to carry it).
+  codero-automations checks live client sites for it weekly. Client repos:
+  add `coderoCredit: true` to `hotel.config.ts` when pulling this in.
+
 - **Ready for AI booking.** `seo-check.mjs` flags AI crawlers blocked by
   name in `robots.txt` (search crawlers such as OAI-SearchBot and
   PerplexityBot are High, training crawlers Medium) and pages linking to

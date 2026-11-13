@@ -37,6 +37,10 @@ Start-to-launch checklist for a new client build. Works alongside
 - [ ] `stats` (stats band), `stayIncludes` (room pages) and
       `reviewSummary` (real platform figures, or null) set from real,
       checkable facts — the demo hotel's must not ship
+- [ ] `coderoCredit` stays `true` (the "Website by Codero" footer link to
+      codero.co.uk) unless the hotel has asked not to carry it. If it's
+      off, also switch off "Credit expected" on the hotel's client record in
+      codero-automations, which checks for the credit every Monday
 - [ ] `directBookingPerk` set only if the hotel has agreed one (else null).
       It shows on the site as text and goes into the Hotel structured data
       as a "Book direct" offer, so AI assistants can pass it on

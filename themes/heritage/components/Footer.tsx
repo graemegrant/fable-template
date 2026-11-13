@@ -5,7 +5,7 @@ import { Link } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
 import { pickLocale } from '@/lib/resolveLocale';
 import type { Locale } from '@/lib/locales';
-import { exploreLinks, visitLinks, useNewsletterForm } from '@/lib/ui/footer';
+import { CODERO_CREDIT_URL, exploreLinks, useNewsletterForm, visitLinks } from '@/lib/ui/footer';
 
 function NewsletterForm() {
   const t = useTranslations('footer');
@@ -133,6 +133,11 @@ export default function Footer() {
             <Link href="/privacy" className="inline-flex min-h-11 items-center font-body text-xs text-canvas/70 transition-colors hover:text-accentondark">
               {t('privacy')}
             </Link>
+            {hotelConfig.coderoCredit && (
+              <a href={CODERO_CREDIT_URL} target="_blank" rel="noopener" className="inline-flex min-h-11 items-center font-body text-xs text-canvas/70 transition-colors hover:text-accentondark">
+                {t('websiteBy')}
+              </a>
+            )}
           </div>
           <p className="font-body text-xs text-canvas/70">
             {pickLocale(hotelConfig.location.regionLabel, locale)} · {hotelConfig.priceRange}
