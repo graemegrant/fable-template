@@ -125,7 +125,8 @@ There is no Sanity "site settings" document. Per-client identity —
 name, tagline, location, contact details, room count, star rating,
 price range, check-in/out times, trust strip items, stats band figures,
 what every stay includes, the public review summary, the booking-engine
-provider and the book-direct perk — lives entirely in `hotel.config.ts`
+provider, the book-direct perk and the "Website by Codero" footer credit
+(`coderoCredit`, on unless the hotel has asked not to carry it) — lives entirely in `hotel.config.ts`
 at the repo root. **This is the one file every new
 client build must fully rewrite before going further.** Sanity handles
 recurring *content* (rooms, experiences, offers, journal posts,

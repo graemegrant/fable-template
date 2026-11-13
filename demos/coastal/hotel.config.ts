@@ -16,6 +16,7 @@ export const hotelConfig: HotelConfig = {
   demoNotice: {
     en: 'A Codero demo. Polvarra Cove is a fictional hotel, made to show the Coastal look.',
   },
+  coderoCredit: true,
   name: 'Polvarra Cove',
   tagline: { en: 'Sand on the stairs, salt in the air.' },
   description: {

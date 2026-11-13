@@ -2,6 +2,9 @@
 
 import { useState } from 'react';
 
+/** The "Website by Codero" credit (hotel.config.ts `coderoCredit`). */
+export const CODERO_CREDIT_URL = 'https://www.codero.co.uk';
+
 /** Footer link lists, shared by every look. Labels are `nav.*` keys. */
 export const exploreLinks = [
   { labelKey: 'roomsAndSuites', href: '/rooms' },
