@@ -6,6 +6,7 @@
  * search and `demoNotice` says so in the footer.
  */
 import type { HotelConfig } from '../../hotel.config';
+import type { MotionIntensity, MotionSettings } from '../../lib/ui/gsap/settings';
 import type { Look } from '../../themes/looks';
 import type { Locale } from '../../lib/locales';
 
@@ -17,6 +18,22 @@ export const hotelConfig: HotelConfig = {
     en: 'A Codero demo. The Ardlow is a fictional hotel, made to show the Urban look.',
   },
   coderoCredit: true,
+  /** The GSAP motion layer (lib/ui/gsap, AGENTS.md §5a): how much it does
+   *  and which patterns run. Desktop only, never under reduced motion, and
+   *  only in looks built for it (Cinematic). 'off' keeps the page still. */
+  motion: {
+    intensity: 'standard' as MotionIntensity,
+    smoothScroll: true,
+    patterns: {
+      heroAperture: true,
+      splitHeadings: true,
+      wordReveal: true,
+      roomsReel: true,
+      imageCurtain: true,
+      parallax: true,
+      menuOverlay: true,
+    },
+  } satisfies MotionSettings,
   name: 'The Ardlow',
   tagline: { en: 'Sixteen rooms in the middle of everything.' },
   description: {

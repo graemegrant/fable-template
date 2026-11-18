@@ -28,11 +28,16 @@ just becomes a lie about what's actually deployed. Always use
 - **Sanity v3** — headless CMS, app must keep working in static-fallback
   mode when no Sanity project is configured
 - **Framer Motion** — page transitions, stagger reveals
+- **GSAP** (with ScrollTrigger and SplitText) and **Lenis** — the optional
+  motion layer in `lib/ui/gsap/` (see §5a). Approved by Graeme, Nov 2026.
 - **Resend** — contact form email, silent no-op when `RESEND_API_KEY` unset
 
 **No Webflow, anywhere, ever.** This has never been a Webflow build. If
 you encounter a reference to Webflow in this repo, it's an error — flag
-it and remove it, don't extend it.
+it and remove it, don't extend it. (GSAP is owned by Webflow but is an
+ordinary npm library under its free standard licence; using it involves no
+Webflow account, hosting or editor, and is allowed. The rule is about the
+platform.)
 
 ## 2. Component reuse rule
 
@@ -101,11 +106,12 @@ in `className`/`style`, no arbitrary Tailwind values like `bg-[#123456]`
 or `w-[37px]`). If the design genuinely needs a value outside the token
 set, add it to `tailwind.config.ts` as a named token, don't inline it.
 
-## 3a. Looks (Heritage, Coastal, Urban)
+## 3a. Looks (Heritage, Coastal, Urban, Cinematic)
 
-The template ships three looks with fully distinct identities: Heritage
-(formal, established), Coastal (light, relaxed) and Urban (editorial,
-design-led). A client site picks one with `look` in `hotel.config.ts`, and
+The template ships four looks with fully distinct identities: Heritage
+(formal, established), Coastal (light, relaxed), Urban (editorial,
+design-led) and Cinematic (immersive and image-led, built on the GSAP
+motion layer in §5a; the showcase look, approved by Graeme, Nov 2026). A client site picks one with `look` in `hotel.config.ts`, and
 only that look's code is built and shipped.
 
 - Each look lives in `themes/<look>/` and implements the same component
@@ -113,7 +119,7 @@ only that look's code is built and shipped.
 - Every look must keep the fundamentals in §4a and §5: a booking CTA and
   tap-to-call on every page on mobile, "from" prices, the booking modal,
   JSON-LD and SEO metadata, WCAG AA contrast and 44px tap targets. CI
-  builds and checks all three looks; a look that drops one fails.
+  builds and checks every look; a look that drops one fails.
 - A fix to shared logic is made once, outside `themes/`. A visual change
   to one look must not change another.
 - New looks need Graeme's sign-off, like a stack change (§1).
@@ -192,7 +198,8 @@ viewport against current hotel-website guidance:
 - Animation performance budget: heavy motion measurably hurts mobile
   conversion — keep hero/scroll animations light on mobile viewports.
   (`Motion.tsx` already suppresses scroll/entrance reveals on phone-width
-  viewports and under `prefers-reduced-motion`.)
+  viewports and under `prefers-reduced-motion`; the GSAP layer in §5a
+  doesn't run there at all.)
 
 - SEO is part of the deliverable, not an afterthought. The template ships
   SEO-complete; per-client SEO work and the `/seo audit` workflow are
@@ -215,6 +222,42 @@ viewport against current hotel-website guidance:
   grades every deploy and month, SEO-PROCESS.md §9) are the same checks in
   two languages. A rule change in one must be copied to the other in the
   same week — say so in the PR if you change a rule here.
+
+## 5a. The GSAP motion layer (`lib/ui/gsap/`)
+
+An optional motion layer any look can use; Cinematic is built on it.
+`engine.tsx` loads GSAP, ScrollTrigger, SplitText and Lenis, `patterns.tsx`
+holds the reusable patterns (SplitHeading, WordReveal, Curtain, Parallax,
+Reel), and each hotel sets it with `motion` in `hotel.config.ts`
+(intensity `off` / `subtle` / `standard` / `immersive`, smooth scrolling on
+or off, and each pattern on or off).
+
+Rules, so it stays premium rather than busy:
+
+- **Desktop only.** It runs only at 1024px and up with no
+  `prefers-reduced-motion`. Phones, tablets and reduced-motion visitors
+  get the still page, and none of the libraries are downloaded for them.
+- **Booking is never blocked.** No scene may cover, hide or delay the
+  navbar's "Check availability" or the `MobileBookBar`. Hero CTAs aren't
+  animated in. Lenis pauses whenever a menu or the booking modal locks
+  page scroll, and scrollable overlays carry `data-lenis-prevent`.
+- **Scrolling stays in the visitor's hands.** Pinned scenes (the hero
+  aperture, the rooms reel) last no longer than their content needs, are
+  scrubbed by the visitor's own scroll, and never snap or auto-advance.
+  Lenis smooths the wheel but never changes where it takes you; keyboard,
+  touch and anchor links scroll as normal. Pinned scenes are left out at
+  `subtle`, and `smoothScroll: false` turns Lenis off for a hotel.
+- **Transform and opacity only** in animations, so nothing reflows.
+- **Real HTML.** Text and headings are in the server HTML unsplit;
+  SplitText only splits in the browser, and labels headings with their
+  full text (`aria: 'auto'`) or leaves paragraphs as plain spans.
+- **Fail visible.** Start states are set from JavaScript, so with no JS
+  or a failed load the page simply shows. The only CSS-hidden elements are
+  `.motion-intro` ones, which `motion.css` reveals after 2.5 s regardless.
+- **One or two signature moments per page**, not motion on everything.
+  Write a new pattern in `patterns.tsx` (behaviour only, the look passes
+  its classes), give it a switch in `MotionPatterns`, and use it through
+  `useScene`, which reverts everything on unmount and when the engine stops.
 
 ## 6. Local Experiences
 

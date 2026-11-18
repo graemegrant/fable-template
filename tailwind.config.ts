@@ -33,6 +33,11 @@ const config: Config = {
         // Kept as a name for existing class usages, but no smaller than 2xs:
         // 10px was below comfortable reading size on phones.
         '3xs': '11px',
+        // Fluid display sizes (Cinematic): `mega` for screen-filling titles
+        // (the hero name, the final call), `statement` for the manifesto
+        // paragraph that reads word by word.
+        mega: ['clamp(3.5rem, 12.5vw, 13.5rem)', { lineHeight: '0.92', letterSpacing: '-0.02em' }],
+        statement: ['clamp(1.875rem, 3.6vw, 3.75rem)', { lineHeight: '1.18' }],
       },
       // Letter-spacing for uppercase tracked labels — named by their em
       // value since there's no semantic distinction between them beyond

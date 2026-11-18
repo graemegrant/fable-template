@@ -11,8 +11,9 @@ import { activeLook } from '../themes/active';
 import * as heritage from '../themes/heritage/tokens';
 import * as coastal from '../themes/coastal/tokens';
 import * as urban from '../themes/urban/tokens';
+import * as cinematic from '../themes/cinematic/tokens';
 
-const looks = { heritage, coastal, urban } as const;
+const looks = { heritage, coastal, urban, cinematic } as const;
 
 export const { palette, radii } = looks[activeLook];
 

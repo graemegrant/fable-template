@@ -1,0 +1,54 @@
+/* GSAP motion layer (lib/ui/gsap, AGENTS.md §5a). */
+
+/* Lenis smooth scrolling (from lenis/dist/lenis.css). */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Intro elements (hero title and the like) wait hidden on desktop until the
+   engine has set their start state, so they don't show, vanish and then
+   animate in. Same query as MOTION_QUERY in settings.ts. If the engine
+   hasn't started within 2.5 s (slow network, error) they show anyway. */
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  html:not(.motion-ready):not(.motion-failed) .motion-intro {
+    opacity: 0;
+    animation: motion-failsafe 0s linear 2.5s forwards;
+  }
+}
+@keyframes motion-failsafe {
+  to {
+    opacity: 1;
+  }
+}
+
+/* A running film strip: the track moves instead of scrolling. */
+[data-reel-active] {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100svh;
+  margin-top: 0;
+}
+[data-reel-active] > [data-reel-track] {
+  overflow: visible;
+  scroll-snap-type: none;
+}
+
+/* SplitText line masks must not clip descenders in display type. */
+.split-line-mask {
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
