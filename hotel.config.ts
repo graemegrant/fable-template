@@ -13,6 +13,7 @@
  */
 import type { Locale, LocaleField } from './lib/locales';
 import type { BookingEngineProvider } from './lib/bookingEngine';
+import type { MotionIntensity, MotionSettings } from './lib/ui/gsap/settings';
 import type { Look } from './themes/looks';
 
 export const hotelConfig = {
@@ -37,6 +38,22 @@ export const hotelConfig = {
    *  carry it (and switch off "Credit expected" on its client record in
    *  codero-automations, which checks for it weekly). */
   coderoCredit: true,
+  /** The GSAP motion layer (lib/ui/gsap, AGENTS.md §5a): how much it does
+   *  and which patterns run. Desktop only, never under reduced motion, and
+   *  only in looks built for it (Cinematic). 'off' keeps the page still. */
+  motion: {
+    intensity: 'immersive' as MotionIntensity,
+    smoothScroll: true,
+    patterns: {
+      heroAperture: true,
+      splitHeadings: true,
+      wordReveal: true,
+      roomsReel: true,
+      imageCurtain: true,
+      parallax: true,
+      menuOverlay: true,
+    },
+  } satisfies MotionSettings,
   name: 'Craigmore House',
   tagline: {
     en: 'Highland solitude, done properly.',

@@ -5,6 +5,6 @@
  * and only that look's code is built.
  *
  */
-export const LOOKS = ['heritage', 'coastal', 'urban'] as const;
+export const LOOKS = ['heritage', 'coastal', 'urban', 'cinematic'] as const;
 
 export type Look = (typeof LOOKS)[number];

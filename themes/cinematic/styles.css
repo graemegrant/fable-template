@@ -1,0 +1,106 @@
+/* Cinematic look: a projection-room black page, bone type, a didone display
+   face with italic emphasis, film grain and wide, quiet spacing. Imported by
+   app/[locale]/layout.tsx after globals.css. Not in @layer blocks: those
+   need @tailwind directives in the same file. The motion layer's own CSS is
+   lib/ui/gsap/motion.css. */
+
+body {
+  @apply bg-primary text-canvas;
+}
+::selection {
+  @apply bg-accentfill text-onaccent;
+}
+/* Fields sit on black, so native pickers and dropdowns should be dark too. */
+input[type='date'],
+select {
+  color-scheme: dark;
+}
+
+/* Bodoni Moda's optical-size axis: the browser picks the cut for the size
+   (hairline-fine for screen-filling titles, sturdier for small headings). */
+.font-heading {
+  font-optical-sizing: auto;
+}
+/* Past the font's largest optical size (96pt) its hairlines thin to nothing
+   on screen, so an H loses its crossbar. Screen-filling type keeps a
+   sturdier cut. */
+.text-mega,
+.text-9xl,
+.text-8xl {
+  font-variation-settings: 'opsz' 40;
+}
+
+/* Film grain over the whole page: a fixed SVG noise layer, composited once.
+   Decorative and still (it never moves), never intercepts a click, and off
+   in forced-colours mode. */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+@media (forced-colors: active) {
+  body::after {
+    display: none;
+  }
+}
+
+/* Lens vignette for full-bleed photographs: darkened corners keep type
+   legible without a flat shade over the whole picture. */
+.vignette {
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(9, 8, 7, 0.75) 100%);
+}
+
+/* Letterbox bars, as on a cinema screen: used by the hero's aperture. */
+.letterbox::before,
+.letterbox::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  height: 7vh;
+  z-index: 2;
+  background: rgba(9, 8, 7, 1);
+  pointer-events: none;
+}
+.letterbox::before {
+  top: 0;
+}
+.letterbox::after {
+  bottom: 0;
+}
+
+/* A faint vertical rhythm behind a section, like a contact sheet's columns. */
+.bg-grid {
+  background-image: linear-gradient(to right, rgba(238, 231, 218, 0.04) 1px, transparent 1px);
+  background-size: calc(100% / 6) 100%;
+}
+
+/* Ticker for the trust strip: the content is rendered twice and slides by
+   half its width, so the loop is seamless. Off under reduced motion. */
+@keyframes cinematic-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: cinematic-marquee 60s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
+
+/* The film-strip rooms row scrolls natively off desktop; hide its bar. */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

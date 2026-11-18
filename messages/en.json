@@ -18,7 +18,9 @@
     "location": "Location",
     "locationAndDirections": "Location & Directions",
     "contact": "Contact",
-    "toggleMenu": "Toggle menu"
+    "toggleMenu": "Toggle menu",
+    "menu": "Menu",
+    "close": "Close"
   },
   "footer": {
     "explore": "Explore",

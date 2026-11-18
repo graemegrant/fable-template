@@ -17,7 +17,9 @@
     "location": "Lieu",
     "locationAndDirections": "Lieu et itinéraire",
     "contact": "Contact",
-    "toggleMenu": "Ouvrir le menu"
+    "toggleMenu": "Ouvrir le menu",
+    "menu": "Menu",
+    "close": "Fermer"
   },
   "footer": {
     "explore": "Explorer",
