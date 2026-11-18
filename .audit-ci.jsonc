@@ -41,6 +41,15 @@
     // own schema files, never request data, and isn't in the site's
     // runtime bundle. Patched in zod 4.6.6; clearing it needs sanity@6.x
     // (breaking), same as the entries above.
-    "GHSA-mrhx-c7xc-m3w5" // zod, high
+    "GHSA-mrhx-c7xc-m3w5", // zod, high
+
+    // picomatch — ReDoS through single-branch repeated extglobs. Every
+    // copy is build or dev tooling (tailwindcss content globbing, Sanity's
+    // vite/chokidar/tinyglobby, next-intl's @parcel/watcher) matching globs
+    // we write in config, never request or visitor input, and none is in
+    // the site's runtime bundle. No patched release exists yet (all
+    // versions up to 4.0.7, the latest, are affected): remove this entry
+    // once one ships and `npm update picomatch` clears it.
+    "GHSA-fc5q-39xc-vjpf" // picomatch, high
   ]
 }
