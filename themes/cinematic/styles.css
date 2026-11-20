@@ -1,5 +1,6 @@
-/* Cinematic look: a projection-room black page, bone type, a didone display
-   face with italic emphasis, film grain and wide, quiet spacing. Imported by
+/* Cinematic look: a deep lake-green page lit by slow ambient light, mist
+   type, an airy serif display face with italic emphasis, Apple-style glass
+   surfaces, film grain and wide, quiet spacing. Imported by
    app/[locale]/layout.tsx after globals.css. Not in @layer blocks: those
    need @tailwind directives in the same file. The motion layer's own CSS is
    lib/ui/gsap/motion.css. */
@@ -16,18 +17,37 @@ select {
   color-scheme: dark;
 }
 
-/* Bodoni Moda's optical-size axis: the browser picks the cut for the size
-   (hairline-fine for screen-filling titles, sturdier for small headings). */
-.font-heading {
-  font-optical-sizing: auto;
+/* Ambient light: soft pools of reed gold, lake teal and fell green behind the
+   whole page, so the black is never flat and the glass has something to
+   catch. Fixed, painted once, drifting very slowly (transform only), still
+   under reduced motion. Behind every section (z-index -1 under body's
+   content), never intercepts a click. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: -20vmax;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(38vmax 30vmax at 18% 22%, rgba(201, 164, 76, 0.08), transparent 70%),
+    radial-gradient(42vmax 34vmax at 82% 30%, rgba(40, 92, 88, 0.28), transparent 70%),
+    radial-gradient(46vmax 30vmax at 50% 88%, rgba(74, 104, 76, 0.2), transparent 70%),
+    radial-gradient(30vmax 26vmax at 90% 85%, rgba(201, 164, 76, 0.05), transparent 70%);
+  animation: cinematic-ambient 48s ease-in-out infinite alternate;
+  will-change: transform;
 }
-/* Past the font's largest optical size (96pt) its hairlines thin to nothing
-   on screen, so an H loses its crossbar. Screen-filling type keeps a
-   sturdier cut. */
-.text-mega,
-.text-9xl,
-.text-8xl {
-  font-variation-settings: 'opsz' 40;
+@keyframes cinematic-ambient {
+  from {
+    transform: translate3d(-3%, -2%, 0) rotate(0deg) scale(1);
+  }
+  to {
+    transform: translate3d(3%, 2%, 0) rotate(8deg) scale(1.08);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    animation: none;
+  }
 }
 
 /* Film grain over the whole page: a fixed SVG noise layer, composited once.
@@ -39,42 +59,85 @@ body::after {
   inset: 0;
   z-index: 40;
   pointer-events: none;
-  opacity: 0.06;
+  opacity: 0.05;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 @media (forced-colors: active) {
+  body::before,
   body::after {
     display: none;
+  }
+}
+
+/* Glass, in the Apple manner: a translucent surface that blurs and
+   saturates whatever is behind it, a lit top edge and a soft shadow.
+   - .glass       light frosted glass on the dark page (cards, panels, bars)
+   - .glass-deep  smoked glass for type over photographs (chips, captions)
+   - .glass-gold  glass tinted champagne (the book-direct panel)
+   Without backdrop-filter support each falls back to a near-solid fill,
+   so type keeps its contrast. */
+.glass,
+.glass-deep,
+.glass-gold {
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  backdrop-filter: blur(24px) saturate(170%);
+  border: 1px solid rgba(241, 242, 238, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 24px 60px -24px rgba(0, 0, 0, 0.6);
+}
+.glass {
+  background: linear-gradient(160deg, rgba(241, 242, 238, 0.11), rgba(241, 242, 238, 0.035) 60%);
+}
+/* Deep enough that gold or mist type on a pill over a bright photograph
+   still clears 4.5:1 (measured over white: mist 7:1, gold 5.3:1). */
+.glass-deep {
+  background: rgba(8, 18, 15, 0.78);
+}
+.glass-gold {
+  background: linear-gradient(140deg, rgba(201, 164, 76, 0.26), rgba(106, 85, 24, 0.12) 70%);
+  border-color: rgba(216, 189, 110, 0.3);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass {
+    background: rgba(20, 34, 31, 0.94);
+  }
+  .glass-deep {
+    background: rgba(8, 18, 15, 0.9);
+  }
+  .glass-gold {
+    background: rgba(52, 46, 22, 0.95);
+  }
+}
+@media (forced-colors: active) {
+  .glass,
+  .glass-deep,
+  .glass-gold {
+    border-color: CanvasText;
   }
 }
 
 /* Lens vignette for full-bleed photographs: darkened corners keep type
    legible without a flat shade over the whole picture. */
 .vignette {
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(9, 8, 7, 0.75) 100%);
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(8, 18, 15, 0.75) 100%);
 }
 
-/* Letterbox bars, as on a cinema screen: used by the hero's aperture. */
-.letterbox::before,
-.letterbox::after {
-  content: '';
-  position: absolute;
-  inset-inline: 0;
-  height: 7vh;
-  z-index: 2;
-  background: rgba(9, 8, 7, 1);
-  pointer-events: none;
+/* Outlined display type for the sliding lines (decorative, aria-hidden). */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(241, 242, 238, 0.45);
 }
-.letterbox::before {
-  top: 0;
-}
-.letterbox::after {
-  bottom: 0;
+@media (forced-colors: active) {
+  .text-outline {
+    color: CanvasText;
+    -webkit-text-stroke: 0;
+  }
 }
 
 /* A faint vertical rhythm behind a section, like a contact sheet's columns. */
 .bg-grid {
-  background-image: linear-gradient(to right, rgba(238, 231, 218, 0.04) 1px, transparent 1px);
+  background-image: linear-gradient(to right, rgba(241, 242, 238, 0.04) 1px, transparent 1px);
   background-size: calc(100% / 6) 100%;
 }
 
@@ -103,4 +166,307 @@ body::after {
 }
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* A day at the house (the home page, themes/cinematic/views/HomeView). */
+/* The page is one day, dawn to midnight: each chapter is painted in its
+   hour's light, and each gradient starts where the last one ended, so
+   scrolling down is the day passing. The colours are the light itself,
+   so they live here beside the ambient light rather than as tokens.
+   Light chapters (morning to afternoon) take ink type; the rest take
+   mist. Every line of text was measured against the pixels behind it on
+   desktop, phone and reduced motion, and clears WCAG AA (4.5:1, or 3:1
+   for large type). */
+.day {
+  position: relative;
+  isolation: isolate;
+}
+.day-dawn {
+  background: rgb(6 14 16);
+}
+.day-morning {
+  background: linear-gradient(
+    180deg,
+    rgb(6 14 16) 0,
+    rgb(10 22 24) 8vh,
+    rgb(22 38 40) 18vh,
+    rgb(44 62 64) 30vh,
+    rgb(84 102 102) 42vh,
+    rgb(136 152 148) 54vh,
+    rgb(184 196 190) 66vh,
+    rgb(216 224 218) 78vh,
+    rgb(234 237 232) 90vh,
+    rgb(241 242 238) 100vh
+  );
+}
+.day-latemorning {
+  background: linear-gradient(180deg, rgb(241 242 238) 0%, rgb(246 247 244) 100%);
+}
+.day-afternoon {
+  background: linear-gradient(180deg, rgb(246 247 244) 0%, rgb(240 242 234) 45%, rgb(234 234 216) 80%, rgb(230 228 205) 100%);
+}
+/* The golden line sits at about 40vh, where the light is still pale reed
+   (ink on it 8:1 or more); the fall to the dark lake comes after it,
+   through gold and olive, under the name. */
+.day-golden {
+  background: linear-gradient(
+    180deg,
+    rgb(230 228 205) 0,
+    rgb(228 220 186) 20vh,
+    rgb(222 204 152) 36vh,
+    rgb(208 178 108) 48vh,
+    rgb(176 140 68) 58vh,
+    rgb(126 104 48) 68vh,
+    rgb(76 72 38) 78vh,
+    rgb(40 50 36) 90vh,
+    rgb(22 36 30) 104vh,
+    rgb(17 32 28) 140vh,
+    rgb(15 31 28) 100%
+  );
+}
+.day-evening {
+  background: linear-gradient(180deg, rgb(15 31 28) 0%, rgb(13 27 25) 40%, rgb(11 23 22) 75%, rgb(10 20 20) 100%);
+}
+.day-night {
+  background: linear-gradient(180deg, rgb(10 20 20) 0, rgb(9 17 20) 30vh, rgb(8 14 19) 70vh, rgb(7 12 17) 120vh, rgb(7 11 16) 100%);
+}
+.day-midnight {
+  background: linear-gradient(180deg, rgb(7 11 16) 0%, rgb(7 13 15) 60%, rgb(8 18 15) 100%);
+}
+/* The sun, risen, high in the morning band. */
+.sun-high {
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgb(255 250 232 / 0.55) 0%, rgb(255 238 200 / 0.2) 30%, transparent 68%);
+}
+/* A photograph that rises out of the dark rather than sitting in a box:
+   its top and bottom edges dissolve into the chapter. A static mask. */
+.soft-edge {
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 22%, black 88%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, black 22%, black 88%, transparent 100%);
+}
+
+/* Interior pages (DayPage): each in the darker light of its hour, so
+   every component keeps its contrast. */
+.day-page-morning {
+  background: linear-gradient(180deg, rgb(8 18 20) 0%, rgb(12 26 28) 40%, rgb(14 30 30) 100%);
+}
+.day-page-golden {
+  background: linear-gradient(180deg, rgb(30 34 22) 0%, rgb(24 33 26) 40%, rgb(15 31 28) 100%);
+}
+
+/* A pale band inside a dark interior page (the rooms window): it rises out
+   of the page's dark over 288px (an h-72 spacer, so no text sits on the
+   change) and falls back into it the same way at the foot. */
+.day-band-light {
+  background: linear-gradient(
+    180deg,
+    rgb(12 26 28) 0,
+    rgb(40 58 60) 100px,
+    rgb(150 164 160) 190px,
+    rgb(228 232 226) 260px,
+    rgb(241 242 238) 288px,
+    rgb(246 247 244) calc(100% - 288px),
+    rgb(228 232 226) calc(100% - 260px),
+    rgb(150 164 160) calc(100% - 190px),
+    rgb(40 58 60) calc(100% - 100px),
+    rgb(14 30 30) 100%
+  );
+}
+
+/* Interior heroes: the hour's light over the photograph, darkest at the
+   foot where the title sits (bone type on it 12:1 or more). */
+.hero-light-dawn {
+  background: linear-gradient(0deg, rgb(6 14 16) 0%, rgb(10 24 30 / 0.7) 50%, rgb(20 36 46 / 0.45) 100%);
+}
+.hero-light-day {
+  background: linear-gradient(0deg, rgb(8 18 15) 0%, rgb(8 18 15 / 0.6) 50%, rgb(8 18 15 / 0.25) 100%);
+}
+.hero-light-golden {
+  background:
+    linear-gradient(0deg, rgb(24 28 18) 0%, rgb(40 36 18 / 0.65) 50%, transparent 100%),
+    linear-gradient(200deg, rgb(230 160 70 / 0.45) 0%, rgb(160 100 40 / 0.25) 60%, transparent 100%);
+}
+.hero-light-evening {
+  background: linear-gradient(0deg, rgb(10 20 20) 0%, rgb(10 20 20 / 0.7) 50%, rgb(15 31 28 / 0.5) 100%);
+}
+.hero-light-night {
+  background: linear-gradient(0deg, rgb(7 11 16) 0%, rgb(7 11 16 / 0.8) 50%, rgb(7 11 16 / 0.65) 100%);
+}
+
+/* Instrument Serif has one weight. Headings asked for bold or semibold stay
+   in the true cut rather than a smeared, synthesised bold. */
+.font-heading {
+  font-synthesis-weight: none;
+}
+
+/* Dawn: the night's blue-green over the photograph, the first pale gold
+   rising from the water, and the sun beneath it. */
+.dawn-night {
+  background: linear-gradient(180deg, rgb(6 14 16 / 0.92) 0%, rgb(10 22 28 / 0.72) 55%, rgb(14 28 34 / 0.6) 100%);
+}
+.dawn-rose {
+  background: linear-gradient(0deg, rgb(226 196 150 / 0.5) 0%, rgb(170 168 178 / 0.25) 35%, transparent 70%);
+}
+.sun {
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgb(255 236 200 / 0.95) 0%, rgb(248 196 140 / 0.65) 22%, rgb(232 150 100 / 0.22) 48%, transparent 70%);
+  mix-blend-mode: screen;
+}
+.sun-low {
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgb(255 214 150 / 0.9) 0%, rgb(236 150 70 / 0.5) 25%, rgb(200 100 40 / 0.18) 50%, transparent 70%);
+}
+/* Mist: wide soft bands drifting across the loch. Gradients only, no
+   blur filter; the drift is a transform, and stops for reduced motion. */
+.mist {
+  background:
+    radial-gradient(60% 40% at 30% 60%, rgb(220 222 230 / 0.22), transparent 70%),
+    radial-gradient(50% 30% at 75% 70%, rgb(220 222 230 / 0.16), transparent 70%);
+  animation: day-mist 38s ease-in-out infinite alternate;
+}
+@keyframes day-mist {
+  from {
+    transform: translate3d(-6%, 0, 0);
+  }
+  to {
+    transform: translate3d(6%, -2%, 0);
+  }
+}
+
+/* Rooms through the window: an arched frame, like the house's own. */
+.window-arch {
+  border-radius: 9999px 9999px 20px 20px;
+}
+/* A slant of sunlight crossing the window as the morning moves on. */
+.window-light {
+  background: linear-gradient(105deg, transparent 30%, rgb(255 244 220 / 0.28) 45%, rgb(255 244 220 / 0.08) 55%, transparent 70%);
+  mix-blend-mode: screen;
+}
+/* With the motion layer, the rooms stack inside the window and the scroll
+   brings each one into the light in turn. Without it, the window shows
+   the first room and the list beside it carries every one. */
+.rooms-window [data-room-photo]:not(:first-child) {
+  display: none;
+}
+[data-rooms-active] [data-room-photo]:not(:first-child) {
+  display: block;
+}
+
+/* Golden hour: the glen seen through the hotel's name. */
+.through-name {
+  color: transparent;
+  background-size: cover;
+  background-position: center;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+@media (forced-colors: active) {
+  .through-name {
+    color: CanvasText;
+    background: none;
+  }
+}
+
+/* The land at golden hour: a low amber light over the photograph, and its
+   foot fading into the chapter's dusk so the page carries on beneath it. */
+.golden-grade {
+  background: linear-gradient(200deg, rgb(255 180 95 / 0.75) 0%, rgb(225 135 55 / 0.45) 45%, rgb(90 40 20 / 0.35) 100%);
+  mix-blend-mode: multiply;
+}
+.golden-fade {
+  background: linear-gradient(180deg, transparent 65%, rgb(22 36 30) 100%);
+}
+
+/* Evening: candlelight that follows the hand across the table. */
+.candle {
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgb(255 190 120 / 0.42) 0%, rgb(240 140 70 / 0.18) 35%, transparent 68%);
+  mix-blend-mode: screen;
+  animation: day-flicker 3.2s ease-in-out infinite alternate;
+}
+@keyframes day-flicker {
+  0% {
+    opacity: 0.85;
+  }
+  40% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.97;
+  }
+}
+
+/* Midnight: stars that breathe, and the moon. */
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 9999px;
+  background: rgb(241 242 238);
+  animation: day-twinkle 4s ease-in-out infinite alternate;
+}
+@keyframes day-twinkle {
+  from {
+    opacity: 0.15;
+  }
+  to {
+    opacity: 0.9;
+  }
+}
+.moon {
+  border-radius: 9999px;
+  background: radial-gradient(circle at 38% 36%, rgb(246 240 228) 0%, rgb(222 214 198) 45%, rgb(190 182 168) 70%, rgb(150 144 134) 100%);
+  box-shadow: 0 0 120px 30px rgb(241 242 238 / 0.12);
+}
+
+/* The golden-hour mark crosses the change from pale gold to the dark lake
+   as you scroll, so it sits on deep smoked glass: bone type on it clears
+   4.5:1 over any part of that light. */
+.glass-deep.hour-chip {
+  background: rgb(8 18 15 / 0.8);
+}
+
+/* The clock keeps the hour in the corner: difference-blended, so it reads
+   on the pale morning and the dark night alike. */
+.day-clock {
+  mix-blend-mode: difference;
+}
+/* Set up the margin, reading bottom to top. */
+.day-clock-text {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mist,
+  .candle,
+  .star {
+    animation: none;
+  }
+}
+@media (forced-colors: active) {
+  .dawn-night,
+  .dawn-rose,
+  .sun,
+  .sun-low,
+  .mist,
+  .window-light,
+  .golden-grade,
+  .sun-high,
+  .candle,
+  .star,
+  .moon {
+    display: none;
+  }
+}
+
+/* The navbar's and the phone booking bar's smoked glass, deep enough for
+   bone type over the pale morning chapters too. */
+header .glass-deep,
+.mobile-book-bar .glass-deep {
+  background: rgb(8 18 15 / 0.84);
 }

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { imgSrc } from '@/lib/sanity';
 import type { Locale } from '@/lib/locales';
 import PageHero from '../components/PageHero';
+import DayPage from '../components/day/DayPage';
 import PortableText from '../components/PortableText';
 import SectionLabel from '../components/SectionLabel';
 import { FadeUp } from '../components/Motion';
@@ -13,12 +14,13 @@ import { formatDate } from '@/lib/ui/format';
 /** JournalPost page, Cinematic look. Data comes from lib/pages/journalPost.ts. */
 export default async function JournalPostView({ locale, post, featuredRoom, ctaHref, ctaExternal }: { locale: Locale } & JournalPostData) {
   const t = await getTranslations('journalDetail');
+  const d = await getTranslations('day');
   const tSections = await getTranslations('journalSections');
   const ctaClass =
-    'inline-flex min-h-14 items-center gap-6 bg-accentfill px-6 font-mono text-sm uppercase tracking-18 text-onaccent transition-colors hover:bg-canvas';
+    'inline-flex min-h-14 items-center gap-6 rounded-ctrl bg-accentfill px-7 font-mono text-sm uppercase tracking-18 text-onaccent transition-colors hover:bg-canvas';
   return (
-    <>
-      <PageHero
+    <DayPage light="night" time="22:30" label={d('night')}>
+      <PageHero light="night" hour={{ time: '22:30', label: d('night') }}
         eyebrow={post.category || tSections(post.section ?? 'story')}
         title={post.title}
         subtitle={`${post.author} / ${formatDate(post.publishedAt, locale)} / ${post.readingTime ?? ''}`}
@@ -26,7 +28,7 @@ export default async function JournalPostView({ locale, post, featuredRoom, ctaH
         imageAlt={post.imageAlt}
       />
 
-      <section className="mx-auto max-w-screen-2xl px-5 py-16 lg:px-8 lg:py-24">
+      <section className="mx-auto max-w-screen-2xl px-5 py-16 lg:px-16 lg:py-24">
         <div className="grid gap-14 lg:grid-cols-12">
           <FadeUp className="lg:col-span-7 lg:col-start-2">
             <article>
@@ -59,7 +61,7 @@ export default async function JournalPostView({ locale, post, featuredRoom, ctaH
               <div className="border-t border-canvas lg:sticky lg:top-24">
                 <SectionLabel className="pt-4">{t('stayWithUs')}</SectionLabel>
                 <Link href={`/rooms/${featuredRoom.slug}`} className="group mt-5 block">
-                  <div className="relative aspect-landscape overflow-hidden bg-canvas/5">
+                  <div className="relative aspect-landscape overflow-hidden rounded-img bg-canvas/5">
                     <Image
                       src={imgSrc(featuredRoom.heroImage, 800)}
                       alt={featuredRoom.roomType}
@@ -81,6 +83,6 @@ export default async function JournalPostView({ locale, post, featuredRoom, ctaH
           )}
         </div>
       </section>
-    </>
+    </DayPage>
   );
 }

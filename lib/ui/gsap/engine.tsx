@@ -3,12 +3,13 @@
 /**
  * The GSAP motion engine (AGENTS.md §5a), shared by any look that uses it.
  *
- * - Loads GSAP, ScrollTrigger, SplitText and (if enabled) Lenis after
- *   hydration, and only when MOTION_QUERY matches: a desktop-width screen
- *   with no reduced-motion preference. None of it is in the JavaScript a
- *   phone downloads, so mobile Core Web Vitals are untouched.
- * - Tears everything down if the query stops matching (window narrowed,
- *   reduced motion switched on), and every scene reverts to the still page.
+ * - Loads GSAP, ScrollTrigger, SplitText and (desktop only) Lenis after
+ *   hydration, as separate chunks: nothing is in the page's main bundle.
+ * - Runs in `full` mode on desktop and `soft` mode on phones and tablets
+ *   (if the hotel allows it; see settings.ts). Never under reduced motion.
+ * - Restarts in the right mode if the window crosses the breakpoint, and
+ *   tears down completely (every scene reverts to the still page) if
+ *   reduced motion is switched on.
  * - Pauses Lenis whenever something locks page scroll (the menu and the
  *   booking modal set body overflow: hidden), so they scroll natively.
  * - Everything fails visible: scenes set their start states from
@@ -20,7 +21,7 @@ import { createContext, useContext, useEffect, useRef, useState, type ReactNode,
 import { usePathname } from 'next/navigation';
 import type Lenis from 'lenis';
 import { hotelConfig } from '@/hotel.config';
-import { MOTION_QUERY, resolveMotion, type MotionPatterns, type ResolvedMotion } from './settings';
+import { MOTION_QUERY, SOFT_QUERY, resolveMotion, type MotionMode, type MotionPatterns, type ResolvedMotion } from './settings';
 import './motion.css';
 
 type Gsap = typeof import('gsap').gsap;
@@ -32,19 +33,35 @@ export interface MotionEngine {
   ScrollTrigger: ScrollTriggerType;
   SplitText: SplitTextType;
   lenis: Lenis | null;
+  /** `full` on desktop, `soft` on phones and tablets. */
+  mode: MotionMode;
   settings: ResolvedMotion;
-  /** Multiply travel distances and durations by this (intensity). */
+  /** Multiply travel distances and durations by this (intensity and mode). */
   scale: number;
 }
 
-/** The hotel's resolved settings. Safe on the server. */
+/** The hotel's resolved settings for desktop. Safe on the server. */
 export const motionSettings = resolveMotion(hotelConfig.motion);
 
 const EngineContext = createContext<MotionEngine | null>(null);
 
-/** The running engine, or null (phones, reduced motion, still loading, off). */
+/** The running engine, or null (reduced motion, still loading, off). */
 export function useMotionEngine() {
   return useContext(EngineContext);
+}
+
+/** Which mode this screen should run in, or null for the still page. */
+function currentMode(): MotionMode | null {
+  if (window.matchMedia(MOTION_QUERY).matches) return 'full';
+  if (motionSettings.soft && window.matchMedia(SOFT_QUERY).matches) return 'soft';
+  return null;
+}
+
+/** True when the engine arrived after motion.css's failsafe has already
+ *  shown the intro elements: playing their entrance then would hide them
+ *  again, so scenes skip it and leave them as they are. */
+export function lateIntro() {
+  return !document.documentElement.classList.contains('motion-ready') && performance.now() > 2300;
 }
 
 export function GsapEngine({ children }: { children: ReactNode }) {
@@ -54,11 +71,11 @@ export function GsapEngine({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!motionSettings.enabled) return;
     const root = document.documentElement;
-    const mq = window.matchMedia(MOTION_QUERY);
-    let running: { lenis: Lenis | null; stop: () => void } | null = null;
+    const queries = [window.matchMedia(MOTION_QUERY), window.matchMedia(SOFT_QUERY)];
+    let running: { mode: MotionMode; stop: () => void } | null = null;
     let generation = 0;
 
-    const start = async () => {
+    const start = async (mode: MotionMode) => {
       const mine = ++generation;
       try {
         const [{ gsap }, { ScrollTrigger }, { SplitText }] = await Promise.all([
@@ -67,15 +84,20 @@ export function GsapEngine({ children }: { children: ReactNode }) {
           import('gsap/SplitText'),
         ]);
         gsap.registerPlugin(ScrollTrigger, SplitText);
+        const settings = resolveMotion(hotelConfig.motion, mode);
         let lenis: Lenis | null = null;
         let raf: ((time: number) => void) | null = null;
-        if (motionSettings.smoothScroll) {
+        if (settings.smoothScroll) {
           const { default: LenisClass } = await import('lenis');
           lenis = new LenisClass({ lerp: 0.09, smoothWheel: true, anchors: true, autoRaf: false });
           lenis.on('scroll', ScrollTrigger.update);
           raf = (time: number) => lenis?.raf(time * 1000);
           gsap.ticker.add(raf);
           gsap.ticker.lagSmoothing(0);
+        } else {
+          // Phones: the address bar showing and hiding resizes the
+          // viewport; don't re-measure every scene for it.
+          ScrollTrigger.config({ ignoreMobileResize: true });
         }
         if (mine !== generation) {
           lenis?.destroy();
@@ -96,7 +118,7 @@ export function GsapEngine({ children }: { children: ReactNode }) {
         window.addEventListener('load', refresh, { once: true });
 
         running = {
-          lenis,
+          mode,
           stop: () => {
             lock.disconnect();
             window.removeEventListener('load', refresh);
@@ -104,7 +126,8 @@ export function GsapEngine({ children }: { children: ReactNode }) {
             lenis?.destroy();
           },
         };
-        setEngine({ gsap, ScrollTrigger, SplitText, lenis, settings: motionSettings, scale: motionSettings.scale });
+        root.dataset.motion = mode;
+        setEngine({ gsap, ScrollTrigger, SplitText, lenis, mode, settings, scale: settings.scale });
       } catch {
         // Never leave intro elements hidden because a chunk failed to load.
         root.classList.add('motion-failed');
@@ -116,14 +139,19 @@ export function GsapEngine({ children }: { children: ReactNode }) {
       setEngine(null); // scenes revert on this render
       running?.stop();
       running = null;
-      root.classList.remove('motion-ready');
+      delete root.dataset.motion;
     };
 
-    const sync = () => (mq.matches ? running || start() : stop());
+    const sync = () => {
+      const mode = currentMode();
+      if (running?.mode === mode) return;
+      if (running) stop();
+      if (mode) start(mode);
+    };
     sync();
-    mq.addEventListener('change', sync);
+    queries.forEach((q) => q.addEventListener('change', sync));
     return () => {
-      mq.removeEventListener('change', sync);
+      queries.forEach((q) => q.removeEventListener('change', sync));
       stop();
     };
   }, []);
@@ -168,8 +196,11 @@ export function useScene<T extends HTMLElement>(
   }, [engine, pattern, ref]);
 }
 
-/** True when a pattern will run on desktop for this hotel, so its intro
- *  element may render with `.motion-intro`. Safe on the server. */
-export function introFor(pattern: keyof MotionPatterns) {
-  return motionSettings.enabled && motionSettings.patterns[pattern];
+/** Classes for an element that plays an entrance on load: hidden by
+ *  motion.css until the engine has set its start state, on desktop and
+ *  (when the hotel has soft mobile motion) on phones too. Empty when the
+ *  pattern won't run. Safe on the server. */
+export function introClass(pattern: keyof MotionPatterns | null) {
+  if (!motionSettings.enabled || (pattern && !motionSettings.patterns[pattern])) return '';
+  return motionSettings.soft ? ' motion-intro motion-intro-soft' : ' motion-intro';
 }

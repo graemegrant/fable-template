@@ -313,5 +313,16 @@
   },
   "glenMoment": {
     "eyebrow": "Le glen"
+  },
+  "day": {
+    "dawn": "Premières lueurs",
+    "morning": "Matin",
+    "lateMorning": "Fin de matinée",
+    "afternoon": "Après-midi",
+    "golden": "Heure dorée",
+    "evening": "Soir",
+    "night": "Nuit",
+    "midnight": "Minuit",
+    "scrollCue": "Faites défiler la journée"
   }
 }

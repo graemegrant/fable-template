@@ -4,6 +4,7 @@ import { pressMentions, IMG } from '@/lib/data';
 import { pickLocale } from '@/lib/resolveLocale';
 import type { Locale } from '@/lib/locales';
 import PageHero from '../components/PageHero';
+import DayPage from '../components/day/DayPage';
 import TeamCard from '../components/TeamCard';
 import Facilities from '../components/Facilities';
 import ReviewsBand from '../components/ReviewsBand';
@@ -14,12 +15,13 @@ import type { AboutData } from '@/lib/pages/about';
 /** About page, Cinematic look. Data comes from lib/pages/about.ts. */
 export default async function AboutView({ locale, team }: { locale: Locale } & AboutData) {
   const t = await getTranslations('about');
+  const d = await getTranslations('day');
   return (
-    <>
-      <PageHero eyebrow={t('eyebrow')} title={t('title')} subtitle={t('subtitle')} image={IMG.exterior} />
+    <DayPage light="morning" time="07:30" label={d('morning')}>
+      <PageHero light="dawn" hour={{ time: '07:30', label: d('morning') }} eyebrow={t('eyebrow')} title={t('title')} subtitle={t('subtitle')} image={IMG.exterior} />
 
       {/* 01 History: headline left, the story in two columns */}
-      <section className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-28">
+      <section className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-16 lg:py-28">
         <FadeUp>
           <SectionLabel index="01">{t('historyLabel')}</SectionLabel>
           <h2 className="mt-5 max-w-5xl font-heading text-5xl font-normal leading-none text-canvas md:text-8xl">
@@ -34,8 +36,8 @@ export default async function AboutView({ locale, team }: { locale: Locale } & A
       </section>
 
       {/* 02 Ethos, on paper */}
-      <section className="bg-canvas text-ink">
-        <FadeUp className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-28">
+      <section className="mx-2 overflow-hidden rounded-card bg-canvas text-ink lg:mx-3">
+        <FadeUp className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-16 lg:py-28">
           <SectionLabel index="02" variant="onpaper">
             {t('ethosLabel')}
           </SectionLabel>
@@ -54,7 +56,7 @@ export default async function AboutView({ locale, team }: { locale: Locale } & A
       {/* 03 Team */}
       {team.length > 0 && (
         <section className="border-t border-canvas/10">
-          <div className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-28">
+          <div className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-16 lg:py-28">
             <FadeUp className="border-b border-canvas/15 pb-8">
               <SectionLabel index="03">{t('peopleLabel')}</SectionLabel>
               <h2 className="mt-5 font-heading text-5xl font-normal leading-none text-canvas md:text-7xl">{t('peopleHeading')}</h2>
@@ -91,7 +93,7 @@ export default async function AboutView({ locale, team }: { locale: Locale } & A
 
       {/* In print */}
       {pressMentions.length > 0 && (
-        <section className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-28">
+        <section className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-16 lg:py-28">
           <FadeUp>
             <SectionLabel>{t('inPrintLabel')}</SectionLabel>
           </FadeUp>
@@ -107,6 +109,6 @@ export default async function AboutView({ locale, team }: { locale: Locale } & A
           </StaggerGrid>
         </section>
       )}
-    </>
+    </DayPage>
   );
 }

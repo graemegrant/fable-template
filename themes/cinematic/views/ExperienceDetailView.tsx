@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import { hotelConfig } from '@/hotel.config';
 import type { Locale } from '@/lib/locales';
 import PageHero from '../components/PageHero';
+import DayPage from '../components/day/DayPage';
 import ExperienceCard from '../components/ExperienceCard';
 import SectionLabel from '../components/SectionLabel';
 import { FadeUp, StaggerGrid, StaggerItem } from '../components/Motion';
@@ -11,14 +12,15 @@ import type { ExperienceDetailData } from '@/lib/pages/experienceDetail';
 /** ExperienceDetail page, Cinematic look. Data comes from lib/pages/experienceDetail.ts. */
 export default async function ExperienceDetailView({ exp, related }: { locale: Locale } & ExperienceDetailData) {
   const t = await getTranslations('experienceDetail');
+  const d = await getTranslations('day');
   const facts = [
     [t('duration'), exp.duration],
     [t('category'), exp.category],
     ...(exp.seasons && exp.seasons.length > 0 ? [[t('season'), exp.seasons.join(', ')]] : []),
   ];
   return (
-    <>
-      <PageHero
+    <DayPage light="golden" time="14:30" label={d('afternoon')}>
+      <PageHero light="day" hour={{ time: '14:30', label: d('afternoon') }}
         eyebrow={`${exp.category} / ${hotelConfig.location.locality}`}
         title={exp.name}
         subtitle={`${exp.duration} / ${exp.price}`}
@@ -26,7 +28,7 @@ export default async function ExperienceDetailView({ exp, related }: { locale: L
         imageAlt={exp.imageAlt}
       />
 
-      <section className="mx-auto max-w-screen-2xl px-5 py-16 lg:px-8 lg:py-20">
+      <section className="mx-auto max-w-screen-2xl px-5 py-16 lg:px-16 lg:py-20">
         <div className="grid gap-14 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <FadeUp>
@@ -50,7 +52,7 @@ export default async function ExperienceDetailView({ exp, related }: { locale: L
           </div>
 
           <aside className="lg:col-span-4 lg:col-start-9">
-            <div className="border border-canvas/20 lg:sticky lg:top-24">
+            <div className="glass overflow-hidden rounded-card lg:sticky lg:top-28">
               <div className="border-b border-canvas/15 p-6">
                 <p className="font-mono text-xs uppercase tracking-18 text-canvas/70">{t('pricing')}</p>
                 <p className="mt-2 font-heading text-4xl font-normal leading-none text-canvas">{exp.price}</p>
@@ -65,7 +67,7 @@ export default async function ExperienceDetailView({ exp, related }: { locale: L
               </dl>
               <Link
                 href="/contact"
-                className="flex min-h-14 w-full items-center justify-between bg-accentfill px-6 font-mono text-sm uppercase tracking-18 text-onaccent transition-colors hover:bg-canvas"
+                className="flex min-h-14 w-full items-center justify-between rounded-ctrl bg-accentfill px-7 font-mono text-sm uppercase tracking-18 text-onaccent transition-colors hover:bg-canvas"
               >
                 {t('arrangeThis')} <span aria-hidden>→</span>
               </Link>
@@ -76,7 +78,7 @@ export default async function ExperienceDetailView({ exp, related }: { locale: L
       </section>
 
       <section className="bg-grid border-t border-canvas/10">
-        <div className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-24">
+        <div className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-16 lg:py-24">
           <FadeUp className="border-b border-canvas/15 pb-8">
             <SectionLabel>{t('whileYoureHere')}</SectionLabel>
             <h2 className="mt-5 font-heading text-5xl font-normal leading-none text-canvas md:text-7xl">{t('moreFromEstate')}</h2>
@@ -90,6 +92,6 @@ export default async function ExperienceDetailView({ exp, related }: { locale: L
           </StaggerGrid>
         </div>
       </section>
-    </>
+    </DayPage>
   );
 }

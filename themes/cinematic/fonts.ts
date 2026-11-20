@@ -1,9 +1,8 @@
 import localFont from 'next/font/local';
 
-/* Cinematic look fonts: Bodoni Moda for display (a high-contrast didone
-   with an optical-size axis, so it stays crisp from labels up to
-   screen-filling titles; the italic carries emphasis), and Instrument Sans
-   for body text, labels and figures. Latin, as variable woff2 files kept in
+/* Cinematic look fonts: Instrument Serif for display (an airy, modern
+   serif, light and tall, whose italic carries emphasis), and its partner
+   Instrument Sans for body text, labels and figures. Latin, as variable woff2 files kept in
    ./fonts (SIL Open Font License, see the *-OFL.txt files beside them).
    Bundled rather than fetched from Google at build time, so a slow Google
    Fonts response can't fail a deploy.
@@ -13,13 +12,13 @@ import localFont from 'next/font/local';
    set as tracked sans capitals instead. */
 export const fontHeading = localFont({
   src: [
-    { path: './fonts/bodoni-moda-normal.woff2', weight: '400 900', style: 'normal' },
-    { path: './fonts/bodoni-moda-italic.woff2', weight: '400 900', style: 'italic' },
+    { path: './fonts/instrument-serif-normal.woff2', weight: '400', style: 'normal' },
+    { path: './fonts/instrument-serif-italic.woff2', weight: '400', style: 'italic' },
   ],
   variable: '--font-heading',
   display: 'swap',
   adjustFontFallback: 'Times New Roman',
-  fallback: ['Didot', 'Georgia', 'serif'],
+  fallback: ['Georgia', 'serif'],
 });
 
 export const fontBody = localFont({

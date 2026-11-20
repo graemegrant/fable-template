@@ -3,9 +3,9 @@ import { facilities } from '@/lib/data';
 import { pickLocale } from '@/lib/resolveLocale';
 import type { Locale } from '@/lib/locales';
 import SectionLabel from './SectionLabel';
-import { FadeUp, StaggerGrid, StaggerItem } from './Motion';
+import { Reveal, SplitHeading } from '@/lib/ui/gsap/patterns';
 
-/** Hotel facilities at a glance as a numbered index, from lib/data.ts
+/** Hotel facilities at a glance as numbered glass tiles, from lib/data.ts
  *  `facilities`: keep to things that are actually true for the client.
  *  Renders nothing when the list is empty. Used on the homepage and the
  *  about page. */
@@ -16,25 +16,23 @@ export default async function Facilities() {
   return (
     <section className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-28">
       <div className="grid gap-10 lg:grid-cols-12">
-        <FadeUp className="lg:col-span-4">
+        <div className="lg:col-span-4">
           <SectionLabel>{t('facilitiesLabel')}</SectionLabel>
-          <h2 className="mt-5 font-heading text-5xl font-normal leading-none text-canvas md:text-6xl">
+          <SplitHeading className="mt-5 font-heading text-5xl font-normal leading-none text-canvas md:text-6xl">
             {t('facilitiesHeading')}
-          </h2>
-        </FadeUp>
-        <StaggerGrid className="grid border-t border-canvas/15 sm:grid-cols-2 lg:col-span-8">
+          </SplitHeading>
+        </div>
+        <Reveal className="grid gap-3 sm:grid-cols-2 lg:col-span-8" stagger={0.06}>
           {facilities.map((f, i) => (
-            <StaggerItem key={f.title.en} className="h-full">
-              <div className={`flex h-full gap-5 border-b border-canvas/15 py-6 sm:pr-6 ${i % 2 === 1 ? 'sm:border-l sm:pl-6' : ''}`}>
-                <span className="font-mono text-xs text-accentondark">{String(i + 1).padStart(2, '0')}</span>
-                <div>
-                  <h3 className="font-heading text-lg font-bold uppercase leading-tight text-canvas">{pickLocale(f.title, locale)}</h3>
-                  <p className="mt-2 font-body text-sm leading-relaxed text-canvas/80">{pickLocale(f.detail, locale)}</p>
-                </div>
+            <div key={f.title.en} className="glass flex h-full gap-5 rounded-card p-6">
+              <span className="font-mono text-xs text-accentondark">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3 className="font-heading text-xl font-normal leading-tight text-canvas">{pickLocale(f.title, locale)}</h3>
+                <p className="mt-2 font-body text-sm leading-relaxed text-canvas/80">{pickLocale(f.detail, locale)}</p>
               </div>
-            </StaggerItem>
+            </div>
           ))}
-        </StaggerGrid>
+        </Reveal>
       </div>
     </section>
   );

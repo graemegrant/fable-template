@@ -53,7 +53,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === 'sending'}
-        className="inline-flex min-h-14 items-center gap-6 bg-accentfill px-6 font-mono text-sm uppercase tracking-18 text-onaccent transition-colors hover:bg-canvas disabled:opacity-60"
+        className="inline-flex min-h-14 items-center gap-6 rounded-ctrl bg-accentfill px-7 font-mono text-sm uppercase tracking-18 text-onaccent transition-colors hover:bg-canvas disabled:opacity-60"
       >
         {status === 'sending' ? t('sending') : t('sendEnquiry')} <span aria-hidden>→</span>
       </button>

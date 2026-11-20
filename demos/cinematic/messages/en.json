@@ -1,0 +1,121 @@
+{
+  "footer": {
+    "seasonalLetterBody": "What the lake is doing, what the kitchen is cooking, and first word on offers. Four letters a year.",
+    "subscribed": "Thank you, you’re on the list. Letters arrive with the seasons, never more often."
+  },
+  "home": {
+    "houseLabel": "The house",
+    "houseHeading": "Nine rooms. One lake. A wall of glass between them.",
+    "houseIntro": "Wythe Glass sits on the quiet western shore of Wythe Water, where the fells come down to meet the lake. A long, low pavilion of glass, larch and stone, built so that every room looks at the water, and the water, every hour, looks different.",
+    "exteriorAlt": "The pavilion among the trees",
+    "allRooms": "All nine rooms →",
+    "experiencesLabel": "Out on the water",
+    "experiencesHeading": "Lake, fell and fire",
+    "diningLabel": "The table",
+    "diningQuote": "The menu is the view: trout from the lake, lamb from the next valley, and whatever the woods give us this week.",
+    "diningQuoteAttribution": "Tom Birkett, Head Chef",
+    "diningCta": "Dining by the glass",
+    "locationHeading": "Ten minutes from Buttermere. A long way from anywhere.",
+    "locationIntro": "On the quiet western side of the Lake District, off the A66 beyond Keswick and down a lane that ends at the water. The nearest station is Workington, half an hour away, and we will collect you. The last mile is single track, birch trees and the first glimpse of the lake.",
+    "locationCta": "Directions & the area",
+    "glenAlt": "Buttermere and its fells",
+    "journalHeading": "Notes from the lake",
+    "finalHeadingLine1": "The lake will still be here.",
+    "finalHeadingLine2": "Your dates may not."
+  },
+  "day": {
+    "dawnLine": "Mist on the water. The house is still asleep.",
+    "roomsLine": "Every room faces the water. Scroll, and the morning moves from one to the next.",
+    "afternoonLine": "The long part of the day, spent on the lake, the fells or the road over Honister.",
+    "goldenLine": "The light goes long and low across the water.",
+    "nightLine": "By the stove, in our guests’ own words."
+  },
+  "about": {
+    "title": "A house made of light",
+    "subtitle": "Opened in 2021 on a shore where no one had built before.",
+    "historyLabel": "The story",
+    "historyHeading": "An old boathouse, a field and a very good view",
+    "historyP1": "For a hundred years there was nothing on this shore but a stone boathouse and a field of sheep. Imogen Hale grew up two valleys over and rowed past it as a child, and never stopped thinking about what the view would look like from a bed.",
+    "historyP2": "She trained as an architect, came home, and spent six years designing a building that would barely be there: a long, low pavilion of glass and larch that sits under the trees and lets the lake do the talking. It opened with nine rooms in 2021.",
+    "historyP3": "The old boathouse is still there, restored, with a room in its roof. The sheep moved one field over.",
+    "ethosLabel": "The idea",
+    "ethosQuote": "Build less, frame more. The lake is the best room in the house.",
+    "ethosAttribution": "Imogen Hale, 2021",
+    "peopleHeading": "Who looks after you",
+    "sustainabilityHeading": "Light on the land",
+    "sustainabilityP1": "The house is heated by a ground-source pump and lit by renewable electricity. The larch came from Cumbrian woods, the stone from the fell behind us, and the kitchen buys from farms within twenty miles wherever it can.",
+    "sustainabilityP2": "No single-use plastics, refillable toiletries, and a rewilded shoreline where the reed beds are coming back. We publish what we have done each year, not just what we plan to do.",
+    "gardenAlt": "The shore at Buttermere"
+  },
+  "contact": {
+    "title": "Talk to us",
+    "subtitle": "A real person answers, from first light to last. Usually Owen."
+  },
+  "dining": {
+    "title": "Dinner by the glass",
+    "subtitle": "One room, twenty-four covers, and the lake going dark outside the window.",
+    "philosophyHeading": "Cooked from the view.",
+    "philosophyBody": "The menu changes with the weather and the week: trout from the lake, Herdwick lamb from a fell farm in the next valley, mushrooms from the woods and vegetables from growers around Cockermouth. Breakfast is served by the same window, with the mist still on the water.",
+    "tastingDishAlt": "A dish from the dinner menu",
+    "menusIntro": "Sample menus. The kitchen changes them with the seasons.",
+    "privateDiningRoomAlt": "The private dining room",
+    "privateDiningLabel": "Private dining",
+    "libraryTableHeading": "The Boathouse Table",
+    "libraryTableBody": "A single long table in the old stone boathouse, for up to twelve, with the lake lapping a few feet away. For birthdays, gatherings and long dinners that need a door that closes. The kitchen will build a menu around you.",
+    "chefBioSuffix": " His menu, short and seasonal, has made the dining room a reason to visit in its own right.",
+    "chefQuote": "When the view is this good, the plate should be quiet."
+  },
+  "experiencesPage": {
+    "title": "Lake, fell and fire",
+    "subtitle": "Boats on the jetty, a sauna on the shore and the fells from the door.",
+    "intro": "Row out at first light, walk the tops with Ruth, or sit in the sauna and watch the weather come over the fell. Tell us what you would like to do and we will arrange the rest."
+  },
+  "experienceDetail": {
+    "moreFromEstate": "More from the lake"
+  },
+  "giftVouchers": {
+    "title": "Give someone the lake",
+    "subtitle": "Posted in a proper envelope, or emailed within the hour.",
+    "intro": "All vouchers are valid for eighteen months, can be spent on anything we offer, and can be passed on to someone else. Order by phone, email or the enquiry form, and we will arrange payment and delivery the same day."
+  },
+  "journalPage": {
+    "title": "Notes from the lake",
+    "subtitle": "The weather, the walks and the kitchen, written by the people who run the house."
+  },
+  "location": {
+    "title": "At the end of the lane",
+    "subtitleSuffix": "· in the quiet western Lakes, ten minutes from Buttermere.",
+    "fourWaysIn": "Four ways to reach us",
+    "mapHeading": "On the shore of Wythe Water",
+    "postcodeSuffix": "· then follow the lane until it meets the lake.",
+    "beyondEstateLabel": "Around the lakes",
+    "worthLeavingFireFor": "Worth leaving the lake for"
+  },
+  "roomsPage": {
+    "subtitle": "Nine rooms, from a glass hide in the trees to a suite with water on three sides.",
+    "intro": "Every room comes with breakfast, the sauna, a boat on the lake and a view you will not want to leave. The Pavilion Suite and Lakeside add the widest glass; The Hide adds the particular pleasure of a small room among the trees."
+  },
+  "weddings": {
+    "title": "One wedding. The whole lake.",
+    "subtitle": "We host a handful of small weddings a year, only ever one at a time.",
+    "exclusiveUseP1": "When you marry at Wythe Glass, the house is yours: all nine rooms, the dining room, the jetty and the boathouse. Your guests wake up by the water. Imogen and the team look after everything, from the registrar to the last boat back.",
+    "exclusiveUseP2": "Exclusive use from £14,000, including all rooms. Licensed for ceremonies on the jetty and in the dining room.",
+    "weddingTableAlt": "A wedding table set for dinner",
+    "settingsHeading": "Three places to say it",
+    "southLawnName": "The Jetty",
+    "southLawnCapacity": "Up to 40 guests",
+    "southLawnDetail": "Vows over the water, with the fells behind you. If the weather turns, the dining room is twenty steps away.",
+    "diningRoomName": "The Dining Room",
+    "diningRoomCapacity": "Up to 40 guests",
+    "diningRoomDetail": "Dinner by the glass as the lake goes dark, then the tables cleared for dancing.",
+    "libraryName": "The Boathouse",
+    "libraryCapacity": "Up to 12 guests",
+    "libraryDetail": "For the smallest weddings and elopements: a ceremony in the old boathouse, then dinner at one long table.",
+    "beginHeadingLine1": "Come and see the lake.",
+    "beginHeadingLine2": "Stay for supper.",
+    "beginBody": "Wedding viewings run most weekdays and finish with a walk to the jetty. Dates for the next two years open each January."
+  },
+  "shared": {
+    "bookDirectBody": "The best rate, the best room in your category, and an extra hour in the sauna when you book direct."
+  }
+}

@@ -4,16 +4,18 @@ import { IMG, policies } from '@/lib/data';
 import { pickLocale } from '@/lib/resolveLocale';
 import type { Locale } from '@/lib/locales';
 import PageHero from '../components/PageHero';
+import DayPage from '../components/day/DayPage';
 import { FadeUp, StaggerGrid, StaggerItem } from '../components/Motion';
 
 /** Policies page, Cinematic look. Data comes from lib/pages/policies.ts. */
 export default async function PoliciesView({ locale }: { locale: Locale }) {
   const t = await getTranslations('policies');
+  const d = await getTranslations('day');
   return (
-    <>
-      <PageHero eyebrow={t('eyebrow')} title={t('title')} subtitle={t('subtitle')} image={IMG.room2} />
+    <DayPage light="morning" time="09:00" label={d('morning')}>
+      <PageHero light="day" hour={{ time: '09:00', label: d('morning') }} eyebrow={t('eyebrow')} title={t('title')} subtitle={t('subtitle')} image={IMG.room2} />
 
-      <section className="mx-auto max-w-screen-2xl px-5 py-16 lg:px-8 lg:py-24">
+      <section className="mx-auto max-w-screen-2xl px-5 py-16 lg:px-16 lg:py-24">
         <FadeUp>
           <p className="max-w-3xl border-l-2 border-accentondark pl-6 font-body text-xl leading-snug text-canvas">
             {t('intro')}{' '}
@@ -36,6 +38,6 @@ export default async function PoliciesView({ locale }: { locale: Locale }) {
           ))}
         </StaggerGrid>
       </section>
-    </>
+    </DayPage>
   );
 }

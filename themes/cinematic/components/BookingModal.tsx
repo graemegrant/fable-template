@@ -1,8 +1,9 @@
 'use client';
 
 /**
- * Cinematic booking panel: slides in from the right on larger screens and
- * fills the screen on phones, with underline fields and mono labels.
+ * Cinematic booking panel: a frosted-glass sheet that slides in from the
+ * right, inset and rounded, over a blurred page, with underline fields,
+ * mono labels and a pill CTA.
  * Behaviour (context, BookButton, form state, hand-off to the booking
  * engine) is shared in lib/ui/booking.tsx. BookButton and useBooking are
  * re-exported so components import booking from one place.
@@ -31,7 +32,7 @@ function BookingPanel({ onClose, roomHint }: { onClose: () => void; roomHint?: s
   return (
     <motion.div
       data-lenis-prevent
-      className="fixed inset-0 z-60 flex justify-end bg-primarydeep/70 backdrop-blur-sm"
+      className="fixed inset-0 z-60 flex justify-end bg-primarydeep/50 p-2 backdrop-blur-md sm:p-3"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -42,10 +43,10 @@ function BookingPanel({ onClose, roomHint }: { onClose: () => void; roomHint?: s
       aria-label={t('bookAStay')}
     >
       <motion.div
-        className="flex size-full max-w-lg flex-col overflow-y-auto border-l border-canvas/15 bg-primary"
-        initial={{ x: '100%' }}
+        className="flex size-full max-w-lg flex-col overflow-y-auto rounded-card border border-canvas/15 bg-primary/80 shadow-2xl backdrop-blur-2xl backdrop-saturate-150"
+        initial={{ x: '110%' }}
         animate={{ x: 0 }}
-        exit={{ x: '100%' }}
+        exit={{ x: '110%' }}
         transition={{ duration: 0.5, ease: EASE }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -55,7 +56,7 @@ function BookingPanel({ onClose, roomHint }: { onClose: () => void; roomHint?: s
             type="button"
             onClick={onClose}
             aria-label={t('close')}
-            className="flex size-16 items-center justify-center border-l border-canvas/10 font-mono text-xl text-canvas transition-colors hover:bg-canvas hover:text-ink"
+            className="mr-2 flex size-12 items-center justify-center rounded-ctrl border border-canvas/15 font-mono text-xl text-canvas transition-colors hover:bg-canvas hover:text-ink"
           >
             ×
           </button>
@@ -102,7 +103,7 @@ function BookingPanel({ onClose, roomHint }: { onClose: () => void; roomHint?: s
             </div>
             <button
               type="submit"
-              className="flex min-h-14 w-full items-center justify-between bg-accentfill px-6 font-mono text-sm uppercase tracking-18 text-onaccent transition-colors hover:bg-canvas"
+              className="flex min-h-14 w-full items-center justify-between rounded-ctrl bg-accentfill px-7 font-mono text-sm uppercase tracking-18 text-onaccent transition-colors hover:bg-canvas"
             >
               {tCommon('checkAvailability')}
               <span aria-hidden>→</span>

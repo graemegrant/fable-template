@@ -9,24 +9,26 @@ import { pickLocale } from '@/lib/resolveLocale';
 import type { Locale } from '@/lib/locales';
 import { imgSrc } from '@/lib/image';
 import { formatCoordinates } from '@/lib/ui/geo';
-import { introFor, motionSettings, useScene } from '@/lib/ui/gsap/engine';
+import { introClass, lateIntro, useScene } from '@/lib/ui/gsap/engine';
 import { BookButton } from './BookingModal';
 
 /**
  * Cinematic homepage hero, the look's first signature moment.
  *
- * Still (phones, tablets, reduced motion, motion off): a full-bleed
- * photograph under a lens vignette, the hotel's name set huge in the
- * didone, the tagline in italic, the booking CTA and the trust strip along
- * the foot, all visible from the first paint.
+ * Still (reduced motion, motion off): the photograph in a rounded frame
+ * inset from the screen's edge, under a lens vignette, the hotel's name
+ * set huge in the didone, the tagline in italic, the booking CTA, a glass
+ * book-direct panel and the trust strip in a glass band along the foot,
+ * all visible from the first paint.
  *
- * On desktop with the motion layer:
- * - On load the photograph settles out of a slow zoom and the name rises
- *   letter by letter (`splitHeadings`).
- * - Scrolling holds the hero while the photograph closes into a framed
- *   aperture, the name's letters draw apart in depth, and the tagline
- *   resolves beneath the frame (`heroAperture`, pinned). Then the page
- *   moves on.
+ * With the motion layer:
+ * - On load the photograph begins a slow drift and the name rises letter
+ *   by letter (`splitHeadings`), on every screen size.
+ * - Desktop: scrolling holds the hero while the photograph closes into a
+ *   framed aperture, the name's letters draw apart in depth, and the
+ *   tagline resolves beneath the frame (`heroAperture`, pinned).
+ * - Phones and tablets (soft): no pin. As the hero scrolls away the frame
+ *   eases back, the photograph deepens and the name lifts and fades.
  *
  * The hero's CTA is never hidden or delayed; the navbar's "Check
  * availability" stays fixed above the whole scene. `children` is the trust
@@ -39,9 +41,9 @@ export default function CinematicHero({ image, children }: { image: unknown; chi
   const { lat, lng } = hotelConfig.location;
   const ref = useRef<HTMLElement>(null);
   const tagline = pickLocale(hotelConfig.tagline, locale);
-  const introClass = motionSettings.enabled ? ' motion-intro' : '';
+  const fadeIn = introClass(null);
 
-  useScene(ref, null, ({ gsap, SplitText, scale, settings }, el) => {
+  useScene(ref, null, ({ gsap, SplitText, scale, settings, mode }, el) => {
     const { patterns } = settings;
     const q = (s: string) => el.querySelector<HTMLElement>(`[data-hero="${s}"]`);
     const [title, aperture, photo, drift, fore, caption, cue, dateline] = [
@@ -53,21 +55,37 @@ export default function CinematicHero({ image, children }: { image: unknown; chi
 
     // Load: the photograph begins a slow drift (from where it was painted, so
     // nothing jumps), the dateline and cue fade up, the name rises.
+    // If the engine arrived after motion.css had already shown everything,
+    // the entrance is jumped to its end: replaying it would hide the title.
+    const late = lateIntro();
     const intro = gsap.timeline({ defaults: { ease: 'expo.out' } });
-    if (drift) gsap.to(drift, { scale: 1 + 0.06 * scale, duration: 16, ease: 'sine.out' });
+    if (drift) gsap.to(drift, { scale: 1 + 0.08 * scale, duration: 16, ease: 'sine.out' });
     if (dateline) intro.from(dateline, { opacity: 0, y: 12, duration: 1.2 }, 0.5);
     if (cue) intro.from(cue, { opacity: 0, duration: 1 }, 1.4);
 
     let letters: HTMLElement[] = [];
     if (patterns.splitHeadings || patterns.heroAperture) {
-      const split = SplitText.create(title, { type: 'chars', charsClass: 'split-char', mask: 'chars', aria: 'auto' });
+      // Words keep their letters together, so the name wraps between words.
+      const split = SplitText.create(title, { type: 'words,chars', charsClass: 'split-char', mask: 'chars', aria: 'auto' });
       letters = split.masks as HTMLElement[];
       intro.from(split.chars, { yPercent: 110, duration: 1.4, stagger: 0.045 }, 0.2);
     } else {
       intro.from(title, { opacity: 0, duration: 1.2 }, 0.2);
     }
+    if (late) intro.progress(1);
 
     if (!patterns.heroAperture) return;
+
+    // Phones and tablets: an unpinned, scroll-tied farewell.
+    if (mode === 'soft') {
+      gsap
+        .timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: el, start: 'top top', end: 'bottom top', scrub: 0.4 } })
+        .to(aperture, { scale: 0.9, yPercent: 8 }, 0)
+        .to(photo, { scale: 1.15 }, 0)
+        .to(title, { yPercent: -45, opacity: 0 }, 0)
+        .to([fore, dateline].filter(Boolean), { opacity: 0, y: -20 }, 0);
+      return;
+    }
 
     // Scroll: hold the hero, close the aperture, draw the name apart.
     const mid = (letters.length - 1) / 2;
@@ -76,7 +94,9 @@ export default function CinematicHero({ image, children }: { image: unknown; chi
       defaults: { ease: 'none' },
       scrollTrigger: { trigger: el, start: 'top top', end: `+=${Math.round(80 * scale)}%`, pin: true, scrub: 0.9 },
     });
-    tl.to(aperture, { scale: 0.46, ease: 'power2.inOut' }, 0)
+    // The corners are counter-scaled so the frame keeps its rounding as it
+    // shrinks.
+    tl.to(aperture, { scale: 0.46, borderRadius: 64, ease: 'power2.inOut' }, 0)
       .to(photo, { scale: 1.28, ease: 'power1.inOut' }, 0)
       // House lights up: the shade that kept the title legible lifts off the framed photograph.
       .to(shades, { opacity: 0.15, ease: 'power1.in' }, 0)
@@ -87,9 +107,10 @@ export default function CinematicHero({ image, children }: { image: unknown; chi
   });
 
   return (
-    <section ref={ref} className="relative flex min-h-85vh flex-col overflow-hidden bg-primarydeep lg:h-svh">
-      {/* The photograph, in a frame the scroll scene closes into an aperture. */}
-      <div data-hero="aperture" className="absolute inset-0 origin-center overflow-hidden rounded-img">
+    <section ref={ref} className="relative flex min-h-85vh flex-col overflow-hidden lg:h-svh">
+      {/* The photograph, in a rounded frame inset from the screen's edge,
+          which the scroll scene closes into an aperture. */}
+      <div data-hero="aperture" className="absolute inset-2 origin-center overflow-hidden rounded-card bg-primarydeep lg:inset-3">
         <div data-hero="photo" className="absolute inset-0">
           <div data-hero="drift" className="absolute inset-0">
           <Image
@@ -111,7 +132,7 @@ export default function CinematicHero({ image, children }: { image: unknown; chi
       {/* Dateline under the navbar. */}
       <p
         data-hero="dateline"
-        className={`relative mx-auto flex flex-wrap justify-center gap-x-6 gap-y-1 px-5 pt-28 font-mono text-xs uppercase tracking-25 text-canvas/85${introClass}`}
+        className={`glass-deep relative mx-auto mt-24 flex flex-wrap justify-center gap-x-6 gap-y-1 rounded-ctrl px-5 py-2 font-mono text-xs uppercase tracking-25 text-canvas/85 lg:mt-28${fadeIn}`}
       >
         <span className="text-accentondark">{pickLocale(hotelConfig.seo.descriptor, locale)}</span>
         <span>{pickLocale(hotelConfig.seo.locationLabel, locale)}</span>
@@ -122,7 +143,7 @@ export default function CinematicHero({ image, children }: { image: unknown; chi
       <div className="relative flex flex-1 flex-col items-center justify-center px-5 py-10 text-center">
         <h1
           data-hero="title"
-          className={`font-heading text-mega font-normal tracking-tight text-canvas${introFor('splitHeadings') ? ' motion-intro' : ''}`}
+          className={`font-heading text-mega font-normal tracking-tight text-canvas${introClass('splitHeadings')}`}
         >
           {hotelConfig.name}
         </h1>
@@ -134,12 +155,12 @@ export default function CinematicHero({ image, children }: { image: unknown; chi
       </div>
 
       {/* Foot: one primary CTA, a quieter secondary, the book-direct reason. */}
-      <div data-hero="foot" className="relative mx-auto grid w-full max-w-screen-2xl items-end gap-6 px-5 pb-8 lg:grid-cols-3 lg:px-8">
+      <div data-hero="foot" className="relative mx-auto grid w-full max-w-screen-2xl items-end gap-6 px-6 pb-6 lg:grid-cols-3 lg:px-10">
         <div className="flex flex-col gap-3 sm:flex-row">
           <BookButton className="inline-flex min-h-14 items-center justify-center gap-4 whitespace-nowrap rounded-ctrl bg-accentfill px-7 font-mono text-sm uppercase tracking-18 text-onaccent transition-colors hover:bg-canvas hover:text-primary" />
           <Link
             href="/rooms"
-            className="inline-flex min-h-14 items-center justify-center gap-4 whitespace-nowrap rounded-ctrl border border-canvas/40 px-7 font-mono text-sm uppercase tracking-18 text-canvas transition-colors hover:border-canvas hover:bg-canvas/10"
+            className="glass inline-flex min-h-14 items-center justify-center gap-4 whitespace-nowrap rounded-ctrl px-7 font-mono text-sm uppercase tracking-18 text-canvas transition-colors hover:bg-canvas/20"
           >
             {t('viewTheRooms')}
           </Link>
@@ -147,7 +168,7 @@ export default function CinematicHero({ image, children }: { image: unknown; chi
         <span data-hero="cue" aria-hidden className="hidden justify-center lg:flex">
           <span className="h-14 w-px bg-gradient-to-b from-transparent to-canvas/60" />
         </span>
-        <div className="hidden justify-self-end border-l border-accentondark pl-5 lg:block">
+        <div className="glass-gold hidden max-w-sm justify-self-end rounded-card p-5 lg:block">
           <p className="font-mono text-xs uppercase tracking-18 text-accentondark">{tShared('bookDirectLabel')}</p>
           <p className="mt-2 max-w-xs font-body text-sm leading-relaxed text-canvas/85">
             {pickLocale(hotelConfig.directBookingPerk ?? hotelConfig.trustItems[0], locale)}
@@ -168,7 +189,7 @@ export default function CinematicHero({ image, children }: { image: unknown; chi
       )}
 
       {children && (
-        <div data-hero="foot" className="relative">
+        <div data-hero="foot" className="relative px-4 pb-4 lg:px-6 lg:pb-6">
           {children}
         </div>
       )}

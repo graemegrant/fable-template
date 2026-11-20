@@ -4,30 +4,39 @@ import { Link } from '@/i18n/navigation';
 import { hotelConfig } from '@/hotel.config';
 import { IMG } from '@/lib/data';
 import type { Locale } from '@/lib/locales';
-import PageHero from '../components/PageHero';
+import DayPage from '../components/day/DayPage';
+import Candlelight from '../components/day/Candlelight';
+import { HourMark } from '../components/day/DayChapter';
+import { SplitHeading } from '@/lib/ui/gsap/patterns';
 import SectionLabel from '../components/SectionLabel';
 import { FadeUp, StaggerGrid, StaggerItem } from '../components/Motion';
 import type { DiningData } from '@/lib/pages/dining';
 
 const blockButton =
-  'inline-flex min-h-14 items-center justify-between gap-6 px-6 font-mono text-sm uppercase tracking-18 transition-colors';
+  'inline-flex min-h-14 items-center justify-between gap-6 rounded-ctrl px-7 font-mono text-sm uppercase tracking-18 transition-colors';
 
 /** Dining page, Cinematic look. Data comes from lib/pages/dining.ts. The menus
  *  are set on paper like a printed carte. */
 export default async function DiningView({ chef, resolvedMenus }: { locale: Locale } & DiningData) {
   const t = await getTranslations('dining');
+  const d = await getTranslations('day');
   return (
-    <>
-      <PageHero
-        eyebrow={`${t('diningRoomLabel')} / ${hotelConfig.location.locality}`}
-        title={t('title')}
-        subtitle={t('subtitle')}
-        image={IMG.dining1}
-        tall
-      />
+    <DayPage light="evening" time="19:30" label={d('evening')}>
+      {/* Signature moment: the table by candlelight, the glow following the
+          hand (Candlelight), the title set over it. */}
+      <Candlelight image={IMG.dining1}>
+        <div className="mx-auto max-w-screen-2xl px-5 pb-16 pt-40 lg:px-16 lg:pb-24">
+          <HourMark time="19:30" label={d('evening')} />
+          <SectionLabel className="mt-10">{`${t('diningRoomLabel')} / ${hotelConfig.location.locality}`}</SectionLabel>
+          <SplitHeading as="h1" onLoad delay={0.15} className="mt-6 max-w-5xl font-heading text-6xl font-normal leading-none tracking-tight text-canvas md:text-8xl">
+            {t('title')}
+          </SplitHeading>
+          <p className="glass-deep mt-8 max-w-2xl rounded-card px-5 py-4 font-body text-lg leading-relaxed text-canvas/90">{t('subtitle')}</p>
+        </div>
+      </Candlelight>
 
       {/* 01 Philosophy */}
-      <section className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-28">
+      <section className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-16 lg:py-28">
         <div className="grid gap-12 lg:grid-cols-12">
           <FadeUp className="lg:col-span-6">
             <SectionLabel index="01">{t('philosophyLabel')}</SectionLabel>
@@ -38,7 +47,7 @@ export default async function DiningView({ chef, resolvedMenus }: { locale: Loca
           </FadeUp>
           <FadeUp delay={0.15} className="lg:col-span-5 lg:col-start-8">
             <figure>
-              <div className="relative aspect-portrait overflow-hidden bg-canvas/5">
+              <div className="relative aspect-portrait overflow-hidden rounded-img bg-canvas/5">
                 <Image src={IMG.food1} alt={t('tastingDishAlt')} fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover" />
               </div>
               <figcaption className="mt-3 font-mono text-xs uppercase tracking-18 text-canvas/70">Fig. 01 / {t('tastingDishAlt')}</figcaption>
@@ -48,8 +57,8 @@ export default async function DiningView({ chef, resolvedMenus }: { locale: Loca
       </section>
 
       {/* 02 Menus, printed on paper */}
-      <section className="bg-canvas text-ink">
-        <div className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-28">
+      <section className="mx-2 overflow-hidden rounded-card bg-canvas text-ink lg:mx-3">
+        <div className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-16 lg:py-28">
           <FadeUp className="grid gap-6 border-b border-ink pb-8 lg:grid-cols-12">
             <div className="lg:col-span-7">
               <SectionLabel index="02" variant="onpaper">
@@ -101,10 +110,10 @@ export default async function DiningView({ chef, resolvedMenus }: { locale: Loca
 
       {/* 04 The chef */}
       {chef && (
-        <section className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-28">
+        <section className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-16 lg:py-28">
           <div className="grid items-end gap-12 lg:grid-cols-12">
             <FadeUp className="lg:col-span-4">
-              <div className="relative aspect-tall overflow-hidden bg-canvas/5">
+              <div className="relative aspect-tall overflow-hidden rounded-img bg-canvas/5">
                 <Image src={String(chef.headshot)} alt={chef.name} fill sizes="(min-width: 1024px) 33vw, 100vw" className="object-cover grayscale" />
               </div>
             </FadeUp>
@@ -125,6 +134,6 @@ export default async function DiningView({ chef, resolvedMenus }: { locale: Loca
           </div>
         </section>
       )}
-    </>
+    </DayPage>
   );
 }

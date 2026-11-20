@@ -6,6 +6,7 @@ import { voucherTypes, IMG } from '@/lib/data';
 import { pickLocale } from '@/lib/resolveLocale';
 import type { Locale } from '@/lib/locales';
 import PageHero from '../components/PageHero';
+import DayPage from '../components/day/DayPage';
 import SectionLabel from '../components/SectionLabel';
 import { FadeUp, StaggerGrid, StaggerItem } from '../components/Motion';
 
@@ -13,11 +14,12 @@ import { FadeUp, StaggerGrid, StaggerItem } from '../components/Motion';
  *  Vouchers read as tickets: a photo, the price in display type, a block button. */
 export default async function GiftVouchersView({ locale }: { locale: Locale }) {
   const t = await getTranslations('giftVouchers');
+  const d = await getTranslations('day');
   return (
-    <>
-      <PageHero eyebrow={t('eyebrow')} title={t('title')} subtitle={t('subtitle')} image={IMG.loch} />
+    <DayPage light="evening" time="20:30" label={d('evening')}>
+      <PageHero light="evening" hour={{ time: '20:30', label: d('evening') }} eyebrow={t('eyebrow')} title={t('title')} subtitle={t('subtitle')} image={IMG.loch} />
 
-      <section className="mx-auto max-w-screen-2xl px-5 py-16 lg:px-8 lg:py-24">
+      <section className="mx-auto max-w-screen-2xl px-5 py-16 lg:px-16 lg:py-24">
         <FadeUp className="grid gap-8 border-b border-canvas/15 pb-12 lg:grid-cols-12">
           <SectionLabel index="01" className="lg:col-span-3">
             {t('eyebrow')}
@@ -28,10 +30,10 @@ export default async function GiftVouchersView({ locale }: { locale: Locale }) {
         <StaggerGrid className="mt-12 grid gap-6 lg:grid-cols-3">
           {voucherTypes.map((v, i) => (
             <StaggerItem key={i} className="h-full">
-              <article className="flex h-full flex-col border border-canvas/20">
-                <div className="relative aspect-landscape overflow-hidden bg-canvas/5">
+              <article className="glass flex h-full flex-col overflow-hidden rounded-card p-2">
+                <div className="relative aspect-landscape overflow-hidden rounded-img bg-canvas/5">
                   <Image src={v.image} alt={pickLocale(v.name, locale) ?? ''} fill sizes="(min-width: 1024px) 33vw, 100vw" className="object-cover" />
-                  <span className="absolute left-0 top-0 bg-primary px-3 py-2 font-mono text-xs text-accentondark">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="glass-deep absolute left-3 top-3 rounded-ctrl px-4 py-2 font-mono text-xs text-accentondark">{String(i + 1).padStart(2, '0')}</span>
                 </div>
                 <div className="flex grow flex-col p-6">
                   <p className="font-heading text-5xl font-normal leading-none text-accentondark">{v.price}</p>
@@ -40,7 +42,7 @@ export default async function GiftVouchersView({ locale }: { locale: Locale }) {
                 </div>
                 <Link
                   href="/contact"
-                  className="flex min-h-14 items-center justify-between border-t border-canvas/20 px-6 font-mono text-sm uppercase tracking-18 text-canvas transition-colors hover:bg-accentfill hover:text-onaccent"
+                  className="glass mx-2 mb-2 flex min-h-14 items-center justify-between rounded-ctrl px-6 font-mono text-sm uppercase tracking-18 text-canvas transition-colors hover:bg-accentfill hover:text-onaccent"
                 >
                   {t('purchaseThis')} <span aria-hidden>→</span>
                 </Link>
@@ -59,6 +61,6 @@ export default async function GiftVouchersView({ locale }: { locale: Locale }) {
           </p>
         </FadeUp>
       </section>
-    </>
+    </DayPage>
   );
 }

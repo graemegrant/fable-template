@@ -4,6 +4,7 @@ import { IMG } from '@/lib/data';
 import { pickLocale } from '@/lib/resolveLocale';
 import type { Locale } from '@/lib/locales';
 import PageHero from '../components/PageHero';
+import DayPage from '../components/day/DayPage';
 import ContactForm from '../components/ContactForm';
 import FaqAccordion from '../components/FaqAccordion';
 import SectionLabel from '../components/SectionLabel';
@@ -13,12 +14,13 @@ import type { ContactData } from '@/lib/pages/contact';
 /** Contact page, Cinematic look. Data comes from lib/pages/contact.ts. */
 export default async function ContactView({ locale, resolvedFaqs }: { locale: Locale } & ContactData) {
   const t = await getTranslations('contact');
+  const d = await getTranslations('day');
   const term = 'font-mono text-xs uppercase tracking-18 text-canvas/70';
   return (
-    <>
-      <PageHero eyebrow={t('eyebrow')} title={t('title')} subtitle={t('subtitle')} image={IMG.exterior} />
+    <DayPage light="morning" time="08:15" label={d('morning')}>
+      <PageHero light="dawn" hour={{ time: '08:15', label: d('morning') }} eyebrow={t('eyebrow')} title={t('title')} subtitle={t('subtitle')} image={IMG.exterior} />
 
-      <section className="mx-auto max-w-screen-2xl px-5 py-16 lg:px-8 lg:py-24">
+      <section className="mx-auto max-w-screen-2xl px-5 py-16 lg:px-16 lg:py-24">
         <div className="grid gap-14 lg:grid-cols-12">
           <FadeUp className="lg:col-span-7">
             <span id="enquiry" className="block scroll-mt-24" aria-hidden />
@@ -28,7 +30,7 @@ export default async function ContactView({ locale, resolvedFaqs }: { locale: Lo
           </FadeUp>
 
           <FadeUp delay={0.15} className="lg:col-span-4 lg:col-start-9">
-            <div className="border border-canvas/20 lg:sticky lg:top-24">
+            <div className="glass overflow-hidden rounded-card lg:sticky lg:top-28">
               <p className="border-b border-canvas/15 px-6 py-4 font-mono text-xs uppercase tracking-18 text-accentondark">/ {t('directlyLabel')}</p>
               <dl>
                 <div className="border-b border-canvas/15 px-6 py-5">
@@ -78,7 +80,7 @@ export default async function ContactView({ locale, resolvedFaqs }: { locale: Lo
       </section>
 
       <section className="border-t border-canvas/10">
-        <div className="mx-auto grid max-w-screen-2xl gap-10 px-5 py-20 lg:grid-cols-12 lg:px-8 lg:py-28">
+        <div className="mx-auto grid max-w-screen-2xl gap-10 px-5 py-20 lg:grid-cols-12 lg:px-16 lg:py-28">
           <FadeUp className="lg:col-span-4">
             <SectionLabel index="02">{t('beforeYouAskLabel')}</SectionLabel>
             <h2 className="mt-5 font-heading text-5xl font-normal leading-none text-canvas md:text-6xl">{t('questionsAnticipated')}</h2>
@@ -88,6 +90,6 @@ export default async function ContactView({ locale, resolvedFaqs }: { locale: Lo
           </FadeUp>
         </div>
       </section>
-    </>
+    </DayPage>
   );
 }

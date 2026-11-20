@@ -15,7 +15,7 @@ export default function GalleryLightbox({ images, alt }: { images: unknown[]; al
 
   if (!srcs.length) return null;
   const square =
-    'flex size-14 items-center justify-center border border-canvas/30 bg-primarydeep font-mono text-lg text-canvas transition-colors hover:border-accentondark hover:text-accentondark';
+    'glass flex size-14 items-center justify-center rounded-ctrl font-mono text-lg text-canvas transition-colors hover:border-accentondark hover:text-accentondark';
   const pad = (n: number) => String(n).padStart(2, '0');
 
   return (
@@ -26,7 +26,7 @@ export default function GalleryLightbox({ images, alt }: { images: unknown[]; al
             key={i}
             type="button"
             onClick={() => setOpenIndex(i)}
-            className={`group relative overflow-hidden bg-canvas/5 ${i === 0 ? 'col-span-2 row-span-2 aspect-landscape' : 'aspect-landscape'}`}
+            className={`group relative overflow-hidden rounded-img bg-canvas/5 ${i === 0 ? 'col-span-2 row-span-2 aspect-landscape' : 'aspect-landscape'}`}
             aria-label={t('galleryOpenPhoto', { n: i + 1, total: srcs.length })}
           >
             <Image
@@ -36,7 +36,7 @@ export default function GalleryLightbox({ images, alt }: { images: unknown[]; al
               sizes="(min-width: 768px) 25vw, 50vw"
               className="object-cover transition-transform duration-700 ease-out-expo group-hover:scale-104"
             />
-            <span className="absolute bottom-0 left-0 bg-primary px-2 py-1 font-mono text-xs text-canvas">{pad(i + 1)}</span>
+            <span className="glass-deep absolute bottom-2 left-2 rounded-ctrl px-3 py-1 font-mono text-xs text-canvas">{pad(i + 1)}</span>
           </button>
         ))}
       </div>
@@ -44,7 +44,7 @@ export default function GalleryLightbox({ images, alt }: { images: unknown[]; al
       <AnimatePresence>
         {openIndex !== null && (
           <motion.div
-            className="fixed inset-0 z-80 flex items-center justify-center bg-primarydeep/95 p-4"
+            className="fixed inset-0 z-80 flex items-center justify-center bg-primarydeep/80 p-4 backdrop-blur-2xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
