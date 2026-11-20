@@ -142,16 +142,29 @@ export function GsapEngine({ children }: { children: ReactNode }) {
       delete root.dataset.motion;
     };
 
+    // Phones and tablets: start only once the page has loaded and the
+    // browser is idle, so the motion layer never competes with first paint.
+    let idle = 0;
+    const whenIdle = (run: () => void) => {
+      const go = () => {
+        idle = typeof window.requestIdleCallback === 'function' ? window.requestIdleCallback(run, { timeout: 2500 }) : window.setTimeout(run, 1200);
+      };
+      if (document.readyState === 'complete') go();
+      else window.addEventListener('load', go, { once: true });
+    };
     const sync = () => {
       const mode = currentMode();
       if (running?.mode === mode) return;
       if (running) stop();
-      if (mode) start(mode);
+      if (mode === 'full') start(mode);
+      else if (mode === 'soft') whenIdle(() => currentMode() === 'soft' && !running && start('soft'));
     };
     sync();
     queries.forEach((q) => q.addEventListener('change', sync));
     return () => {
       queries.forEach((q) => q.removeEventListener('change', sync));
+      if (typeof window.cancelIdleCallback === 'function') window.cancelIdleCallback(idle);
+      window.clearTimeout(idle);
       stop();
     };
   }, []);
@@ -197,10 +210,11 @@ export function useScene<T extends HTMLElement>(
 }
 
 /** Classes for an element that plays an entrance on load: hidden by
- *  motion.css until the engine has set its start state, on desktop and
- *  (when the hotel has soft mobile motion) on phones too. Empty when the
- *  pattern won't run. Safe on the server. */
+ *  motion.css on desktop until the engine has set its start state. Empty
+ *  when the pattern won't run. Phones never hide anything for an entrance:
+ *  soft motion starts after load and plays no load entrances. Safe on the
+ *  server. */
 export function introClass(pattern: keyof MotionPatterns | null) {
   if (!motionSettings.enabled || (pattern && !motionSettings.patterns[pattern])) return '';
-  return motionSettings.soft ? ' motion-intro motion-intro-soft' : ' motion-intro';
+  return ' motion-intro';
 }

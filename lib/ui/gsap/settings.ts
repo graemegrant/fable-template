@@ -7,9 +7,12 @@
  *
  * The layer runs in one of two modes, chosen by the screen:
  * - full (1024px and up): every pattern, pinned scenes, Lenis smooth scroll.
- * - soft (phones and tablets, when `mobile: 'soft'`): reveals, rising
- *   headings, word reveals, curtains and gentle parallax on native
- *   scrolling, at reduced travel. No pinned scenes, no smooth scrolling.
+ * - soft (phones and tablets, when `mobile: 'soft'`): reveals, curtains
+ *   and gentle parallax on native scrolling, at reduced travel, starting
+ *   once the page has loaded. No pinned scenes, no smooth scrolling, and
+ *   no text splitting (it costs phones more layout work than it is worth:
+ *   measured on the Cinematic home page, Lighthouse mobile 47 with it).
+ *   Headings simply show.
  * Visitors who ask for reduced motion always get the still page, and never
  * download the layer.
  */
@@ -67,9 +70,10 @@ const SCALE: Record<MotionIntensity, number> = { off: 0, subtle: 0.5, standard: 
 /** Patterns that pin a section while you scroll. Left out at `subtle`. */
 const PINNED: Array<keyof MotionPatterns> = ['heroAperture', 'roomsReel'];
 
-/** Left out in soft mode: the reel becomes a native swipe row, and there is
- *  no pointer to follow. (The hero keeps a soft, unpinned version.) */
-const NOT_SOFT: Array<keyof MotionPatterns> = ['roomsReel', 'cursor'];
+/** Left out in soft mode: the reel becomes a native swipe row, there is no
+ *  pointer to follow, and text is never split into letters, words or lines
+ *  (heavy layout work on a phone). The hero keeps a soft, unpinned version. */
+const NOT_SOFT: Array<keyof MotionPatterns> = ['roomsReel', 'cursor', 'splitHeadings', 'wordReveal'];
 
 export interface ResolvedMotion {
   enabled: boolean;
@@ -99,7 +103,7 @@ export function resolveMotion(settings: MotionSettings, mode: MotionMode = 'full
   };
 }
 
-/** Media queries for each mode. Kept in step with the `.motion-intro` and
- *  `.motion-intro-soft` rules in motion.css. */
+/** Media queries for each mode. MOTION_QUERY is kept in step with the
+ *  `.motion-intro` rule in motion.css. */
 export const MOTION_QUERY = '(min-width: 1024px) and (prefers-reduced-motion: no-preference)';
 export const SOFT_QUERY = '(max-width: 1023.98px) and (prefers-reduced-motion: no-preference)';

@@ -22,7 +22,7 @@ import { HourMark } from './DayChapter';
  * CTA, the book-direct reason and the trust strip, all from first paint.
  *
  * With the motion layer:
- * - On load the name rises letter by letter out of the mist.
+ * - On load (desktop) the name rises letter by letter out of the mist.
  * - Desktop (`heroAperture`, pinned): scrolling is the sunrise. The sun
  *   climbs, the night lifts off the photograph, the rose warms, the mist
  *   burns away and the letters of the name drift up like it.
@@ -64,16 +64,17 @@ export default function DawnHero({
     const feet = [...el.querySelectorAll<HTMLElement>('[data-dawn="foot"]')];
     if (!title || !photo || !night || !rose || !sun) return;
 
-    // Load: the name rises out of the mist. (Everything else is there from
-    // the first paint, and only fades as the sun comes up.)
-    const late = lateIntro();
+    // Load (desktop): the name rises out of the mist. Everything else is
+    // there from the first paint, and only fades as the sun comes up. Phones
+    // play no entrance: the name is there from the first paint too.
+    const late = lateIntro() || mode === 'soft';
     const intro = gsap.timeline({ defaults: { ease: 'expo.out' } });
     let letters: HTMLElement[] = [];
-    if (patterns.splitHeadings || patterns.heroAperture) {
+    if (mode === 'full' && (patterns.splitHeadings || patterns.heroAperture)) {
       const split = SplitText.create(title, { type: 'words,chars', charsClass: 'split-char', mask: 'chars', aria: 'auto' });
       letters = split.masks as HTMLElement[];
       intro.from(split.chars, { yPercent: 110, opacity: 0, duration: 1.8, stagger: 0.06 }, 0.2);
-    } else {
+    } else if (!late) {
       intro.from(title, { opacity: 0, duration: 1.2 }, 0.2);
     }
     if (late) intro.progress(1);
