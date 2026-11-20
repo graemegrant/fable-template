@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 /** The "Website by Codero" credit (hotel.config.ts `coderoCredit`). */
 export const CODERO_CREDIT_URL = 'https://www.codero.co.uk';
@@ -27,6 +27,8 @@ export const visitLinks = [
 export function useNewsletterForm() {
   const [email, setEmail] = useState('');
   const [done, setDone] = useState(false);
+  // When the form appeared: the server rejects posts sent faster than a person types.
+  const startedAt = useRef(Date.now());
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -34,7 +36,7 @@ export function useNewsletterForm() {
       await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'newsletter', email, subject: 'Newsletter signup' }),
+        body: JSON.stringify({ type: 'newsletter', email, subject: 'Newsletter signup', startedAt: startedAt.current }),
       });
     } catch {
       /* non-blocking */
