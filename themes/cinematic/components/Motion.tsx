@@ -4,9 +4,10 @@
  * Cinematic motion, in two layers:
  *
  * 1. The GSAP engine (lib/ui/gsap, AGENTS.md §5a): Lenis smooth scrolling,
- *    the pinned hero and rooms reel, split headings, curtains and parallax.
- *    Desktop only, set per hotel by `motion` in hotel.config.ts. The
- *    signature moments live in the hero, the home page and the menu.
+ *    the pinned hero and rooms reel, split headings, reveals, curtains,
+ *    parallax, sliding type, widening plates and the ring cursor. Full on
+ *    desktop, soft on phones and tablets, set per hotel by `motion` in
+ *    hotel.config.ts.
  * 2. The Framer Motion primitives below (FadeUp, StaggerGrid and the rest),
  *    used by the pages not yet given GSAP scenes and by the booking modal.
  *    A long, soft ease-out, so things settle into frame rather than cut.
@@ -34,12 +35,16 @@ import {
 import { useRef, type ReactNode } from 'react';
 import { MotionProvider as FramerProvider, useStill } from '@/lib/ui/motion';
 import { GsapEngine } from '@/lib/ui/gsap/engine';
+import { Cursor } from '@/lib/ui/gsap/patterns';
 
-/** Both motion layers, for app/[locale]/layout.tsx. */
+/** Both motion layers, for app/[locale]/layout.tsx, and the ring cursor. */
 export function MotionProvider({ children }: { children: ReactNode }) {
   return (
     <FramerProvider>
-      <GsapEngine>{children}</GsapEngine>
+      <GsapEngine>
+        {children}
+        <Cursor className="flex size-6 items-center justify-center rounded-full border border-canvas/60 bg-canvas/10 text-canvas" />
+      </GsapEngine>
     </FramerProvider>
   );
 }

@@ -313,5 +313,16 @@
   },
   "glenMoment": {
     "eyebrow": "El valle"
+  },
+  "day": {
+    "dawn": "Primera luz",
+    "morning": "Mañana",
+    "lateMorning": "Media mañana",
+    "afternoon": "Tarde",
+    "golden": "Hora dorada",
+    "evening": "Anochecer",
+    "night": "Noche",
+    "midnight": "Medianoche",
+    "scrollCue": "Desplázate por el día"
   }
 }

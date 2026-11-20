@@ -8,9 +8,9 @@ import { PageFade } from '../components/Motion';
 /** 404 page, Cinematic look: the error set like a front page. */
 export default function NotFoundView({ locale }: { locale: Locale }) {
   const blockButton =
-    'inline-flex min-h-14 items-center justify-between gap-6 px-6 font-mono text-sm uppercase tracking-18 transition-colors';
+    'inline-flex min-h-14 items-center justify-between gap-6 rounded-ctrl px-7 font-mono text-sm uppercase tracking-18 transition-colors';
   return (
-    <div className="bg-grid flex min-h-screen items-end px-5 pb-16 pt-28 lg:px-8">
+    <div className="bg-grid flex min-h-screen items-end px-5 pb-16 pt-28 lg:px-16">
       <PageFade className="mx-auto w-full max-w-screen-2xl">
         <SectionLabel index="404">Page not found</SectionLabel>
         <h1 className="mt-6 font-heading text-7xl font-normal leading-none text-canvas md:text-9xl">
@@ -26,7 +26,7 @@ export default function NotFoundView({ locale }: { locale: Locale }) {
             <Link href="/" className={`bg-accentfill text-onaccent hover:bg-canvas ${blockButton}`}>
               Back to the home page <span aria-hidden>→</span>
             </Link>
-            <Link href="/contact" className={`border border-canvas/40 text-canvas hover:bg-canvas hover:text-ink ${blockButton}`}>
+            <Link href="/contact" className={`glass text-canvas hover:bg-canvas hover:text-ink ${blockButton}`}>
               Ask us
             </Link>
           </div>

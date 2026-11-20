@@ -4,7 +4,10 @@ import { directions, attractions, IMG } from '@/lib/data';
 import { pickLocale } from '@/lib/resolveLocale';
 import type { Locale } from '@/lib/locales';
 import { formatCoordinates } from '@/lib/ui/geo';
-import PageHero from '../components/PageHero';
+import DayPage from '../components/day/DayPage';
+import GoldenName from '../components/day/GoldenName';
+import { HourMark } from '../components/day/DayChapter';
+import { SplitHeading } from '@/lib/ui/gsap/patterns';
 import SectionLabel from '../components/SectionLabel';
 import { FadeUp, StaggerGrid, StaggerItem } from '../components/Motion';
 import type { LocationData } from '@/lib/pages/location';
@@ -12,18 +15,26 @@ import type { LocationData } from '@/lib/pages/location';
 /** Location page, Cinematic look. Data comes from lib/pages/location.ts. */
 export default async function LocationView({ locale, mapSrc, directionsUrl }: { locale: Locale } & LocationData) {
   const t = await getTranslations('location');
+  const d = await getTranslations('day');
   const { lat, lng } = hotelConfig.location;
   return (
-    <>
-      <PageHero
-        eyebrow={`${t('eyebrowLabel')} / ${hotelConfig.location.locality}`}
-        title={t('title')}
-        subtitle={`${hotelConfig.location.address} ${t('subtitleSuffix')}`}
-        image={IMG.glen}
-      />
+    <DayPage light="golden" time="16:30" label={d('golden')}>
+      {/* Signature moment: the land seen through the hotel's name, which
+          grows until it opens into the whole view (GoldenName). */}
+      <GoldenName name={hotelConfig.name} image={IMG.glen} intro={<HourMark time="16:30" label={d('golden')} />}>
+        <div className="mx-auto max-w-screen-2xl px-5 pb-4 pt-20 lg:px-16 lg:pt-28">
+          <SectionLabel>{`${t('eyebrowLabel')} / ${hotelConfig.location.locality}`}</SectionLabel>
+          <SplitHeading as="h1" className="mt-6 max-w-5xl font-heading text-6xl font-normal leading-none tracking-tight text-canvas md:text-8xl">
+            {t('title')}
+          </SplitHeading>
+          <p className="glass-deep mt-8 max-w-2xl rounded-card px-5 py-4 font-body text-lg leading-relaxed text-canvas/90">
+            {`${hotelConfig.location.address} ${t('subtitleSuffix')}`}
+          </p>
+        </div>
+      </GoldenName>
 
       {/* 01 Ways in, as a numbered index */}
-      <section className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-28">
+      <section className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-16 lg:py-28">
         <FadeUp className="border-b border-canvas/15 pb-8">
           <SectionLabel index="01">{t('gettingHereLabel')}</SectionLabel>
           <h2 className="mt-5 font-heading text-5xl font-normal leading-none text-canvas md:text-7xl">{t('fourWaysIn')}</h2>
@@ -45,7 +56,7 @@ export default async function LocationView({ locale, mapSrc, directionsUrl }: { 
 
       {/* 02 The map, framed like a plate */}
       <section className="border-y border-canvas/10">
-        <div className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-24">
+        <div className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-16 lg:py-24">
           <FadeUp>
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
@@ -56,12 +67,12 @@ export default async function LocationView({ locale, mapSrc, directionsUrl }: { 
                 href={directionsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-14 items-center gap-6 bg-accentfill px-6 font-mono text-sm uppercase tracking-18 text-onaccent transition-colors hover:bg-canvas"
+                className="inline-flex min-h-14 items-center gap-6 rounded-ctrl bg-accentfill px-7 font-mono text-sm uppercase tracking-18 text-onaccent transition-colors hover:bg-canvas"
               >
                 {t('getDirections')} <span aria-hidden>↗</span>
               </a>
             </div>
-            <div className="mt-10 aspect-video w-full border border-canvas/20 bg-canvas/5">
+            <div className="mt-10 aspect-video w-full overflow-hidden rounded-card border border-canvas/15 bg-canvas/5">
               <iframe
                 src={mapSrc}
                 title={`${t('mapTitlePrefix')} ${hotelConfig.name}`}
@@ -81,7 +92,7 @@ export default async function LocationView({ locale, mapSrc, directionsUrl }: { 
       </section>
 
       {/* 03 Nearby, as a listings column */}
-      <section className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-28">
+      <section className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-16 lg:py-28">
         <FadeUp className="border-b border-canvas/15 pb-8">
           <SectionLabel index="03">{t('beyondEstateLabel')}</SectionLabel>
           <h2 className="mt-5 font-heading text-5xl font-normal leading-none text-canvas md:text-7xl">
@@ -100,6 +111,6 @@ export default async function LocationView({ locale, mapSrc, directionsUrl }: { 
           ))}
         </StaggerGrid>
       </section>
-    </>
+    </DayPage>
   );
 }

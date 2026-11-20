@@ -1,7 +1,8 @@
 # Demos
 
 Each folder here is a fictional hotel used to show off a look, for example
-`coastal/` is Polvarra Cove, the Coastal look's demo. A demo build swaps the
+`coastal/` is Polvarra Cove, the Coastal look's demo, `urban/` is The Ardlow
+and `cinematic/` is Wythe Glass, a glass pavilion on a fictional fell lake. A demo build swaps the
 demo's content in for the template's own (Craigmore House). Nothing here
 affects a normal build or a client site.
 

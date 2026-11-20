@@ -4,9 +4,9 @@ import { pickLocale } from '@/lib/resolveLocale';
 import type { Locale } from '@/lib/locales';
 
 /**
- * The direct-booking trust items as a slow mono ticker, led by "Book
- * direct" so they read as the direct-booking pitch. `light` runs on a paper
- * band, `dark` on the black page. Screen readers get the list once; the
+ * The direct-booking trust items as a slow mono ticker in a pill, led by
+ * "Book direct" so they read as the direct-booking pitch. `light` runs on
+ * bone, `dark` in a glass band. Screen readers get the list once; the
  * duplicate that makes the loop seamless is hidden from them, and the
  * ticker stands still under reduced motion.
  */
@@ -28,7 +28,7 @@ export default async function TrustStrip({ variant = 'light' }: { variant?: 'lig
     </ul>
   );
   return (
-    <div className={`overflow-hidden border-y py-4 ${dark ? 'border-canvas/10 text-canvas' : 'border-ink bg-canvas text-ink'}`}>
+    <div className={`overflow-hidden rounded-ctrl py-3 ${dark ? 'glass text-canvas' : 'bg-canvas text-ink'}`}>
       <div className="animate-marquee flex w-max">
         {run(false)}
         {run(true)}

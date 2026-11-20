@@ -45,7 +45,8 @@ export default function Footer() {
   const link = 'inline-flex min-h-9 items-center font-body text-sm text-canvas/80 transition-colors hover:text-canvas';
 
   return (
-    <footer className="border-t border-canvas/10 bg-primarydeep pb-mobilebar text-canvas lg:pb-0">
+    <footer className="px-2 pb-mobilebar pt-2 text-canvas lg:px-3 lg:pb-3">
+      <div className="glass overflow-hidden rounded-card">
       <div className="mx-auto max-w-screen-2xl px-5 pt-16 lg:px-8 lg:pt-20">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-12">
           <div className="lg:col-span-4">
@@ -120,7 +121,7 @@ export default function Footer() {
         {/* The wordmark: decorative, the name is already in the header. */}
         <p
           aria-hidden
-          className="mt-16 select-none overflow-hidden font-heading text-7xl font-normal leading-none tracking-tight text-canvas sm:whitespace-nowrap sm:text-8xl lg:text-9xl"
+          className="mt-16 select-none overflow-hidden font-heading text-7xl font-normal italic leading-none tracking-tight text-canvas/90 sm:whitespace-nowrap sm:text-8xl lg:text-9xl"
         >
           {hotelConfig.name}
         </p>
@@ -145,6 +146,7 @@ export default function Footer() {
       {hotelConfig.demoNotice && (
         <p className="border-t border-canvas/10 px-5 py-4 text-center font-mono text-xs text-canvas/70">{pickLocale(hotelConfig.demoNotice, locale)}</p>
       )}
+      </div>
     </footer>
   );
 }

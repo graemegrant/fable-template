@@ -10,14 +10,15 @@ import type { Room } from '@/lib/types';
    headingLevel: 3 under a section h2 (homepage, related rooms); 2 on the
    /rooms listing, where cards sit directly under the page h1. */
 
-/** Cinematic room card: a tall photo like a film still, the "from" rate on
- *  it, the name in the display serif and the specs in tracked capitals. */
+/** Cinematic room card: a glass card holding a tall, rounded photo like a
+ *  film still with the "from" rate on smoked glass, the name in the
+ *  display serif and the specs in tracked capitals. */
 export default function RoomCard({ room, headingLevel = 3 }: { room: Room; headingLevel?: 2 | 3 }) {
   const t = useTranslations('shared');
   const Heading = headingLevel === 2 ? 'h2' : 'h3';
   const specs = [room.sqm ? `${room.sqm} ${t('sqm')}` : '', `${t('sleeps')} ${room.occupancy}`, room.view ?? ''].filter(Boolean);
   return (
-    <Link href={`/rooms/${room.slug}`} className="group relative block h-full border-t border-canvas/15 pt-4">
+    <Link href={`/rooms/${room.slug}`} data-cursor className="glass group relative block h-full rounded-card p-2 pb-6 transition-transform duration-500 ease-out-expo hover:-translate-y-1">
       <div className="relative aspect-portrait overflow-hidden rounded-img bg-canvas/5">
         <Image
           src={imgSrc(room.heroImage, 1000)}
@@ -26,24 +27,26 @@ export default function RoomCard({ room, headingLevel = 3 }: { room: Room; headi
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 85vw"
           className="object-cover transition-transform duration-700 ease-out-expo group-hover:scale-104"
         />
-        <span className="absolute bottom-3 right-3 rounded-ctrl bg-primary/85 px-3 py-2 font-mono text-xs uppercase tracking-18 text-canvas backdrop-blur-sm">
+        <span className="glass-deep absolute bottom-3 right-3 rounded-ctrl px-4 py-2 font-mono text-xs uppercase tracking-18 text-canvas">
           {t('from')} <span className="text-accentondark">£{room.rate}</span>
         </span>
       </div>
-      <div className="flex items-start justify-between gap-4 pt-5">
+      <div className="flex items-start justify-between gap-4 px-3 pt-5">
         <Heading className="font-heading text-3xl font-normal leading-tight text-canvas transition-colors group-hover:italic group-hover:text-accentondark">
           {room.roomType}
         </Heading>
         <span aria-hidden className="font-mono text-lg text-accentondark transition-transform duration-300 group-hover:translate-x-1">→</span>
         <span className="sr-only">{t('viewRoom')}</span>
       </div>
-      {room.name && <p className="mt-2 font-mono text-xs uppercase tracking-18 text-canvas/70">{room.name}</p>}
-      {room.hook && <p className="mt-3 font-body text-sm leading-relaxed text-canvas/80">{room.hook}</p>}
-      <p className="mt-4 font-mono text-xs uppercase tracking-18 text-canvas/70">{specs.join(' / ')}</p>
-      {/* Display copy only: the booking engine owns availability. */}
-      {room.roomCount != null && room.roomCount > 1 && (
-        <p className="mt-1 font-mono text-xs uppercase tracking-18 text-canvas/70">{t('roomsAvailable', { count: room.roomCount })}</p>
-      )}
+      <div className="px-3">
+        {room.name && <p className="mt-2 font-mono text-xs uppercase tracking-18 text-canvas/70">{room.name}</p>}
+        {room.hook && <p className="mt-3 font-body text-sm leading-relaxed text-canvas/80">{room.hook}</p>}
+        <p className="mt-4 font-mono text-xs uppercase tracking-18 text-canvas/70">{specs.join(' / ')}</p>
+        {/* Display copy only: the booking engine owns availability. */}
+        {room.roomCount != null && room.roomCount > 1 && (
+          <p className="mt-1 font-mono text-xs uppercase tracking-18 text-canvas/70">{t('roomsAvailable', { count: room.roomCount })}</p>
+        )}
+      </div>
     </Link>
   );
 }

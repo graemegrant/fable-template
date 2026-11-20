@@ -3,7 +3,10 @@ import { getTranslations } from 'next-intl/server';
 import { hotelConfig } from '@/hotel.config';
 import { pickLocale } from '@/lib/resolveLocale';
 import type { Locale } from '@/lib/locales';
-import PageHero from '../components/PageHero';
+import DayPage from '../components/day/DayPage';
+import WindowGallery from '../components/day/WindowGallery';
+import { HourMark } from '../components/day/DayChapter';
+import { SplitHeading } from '@/lib/ui/gsap/patterns';
 import GalleryLightbox from '../components/GalleryLightbox';
 import RoomCard from '../components/RoomCard';
 import SectionLabel from '../components/SectionLabel';
@@ -16,6 +19,7 @@ import type { RoomDetailData } from '@/lib/pages/roomDetail';
  *  The booking column is a sticky spec sheet in a hairline frame. */
 export default async function RoomDetailView({ locale, room, related }: { locale: Locale } & RoomDetailData) {
   const t = await getTranslations('roomDetail');
+  const d = await getTranslations('day');
   const stayLines = [
     ...hotelConfig.stayIncludes.map((item) => pickLocale(item, locale) ?? ''),
     t('timesLine', {
@@ -30,18 +34,35 @@ export default async function RoomDetailView({ locale, room, related }: { locale
     [t('outlook'), room.view],
   ].filter(([, v]) => v);
   return (
-    <>
-      {/* roomType is the title, so the eyebrow doesn't repeat it; the subtitle
-          adds the room's own name (rare) and its view. */}
-      <PageHero
-        eyebrow={`${t('stayLabel')} / ${hotelConfig.location.locality}`}
-        title={room.roomType}
-        subtitle={[room.name, room.view].filter(Boolean).join(' / ')}
-        image={room.heroImage}
-        imageAlt={room.imageAlt}
+    <DayPage light="morning" time="11:00" label={d('lateMorning')}>
+      {/* Signature moment: the room's photographs through an arched window
+          (WindowGallery), beside its name, "from" rate and one CTA. roomType
+          is the title, so the eyebrow doesn't repeat it. */}
+      <WindowGallery
+        images={[room.heroImage, ...(room.gallery ?? []).filter((img) => img !== room.heroImage)]}
+        alt={room.imageAlt ?? `${room.roomType}${room.view ? `, ${room.view}` : ''}`}
+        intro={
+          <>
+            <HourMark time="11:00" label={d('lateMorning')} />
+            <SectionLabel className="mt-10">{`${t('stayLabel')} / ${hotelConfig.location.locality}`}</SectionLabel>
+            <SplitHeading as="h1" onLoad delay={0.15} className="mt-6 font-heading text-6xl font-normal leading-none tracking-tight text-canvas md:text-8xl">
+              {room.roomType}
+            </SplitHeading>
+            {[room.name, room.view].filter(Boolean).length > 0 && (
+              <p className="mt-6 font-mono text-xs uppercase tracking-25 text-canvas/80">{[room.name, room.view].filter(Boolean).join(' / ')}</p>
+            )}
+            <p className="mt-10 font-mono text-xs uppercase tracking-18 text-canvas/80">
+              {t('from')} <span className="font-heading text-5xl normal-case tracking-normal text-canvas">£{room.rate}</span> {t('perNight')}
+            </p>
+            <BookButton
+              roomHint={room.roomType}
+              className="mt-8 hidden min-h-14 items-center justify-center gap-4 rounded-ctrl bg-accentfill px-7 font-mono text-sm uppercase tracking-18 text-onaccent transition-colors hover:bg-canvas hover:text-primary lg:inline-flex"
+            />
+          </>
+        }
       />
 
-      <section className="mx-auto max-w-screen-2xl px-5 pb-32 pt-16 lg:px-8 lg:pb-24 lg:pt-20">
+      <section className="mx-auto max-w-screen-2xl px-5 pb-32 pt-16 lg:px-16 lg:pb-24 lg:pt-20">
         <div className="grid gap-14 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <FadeUp>
@@ -62,7 +83,7 @@ export default async function RoomDetailView({ locale, room, related }: { locale
               </ol>
             </FadeUp>
 
-            <FadeUp className="mt-16 bg-canvas p-6 text-ink sm:p-8">
+            <FadeUp className="mt-16 rounded-card bg-canvas p-6 text-ink sm:p-8">
               <SectionLabel index="03" variant="onpaper">
                 {t('everyStay')}
               </SectionLabel>
@@ -94,7 +115,7 @@ export default async function RoomDetailView({ locale, room, related }: { locale
 
           {/* Sticky booking column */}
           <aside className="lg:col-span-4 lg:col-start-9">
-            <div className="border border-canvas/20 lg:sticky lg:top-24">
+            <div className="glass overflow-hidden rounded-card lg:sticky lg:top-28">
               <div className="border-b border-canvas/15 p-6">
                 <p className="font-mono text-xs uppercase tracking-18 text-canvas/70">{t('from')}</p>
                 <p className="mt-2 font-heading text-6xl font-medium leading-none text-canvas">
@@ -112,7 +133,7 @@ export default async function RoomDetailView({ locale, room, related }: { locale
               </dl>
               <BookButton
                 roomHint={room.roomType}
-                className="flex min-h-14 w-full items-center justify-between bg-accentfill px-6 font-mono text-sm uppercase tracking-18 text-onaccent transition-colors hover:bg-canvas"
+                className="flex min-h-14 w-full items-center justify-between rounded-ctrl bg-accentfill px-7 font-mono text-sm uppercase tracking-18 text-onaccent transition-colors hover:bg-canvas"
               />
               <div className="p-6">
                 <p className="font-body text-sm text-canvas/80">
@@ -136,7 +157,7 @@ export default async function RoomDetailView({ locale, room, related }: { locale
 
       {/* Related rooms */}
       <section className="border-t border-canvas/10">
-        <div className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-8 lg:py-24">
+        <div className="mx-auto max-w-screen-2xl px-5 py-20 lg:px-16 lg:py-24">
           <FadeUp className="border-b border-canvas/15 pb-8">
             <SectionLabel>{t('alsoWorthLook')}</SectionLabel>
             <h2 className="mt-5 font-heading text-5xl font-normal leading-none text-canvas md:text-7xl">{t('otherRooms')}</h2>
@@ -153,6 +174,6 @@ export default async function RoomDetailView({ locale, room, related }: { locale
 
       {/* Phone booking bar; the booking column does this job on desktop */}
       <MobileBookBar rate={room.rate} roomName={room.roomType} />
-    </>
+    </DayPage>
   );
 }

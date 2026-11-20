@@ -19,11 +19,13 @@ export const hotelConfig: HotelConfig = {
   },
   coderoCredit: true,
   /** The GSAP motion layer (lib/ui/gsap, AGENTS.md §5a): how much it does
-   *  and which patterns run. Desktop only, never under reduced motion, and
-   *  only in looks built for it (Cinematic). 'off' keeps the page still. */
+   *  and which patterns run. Full on desktop, soft on phones and tablets
+   *  (`mobile`), never under reduced motion, and only in looks built for
+   *  it (Cinematic). 'off' keeps the page still. */
   motion: {
     intensity: 'standard' as MotionIntensity,
     smoothScroll: true,
+    mobile: 'soft' as 'soft' | 'off',
     patterns: {
       heroAperture: true,
       splitHeadings: true,
@@ -32,6 +34,10 @@ export const hotelConfig: HotelConfig = {
       imageCurtain: true,
       parallax: true,
       menuOverlay: true,
+      reveals: true,
+      scrollMarquee: true,
+      expandPlates: true,
+      cursor: true,
     },
   } satisfies MotionSettings,
   name: 'Polvarra Cove',

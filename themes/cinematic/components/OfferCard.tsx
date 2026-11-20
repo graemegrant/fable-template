@@ -17,17 +17,17 @@ export default async function OfferCard({
 }) {
   const t = await getTranslations('shared');
   const tag = offer.tag && (
-    <span className="absolute left-0 top-0 bg-accentfill px-3 py-2 font-mono text-xs uppercase tracking-18 text-onaccent">{offer.tag}</span>
+    <span className="absolute left-3 top-3 rounded-ctrl bg-accentfill px-4 py-2 font-mono text-xs uppercase tracking-18 text-onaccent">{offer.tag}</span>
   );
 
   if (variant === 'feature') {
     return (
-      <article className="grid border-t border-canvas/15 pt-8 md:grid-cols-2 md:gap-12 lg:gap-20">
-        <div className={`relative aspect-landscape overflow-hidden bg-canvas/5 ${flip ? 'md:order-2' : ''}`}>
+      <article className="glass grid rounded-card p-2 md:grid-cols-2 md:gap-4 lg:gap-8">
+        <div className={`relative aspect-landscape overflow-hidden rounded-img bg-canvas/5 ${flip ? 'md:order-2' : ''}`}>
           <Image src={imgSrc(offer.image)} alt={offer.title} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
           {tag}
         </div>
-        <div className="pt-8 md:pt-0">
+        <div className="px-4 pb-6 pt-8 md:p-8">
           {offer.subtitle && <SectionLabel>{offer.subtitle}</SectionLabel>}
           <h2 className="mt-5 font-heading text-5xl font-normal leading-none text-canvas md:text-6xl">{offer.title}</h2>
           <p className="mt-6 font-body text-base leading-relaxed text-canvas/80">{offer.description}</p>
@@ -43,7 +43,7 @@ export default async function OfferCard({
           )}
           <Link
             href="/contact"
-            className="mt-8 inline-flex min-h-14 items-center gap-6 bg-accentfill px-6 font-mono text-sm uppercase tracking-18 text-onaccent transition-colors hover:bg-canvas"
+            className="mt-8 inline-flex min-h-14 items-center gap-6 rounded-ctrl bg-accentfill px-7 font-mono text-sm uppercase tracking-18 text-onaccent transition-colors hover:bg-canvas"
           >
             {t('enquireAboutOffer')} <span aria-hidden>→</span>
           </Link>
@@ -53,8 +53,8 @@ export default async function OfferCard({
   }
 
   return (
-    <Link href={`/offers#${offer.slug}`} className="group block h-full border border-canvas/15 transition-colors hover:border-canvas/40">
-      <div className="relative aspect-landscape overflow-hidden bg-canvas/5">
+    <Link href={`/offers#${offer.slug}`} data-cursor className="glass group block h-full rounded-card p-2 transition-transform duration-500 ease-out-expo hover:-translate-y-1">
+      <div className="relative aspect-landscape overflow-hidden rounded-img bg-canvas/5">
         <Image
           src={imgSrc(offer.image, 1000)}
           alt={offer.title}
@@ -64,7 +64,7 @@ export default async function OfferCard({
         />
         {tag}
       </div>
-      <div className="p-5">
+      <div className="px-4 pb-4 pt-5">
         <h3 className="font-heading text-2xl font-normal leading-none text-canvas">{offer.title}</h3>
         {offer.subtitle && <p className="mt-2 font-body text-sm text-canvas/80">{offer.subtitle}</p>}
         <span className="mt-5 inline-flex font-mono text-xs uppercase tracking-18 text-accentondark">{t('viewOffer')}</span>

@@ -3,6 +3,9 @@ import { hotelConfig } from '@/hotel.config';
 import { IMG } from '@/lib/data';
 import type { Locale } from '@/lib/locales';
 import PageHero from '../components/PageHero';
+import DayPage from '../components/day/DayPage';
+import RoomsWindow from '../components/day/RoomsWindow';
+import { HourMark } from '../components/day/DayChapter';
 import RoomsFilter from '../components/RoomsFilter';
 import TrustStrip from '../components/TrustStrip';
 import DirectBookingBanner from '../components/DirectBookingBanner';
@@ -14,24 +17,40 @@ import type { RoomsData } from '@/lib/pages/rooms';
 /** Rooms page, Cinematic look. Data comes from lib/pages/rooms.ts. */
 export default async function RoomsView({ rooms, showSize }: { locale: Locale } & RoomsData) {
   const t = await getTranslations('roomsPage');
+  const d = await getTranslations('day');
   const cell = 'px-4 py-4 sm:px-5';
   return (
-    <>
-      <PageHero
+    <DayPage light="morning" time="10:00" label={d('lateMorning')}>
+      <PageHero light="day" hour={{ time: '10:00', label: d('lateMorning') }}
         eyebrow={`${t('eyebrowLabel')} / ${hotelConfig.location.locality}`}
         title={t('title')}
         subtitle={t('subtitle')}
         image={IMG.room1}
       />
       <TrustStrip />
-      <section className="mx-auto max-w-screen-2xl px-5 py-16 lg:px-8 lg:py-24">
-        <FadeUp className="grid gap-8 lg:grid-cols-12">
-          <SectionLabel index="01" className="lg:col-span-3">
-            {t('eyebrowLabel')}
-          </SectionLabel>
-          <p className="font-body text-xl leading-snug text-canvas md:text-2xl lg:col-span-8">{t('intro')}</p>
-        </FadeUp>
-        <div className="mt-14">
+
+      {/* Signature moment: late morning, and the rooms pass one by one
+          through an arched window (RoomsWindow), in a pale band that rises
+          out of the dark page and falls back into it. */}
+      <div className="day-band-light text-ink">
+        <div aria-hidden className="h-72" />
+        <RoomsWindow
+          rooms={rooms}
+          intro={
+            <>
+              <HourMark time="10:00" label={d('lateMorning')} tone="paper" />
+              <SectionLabel index="01" variant="onpaper" className="mt-10">
+                {t('eyebrowLabel')}
+              </SectionLabel>
+              <p className="mt-6 max-w-xl font-body text-lg leading-copy text-ink">{t('intro')}</p>
+            </>
+          }
+        />
+        <div aria-hidden className="h-72" />
+      </div>
+
+      <section className="mx-auto max-w-screen-2xl px-5 py-16 lg:px-16 lg:py-24">
+        <div>
           <RoomsFilter rooms={rooms} />
         </div>
 
@@ -86,6 +105,6 @@ export default async function RoomsView({ rooms, showSize }: { locale: Locale } 
         </FadeUp>
       </section>
       <DirectBookingBanner />
-    </>
+    </DayPage>
   );
 }

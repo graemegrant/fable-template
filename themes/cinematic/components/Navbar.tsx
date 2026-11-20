@@ -11,12 +11,13 @@ import { useMotionEngine } from '@/lib/ui/gsap/engine';
 import { BookButton } from './BookingModal';
 
 /**
- * Cinematic navbar: "Menu" on the left, the hotel's name centred in the
- * didone, and "Check availability" on the right (desktop; phones have the
+ * Cinematic navbar: a floating glass pill inset from the top of the screen,
+ * with "Menu" on the left, the hotel's name centred in the didone, and
+ * "Check availability" on the right (desktop; phones have the
  * MobileBookBar), fixed above every scene so booking is never more than a
- * click away (AGENTS.md §5). Transparent over the hero, solid once scrolled.
+ * click away (AGENTS.md §5).
  *
- * The menu is a full-screen overlay on every screen size, the same links
+ * The menu is a frosted-glass overlay on every screen size, the same links
  * as every look (lib/ui/navigation.ts) set as large numbered headlines.
  * With the motion layer (`menuOverlay`) the panel drops like a curtain and
  * the headlines rise in sequence; otherwise it fades. "Check availability"
@@ -67,18 +68,18 @@ export default function Navbar() {
   let n = 0;
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 p-2 lg:p-3">
       {/* Overlay menu, behind the bar so Close stays in reach. */}
       <div
         ref={panelRef}
         id="site-menu"
         inert={!open}
         data-lenis-prevent
-        className={`fixed inset-0 overflow-y-auto bg-primarydeep transition-opacity duration-500 ${
+        className={`pointer-events-auto fixed inset-2 overflow-y-auto rounded-card border border-canvas/10 bg-primarydeep/80 backdrop-blur-2xl backdrop-saturate-150 transition-opacity duration-500 lg:inset-3 ${
           open ? 'visible opacity-100' : 'invisible opacity-0'
         }`}
       >
-        <div className="mx-auto grid min-h-full max-w-screen-2xl gap-12 px-5 pb-32 pt-28 lg:grid-cols-12 lg:px-8 lg:pb-16">
+        <div className="mx-auto grid min-h-full max-w-screen-2xl gap-12 px-5 pb-32 pt-24 lg:grid-cols-12 lg:px-8 lg:pb-12 lg:pt-28">
           <nav aria-label="Main" className="lg:col-span-8">
             <ul className="divide-y divide-canvas/10 border-y border-canvas/10">
               {NAV.map((item) => {
@@ -127,7 +128,7 @@ export default function Navbar() {
             </ul>
           </nav>
 
-          <aside data-menu-aside className="flex flex-col justify-end gap-8 lg:col-span-3 lg:col-start-10">
+          <aside data-menu-aside className="glass flex flex-col justify-end gap-8 self-end rounded-card p-6 lg:col-span-4 lg:col-start-9">
             <address className="font-body text-base not-italic leading-relaxed text-canvas/85">
               {hotelConfig.location.address}
               <br />
@@ -161,13 +162,9 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* The bar. */}
-      <div
-        className={`relative transition-colors duration-500 ${
-          solid ? 'bg-primary/90 backdrop-blur-md' : 'bg-gradient-to-b from-primarydeep/70 to-transparent'
-        }`}
-      >
-        <div className="mx-auto flex h-20 max-w-screen-2xl items-center px-2 lg:grid lg:grid-cols-3 lg:px-8">
+      {/* The bar: glass throughout, smoked once the page moves. */}
+      <div className={`pointer-events-auto relative mx-auto max-w-screen-2xl rounded-ctrl transition-colors duration-500 ${solid ? 'glass-deep' : 'glass'}`}>
+        <div className="flex h-14 items-center px-1 lg:grid lg:h-16 lg:grid-cols-3 lg:px-2">
           <button
             ref={toggleRef}
             type="button"
@@ -185,7 +182,7 @@ export default function Navbar() {
 
           <Link
             href="/"
-            className="mx-auto inline-flex min-h-11 items-center justify-self-center whitespace-nowrap pr-12 font-heading text-xl tracking-tight text-canvas md:text-2xl lg:pr-0"
+            className="mx-auto inline-flex min-h-11 items-center justify-self-center whitespace-nowrap pr-14 font-heading text-xl tracking-tight text-canvas md:text-2xl lg:pr-0"
           >
             {hotelConfig.name}
           </Link>
@@ -194,7 +191,7 @@ export default function Navbar() {
             <a href={`tel:${hotelConfig.contact.phoneHref}`} className={`inline-flex min-h-11 items-center px-3 text-canvas/80 hover:text-canvas ${barText}`}>
               {hotelConfig.contact.phone}
             </a>
-            <BookButton className={`inline-flex min-h-11 items-center rounded-ctrl bg-accentfill px-6 text-onaccent transition-colors hover:bg-canvas hover:text-primary ${barText}`} />
+            <BookButton className={`inline-flex min-h-12 items-center rounded-ctrl bg-accentfill px-6 text-onaccent shadow-lg transition-colors hover:bg-canvas hover:text-primary ${barText}`} />
           </div>
         </div>
       </div>

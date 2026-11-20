@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * StatsBand: the hotel's figures in a hairline grid, numbers in the display serif
+ * StatsBand: the hotel's figures on glass tiles, numbers in the display serif
  * display type, labels in mono, counting up on first view. CRO/SEO-safe:
  * the real values are always in the DOM (server render); the animation
  * only counts up to them, and reduced motion skips it.
@@ -34,10 +34,7 @@ function StatItem({ stat, index }: { stat: Stat; index: number }) {
   return (
     <div
       ref={ref}
-      // Hairlines between cells: two columns on phones, four from md.
-      className={`flex h-full flex-col justify-between gap-8 border-canvas/15 p-5 lg:p-8 ${index % 2 === 1 ? 'border-l' : ''} ${
-        index > 0 ? 'md:border-l' : ''
-      } ${index >= 2 ? 'border-t md:border-t-0' : ''}`}
+      className="glass flex h-full flex-col justify-between gap-8 rounded-card p-5 lg:p-8"
     >
       <span className="font-mono text-xs text-accentondark">{String(index + 1).padStart(2, '0')}</span>
       <div>
@@ -55,7 +52,7 @@ export default function StatsBand() {
   const stats = hotelStats(locale);
   if (!stats.length) return null;
   return (
-    <div className="mx-auto grid max-w-screen-2xl grid-cols-2 border-y border-canvas/15 md:grid-cols-4">
+    <div className="mx-auto grid max-w-screen-2xl grid-cols-2 gap-2 md:grid-cols-4 lg:gap-3">
       {stats.map((s, i) => (
         <StatItem key={s.label} stat={s} index={i} />
       ))}

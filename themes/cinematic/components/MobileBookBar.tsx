@@ -1,8 +1,8 @@
 'use client';
 
 /**
- * Cinematic mobile booking bar (AGENTS.md §5): a flush black bar along the
- * bottom edge, phones only, with the accent button filling its right end.
+ * Cinematic mobile booking bar (AGENTS.md §5): a floating glass pill above
+ * the bottom edge, phones only, with the accent button as a pill at its end.
  * Room detail pages render it with the room's rate; everywhere else
  * SiteMobileBookBar shows tap-to-call. The rules (above the cookie banner,
  * hidden while the booking panel is open, which pages get which bar) are
@@ -21,11 +21,8 @@ export default function MobileBookBar({ rate, roomName }: { rate?: number; roomN
   if (hidden) return null;
 
   return (
-    <div
-      className={`fixed inset-x-0 z-80 flex items-stretch border-t border-canvas/15 bg-primarydeep lg:hidden ${
-        consentDecided ? 'bottom-0' : 'bottom-cookiebar'
-      }`}
-    >
+    <div className={`mobile-book-bar fixed inset-x-0 z-80 px-2 pb-2 lg:hidden ${consentDecided ? 'bottom-0' : 'bottom-cookiebar'}`}>
+      <div className="glass-deep flex items-center rounded-ctrl p-1">
       {roomName && rate !== undefined ? (
         <div className="flex min-w-0 flex-1 flex-col justify-center px-5 py-2">
           <p className="truncate font-mono text-xs uppercase tracking-18 text-canvas/70">{roomName}</p>
@@ -36,15 +33,16 @@ export default function MobileBookBar({ rate, roomName }: { rate?: number; roomN
         </div>
       ) : (
         // Label and number are one tap-to-call link: a single 44px+ target.
-        <a href={`tel:${hotelConfig.contact.phoneHref}`} className="flex min-h-14 min-w-0 flex-1 flex-col justify-center px-5">
+        <a href={`tel:${hotelConfig.contact.phoneHref}`} className="flex min-h-12 min-w-0 flex-1 flex-col justify-center px-5">
           <span className="truncate font-mono text-xs uppercase tracking-18 text-canvas/70">{tBooking('directBooking')}</span>
           <span className="whitespace-nowrap font-mono text-sm text-canvas">{hotelConfig.contact.phone}</span>
         </a>
       )}
       <BookButton
         roomHint={roomName}
-        className="min-h-14 shrink-0 bg-accentfill px-5 font-mono text-xs uppercase tracking-18 text-onaccent"
+        className="min-h-12 shrink-0 rounded-ctrl bg-accentfill px-5 font-mono text-xs uppercase tracking-18 text-onaccent"
       />
+      </div>
     </div>
   );
 }

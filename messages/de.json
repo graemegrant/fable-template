@@ -313,5 +313,16 @@
   },
   "glenMoment": {
     "eyebrow": "Das Tal"
+  },
+  "day": {
+    "dawn": "Morgengrauen",
+    "morning": "Morgen",
+    "lateMorning": "Später Vormittag",
+    "afternoon": "Nachmittag",
+    "golden": "Goldene Stunde",
+    "evening": "Abend",
+    "night": "Nacht",
+    "midnight": "Mitternacht",
+    "scrollCue": "Scrollen Sie durch den Tag"
   }
 }

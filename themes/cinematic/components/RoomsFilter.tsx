@@ -18,7 +18,7 @@ export default function RoomsFilter({ rooms }: { rooms: Room[] }) {
     <div>
       {showFilter && (
         <div className="-mx-5 overflow-x-auto px-5 lg:mx-0 lg:px-0">
-          <div className="inline-flex border border-canvas/15" role="tablist" aria-label={t('filterRoomsAriaLabel')}>
+          <div className="glass inline-flex gap-1 rounded-ctrl p-1" role="tablist" aria-label={t('filterRoomsAriaLabel')}>
             {types.map((ty) => (
               <button
                 key={ty}
@@ -26,7 +26,7 @@ export default function RoomsFilter({ rooms }: { rooms: Room[] }) {
                 role="tab"
                 aria-selected={active === ty}
                 onClick={() => setActive(ty)}
-                className={`inline-flex min-h-12 items-center gap-3 whitespace-nowrap border-r border-canvas/15 px-5 font-mono text-xs uppercase tracking-18 transition-colors last:border-r-0 ${
+                className={`inline-flex min-h-12 items-center gap-3 whitespace-nowrap rounded-ctrl px-5 font-mono text-xs uppercase tracking-18 transition-colors ${
                   active === ty ? 'bg-canvas text-ink' : 'text-canvas/80 hover:text-canvas'
                 }`}
               >
