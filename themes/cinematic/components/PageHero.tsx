@@ -45,18 +45,23 @@ export default function PageHero({
   return (
     <section className={`relative flex items-end p-2 lg:p-3 ${tall ? 'min-h-78vh' : 'min-h-58vh'}`}>
       <div className="absolute inset-2 overflow-hidden rounded-card bg-primarydeep lg:inset-3">
-        <Parallax className="absolute inset-0" depth={0.8}>
-          <Image
-            src={imgSrc(image)}
-            alt={imageAlt ?? title}
-            fill
-            priority
-            fetchPriority="high"
-            quality={65}
-            sizes="100vw"
-            className="object-cover"
-          />
-        </Parallax>
+        {/* Parallax positions its own element `relative`, so the frame-filling
+            layer is a separate wrapper (on one element `relative` wins over
+            `absolute` and the photograph collapses to no height). */}
+        <div className="absolute inset-0">
+          <Parallax className="size-full" depth={0.8}>
+            <Image
+              src={imgSrc(image)}
+              alt={imageAlt ?? title}
+              fill
+              priority
+              fetchPriority="high"
+              quality={65}
+              sizes="100vw"
+              className="object-cover"
+            />
+          </Parallax>
+        </div>
         {/* The hour's light, bottom-weighted so the heading holds contrast
             over any photo (themes/cinematic/styles.css, .hero-light-*). */}
         <div aria-hidden className={`${LIGHT[light]} absolute inset-0`} />

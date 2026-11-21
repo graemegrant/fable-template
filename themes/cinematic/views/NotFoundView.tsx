@@ -5,7 +5,8 @@ import type { Locale } from '@/lib/locales';
 import SectionLabel from '../components/SectionLabel';
 import { PageFade } from '../components/Motion';
 
-/** 404 page, Cinematic look: the error set like a front page. */
+/** 404 page, Cinematic look: a wrong turn in the house's day, with the
+ *  way back one tap away. Wording suits any hotel on this look. */
 export default function NotFoundView({ locale }: { locale: Locale }) {
   const blockButton =
     'inline-flex min-h-14 items-center justify-between gap-6 rounded-ctrl px-7 font-mono text-sm uppercase tracking-18 transition-colors';
@@ -16,7 +17,7 @@ export default function NotFoundView({ locale }: { locale: Locale }) {
         <h1 className="mt-6 font-heading text-7xl font-normal leading-none text-canvas md:text-9xl">
           Wrong turn.
           <br />
-          <span className="italic text-accentondark">Right city.</span>
+          <span className="italic text-accentondark">The lights are still on.</span>
         </h1>
         <div className="mt-10 grid gap-8 border-t border-canvas/15 pt-8 lg:grid-cols-12">
           <p className="font-body text-lg leading-relaxed text-canvas/85 lg:col-span-6">
