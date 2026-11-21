@@ -88,7 +88,7 @@ export default async function HomeView({ locale, experiences, offers, testimonia
         {/* Daybreak: most of a screen for the night to become morning, the
             risen sun high in it. The morning's type starts once the light
             has turned to paper. */}
-        <div aria-hidden className="relative h-80vh overflow-hidden">
+        <div aria-hidden className="relative h-40 overflow-hidden lg:h-80vh">
           <span className="sun-high absolute inset-x-0 top-0 mx-auto aspect-square w-full sm:w-3/4 lg:w-1/2" />
         </div>
         <div className="mx-auto max-w-screen-2xl px-5 pb-24 pt-16 lg:px-16 lg:pb-40 lg:pt-24">

@@ -473,3 +473,56 @@ header .glass-deep,
 .mobile-book-bar .glass-deep {
   background: rgb(8 18 15 / 0.84);
 }
+
+/* Phones and tablets: no pinned scenes, so the long bands that give the
+   desktop scroll room (daybreak, the golden fall, the rooms band's fades)
+   shrink to short transitions (HomeView, GoldenName, RoomsView), and their
+   light changes over the same short distance. Text still starts only once
+   the light has settled, so contrast holds. */
+@media (max-width: 1023.98px) {
+  .day-morning {
+    background: linear-gradient(
+      180deg,
+      rgb(6 14 16) 0,
+      rgb(10 22 24) 20px,
+      rgb(22 38 40) 45px,
+      rgb(44 62 64) 70px,
+      rgb(84 102 102) 90px,
+      rgb(136 152 148) 110px,
+      rgb(184 196 190) 130px,
+      rgb(216 224 218) 145px,
+      rgb(234 237 232) 155px,
+      rgb(241 242 238) 160px
+    );
+  }
+  .day-golden {
+    background: linear-gradient(
+      180deg,
+      rgb(230 228 205) 0,
+      rgb(228 220 186) 120px,
+      rgb(222 204 152) 230px,
+      rgb(208 178 108) 300px,
+      rgb(176 140 68) 360px,
+      rgb(126 104 48) 420px,
+      rgb(76 72 38) 480px,
+      rgb(40 50 36) 540px,
+      rgb(22 36 30) 620px,
+      rgb(15 31 28) 100%
+    );
+  }
+  .day-band-light {
+    background: linear-gradient(
+      180deg,
+      rgb(12 26 28) 0,
+      rgb(40 58 60) 30px,
+      rgb(150 164 160) 60px,
+      rgb(228 232 226) 85px,
+      rgb(241 242 238) 96px,
+      rgb(246 247 244) calc(100% - 96px),
+      rgb(228 232 226) calc(100% - 85px),
+      rgb(150 164 160) calc(100% - 60px),
+      rgb(40 58 60) calc(100% - 30px),
+      rgb(14 30 30) 100%
+    );
+  }
+}
