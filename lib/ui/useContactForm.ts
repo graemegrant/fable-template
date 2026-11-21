@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 
 /**
@@ -15,6 +15,8 @@ export function useContactForm() {
     t('subjectWeddingsEvents'), t('subjectGiftVouchers'), t('subjectPress'),
   ];
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  // When the form appeared: the server rejects posts sent faster than a person types.
+  const startedAt = useRef(Date.now());
   const [form, setForm] = useState({ name: '', email: '', phone: '', subject: subjects[0], message: '' });
 
   // Read on mount (not useSearchParams) so the contact page stays statically rendered.
@@ -41,7 +43,7 @@ export function useContactForm() {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, startedAt: startedAt.current }),
       });
       setStatus(res.ok ? 'sent' : 'error');
     } catch {

@@ -1,16 +1,30 @@
 import { NextResponse } from 'next/server';
 import { hotelConfig } from '@/hotel.config';
+import { clientIp, oversizedField, rateLimited, sameOrigin, tooFast } from '@/lib/contactGuard';
 
 /**
  * Contact + newsletter endpoint. Sends via Resend when configured;
  * graceful no-op (logged) in development when the key is not set.
  */
 export async function POST(req: Request) {
+  if (!sameOrigin(req)) {
+    return NextResponse.json({ ok: false, error: 'Forbidden' }, { status: 403 });
+  }
+  if (rateLimited(clientIp(req))) {
+    return NextResponse.json({ ok: false, error: 'Too many requests, please try again later' }, { status: 429 });
+  }
   let data: Record<string, string>;
   try {
     data = await req.json();
   } catch {
     return NextResponse.json({ ok: false, error: 'Invalid request body' }, { status: 400 });
+  }
+  if (!data || typeof data !== 'object' || oversizedField(data)) {
+    return NextResponse.json({ ok: false, error: 'A field is too long' }, { status: 400 });
+  }
+  // Scripted posts get a quiet success, so bots learn nothing to adapt to.
+  if (tooFast(data.startedAt)) {
+    return NextResponse.json({ ok: true });
   }
 
   const email = (data.email || '').trim();
