@@ -19,18 +19,11 @@ html.lenis body {
 
 /* Intro elements (hero title and the like) wait hidden until the engine has
    set their start state, so they don't show, vanish and then animate in.
-   `.motion-intro` on desktop, plus `.motion-intro-soft` on phones and
-   tablets when the hotel has soft mobile motion. Same queries as
-   settings.ts. If the engine hasn't started within 2.5 s (slow network,
+   Desktop only (MOTION_QUERY in settings.ts): phones show everything from
+   the first paint, as soft motion starts after load. If the engine hasn't started within 2.5 s (slow network,
    error) they show anyway, and the engine then skips their entrance. */
 @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
   html:not(.motion-ready):not(.motion-failed) .motion-intro {
-    opacity: 0;
-    animation: motion-failsafe 0s linear 2.5s forwards;
-  }
-}
-@media (max-width: 1023.98px) and (prefers-reduced-motion: no-preference) {
-  html:not(.motion-ready):not(.motion-failed) .motion-intro-soft {
     opacity: 0;
     animation: motion-failsafe 0s linear 2.5s forwards;
   }
