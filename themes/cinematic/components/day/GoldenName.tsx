@@ -66,13 +66,13 @@ export default function GoldenName({
       {/* The afternoon going down into the golden hour (home page only:
           given a `line`, the light falls for most of a screen first). */}
       {line && (
-        <div className="flex h-80vh items-center justify-center px-5">
+        <div className="flex h-96 items-center justify-center px-5 lg:h-80vh">
           <SplitHeading as="p" by="words" className="max-w-4xl text-center font-heading text-4xl italic leading-heading text-ink md:text-6xl">
             {line}
           </SplitHeading>
         </div>
       )}
-      <div ref={ref} className="relative flex min-h-svh flex-col overflow-hidden">
+      <div ref={ref} className="relative flex flex-col overflow-hidden lg:min-h-svh">
         <div data-golden="sun" aria-hidden className="sun-low absolute inset-x-0 top-1/4 mx-auto aspect-square w-full sm:w-2/3 lg:w-2/5" />
         {intro && (
           <div data-golden="top" className="relative mx-auto w-full max-w-screen-2xl px-5 pt-28 lg:px-16">

@@ -53,7 +53,7 @@ export default function Candlelight({ image, children }: { image: unknown; child
   });
 
   return (
-    <div ref={ref} className="relative flex min-h-svh items-end overflow-hidden">
+    <div ref={ref} className="relative flex min-h-78vh items-end overflow-hidden lg:min-h-svh">
       <div aria-hidden className="soft-edge absolute inset-0">
         <div data-candle-photo className="absolute inset-0">
           <Image src={imgSrc(image, 1920)} alt="" fill sizes="100vw" className="object-cover" />

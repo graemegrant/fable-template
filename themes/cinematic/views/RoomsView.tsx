@@ -33,7 +33,7 @@ export default async function RoomsView({ rooms, showSize }: { locale: Locale } 
           through an arched window (RoomsWindow), in a pale band that rises
           out of the dark page and falls back into it. */}
       <div className="day-band-light text-ink">
-        <div aria-hidden className="h-72" />
+        <div aria-hidden className="h-24 lg:h-72" />
         <RoomsWindow
           rooms={rooms}
           intro={
@@ -46,7 +46,7 @@ export default async function RoomsView({ rooms, showSize }: { locale: Locale } 
             </>
           }
         />
-        <div aria-hidden className="h-72" />
+        <div aria-hidden className="h-24 lg:h-72" />
       </div>
 
       <section className="mx-auto max-w-screen-2xl px-5 py-16 lg:px-16 lg:py-24">
