@@ -274,24 +274,27 @@ body::after {
   );
 }
 
-/* Interior heroes: the hour's light over the photograph, darkest at the
-   foot where the title sits (bone type on it 12:1 or more). */
+/* Interior heroes: the hour's light over the photograph. The text block
+   sits in the lower two-thirds, so the shade holds at least 78% dark up to
+   65% of the height (over a white patch of photo, gold labels then clear
+   4.5:1 and mist type 7:1) and eases to 55% at the top, where only the
+   photograph shows. Measured against the live photos. */
 .hero-light-dawn {
-  background: linear-gradient(0deg, rgb(6 14 16) 0%, rgb(10 24 30 / 0.7) 50%, rgb(20 36 46 / 0.45) 100%);
+  background: linear-gradient(0deg, rgb(6 14 16) 0%, rgb(8 20 24 / 0.86) 40%, rgb(10 24 30 / 0.78) 65%, rgb(20 36 46 / 0.55) 100%);
 }
 .hero-light-day {
-  background: linear-gradient(0deg, rgb(8 18 15) 0%, rgb(8 18 15 / 0.6) 50%, rgb(8 18 15 / 0.25) 100%);
+  background: linear-gradient(0deg, rgb(8 18 15) 0%, rgb(8 18 15 / 0.86) 40%, rgb(8 18 15 / 0.78) 65%, rgb(8 18 15 / 0.55) 100%);
 }
 .hero-light-golden {
   background:
-    linear-gradient(0deg, rgb(24 28 18) 0%, rgb(40 36 18 / 0.65) 50%, transparent 100%),
-    linear-gradient(200deg, rgb(230 160 70 / 0.45) 0%, rgb(160 100 40 / 0.25) 60%, transparent 100%);
+    linear-gradient(0deg, rgb(24 28 18) 0%, rgb(30 30 18 / 0.86) 40%, rgb(40 36 18 / 0.78) 65%, rgb(40 36 18 / 0.5) 100%),
+    linear-gradient(200deg, rgb(230 160 70 / 0.3) 0%, rgb(160 100 40 / 0.12) 45%, transparent 70%);
 }
 .hero-light-evening {
-  background: linear-gradient(0deg, rgb(10 20 20) 0%, rgb(10 20 20 / 0.7) 50%, rgb(15 31 28 / 0.5) 100%);
+  background: linear-gradient(0deg, rgb(10 20 20) 0%, rgb(10 20 20 / 0.86) 40%, rgb(10 20 20 / 0.8) 65%, rgb(15 31 28 / 0.58) 100%);
 }
 .hero-light-night {
-  background: linear-gradient(0deg, rgb(7 11 16) 0%, rgb(7 11 16 / 0.8) 50%, rgb(7 11 16 / 0.65) 100%);
+  background: linear-gradient(0deg, rgb(7 11 16) 0%, rgb(7 11 16 / 0.88) 40%, rgb(7 11 16 / 0.82) 65%, rgb(7 11 16 / 0.68) 100%);
 }
 
 /* Instrument Serif has one weight. Headings asked for bold or semibold stay

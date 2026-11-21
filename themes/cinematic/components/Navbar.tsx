@@ -28,7 +28,7 @@ import { BookButton } from './BookingModal';
 export default function Navbar() {
   const t = useTranslations('nav');
   const tCommon = useTranslations('common');
-  const { locale, pathname, scrolled, mobileOpen: open, setMobileOpen: setOpen, isActive } = useNavbar({ scrollThreshold: 24 });
+  const { locale, pathname, mobileOpen: open, setMobileOpen: setOpen, isActive } = useNavbar({ scrollThreshold: 24 });
   const engine = useMotionEngine();
   const panelRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -63,7 +63,6 @@ export default function Navbar() {
     return () => ctx.revert();
   }, [open, engine]);
 
-  const solid = scrolled || open;
   const barText = 'font-mono text-xs uppercase tracking-25';
   let n = 0;
 
@@ -162,8 +161,9 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* The bar: glass throughout, smoked once the page moves. */}
-      <div className={`pointer-events-auto relative mx-auto max-w-screen-2xl rounded-ctrl transition-colors duration-500 ${solid ? 'glass-deep' : 'glass'}`}>
+      {/* The bar: smoked glass throughout, so its type reads over any
+          hero photograph, bright or dark, before the page has moved. */}
+      <div className="glass-deep pointer-events-auto relative mx-auto max-w-screen-2xl rounded-ctrl">
         <div className="flex h-14 items-center px-1 lg:grid lg:h-16 lg:grid-cols-3 lg:px-2">
           <button
             ref={toggleRef}
